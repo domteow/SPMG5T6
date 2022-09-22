@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 
 db = SQLAlchemy(app)
 
-CORS(app)
+# CORS(app)
 
 
 
