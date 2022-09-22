@@ -16,7 +16,7 @@ CORS(app)
 class Staff(db.Model):
     __tablename__ = 'staff'
 
-    staff_id = db.Column(db.Integer, primary_key=True)
+    staff_id = db.Column(db.Integer, primary_key=True, nullable=False)
     role = db.Column(db.Integer)
     staff_fname = db.Column(db.String(50))
     staff_lname = db.Column(db.String(50))
@@ -30,7 +30,7 @@ class Staff(db.Model):
         self.staff_lname = staff_lname
         self.dept = dept
         self.email = email
-        
+
     # __mapper_args__ = {
     #     'polymorphic_identity': 'staff'
     # }
