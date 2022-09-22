@@ -116,9 +116,9 @@ CREATE TABLE ljps_role (
 --
 
 CREATE TABLE role_required_skill (
-  role_required_skill_id int NOT NULL PRIMARY KEY,
-  skill_id int NOT NULL,
-  ljpsr_id int NOT NULL,
+  skill_id int NOT NULL PRIMARY KEY,
+  ljpsr_id int NOT NULL PRIMARY KEY,
+  constraint role_required_skill_pk primary key (skill_id, ljpsr_id), 
   constraint role_required_skill_fk foreign key(skill_id) references skill(skill_id), 
   constraint role_required_skill_fk2 foreign key(ljpsr_id) references ljps_role(ljpsr_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
