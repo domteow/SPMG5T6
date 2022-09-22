@@ -12,7 +12,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 db = SQLAlchemy(app)
 
 class LJPS_role(db.Model):
-    __tablename__ = 'LJPS_role'
+    __tablename__ = 'ljps_role'
 
     LJPSR_id = db.Column(db.Integer, primary_key=True)
     role_title = db.Column(db.String(50), nullable = False)

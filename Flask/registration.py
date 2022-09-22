@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from course import Course
+from staff import Staff
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
@@ -13,12 +15,11 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Course(db.Model):
-    __tablename__ = 'course'
+class Registration():
+    __tablename__ = 'registration'
 
-    course_id = db.Column(db.String(20), primary_key=True, nullable=False)
-    course_name = db.Column(db.String(50), nullable=False)
-    course_desc = db.Column(db.String(255))
-    course_status = db.Column(db.String(15))
-    course_type = db.Column(db.String(10))
-    course_category = db.Column(db.String(50))
+    reg_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    course_id = db.Column(db.String(20), db.ForeignKey(Course.course_id), nullable=False)
+    staff_id = db.Column(db.Integer, db.ForeignKey(Staff.staff_id), nullable=False)
+    reg_status = db.Column(db.String(20), nullable=False)
+    completion_status = db.Column(db.String(20), nullable=False)
