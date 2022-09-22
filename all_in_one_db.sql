@@ -34,20 +34,6 @@ CREATE TABLE staff (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `attained_skill`
---
-
-CREATE TABLE attained_skill (
-  attained_skill_id int NOT NULL PRIMARY KEY,
-  skill_id int NOT NULL,
-  staff_id int NOT NULL,
-  constraint attained_skill_fk foreign key(skill_id) references skill(skill_id), 
-  constraint attained_skill_fk2 foreign key(staff_id) references staff(staff_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `role`
 --
 
@@ -155,7 +141,7 @@ CREATE TABLE learning_journey (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ljps_course`
+-- Table structure for table `lj_course`
 --
 
 CREATE TABLE lj_course (
