@@ -34,6 +34,20 @@ CREATE TABLE staff (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `attained_skill`
+--
+
+CREATE TABLE attained_skill (
+  attained_skill_id int NOT NULL PRIMARY KEY,
+  skill_id int NOT NULL,
+  staff_id int NOT NULL,
+  constraint attained_skill_fk foreign key(skill_id) references skill(skill_id), 
+  constraint attained_skill_fk2 foreign key(staff_id) references staff(staff_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `role`
 --
 
@@ -58,6 +72,18 @@ CREATE TABLE course (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `attached_skill`
+--
+
+CREATE TABLE attached_skill (
+  attached_skill_id int NOT NULL PRIMARY KEY,
+  skill_id int NOT NULL,
+  course_id int NOT NULL,
+  constraint attached_skill_fk foreign key(skill_id) references skill(skill_id), 
+  constraint attached_skill_fk2 foreign key(course_id) references course(course_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `registration`
@@ -100,6 +126,20 @@ CREATE TABLE ljps_role (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `role_required_skill`
+--
+
+CREATE TABLE role_required_skill (
+  role_required_skill_id int NOT NULL PRIMARY KEY,
+  skill_id int NOT NULL,
+  ljpsr_id int NOT NULL,
+  constraint role_required_skill_fk foreign key(skill_id) references skill(skill_id), 
+  constraint role_required_skill_fk2 foreign key(ljpsr_id) references ljps_role(ljpsr_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `learning_journey`
 --
 
@@ -110,6 +150,20 @@ CREATE TABLE learning_journey (
   status int NOT NULL, -- 1 = complete, 0 = incomplete
   constraint learning_journey_fk1 foreign key(role_id) references role(role_id), 
   constraint learning_journey_fk2 foreign key(staff_id) references staff(staff_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `ljps_course`
+--
+
+CREATE TABLE lj_course (
+  lj_course_id int NOT NULL PRIMARY KEY,
+  journey_id int NOT NULL,
+  course_id int NOT NULL,
+  constraint lj_course_fk foreign key(journey_id) references learning_journey(journey_id), 
+  constraint lj_course_fk2 foreign key(course_id) references course(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
