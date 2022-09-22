@@ -34,20 +34,6 @@ CREATE TABLE staff (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `attained_skill`
---
-
-CREATE TABLE attained_skill (
-  attained_skill_id int NOT NULL PRIMARY KEY,
-  skill_id int NOT NULL,
-  staff_id int NOT NULL,
-  constraint attained_skill_fk foreign key(skill_id) references skill(skill_id), 
-  constraint attained_skill_fk2 foreign key(staff_id) references staff(staff_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `role`
 --
 
@@ -130,9 +116,9 @@ CREATE TABLE ljps_role (
 --
 
 CREATE TABLE role_required_skill (
-  role_required_skill_id int NOT NULL PRIMARY KEY,
-  skill_id int NOT NULL,
-  ljpsr_id int NOT NULL,
+  skill_id int NOT NULL PRIMARY KEY,
+  ljpsr_id int NOT NULL PRIMARY KEY,
+  constraint role_required_skill_pk primary key (skill_id, ljpsr_id), 
   constraint role_required_skill_fk foreign key(skill_id) references skill(skill_id), 
   constraint role_required_skill_fk2 foreign key(ljpsr_id) references ljps_role(ljpsr_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -155,7 +141,7 @@ CREATE TABLE learning_journey (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ljps_course`
+-- Table structure for table `lj_course`
 --
 
 CREATE TABLE lj_course (
@@ -168,8 +154,19 @@ CREATE TABLE lj_course (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Dumping data for table `staff`
+--
+
+-- INSERT INTO `staff` (`id`, `reg_num`, `hourly_rate`) VALUES
+-- (1, 'EV1L', 60),
+-- (2, 'AN123', 40),
+-- (3, 'CW3588', 45);
+
+-- --------------------------------------------------------
+
+-- 
+-- Import data for table `staff`
 
 -- show global variables like 'local_infile';
 -- set global local_infile=true;
@@ -182,7 +179,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `role`
+-- Import data for table `role`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -192,7 +189,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `course`
+-- Import data for table `course`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -202,7 +199,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `registration`
+-- Import data for table `registration`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -212,7 +209,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `skill`
+-- Import data for table `skill`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -222,7 +219,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `ljps_role`
+-- Import data for table `ljps_role`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -232,11 +229,41 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `learning_journey`
+-- Import data for table `learning_journey`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
 -- INTO TABLE item 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
+
+-- 
+-- Import data for table `roles_required_skill`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE roles_required_skill 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
+
+-- 
+-- Import data for table `lj_course`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE lj_course 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
+
+-- 
+-- Import data for table `attached_skill`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE attached_skill 
 -- FIELDS TERMINATED BY '\t' 
 -- LINES TERMINATED BY '\r\n' 
 -- IGNORE 1 LINES; 
