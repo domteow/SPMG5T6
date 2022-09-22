@@ -154,8 +154,19 @@ CREATE TABLE lj_course (
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Dumping data for table `staff`
+--
+
+-- INSERT INTO `staff` (`id`, `reg_num`, `hourly_rate`) VALUES
+-- (1, 'EV1L', 60),
+-- (2, 'AN123', 40),
+-- (3, 'CW3588', 45);
+
+-- --------------------------------------------------------
+
+-- 
+-- Import data for table `staff`
 
 -- show global variables like 'local_infile';
 -- set global local_infile=true;
@@ -168,7 +179,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `role`
+-- Import data for table `role`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -178,7 +189,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `course`
+-- Import data for table `course`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -188,7 +199,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `registration`
+-- Import data for table `registration`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -198,7 +209,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `skill`
+-- Import data for table `skill`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -208,7 +219,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `ljps_role`
+-- Import data for table `ljps_role`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -218,7 +229,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `learning_journey`
+-- Import data for table `learning_journey`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -228,17 +239,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `attained_skill`
-
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE attained_skill 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
-
--- 
--- Dumping data for table `roles_required_skill`
+-- Import data for table `roles_required_skill`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -248,7 +249,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `lj_course`
+-- Import data for table `lj_course`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
@@ -258,7 +259,7 @@ CREATE TABLE lj_course (
 -- IGNORE 1 LINES; 
 
 -- 
--- Dumping data for table `attached_skill`
+-- Import data for table `attached_skill`
 
 -- LOAD DATA INFILE 
 -- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
