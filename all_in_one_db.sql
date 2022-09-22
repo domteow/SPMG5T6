@@ -240,3 +240,43 @@ CREATE TABLE lj_course (
 -- FIELDS TERMINATED BY '\t' 
 -- LINES TERMINATED BY '\r\n' 
 -- IGNORE 1 LINES; 
+
+-- 
+-- Dumping data for table `attained_skill`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE attained_skill 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
+
+-- 
+-- Dumping data for table `roles_required_skill`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE roles_required_skill 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
+
+-- 
+-- Dumping data for table `lj_course`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE lj_course 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
+
+-- 
+-- Dumping data for table `attached_skill`
+
+-- LOAD DATA INFILE 
+-- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
+-- INTO TABLE attached_skill 
+-- FIELDS TERMINATED BY '\t' 
+-- LINES TERMINATED BY '\r\n' 
+-- IGNORE 1 LINES; 
