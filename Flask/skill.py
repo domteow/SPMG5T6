@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from staff import Staff 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
@@ -14,7 +13,16 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
+class Skill(db.Model):
+    __tablename__ = 'skill'
 
+    skill_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    skill_name = db.Column(db.String(50))
+    skill_desc = db.Column(db.String(255))
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    def __init__(self, skill_id, skill_name, skill_desc):
+        self.skill_id = skill_id
+        self.skill_name = skill_name
+        self.skill_desc = skill_desc
+        
+

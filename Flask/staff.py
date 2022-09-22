@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
 
 db = SQLAlchemy(app)
 
-# CORS(app)
+CORS(app)
 
 class Staff(db.Model):
     __tablename__ = 'staff'
@@ -23,7 +23,14 @@ class Staff(db.Model):
     dept = db.Column(db.String(50))
     email = db.Column(db.String(50))
 
-
+    def __init__(self, staff_id, role, staff_fname, staff_lname, dept, email):
+        self.staff_id = staff_id
+        self.role = role
+        self.staff_fname = staff_fname
+        self.staff_lname = staff_lname
+        self.dept = dept
+        self.email = email
+        
     # __mapper_args__ = {
     #     'polymorphic_identity': 'staff'
     # }
