@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from role import Role
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
@@ -17,19 +18,12 @@ class Staff(db.Model):
     __tablename__ = 'staff'
 
     staff_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    role = db.Column(db.Integer)
+    role = db.Column(db.Integer, db.ForeignKey(Role.role_id))
     staff_fname = db.Column(db.String(50))
     staff_lname = db.Column(db.String(50))
     dept = db.Column(db.String(50))
     email = db.Column(db.String(50))
 
-    def __init__(self, staff_id, role, staff_fname, staff_lname, dept, email):
-        self.staff_id = staff_id
-        self.role = role
-        self.staff_fname = staff_fname
-        self.staff_lname = staff_lname
-        self.dept = dept
-        self.email = email
 
     # __mapper_args__ = {
     #     'polymorphic_identity': 'staff'

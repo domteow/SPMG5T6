@@ -16,7 +16,7 @@ class LJPS_role(db.Model):
 
     LJPSR_id = db.Column(db.Integer, primary_key=True)
     role_title = db.Column(db.String(50), nullable = False)
-    role_desc = db.Column(db.String(255), nullable = False)
+    role_desc = db.Column(db.String(255))
 
     def __init__(self, LJPSR_id, role_title, role_desc):
         self.LJPSR_id = LJPSR_id
