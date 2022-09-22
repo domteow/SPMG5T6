@@ -1,0 +1,17 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+}
+
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+    .navitem{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

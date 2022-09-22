@@ -1,0 +1,102 @@
+body {
+    height: 100%;
+    text-align: center;
+    height: 100%;
+    background: linear-gradient(90deg, #f0f0f0 50%, #FFFF 50%);
+}
+
+.logo{
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+a{
+    text-decoration: none;
+}
+
+.content{
+    margin-top: 20%;
+}
+
+.logins{
+    font-family: roboto,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 28px;
+    /* background-color: #e7e7e7; */
+    height: 70%;
+}
+
+.staff{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    background-color: #FFDBA5;
+    margin-top: 3%;
+    margin-bottom:5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+}
+
+.manager{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    background-color: #FFDBA5;
+    margin:5%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.hr{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    background-color: #FFDBA5;
+    margin-top:5%;
+    margin-bottom: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1%;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+
+/* responsiveness */
+@media screen and (max-width: 768px) {
+    body{
+        background: linear-gradient(90deg, #FFF 50%, #FFFF 50%);
+    }
+
+    .staff{
+        font-size: 18px;
+        margin-top: 15%;
+        margin-bottom: 10%;
+        padding: 2%;
+    }
+
+    .manager{
+        font-size: 18px;
+        margin-bottom: 10%;
+        padding: 2%;
+    }
+
+    .hr{
+        font-size: 18px;
+        padding: 2%;
+    }
+
+    
+}
