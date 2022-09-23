@@ -13,14 +13,14 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class LJPS_role(db.Model):
+class ljps_role(db.Model):
     __tablename__ = 'ljps_role'
 
-    LJPSR_id = db.Column(db.Integer, primary_key=True)
+    ljpsr_id = db.Column(db.Integer, primary_key=True)
     role_title = db.Column(db.String(50), nullable = False)
-    role_desc = db.Column(db.String(255), nullable = False)
+    role_desc = db.Column(db.String(255))
 
-    def __init__(self, LJPSR_id, role_title, role_desc):
-        self.LJPSR_id = LJPSR_id
+    def __init__(self, ljpsr_id, role_title, role_desc):
+        self.ljpsr_id = ljpsr_id
         self.role_title = role_title
         self.role_desc = role_desc
