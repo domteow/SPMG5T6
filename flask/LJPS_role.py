@@ -13,7 +13,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class ljps_role(db.Model):
+class Ljps_role(db.Model):
     __tablename__ = 'ljps_role'
 
     ljpsr_id = db.Column(db.Integer, primary_key=True)
