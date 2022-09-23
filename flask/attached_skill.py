@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from skill import Skill
+from course import Course
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
@@ -13,8 +15,10 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Role_requiredskill(db.Model):
-    __tablename__ = 'role_requiredskill'
+class Attached_skill(db.Model):
+    __tablename__ = 'attached_skill'
 
-    LJPSR_id = db.Column(db.Integer, primary_key=True)
-    skill_id = db.Column(db.Integer, primary_key=True)
+    skill_id = db.Column(db.Integer, db.ForeignKey(Skill.skill_id), 
+    nullable = False)
+    course_id = db.Column(db.Integer, db.ForeignKey(Course.course_id),
+    nullable = False)
