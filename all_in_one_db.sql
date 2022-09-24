@@ -75,7 +75,7 @@ CREATE TABLE attached_skill (
 -- Table structure for table `registration`
 --
 
-CREATE TABLE registration (
+CREATE TABLE registration ( 
   reg_id int NOT NULL PRIMARY KEY,
   course_id int NOT NULL,
   staff_id int NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE skill (
 -- Table structure for table `ljps_role`
 --
 
-CREATE TABLE ljps_role (
+CREATE TABLE ljps_role ( 
   ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   role_title varchar(20) NOT NULL,
   role_desc varchar(255) NOT NULL
@@ -159,9 +159,9 @@ CREATE TABLE lj_course (
 --
 
 insert into staff (staff_id, role_id, staff_fname, staff_lname, email) values
-('1', 'staff', 'Jann', 'Chia', 'jann@allinone@gmail.com'),
-('2', 'manager', 'Kelvin', 'Yap', 'kelvin@allinone@gmail.com'),
-('3', 'hr', 'Dom', 'Teow', 'dom@allinone@gmail.com');
+(1, 'staff', 'Jann', 'Chia', 'jann@allinone@gmail.com'),
+(2, 'staff', 'Kelvin', 'Yap', 'kelvin@allinone@gmail.com'),
+(3, 'staff', 'Dom', 'Teow', 'dom@allinone@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -170,9 +170,9 @@ insert into staff (staff_id, role_id, staff_fname, staff_lname, email) values
 --
 
 insert into role (role_id, role_name) values
-('1', 'staff'),
-('2', 'manager'),
-('3', 'hr');
+(1, 'staff'),
+(2, 'manager'),
+(3, 'hr');
 
 -- --------------------------------------------------------
 
@@ -181,8 +181,8 @@ insert into role (role_id, role_name) values
 --
 
 insert into course (course_id, course_name, course_desc, course_status, course_type, course_category) values
-('1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
-('2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business');
+('COURSE1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
+('COURSE2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business');
 
 -- --------------------------------------------------------
 
@@ -191,9 +191,9 @@ insert into course (course_id, course_name, course_desc, course_status, course_t
 --
 
 insert into attached_skill (attached_skill_id, skill_id, course_id) values
-('1', '1', '1'),
-('2', '2', '1'),
-('3', '2', '2');
+(1, 1, 'COURSE1'), -- skill: strat analysis, course: biz strat
+(2, 2, 'COURSE1'), -- skill: cap analysis, course: biz strat
+(3, 2, 'COURSE2'); -- skill: cap analysis, course: foundations of pm
 
 -- --------------------------------------------------------
 
@@ -202,11 +202,45 @@ insert into attached_skill (attached_skill_id, skill_id, course_id) values
 --
 
 insert into skill (skill_id, skill_desc, skill_name) values
-('1', 'Researching an organization and its working environment to formulate a strategy', 'Strategic Analysis'),
-('2', 'A set of tools and calculations used in determining whether a system meets certain specification requirements', 'Capabilities Analysis'),
-('3', 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management');
+(1, 'Researching an organization and its working environment to formulate a strategy', 'Strategic Analysis'),
+(2, 'A set of tools and calculations used in determining whether a system meets certain specification requirements', 'Capabilities Analysis'),
+(3, 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management');
 
 -- --------------------------------------------------------
+
+--
+-- Dumping data for table 'registration'
+--
+
+insert into registration (reg_id, course_id, staff_id, reg_status, completion_status) values
+(1, 'COURSE1', 2, 'Registered', 'In-Progress'), -- business strategy, kelvin, in prog
+(2, 'COURSE2', 1, 'Registered', 'In-Progress'), -- foundations of pm, jann, in prog
+(3, 'COURSE1', 1, 'Registered', 'Completed'); -- business strategy, jann, completed
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table 'ljps_role'
+--
+
+insert into ljps_role (ljpsr_id, role_title, role_desc) values
+(1, 'Accountant', 'Accountants are responsible for financial audits, reconciling bank statements, and ensuring financial records are accurate throughout the year.'), 
+(2, 'Project Manager', 'Project managers are accountable for planning and allocating resources, preparing budgets, monitoring progress, and keeping stakeholders informed throughout the project lifecycle');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `role_required_skill`
+--
+
+insert into role_required_skill (skill_id, ljpsr_id) values
+(1, 1), -- strat analysis, accountant
+(2, 1) -- cap analysis, accountant
+(3, 2) -- project management, project manager
+
+
+-- --------------------------------------------------------
+
 -- 
 -- Import data for table `staff`
 
