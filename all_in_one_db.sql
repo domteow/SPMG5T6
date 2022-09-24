@@ -131,10 +131,10 @@ CREATE TABLE role_required_skill (
 
 CREATE TABLE learning_journey (
   journey_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  role_id int NOT NULL,
+  ljpsr_id int NOT NULL,
   staff_id int NOT NULL,
   status int NOT NULL, -- 1 = complete, 0 = incomplete
-  constraint learning_journey_fk1 foreign key(role_id) references role(role_id), 
+  constraint learning_journey_fk1 foreign key(ljpsr_id) references ljps_role(ljpsr_id), 
   constraint learning_journey_fk2 foreign key(staff_id) references staff(staff_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
