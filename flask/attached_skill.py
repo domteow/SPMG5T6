@@ -3,6 +3,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from skill import Skill
 from course import Course
+from attached_skill import Attached_skill
+from learning_journey import Learning_journey
+from lj_course import Lj_course
+from LJPS_role import Ljps_role
+from registration import Registration
+from role_required_skill import Role_required_skill
+from role import Role
+from skill import Skill
+from staff import Staff
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
