@@ -42,17 +42,23 @@
         </div>
 
         <!-- pages -->
-        <a href="./homepage.html" class="navtext">
+        <a href="./homepage_manager.html" class="navtext">
             <div class="navitem act">
                 <img src="./img/explore_active.png" alt=""> Explore
             </div>
         </a>
-        <a href="./dashboard.html" class="navtext">
-            <div class="navitem">
+
+        <div class="dropdown navitem">
+            <button class="btn dropdown-toggle dashy" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <img src="./img/dashboard.png"  alt=""> Dashboard
-            </div>
-        </a>
-        <a href="./settings.html" class="navtext">
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item itey" href="./dashboard_manager_personal.html">Personal</a></li>
+              <li><a class="dropdown-item" href="./dashboard_manager_team.html">My Team</a></li>
+            </ul>
+        </div>
+        
+        <a href="./settings_manager.html" class="navtext">
             <div class="navitem">
                 <img src="./img/settings.png" alt=""> Settings
             </div>

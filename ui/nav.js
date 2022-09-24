@@ -7,7 +7,7 @@ function openNav() {
 function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("navmenu").style.marginLeft= "0";
-    document.getElementById('navey').innerHTML = `<button class="openbtn" id="navey" onclick="openNav()"><img src="./img/menu icon.png" alt=""></button>`;
+    document.getElementById('navey').innerHTML = `<button class="openbtn" id="navey" onclick="openNav()"><img src="../img/menu icon.png" alt=""></button>`;
     
 }
 
@@ -18,6 +18,6 @@ if (wid >= 768){
     openNav();
 }
 else{
-    document.getElementById('navey').innerHTML = `<button class="openbtn" id="navey" onclick="openNav()"><img src="./img/menu icon.png" alt=""></button>`;
+    document.getElementById('navey').innerHTML = `<button class="openbtn" id="navey" onclick="openNav()"><img src="../img/menu icon.png" alt=""></button>`;
     closeNav();
 }

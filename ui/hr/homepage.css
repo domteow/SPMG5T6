@@ -1,0 +1,147 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+}
+
+.maincontent{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.searchdiv{
+    width: 80%;
+    border:1px solid black;
+    border-radius: 10px;
+    height: 10%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #FFF;
+    text-align: left;
+    margin-top: 5%;
+}
+
+.searchicon{
+    padding-left: 3%;
+}
+
+input{
+    border: 0px solid;
+    height: 100%;
+    width: 80%;
+    padding: 1.5%;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+.rolesavail{
+    text-align: left;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+.browseroles{
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 26px;
+    padding-bottom: 1%;
+    border-bottom: 1px solid #BCBCBC;
+}
+
+.roleCol{
+    border-bottom: 1px solid #DBDBDB;
+    padding: 1.5%;
+}
+
+.roledeets{
+    font-size: 26px;
+    font-family: roboto,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.completed{
+    width: 30%;
+    /* background-color: #CFFFD1; */
+    color: #85c687;;
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 1%;
+}
+
+.ncompleted{
+    text-align: center;
+    width: 30%;
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 20px;
+    background-color: #FFDBA5;
+    color: #000;
+    text-align: center;
+    border-radius: 8px;
+    padding: 1%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+/* responsiveness */
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+    .searchicon{
+        width:10%;
+    }
+    .browseroles{
+        font-size: 20px;
+    }
+    ::placeholder{
+        font-size: 16px;
+    }
+    .logoimg{
+        width: 70%;
+    }
+    .roledeets{
+        font-size: 18px;
+        width: 45%;
+    }
+    .completed{
+        font-size: 14px;
+        width: 55%;
+        padding: auto;
+    }
+    .ncompleted{
+        font-size: 14px;
+        width: 55%;
+        padding: auto;
+    }
+    .row{
+        padding: 2%;
+    }
+    .navitem{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}

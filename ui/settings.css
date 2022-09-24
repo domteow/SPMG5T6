@@ -2,6 +2,42 @@
     margin-left: 245px; /* Same as the width of the sidenav */
 }
 
+.maincontent{
+    margin-top: 7%;
+    margin-left: 10%;
+}
+
+.settingsContainer{
+    margin-top: 3%;
+}
+
+.title{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 28px;
+}
+
+.content{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 32px;
+}
+
+.settings{
+    font-family: roboto, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 38px;
+    border-bottom: 1px solid #DDDDDD;
+    width: 80%;
+}
+
+.row{
+    margin-top: 2%;
+}
+
 @media screen and (max-width: 768px) {
     .main{
         margin: 0%;
