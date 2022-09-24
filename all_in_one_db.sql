@@ -48,7 +48,7 @@ CREATE TABLE role (
 -- Table structure for table `course`
 --
 
-CREATE TABLE course (
+CREATE TABLE course ( 
   course_id varchar(20) NOT NULL PRIMARY KEY,
   course_name varchar(50) NOT NULL,
   course_desc varchar(255) DEFAULT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE course (
 -- Table structure for table `attached_skill`
 --
 
-CREATE TABLE attached_skill (
+CREATE TABLE attached_skill ( 
   attached_skill_id int NOT NULL PRIMARY KEY,
   skill_id int NOT NULL,
   course_id int NOT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE lj_course (
 -- --------------------------------------------------------
 
 --
--- Insert test values for Staff table
+-- Dumping data for table `staff`
 --
 
 insert into staff (staff_id, role_id, staff_fname, staff_lname, email) values
@@ -165,20 +165,48 @@ insert into staff (staff_id, role_id, staff_fname, staff_lname, email) values
 
 -- --------------------------------------------------------
 
+--
+-- Dumping data for table `role`
+--
+
+insert into role (role_id, role_name) values
+('1', 'staff'),
+('2', 'manager'),
+('3', 'hr');
 
 -- --------------------------------------------------------
 
 --
--- Dumping data for table `staff`
+-- Dumping data for table `course`
 --
 
--- INSERT INTO `staff` (`id`, `reg_num`, `hourly_rate`) VALUES
--- (1, 'EV1L', 60),
--- (2, 'AN123', 40),
--- (3, 'CW3588', 45);
+insert into course (course_id, course_name, course_desc, course_status, course_type, course_category) values
+('1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
+('2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business');
 
 -- --------------------------------------------------------
 
+--
+-- Dumping data for table `attached_skill`
+--
+
+insert into attached_skill (attached_skill_id, skill_id, course_id) values
+('1', '1', '1'),
+('2', '2', '1'),
+('3', '2', '2');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `skill`
+--
+
+insert into skill (skill_id, skill_desc, skill_name) values
+('1', 'Researching an organization and its working environment to formulate a strategy', 'Strategic Analysis'),
+('2', 'A set of tools and calculations used in determining whether a system meets certain specification requirements', 'Capabilities Analysis'),
+('3', 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management');
+
+-- --------------------------------------------------------
 -- 
 -- Import data for table `staff`
 
