@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from role import Role
+from ljps_role import Ljps_role
 from staff import Staff
 
 app = Flask(__name__)
@@ -19,7 +19,7 @@ class Learning_journey():
     __tablename__ = 'learning_journey'
 
     journey_id = db.Column(db.Integer, primary_key=True, nullable=False)
-    role_id = db.Column(db.Integer, db.ForeignKey(Role.role_id), nullable=False)
+    ljpsr_id = db.Column(db.Integer, db.ForeignKey(Ljps_role.ljpsr_id), nullable=False)
     staff_id = db.Column(db.Integer, db.ForeignKey(Staff.staff_id), nullable=False)
     status = db.Column(db.Integer, nullable=False)
 
