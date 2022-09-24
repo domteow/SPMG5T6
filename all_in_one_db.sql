@@ -155,6 +155,20 @@ CREATE TABLE lj_course (
 -- --------------------------------------------------------
 
 --
+-- Insert test values for Staff table
+--
+
+insert into staff values
+('1', 'staff', 'Jann', 'Chia', 'jann@allinone@gmail.com'),
+('2', 'manager', 'Kelvin', 'Yap', 'kelvin@allinone@gmail.com'),
+('3', 'hr', 'Dom', 'Teow', 'dom@allinone@gmail.com');
+
+-- --------------------------------------------------------
+
+
+-- --------------------------------------------------------
+
+--
 -- Dumping data for table `staff`
 --
 
