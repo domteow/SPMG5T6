@@ -158,7 +158,7 @@ CREATE TABLE lj_course (
 -- Insert test values for Staff table
 --
 
-insert into staff values
+insert into staff (staff_id, role_id, staff_fname, staff_lname, email) values
 ('1', 'staff', 'Jann', 'Chia', 'jann@allinone@gmail.com'),
 ('2', 'manager', 'Kelvin', 'Yap', 'kelvin@allinone@gmail.com'),
 ('3', 'hr', 'Dom', 'Teow', 'dom@allinone@gmail.com');
