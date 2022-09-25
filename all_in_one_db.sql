@@ -126,7 +126,7 @@ CREATE TABLE role_required_skill (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `learning_journey`
+-- Table structure for table `learning_journey` 
 --
 
 CREATE TABLE learning_journey (
@@ -225,7 +225,8 @@ insert into registration (reg_id, course_id, staff_id, reg_status, completion_st
 
 insert into ljps_role (ljpsr_id, role_title, role_desc) values
 (1, 'Accountant', 'Accountants are responsible for financial audits, reconciling bank statements, and ensuring financial records are accurate throughout the year.'), 
-(2, 'Project Manager', 'Project managers are accountable for planning and allocating resources, preparing budgets, monitoring progress, and keeping stakeholders informed throughout the project lifecycle');
+(2, 'Project Manager', 'Project managers are accountable for planning and allocating resources, preparing budgets, monitoring progress, and keeping stakeholders informed throughout the project lifecycle'),
+(3, 'Business Intelligence Analysts', 'Business Intelligence Analysts capitalise on data and translate it into insights for the company in order to make informed decisions.');
 
 -- --------------------------------------------------------
 
@@ -235,9 +236,19 @@ insert into ljps_role (ljpsr_id, role_title, role_desc) values
 
 insert into role_required_skill (skill_id, ljpsr_id) values
 (1, 1), -- strat analysis, accountant
-(2, 1) -- cap analysis, accountant
-(3, 2) -- project management, project manager
+(2, 1), -- cap analysis, accountant
+(3, 2); -- project management, project manager
 
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `learning_journey`
+--
+
+insert into learning_journey (journey_id, ljpsr_id, staff_id, status) values
+(1, 1, 2, 0), -- accountant, kelvin, incomplete
+(2, 2, 1, 0), -- project manager, jann, incomplete
+(3, 1, 1, 0); -- accountant, jann, incomplete
 
 -- --------------------------------------------------------
 
