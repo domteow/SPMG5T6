@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/vue@next"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./homepage.css">
+    <link rel="stylesheet" href="./confirm_LJ.css">
     <link rel="stylesheet" href="../navbar.css">
 
     <!-- font family -->
@@ -76,32 +76,27 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <!-- logo -->
-            <div class="logo">
-                <img src="../img/logo.png" class="logoimg" width="50%" alt="">
-            </div>
+            <div class="rolename" id="rolename">
 
-            <!-- search -->
-            <div class="searchdiv">
-                <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a role" name="roleName" id="roleName">
             </div>
-
-            <!-- roles available -->
-            <div class="rolesavail">
-                <div class="browseroles">
-                    Browse Roles
+            <div class="skillschosen">
+                Skill and Courses Chosen: 
+            </div>
+            <div class="container-fluid courseskill" id="courseskill">
+                
+            </div>
+            <div class="createLJ" onclick="confirmLJ()">
+                Create Learning Journey
+            </div>
+            <a href="../staff/homepage_standard.html">
+                <div class="cancelLJ">
+                    Cancel
                 </div>
-
-                <!-- ADD ALL ROLES WITH ID='allroles' -->
-                <div class="allroles" id="allroles">
-                    
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 
-
     <script src="../nav.js"></script>
-    <script src="./explore.js"></script>
+    <script src="./confirm_LJ.js"></script>
 </body>
 </html>

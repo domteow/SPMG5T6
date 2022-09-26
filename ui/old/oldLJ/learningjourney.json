@@ -1,0 +1,57 @@
+{
+    "roles_details":[
+        {
+            "role_name": "accountant",
+            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
+            "role_id" :1,
+            "skills": [
+                {
+                    "skill_name": "skill1",
+                    "skill_id": "skillID1",
+                    "skill_desc": "skillDesc1",
+                    "courses": [
+                        {
+                            "course_name": "course name 1",
+                            "course_id" : "course id 1",
+                            "course_desc": "course desc 1"
+                        },
+                        {
+                            "course_name": "course name 2",
+                            "course_id" : "course id 2",
+                            "course_desc": "course desc 2"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "role_name": "CEO",
+            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
+            "role_id" :1,
+            "skills": [
+                {
+                    "skill_name": "skill2",
+                    "skill_id": "skillID2",
+                    "skill_desc": "skillDesc2",
+                    "courses": [
+                        {
+                            "course_name": "course name 1",
+                            "course_id" : "course id 1",
+                            "course_desc": "course desc 1"
+                        },
+                        {
+                            "course_name": "course name 2",
+                            "course_id" : "course id 2",
+                            "course_desc": "course desc 2"
+                        },
+                        {
+                            "course_name": "course name 3",
+                            "course_id" : "course id 3",
+                            "course_desc": "course desc 3"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

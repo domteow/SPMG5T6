@@ -1,47 +1,69 @@
 roles = {
-    'audit': 'Y',
-    'accountant': 'N',
-    'cashier' : 'N',
-    'CEO' : 'Y',
-    'cleaner' : 'N',
-    'developer' : 'Y',
-    'econs person' :' N',
-    'frontend developer' : 'Y',
-    'manager' : 'Y'
+    "roles_deets" : [
+        {
+        "role_name" : "accountant",
+        "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
+        "role_id" : 1,
+        "is_complete": 0
+        },
+        {
+            "role_name" : "CEO",
+            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
+            "role_id" : 2,
+            "is_complete": 1
+        },
+        {
+            "role_name" : "teehee",
+            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
+            "role_id" : 3,
+            "is_complete": 0
+        }
+    ]
 }
 
 var place = document.getElementById('allroles');
-var role_id = 0;
-for (let role in roles){
-    console.log(role);
-    var completed = roles[role];
-    console.log(completed);
+var all_roles = roles['roles_deets'];
 
-    if (completed =='Y'){
+for (let role in all_roles){
+    var roled = all_roles[role];
+    
+    var role_name = roled['role_name'];
+    var role_id = roled['role_id'];
+    var completed = roled['is_complete'];
+    // console.log(role_name);
+    // console.log(role_id);
+    // console.log(completed);
+
+    if (completed == 1){
         /* IF THE PERSON HAS ALREADY ATTAINED ALL SKILLS REQUIRED */
-        place.innerHTML += `<div class="roleCol container-fluid">
-        <div class="row">
-            <div class="col-8 roledeets">`+ role + `</div>
-            <div class="col-4 completed">
-                Attained Skills Required
+        place.innerHTML += 
+        `<div class="roleCol container-fluid">
+            <div class="row">
+                <div class="col-4 roledeets">`+ role_name + `</div>
+                <div class= 'col-4 completed'>Attained Skills Required</div>
+                <div class="col-4 ncompleted" id=${role_id} onclick='createLJ(this.id)'>
+                Take Skills Required
+                </div>
             </div>
-        </div></div>`
+        </div>`
     }
+
     else{
         /* IF THE PERSON HAS NOT ATTAINED ALL SKILLS REQUIRED */
-        place.innerHTML += `<div class="roleCol container-fluid">
-        <div class="row">
-            <div class="col-8 roledeets">${role}</div>
-            <div class="col-4 ncompleted" id=${role_id} onclick='createLJ(this.id)'>
-                Take Skills Required
+        place.innerHTML += 
+        `<div class="roleCol container-fluid">
+            <div class="row">
+                <div class="col-4 roledeets">${role_name}</div>
+                <div class= 'col-4 completed'></div>
+                <div class="col-4 ncompleted" id=${role_id} onclick='createLJ(this.id)'>
+                    Take Skills Required
+                </div>
             </div>
-        </div></div>`
+        </div>`
     }
-    role_id += 1;
 }
 
 function createLJ(roleid){
-    sessionStorage.setItem('roleid', roleid);
-    location.href = '../creating_LJ/creating_LJ.html';
+    sessionStorage.setItem('role_id', roleid);
+    location.href = '../creating_LJ/roledetails.html';
 }
-
