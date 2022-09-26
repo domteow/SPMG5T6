@@ -5,8 +5,10 @@ from ljps_role import Ljps_role
 from staff import Staff
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + \
-                                        '@localhost:3306/is212'
+#MAC OS
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
+#Windows OS
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -15,7 +17,7 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-class Learning_journey():
+class Learning_journey(db.Model):
     __tablename__ = 'learning_journey'
 
     journey_id = db.Column(db.Integer, primary_key=True, nullable=False)
