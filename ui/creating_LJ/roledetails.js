@@ -151,70 +151,48 @@ role_descriptions = {
     ]
 }
 
-var role_id = sessionStorage.getItem('role_id');
-// console.log(role_id);
-
 var role_details = role_descriptions['roles_details'];
 
+var role_id = sessionStorage.getItem('role_id');
+
+var role_name_div = document.getElementById('rolename');
+
+var role_details_div = document.getElementById('roledetails');
+
+var role_skills_list = document.getElementById('role_skills');
 
 for (var idx in role_details){
     var item = role_details[idx];
     var itemRole_id = item["role_id"];
-
-    if(itemRole_id == role_id){
-        /* add role title */ 
-        var role_name = item['role_name'];
-        var title = document.getElementById('roletitle');
-        title.innerText = item['role_name'];
-
-        /* add role description */ 
-        var description = document.getElementById('roledescription');
-        // console.log(description);
-        description.innerText = item['role_desc'];
-
-        /* add skill and courses*/ 
-        var skillscont = document.getElementById('skillscontainer');
-        var skills = item['skills'];
-        for (var sidx in skills){
-            var skill = skills[sidx];
-            var skillname = skill['skill_name'];
-            var courses = skill['courses'];
-            var skill_id = skill['skill_id'];
-            skillscont.innerHTML += `
-                <div class='row skillname'>${skillname}
-                    <div class='container-fluid coursecontainer' id='coursecontainer'>`; 
-            for (var course_idx in courses){
-                var course = courses[course_idx];
-                var course_name = course['course_name'];
-                var course_desc = course['course_desc'];
-                var course_id = course['course_id'];
-                skillscont.innerHTML += `
-                    <div class='row coursename form-check'>
-                        <input class='form-check-input' type='checkbox' id=${course_id} name = 'skills' value = "${skillname}/ ${course_name}">
-                        ${course_name}
-                        <div class='course_desc'>${course_desc}</div>
+    var rname = item['role_name'];
+    var rdeet = item['role_desc'];
+    var skills = item['skills'];
+    // console.log(skills);
+    // console.log(rname);
+    if (itemRole_id == role_id){
+        role_name_div.innerHTML = `${rname}`;
+        role_details_div.innerHTML = `${rdeet}`;
+        for (var skill in skills){
+            // console.log(skill);
+            var skill_details = skills[skill];
+            var skill_name = skill_details['skill_name'];
+            var skill_desc = skill_details['skill_desc'];
+            // console.log(skill_desc);
+            role_skills_list.innerHTML += `
+                <li class='skillname'>
+                    ${skill_name}
+                    <div class='skilldesc'>
+                        ${skill_desc}
                     </div>
-                </div>
-                </div>
-                `
-            }
+                </li>
+            `
         }
     }
 }
 
-function getValues(){
-    const allChecked = document.querySelectorAll('input[name=skills]:checked');
+console.log(role_id);
 
-    // console.log(allChecked);
-
-    // console.log(Array.from(allChecked).map(checkbox => checkbox.value));
-
-    var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
-
-    console.log(checkedCourses[0]);
-    sessionStorage.setItem('checkedCourses', checkedCourses);
+function confirmCreateLJ(){
     sessionStorage.setItem('role_id', role_id);
-    sessionStorage.setItem('role_name', role_name);
-    location.href = './confirm_LJ.html';
+    location.href = './creating_LJ.html';
 }
-
