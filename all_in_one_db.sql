@@ -232,17 +232,6 @@ insert into course (course_id, course_name, course_desc, course_status, course_t
 -- --------------------------------------------------------
 
 --
--- Dumping data for table `attached_skill`
---
-
-insert into attached_skill (attached_skill_id, skill_id, course_id) values
-(1, 1, 'COURSE1'), -- skill: strat analysis, course: biz strat
-(2, 2, 'COURSE1'), -- skill: cap analysis, course: biz strat
-(3, 2, 'COURSE2'); -- skill: cap analysis, course: foundations of pm
-
--- --------------------------------------------------------
-
---
 -- Dumping data for table `skill`
 --
 
@@ -250,6 +239,16 @@ insert into skill (skill_id, skill_desc, skill_name) values
 (1, 'Researching an organization and its working environment to formulate a strategy', 'Strategic Analysis'),
 (2, 'A set of tools and calculations used in determining whether a system meets certain specification requirements', 'Capabilities Analysis'),
 (3, 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management');
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `attached_skill`
+--
+
+insert into attached_skill (skill_id, course_id) values
+(1, 'COURSE1'), -- skill: strat analysis, course: biz strat
+(2, 'COURSE1'), -- skill: cap analysis, course: biz strat
+(2, 'COURSE2'); -- skill: cap analysis, course: foundations of pm
 
 -- --------------------------------------------------------
 
