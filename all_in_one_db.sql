@@ -195,16 +195,6 @@ ALTER TABLE `lj_course`
   ADD CONSTRAINT `lj_course_fk` FOREIGN KEY (journey_id) REFERENCES learning_journey(journey_id),
   ADD CONSTRAINT `lj_course_fk2` FOREIGN KEY (course_id) REFERENCES course(course_id);
 
--- --------------------------------------------------------
-
---
--- Dumping data for table `staff`
---
-
-insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
-(1, 1, 'Jann', 'Chia', 'Business Intelligence','jann@allinone.com'),
-(2, 1, 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
-(3, 1, 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
 
 -- --------------------------------------------------------
 
@@ -216,6 +206,18 @@ insert into role (role_id, role_name) values
 (1, 'staff'),
 (2, 'manager'),
 (3, 'hr');
+
+-- --------------------------------------------------------
+
+--
+-- Dumping data for table `staff`
+--
+
+insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
+(1, 1, 'Jann', 'Chia', 'Business Intelligence','jann@allinone.com'),
+(2, 1, 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
+(3, 1, 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
+
 
 -- --------------------------------------------------------
 
