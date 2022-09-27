@@ -27,6 +27,7 @@ CREATE TABLE staff (
   role_id int NOT NULL,
   staff_fname varchar(50) NOT NULL,
   staff_lname varchar(50) NOT NULL,
+  dept varchar(50) NOT NULL, 
   email varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -201,9 +202,9 @@ ALTER TABLE `lj_course`
 --
 
 insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
-(1, 'staff', 'Jann', 'Chia', 'Business Intelligence', 'jann@allinone.com'),
-(2, 'staff', 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
-(3, 'staff', 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
+(1, 1, 'Jann', 'Chia', 'Business Intelligence','jann@allinone.com'),
+(2, 1, 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
+(3, 1, 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
 
 -- --------------------------------------------------------
 
