@@ -29,7 +29,7 @@ CORS(app)
 
 db.create_all()
 
-# Example of how to call a specific COURSE by ID
+# Find COURSE by course_id
 @app.route("/course/<string:course_id>")
 def course_by_id(course_id):
     course = Course.query.filter_by(course_id=course_id).first()
@@ -43,6 +43,83 @@ def course_by_id(course_id):
         }), 404
 
 
+
+# Find learning journeys by staff_id
+@app.route("/lj/<int:staff_id>")
+def learning_journey_by_staff(staff_id):
+    learning_journey = Learning_journey.query.filter_by(staff_id=staff_id).all()
+    if len(learning_journey):
+        return jsonify({
+            "data": {
+                    "learning_journey": [lj.to_dict() for lj in learning_journey]
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Staff does not have any learning journeys."
+        }), 404
+
+
+# Find learning journey role from ljpsr_id
+@app.route("/ljpsr/<int:ljpsr_id>")
+def learning_journey_role_by_id(ljpsr_id):
+    ljpsr = Ljps_role.query.filter_by(ljpsr_id=ljpsr_id).first()
+    if ljpsr:
+        return jsonify({
+            "data": {
+                    "ljpsr": ljpsr.to_dict()
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Learning Journey Role does not exist."
+        }), 404
+
+# Find skill by skill_id
+@app.route("/skill/<int:skill_id>")
+def skill_by_id(skill_id):
+    skill = Skill.query.filter_by(skill_id=skill_id).first()
+    if skill:
+        return jsonify({
+            "data": {
+                    "skill": skill.to_dict()
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Skill not found."
+        }), 404
+
+# Find attached_skill by skill_id
+@app.route("/attached_skill_by_skill/<int:skill_id>")
+def attached_skill_by_skill(skill_id):
+    attached_skill = Attached_skill.query.filter_by(skill_id=skill_id).all()
+    if len(attached_skill):
+        return jsonify({
+            "data": {
+                    "attached_skill": [atts.to_dict() for atts in attached_skill]
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Skill not attached to any courses."
+        }), 404
+
+
+# Find lj_course by journey_id (need dummy data to retrieve the courses for learning journey)
+@app.route("/lj_course_by_journey/<int:journey_id>")
+def lj_course_by_journey(journey_id):
+    lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
+    if len(lj_course):
+        return jsonify({
+            "data": {
+                    "lj_course": [ljc.to_dict() for ljc in lj_course]
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Learning Journey contains no courses."
+        }), 404
 
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):

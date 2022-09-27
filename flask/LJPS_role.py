@@ -26,3 +26,13 @@ class Ljps_role(db.Model):
         self.ljpsr_id = ljpsr_id
         self.role_title = role_title
         self.role_desc = role_desc
+    def to_dict(self):
+        """
+        'to_dict' converts the object into a dictionary,
+        in which the keys correspond to database columns
+        """
+        columns = self.__mapper__.column_attrs.keys()
+        result = {}
+        for column in columns:
+            result[column] = getattr(self, column)
+        return result

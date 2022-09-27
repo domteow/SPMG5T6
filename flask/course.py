@@ -35,11 +35,3 @@ class Course(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
-    
-    def getCourseByID(id):
-        #get datat from sql
-        
-        #to_dict
-        
-        #course = something
-        return None
