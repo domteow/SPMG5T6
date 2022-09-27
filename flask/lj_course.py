@@ -20,7 +20,7 @@ CORS(app)
 class Lj_course(db.Model):
     __tablename__ = 'lj_course'
 
-    journey_id = db.Column(db.Integer, db.ForeignKey(Learning_journey.journey_id), 
+    journey_id = db.Column(db.Integer, db.ForeignKey('Learning_journey.journey_id'), primary_key=True,
     nullable = False)
-    course_id = db.Column(db.Integer, db.ForeignKey(Course.course_id),
+    course_id = db.Column(db.Integer, db.ForeignKey('Course.course_id'), primary_key=True,
     nullable = False)

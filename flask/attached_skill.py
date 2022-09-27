@@ -21,8 +21,8 @@ CORS(app)
 class Attached_skill(db.Model):
     __tablename__ = 'attached_skill'
 
-    course_id = db.Column(db.String(20), db.ForeignKey(Course.course_id),
+    course_id = db.Column(db.String(20), db.ForeignKey('Course.course_id'), primary_key=True,
     nullable = False)
-    skill_id = db.Column(db.Integer, db.ForeignKey(Skill.skill_id), 
+    skill_id = db.Column(db.Integer, db.ForeignKey('Skill.skill_id'), primary_key=True,
     nullable = False)
     

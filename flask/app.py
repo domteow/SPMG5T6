@@ -29,7 +29,8 @@ CORS(app)
 
 db.create_all()
 
-@app.route("/course/<str:course_id>")
+# Example of how to call a specific COURSE by ID
+@app.route("/course/<string:course_id>")
 def course_by_id(course_id):
     course = Course.query.filter_by(course_id=course_id).first()
     if course:
@@ -51,4 +52,4 @@ def course_by_id(course_id):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)

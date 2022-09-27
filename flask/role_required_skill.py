@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
-from LJPS_role import ljps_role
+from LJPS_role import Ljps_role
 from skill import Skill
 
 app = Flask(__name__)
@@ -22,5 +22,5 @@ CORS(app)
 class Role_required_skill(db.Model):
     __tablename__ = 'role_required_skill'
 
-    ljpsr_id = db.Column(db.Integer, db.ForeignKey(ljps_role.ljpsj_id), primary_key=True)
-    skill_id = db.Column(db.Integer,  db.ForeignKey(Skill.skill_id),primary_key=True)
+    ljpsr_id = db.Column(db.Integer, db.ForeignKey('Ljps_role.ljpsj_id'), primary_key=True)
+    skill_id = db.Column(db.Integer,  db.ForeignKey('Skill.skill_id'),primary_key=True)
