@@ -65,7 +65,7 @@ CREATE TABLE course (
 CREATE TABLE attached_skill ( 
   attached_skill_id int NOT NULL PRIMARY KEY,
   skill_id int NOT NULL,
-  course_id int NOT NULL
+  course_id varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE attached_skill (
 
 CREATE TABLE registration ( 
   reg_id int NOT NULL PRIMARY KEY,
-  course_id int NOT NULL,
+  course_id varchar(20) NOT NULL,
   staff_id int NOT NULL,
   reg_status varchar(20) NOT NULL,
   completion_status varchar(20) NOT NULL
@@ -138,7 +138,7 @@ CREATE TABLE learning_journey (
 CREATE TABLE lj_course (
   lj_course_id int NOT NULL PRIMARY KEY,
   journey_id int NOT NULL,
-  course_id int NOT NULL
+  course_id varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
