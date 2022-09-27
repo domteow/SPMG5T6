@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
-from ljps_role import ljps_role
+from LJPS_role import ljps_role
 from skill import Skill
 
 app = Flask(__name__)
