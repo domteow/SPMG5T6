@@ -11,7 +11,7 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 --
--- Database: `is212_example`
+-- Database: `all_in_one_db`
 --
 CREATE DATABASE IF NOT EXISTS `all_in_one_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `all_in_one_db`;
@@ -27,8 +27,7 @@ CREATE TABLE staff (
   role_id int NOT NULL,
   staff_fname varchar(50) NOT NULL,
   staff_lname varchar(50) NOT NULL,
-  email varchar(50) NOT NULL,
-  constraint staff_fk foreign key(role_id) references role(role_id)
+  email varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -66,9 +65,7 @@ CREATE TABLE course (
 CREATE TABLE attached_skill ( 
   attached_skill_id int NOT NULL PRIMARY KEY,
   skill_id int NOT NULL,
-  course_id int NOT NULL,
-  constraint attached_skill_fk foreign key(skill_id) references skill(skill_id), 
-  constraint attached_skill_fk2 foreign key(course_id) references course(course_id)
+  course_id int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -80,9 +77,7 @@ CREATE TABLE registration (
   course_id int NOT NULL,
   staff_id int NOT NULL,
   reg_status varchar(20) NOT NULL,
-  completion_status varchar(20) NOT NULL, 
-  constraint reg_fk foreign key(course_id) references course(course_id), 
-  constraint reg_fk2 foreign key(staff_id) references staff(staff_id)
+  completion_status varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -118,9 +113,7 @@ CREATE TABLE ljps_role (
 CREATE TABLE role_required_skill (
   skill_id int NOT NULL PRIMARY KEY,
   ljpsr_id int NOT NULL PRIMARY KEY,
-  constraint role_required_skill_pk primary key (skill_id, ljpsr_id), 
-  constraint role_required_skill_fk foreign key(skill_id) references skill(skill_id), 
-  constraint role_required_skill_fk2 foreign key(ljpsr_id) references ljps_role(ljpsr_id)
+  constraint role_required_skill_pk primary key (skill_id, ljpsr_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -133,9 +126,7 @@ CREATE TABLE learning_journey (
   journey_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ljpsr_id int NOT NULL,
   staff_id int NOT NULL,
-  status int NOT NULL, -- 1 = complete, 0 = incomplete
-  constraint learning_journey_fk1 foreign key(ljpsr_id) references ljps_role(ljpsr_id), 
-  constraint learning_journey_fk2 foreign key(staff_id) references staff(staff_id)
+  status int NOT NULL -- 1 = complete, 0 = incomplete
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -147,21 +138,80 @@ CREATE TABLE learning_journey (
 CREATE TABLE lj_course (
   lj_course_id int NOT NULL PRIMARY KEY,
   journey_id int NOT NULL,
-  course_id int NOT NULL,
-  constraint lj_course_fk foreign key(journey_id) references learning_journey(journey_id), 
-  constraint lj_course_fk2 foreign key(course_id) references course(course_id)
+  course_id int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Constraints for table `staff`
+--
+ALTER TABLE `staff`
+  ADD CONSTRAINT `staff_fk` FOREIGN KEY (role_id) REFERENCES role(role_id); 
+
+-- --------------------------------------------------------
+
+--
+-- Constraints for table `attached_skill`
+--
+ALTER TABLE `attached_skill`
+  ADD CONSTRAINT `attached_skill_fk` FOREIGN KEY (skill_id) REFERENCES skill(skill_id),
+  ADD CONSTRAINT `attached_skill_fk2` FOREIGN KEY (course_id) REFERENCES course(course_id);
+  constraint reg_fk foreign key(course_id) references course(course_id), 
+  constraint reg_fk2 foreign key(staff_id) references staff(staff_id)
+
+-- --------------------------------------------------------
+
+--
+-- Constraints for table `registration`
+--
+ALTER TABLE `registration`
+  ADD CONSTRAINT `reg_fk` FOREIGN KEY (course_id) REFERENCES course(course_id),
+  ADD CONSTRAINT `reg_fk2` FOREIGN KEY (staff_id) REFERENCES staff(staff_id);
+  constraint role_required_skill_fk foreign key(skill_id) references skill(skill_id), 
+  constraint role_required_skill_fk2 foreign key(ljpsr_id) references ljps_role(ljpsr_id)
+
+-- --------------------------------------------------------
+
+--
+-- Constraints for table `role_required_skill`
+--
+ALTER TABLE `role_required_skill`
+  ADD CONSTRAINT `role_required_skill_fk` FOREIGN KEY (skill_id) REFERENCES skill(skill_id),
+  ADD CONSTRAINT `role_required_skill_fk2` FOREIGN KEY (ljpsr_id) REFERENCES ljps_role(ljpsr_id);
+  constraint learning_journey_fk1 foreign key(ljpsr_id) references ljps_role(ljpsr_id), 
+  constraint learning_journey_fk2 foreign key(staff_id) references staff(staff_id)
+
+-- --------------------------------------------------------
+
+--
+-- Constraints for table `learning_journey`
+--
+ALTER TABLE `learning_journey`
+  ADD CONSTRAINT `learning_journey_fk1` FOREIGN KEY (ljpsr_id) REFERENCES ljps_role(ljpsr_id),
+  ADD CONSTRAINT `learning_journey_fk2` FOREIGN KEY (staff_id) REFERENCES staff(staff_id);
+  constraint lj_course_fk foreign key(journey_id) references learning_journey(journey_id), 
+  constraint lj_course_fk2 foreign key(course_id) references course(course_id)
+
+-- --------------------------------------------------------
+
+--
+-- Constraints for table `lj_course`
+--
+ALTER TABLE `lj_course`
+  ADD CONSTRAINT `lj_course_fk` FOREIGN KEY (journey_id) REFERENCES learning_journey(journey_id),
+  ADD CONSTRAINT `lj_course_fk2` FOREIGN KEY (course_id) REFERENCES course(course_id);
+  
 -- --------------------------------------------------------
 
 --
 -- Dumping data for table `staff`
 --
 
-insert into staff (staff_id, role_id, staff_fname, staff_lname, email) values
-(1, 'staff', 'Jann', 'Chia', 'jann@allinone@gmail.com'),
-(2, 'staff', 'Kelvin', 'Yap', 'kelvin@allinone@gmail.com'),
-(3, 'staff', 'Dom', 'Teow', 'dom@allinone@gmail.com');
+insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
+(1, 'staff', 'Jann', 'Chia', 'Business Intelligence', 'jann@allinone.com'),
+(2, 'staff', 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
+(3, 'staff', 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
 
 -- --------------------------------------------------------
 
