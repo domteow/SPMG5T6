@@ -63,9 +63,9 @@ CREATE TABLE course (
 --
 
 CREATE TABLE attached_skill ( 
-  attached_skill_id int NOT NULL PRIMARY KEY,
   skill_id int NOT NULL,
-  course_id varchar(20) NOT NULL
+  course_id varchar(20) NOT NULL,
+  constraint attached_skill_pk primary key (skill_id, course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
