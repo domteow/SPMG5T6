@@ -12,7 +12,6 @@ from LJPS_role import Ljps_role
 from registration import Registration
 from role_required_skill import Role_required_skill
 
-
 app = Flask(__name__)
 #MAC OS
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
@@ -120,6 +119,22 @@ def lj_course_by_journey(journey_id):
         return jsonify({
             "message": "Learning Journey contains no courses."
         }), 404
+
+# Find role_require_skill by ljpsr_id
+@app.route("/role_require_skill_by_ljpsr/<int:ljpsr_id>")
+def role_require_skill_by_ljpsr(ljpsr_id):
+    role_require_skill = Role_required_skill.query.filter_by(ljpsr_id=ljpsr_id).all()
+    if len(role_require_skill):
+        return jsonify({
+            "data": {
+                    "role_require_skill": [rrs.to_dict() for rrs in role_require_skill]
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Role has no skills assigned to it."
+        }), 404
+
 
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
