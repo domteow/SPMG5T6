@@ -111,8 +111,8 @@ CREATE TABLE ljps_role (
 --
 
 CREATE TABLE role_required_skill (
-  skill_id int NOT NULL PRIMARY KEY,
-  ljpsr_id int NOT NULL PRIMARY KEY,
+  skill_id int NOT NULL,
+  ljpsr_id int NOT NULL,
   constraint role_required_skill_pk primary key (skill_id, ljpsr_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -201,7 +201,7 @@ ALTER TABLE `learning_journey`
 ALTER TABLE `lj_course`
   ADD CONSTRAINT `lj_course_fk` FOREIGN KEY (journey_id) REFERENCES learning_journey(journey_id),
   ADD CONSTRAINT `lj_course_fk2` FOREIGN KEY (course_id) REFERENCES course(course_id);
-  
+
 -- --------------------------------------------------------
 
 --
