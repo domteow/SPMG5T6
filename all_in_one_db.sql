@@ -157,8 +157,6 @@ ALTER TABLE `staff`
 ALTER TABLE `attached_skill`
   ADD CONSTRAINT `attached_skill_fk` FOREIGN KEY (skill_id) REFERENCES skill(skill_id),
   ADD CONSTRAINT `attached_skill_fk2` FOREIGN KEY (course_id) REFERENCES course(course_id);
-  constraint reg_fk foreign key(course_id) references course(course_id), 
-  constraint reg_fk2 foreign key(staff_id) references staff(staff_id)
 
 -- --------------------------------------------------------
 
@@ -168,8 +166,6 @@ ALTER TABLE `attached_skill`
 ALTER TABLE `registration`
   ADD CONSTRAINT `reg_fk` FOREIGN KEY (course_id) REFERENCES course(course_id),
   ADD CONSTRAINT `reg_fk2` FOREIGN KEY (staff_id) REFERENCES staff(staff_id);
-  constraint role_required_skill_fk foreign key(skill_id) references skill(skill_id), 
-  constraint role_required_skill_fk2 foreign key(ljpsr_id) references ljps_role(ljpsr_id)
 
 -- --------------------------------------------------------
 
@@ -179,8 +175,6 @@ ALTER TABLE `registration`
 ALTER TABLE `role_required_skill`
   ADD CONSTRAINT `role_required_skill_fk` FOREIGN KEY (skill_id) REFERENCES skill(skill_id),
   ADD CONSTRAINT `role_required_skill_fk2` FOREIGN KEY (ljpsr_id) REFERENCES ljps_role(ljpsr_id);
-  constraint learning_journey_fk1 foreign key(ljpsr_id) references ljps_role(ljpsr_id), 
-  constraint learning_journey_fk2 foreign key(staff_id) references staff(staff_id)
 
 -- --------------------------------------------------------
 
@@ -190,8 +184,6 @@ ALTER TABLE `role_required_skill`
 ALTER TABLE `learning_journey`
   ADD CONSTRAINT `learning_journey_fk1` FOREIGN KEY (ljpsr_id) REFERENCES ljps_role(ljpsr_id),
   ADD CONSTRAINT `learning_journey_fk2` FOREIGN KEY (staff_id) REFERENCES staff(staff_id);
-  constraint lj_course_fk foreign key(journey_id) references learning_journey(journey_id), 
-  constraint lj_course_fk2 foreign key(course_id) references course(course_id)
 
 -- --------------------------------------------------------
 
