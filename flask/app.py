@@ -8,15 +8,15 @@ from staff import Staff
 from attached_skill import Attached_skill
 from learning_journey import Learning_journey
 from lj_course import Lj_course
-from ljps_role import Ljps_role
+from LJPS_role import Ljps_role
 from registration import Registration
 from role_required_skill import Role_required_skill
 
 app = Flask(__name__)
 #MAC OS
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
 #Windows OS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
                                         
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
@@ -174,6 +174,16 @@ def role_require_skill_by_ljpsr(ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
 
+# Viewing skills needed for a role, according to which staff wants it
+# (acceptance criteria is that staff who queries this should not which skill he/she already possesses)
+@app.route("/view_skills_needed_for_role/<int:staff_id>/<int: ljpsr_id>")
+def view_skills_needed_for_role(staff_id, ljpsr_id):
+    # 1. from staff ID passed in, get the skills this staff has already acquired
+
+    # 2. from LJPS role ID, get all the skills related to it
+
+    # 3. separate them out into skills_already_acquired and skills_not_yet_acquired for this LJPS role.
+    pass
 
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
