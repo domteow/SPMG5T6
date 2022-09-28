@@ -1,3 +1,4 @@
+from turtle import st
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -210,6 +211,15 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
 #     course = Course.getCourseByID(id)
 #     #to json
 #     return #json
+
+# Creating a Learning Journey (dom)
+@app.route("/createlj/<int:ljpsr_id>&<int:staff_id>", methods=['POST'])
+def new_learning_journey(ljpsr_id, staff_id):
+    # call create lj function in Learning Journey class 
+    createLJ_result = Learning_journey.create_learning_journey(ljpsr_id, staff_id)
+    print('function called to create LJ')
+    print(createLJ_result)
+    return createLJ_result
 
 
 if __name__ == '__main__':
