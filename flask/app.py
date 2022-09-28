@@ -13,10 +13,13 @@ from registration import Registration
 from role_required_skill import Role_required_skill
 
 app = Flask(__name__)
-#MAC OS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
-#Windows OS
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+
+import platform
+my_os = platform.system()
+if my_os == "Windows":
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
                                         
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
@@ -70,7 +73,7 @@ def testing(staff_id):
 #View a role after selecting
 @app.route("/role/<int:role_id>")
 def view_role(role_id):
-    role = Ljps_role.get
+    role = Ljps_role.get_learning_journey_role_by_id(role_id)
 
 # Find COURSE by course_id
 @app.route("/course/<string:course_id>")
@@ -181,7 +184,7 @@ def role_require_skill_by_ljpsr(ljpsr_id):
 
 # Viewing skills needed for a role, according to which staff wants it
 # (acceptance criteria is that staff who queries this should not which skill he/she already possesses)
-@app.route("/view_skills_needed_for_role/<int:staff_id>/<int: ljpsr_id>")
+@app.route("/view_skills_needed_for_role/<int:staff_id>")
 def view_skills_needed_for_role(staff_id, ljpsr_id):
     # 1. from staff ID passed in, get the skills this staff has already acquired
 
