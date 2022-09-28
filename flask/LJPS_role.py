@@ -26,6 +26,7 @@ class Ljps_role(db.Model):
         self.ljpsr_id = ljpsr_id
         self.role_title = role_title
         self.role_desc = role_desc
+
     def to_dict(self):
         """
         'to_dict' converts the object into a dictionary,
@@ -36,3 +37,17 @@ class Ljps_role(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
+
+    def get_learning_journey_role_by_id(ljpsr_id):
+        ljpsr = Ljps_role.query.filter_by(ljpsr_id=ljpsr_id).first()
+        if ljpsr:
+            return ljpsr.to_dict()
+        else:
+            return None
+
+    def get_all_learning_journey_roles():
+        roles = Ljps_role.query.all()
+        if roles:
+            return [role.to_dict() for role in roles]
+        else:
+            return []

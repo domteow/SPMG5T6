@@ -35,3 +35,10 @@ class Lj_course(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
+
+    def get_lj_course_by_journey(journey_id):
+        lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
+        if len(lj_course):
+            return [ljc.to_dict() for ljc in lj_course]
+        else:
+            return []

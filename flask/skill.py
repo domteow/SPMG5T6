@@ -37,4 +37,10 @@ class Skill(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
-
+    
+    def get_skill_by_id(skill_id):
+        skill = Skill.query.filter_by(skill_id=skill_id).first()
+        if skill:
+            return skill.to_dict()
+        else:
+            return None

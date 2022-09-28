@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
-from LJPS_role import Ljps_role
+from ljps_role import Ljps_role
 from skill import Skill
 
 app = Flask(__name__)
@@ -35,3 +35,10 @@ class Role_required_skill(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
+
+    def get_role_require_skill_by_ljpsr(ljpsr_id):
+        role_require_skill = Role_required_skill.query.filter_by(ljpsr_id=ljpsr_id).all()
+        if len(role_require_skill):
+            return [rrs.to_dict() for rrs in role_require_skill]
+        else:
+            return []

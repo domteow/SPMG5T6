@@ -8,15 +8,15 @@ from staff import Staff
 from attached_skill import Attached_skill
 from learning_journey import Learning_journey
 from lj_course import Lj_course
-from LJPS_role import Ljps_role
+from ljps_role import Ljps_role
 from registration import Registration
 from role_required_skill import Role_required_skill
 
 app = Flask(__name__)
 #MAC OS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
 #Windows OS
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
                                         
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
@@ -28,13 +28,52 @@ CORS(app)
 
 db.create_all()
 
+# @app.route("/testing/<int:staff_id>")
+# def testding(staff_id):
+#     testing = Registration.get_completed_courses_by_staff_id(staff_id)
+
+#     return testing
+
+#First page with all roles + attained status
+@app.route("/all_roles/<int:staff_id>")
+def testing(staff_id):
+    all_roles = Ljps_role.get_all_learning_journey_roles()
+    completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    #looping through all available roles
+    for role in all_roles:
+        #find the required skills in the role
+        required_skills = Role_required_skill.get_role_require_skill_by_ljpsr(role["ljpsr_id"])
+        #check if staff has role by comparing num of completed_skills
+        print(required_skills)
+        num_skills = len(required_skills)
+        completed_skills = 0
+        for required_skill in required_skills:
+            attached_courses = Attached_skill.get_attached_skill_by_skill_id(required_skill["skill_id"])
+            for attached_course in attached_courses:
+                if attached_course["course_id"] in completed_courses:
+                    completed_skills += 1
+                    break
+        #adding field "attained" to each role
+        if num_skills == completed_skills:
+            role["attained"] = "True"
+        else:
+            role["attained"] = "False"
+    if all_roles:
+        return jsonify({
+            'data': all_roles
+            }), 200
+    else:
+        return jsonify({
+            "message": "There are no roles"
+        }), 404
+
 # Find COURSE by course_id
 @app.route("/course/<string:course_id>")
 def course_by_id(course_id):
-    course = Course.query.filter_by(course_id=course_id).first()
+    course = Course.get_course_by_id(course_id)
     if course:
         return jsonify({
-            "data": course.to_dict()
+            "data": course
         }), 200
     else:
         return jsonify({
@@ -46,11 +85,11 @@ def course_by_id(course_id):
 # Find learning journeys by staff_id
 @app.route("/lj/<int:staff_id>")
 def learning_journey_by_staff(staff_id):
-    learning_journey = Learning_journey.query.filter_by(staff_id=staff_id).all()
+    learning_journey = Learning_journey.get_learning_journey_by_staff_id(staff_id)
     if len(learning_journey):
         return jsonify({
             "data": {
-                    "learning_journey": [lj.to_dict() for lj in learning_journey]
+                    "learning_journey": learning_journey
                 }
         }), 200
     else:
@@ -62,11 +101,11 @@ def learning_journey_by_staff(staff_id):
 # Find learning journey role from ljpsr_id
 @app.route("/ljpsr/<int:ljpsr_id>")
 def learning_journey_role_by_id(ljpsr_id):
-    ljpsr = Ljps_role.query.filter_by(ljpsr_id=ljpsr_id).first()
+    ljpsr = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
     if ljpsr:
         return jsonify({
             "data": {
-                    "ljpsr": ljpsr.to_dict()
+                    "ljpsr": ljpsr
                 }
         }), 200
     else:
@@ -77,11 +116,11 @@ def learning_journey_role_by_id(ljpsr_id):
 # Find skill by skill_id
 @app.route("/skill/<int:skill_id>")
 def skill_by_id(skill_id):
-    skill = Skill.query.filter_by(skill_id=skill_id).first()
+    skill = Skill.get_skill_by_id(skill_id)
     if skill:
         return jsonify({
             "data": {
-                    "skill": skill.to_dict()
+                    "skill": skill
                 }
         }), 200
     else:
@@ -92,11 +131,11 @@ def skill_by_id(skill_id):
 # Find attached_skill by skill_id
 @app.route("/attached_skill_by_skill/<int:skill_id>")
 def attached_skill_by_skill(skill_id):
-    attached_skill = Attached_skill.query.filter_by(skill_id=skill_id).all()
+    attached_skill = Attached_skill.get_attached_skill_by_skill_id(skill_id)
     if len(attached_skill):
         return jsonify({
             "data": {
-                    "attached_skill": [atts.to_dict() for atts in attached_skill]
+                    "attached_skill": attached_skill
                 }
         }), 200
     else:
@@ -108,11 +147,11 @@ def attached_skill_by_skill(skill_id):
 # Find lj_course by journey_id (need dummy data to retrieve the courses for learning journey)
 @app.route("/lj_course_by_journey/<int:journey_id>")
 def lj_course_by_journey(journey_id):
-    lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
+    lj_course = Lj_course.get_lj_course_by_journey(journey_id)
     if len(lj_course):
         return jsonify({
             "data": {
-                    "lj_course": [ljc.to_dict() for ljc in lj_course]
+                    "lj_course": lj_course
                 }
         }), 200
     else:
@@ -123,11 +162,11 @@ def lj_course_by_journey(journey_id):
 # Find role_require_skill by ljpsr_id
 @app.route("/role_require_skill_by_ljpsr/<int:ljpsr_id>")
 def role_require_skill_by_ljpsr(ljpsr_id):
-    role_require_skill = Role_required_skill.query.filter_by(ljpsr_id=ljpsr_id).all()
+    role_require_skill = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
     if len(role_require_skill):
         return jsonify({
             "data": {
-                    "role_require_skill": [rrs.to_dict() for rrs in role_require_skill]
+                    "role_require_skill": role_require_skill
                 }
         }), 200
     else:

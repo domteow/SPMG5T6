@@ -4,9 +4,9 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 #MAC OS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
 #Windows OS
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -35,3 +35,10 @@ class Course(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
+
+    def get_course_by_id(course_id):
+        course = Course.query.filter_by(course_id=course_id).first()
+        if course:
+            return course.to_dict()
+        else:
+            return None

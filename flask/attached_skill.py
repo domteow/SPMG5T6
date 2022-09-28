@@ -36,4 +36,10 @@ class Attached_skill(db.Model):
         for column in columns:
             result[column] = getattr(self, column)
         return result
-    
+
+    def get_attached_skill_by_skill_id(skill_id):
+        attached_skill = Attached_skill.query.filter_by(skill_id=skill_id).all()
+        if len(attached_skill):
+            return [atts.to_dict() for atts in attached_skill]
+        else:
+            return []
