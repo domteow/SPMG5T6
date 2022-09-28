@@ -71,9 +71,21 @@ def testing(staff_id):
         }), 404
 
 #View a role after selecting
-@app.route("/role/<int:role_id>")
-def view_role(role_id):
-    role = Ljps_role.get_learning_journey_role_by_id(role_id)
+@app.route("/role/<int:ljpsr_id>")
+def view_role(ljpsr_id):
+    role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
+    skills = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
+    skill_list = []
+    for skill in skills:
+        skill_info = Skill.get_skill_by_id(skill["skill_id"])
+        skill_list.append(skill_info)
+    if role:
+        return jsonify({
+            "data": {
+                "role": role,
+                "skills": skill_list
+            }
+        })
 
 # Find COURSE by course_id
 @app.route("/course/<string:course_id>")
