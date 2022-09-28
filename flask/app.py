@@ -8,7 +8,7 @@ from staff import Staff
 from attached_skill import Attached_skill
 from learning_journey import Learning_journey
 from lj_course import Lj_course
-from LJPS_role import Ljps_role
+from ljps_role import Ljps_role
 from registration import Registration
 from role_required_skill import Role_required_skill
 
@@ -66,6 +66,11 @@ def testing(staff_id):
         return jsonify({
             "message": "There are no roles"
         }), 404
+
+#View a role after selecting
+@app.route("/role/<int:role_id>")
+def view_role(role_id):
+    role = Ljps_role.get
 
 # Find COURSE by course_id
 @app.route("/course/<string:course_id>")
