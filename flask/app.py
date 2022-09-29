@@ -192,8 +192,10 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
     skills_completed = []
     for completed_course in completed_courses:
         attached_skills = Attached_skill.get_attached_skill_by_course_id(completed_course)
-        skills_completed.extend(attached_skills)
-
+        for skill in attached_skills:
+            skills_completed.append(skill['skill_id'])
+        # skills_completed.extend(attached_skills)  
+    
     # 2. from LJPS role ID, get all the skills related to it from role_required_skill
     skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
     
@@ -204,25 +206,24 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
         details = Skill.get_skill_by_id(skill['skill_id'])
         skills_under_ljpsr_details.append(details)
 
-    
     # Loop below is to add in an additional field 'completed' , if user has completed that skill it will be set to 1, else 0.
-    # for skill_completed in skills_completed:
-    #     for skill in skills_under_ljpsr_details:
-    #         if skill_completed['skill_id'] == skill['skill_id']:
-    #             skill['completed'] = 1
-    #         else:
-    #             skill['completed'] = 0
+    for skill in skills_under_ljpsr_details:
+        if skill['skill_id'] in skills_completed:
+            skill['completed'] = 1
+        else:
+            skill['completed'] = 0
     
-    # if len(skills_under_ljpsr_details):
-    #     return jsonify({
-    #         "data": {
-    #                 "skills_under_ljpsr_details": skills_under_ljpsr_details
-    #             }
-    #     }), 200
-    # else:
-    #     return jsonify({
-    #         "message": "Role has no skills assigned to it."
-    #     }), 404
+    if len(skills_under_ljpsr_details):
+        return jsonify({
+            "data": {
+                    "skills_under_ljpsr_details": skills_under_ljpsr_details
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Role has no skills assigned to it."
+        }), 404
+   
     
     
 
