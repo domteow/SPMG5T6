@@ -27,9 +27,9 @@ class Learning_journey(db.Model):
     staff_id = db.Column(db.Integer, db.ForeignKey(Staff.staff_id), nullable=False)
     status = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, journey_id, role_id, staff_id, status):
+    def __init__(self, journey_id, ljpsr_id, staff_id, status):
         self.journey_id = journey_id
-        self.role_id = role_id
+        self.ljpsr_id = ljpsr_id
         self.staff_id = staff_id
         self.status = status
 
@@ -59,3 +59,33 @@ class Learning_journey(db.Model):
 
         else: 
             return []
+            
+    # creating LJ in learning_journey table (dom)
+    def create_learning_journey(ljpsr_id,staff_id):
+        journey_id = db.session.query(Learning_journey.journey_id).count() + 1
+        new_journey = Learning_journey(journey_id, ljpsr_id,staff_id,0)
+
+        try:
+            db.session.add(new_journey)
+            db.session.commit()
+
+        except:
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "ljpsr_id" : ljpsr_id,
+                        "staff_id" : staff_id
+                    },
+                    "message": "An error occurred creating a LJ"
+                }
+            )
+
+        return jsonify(
+        {
+            "code": 201,
+            "data": new_journey.to_dict()
+        }
+    )
+
+    # creating lj courses in lj_course table (dom)

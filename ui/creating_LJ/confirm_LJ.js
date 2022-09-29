@@ -3,6 +3,7 @@ var selectedCourses = sessionStorage.getItem('checkedCourses');
 var role_name = sessionStorage.getItem('role_name');
 var course_dict = {};
 var courses = selectedCourses.split(',');
+var staff_id = 3 //sessionStorage.getItem('staff_id')
 
 document.getElementById('rolename').innerText = role_name;
 
@@ -40,6 +41,35 @@ for(var skill_name in course_dict){
     courseskill.innerHTML+= `</ul></div>`;
 }
 
-function confirmLJ(){
-    location.href = '../staff/dashboards_standard.html';
+async function confirmLJ(){
+    // creating LJ in learning_journey table
+    var serviceURL = "http://127.0.0.1:5001/createlj/" + String(role_id) + '&' + String(staff_id)
+    console.log(serviceURL)
+
+    try {
+        const response =
+            await fetch(
+            serviceURL, { mode: 'cors', method: 'POST',
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "ljpsr_id" : role_id,
+                "staff_id" : staff_id
+            })
+        });
+        console.log(response)
+        const result = await response.json();
+        console.log(result)
+        if(result.code === 201) {
+            console.log('Learning Journey created')
+        }
+        
+
+    } catch (error) {
+        console.log(error)
+        console.log('error')
+    }
+
+    // creating courses in lj_course table
+
+    // location.href = '../staff/dashboards_standard.html';
 }
