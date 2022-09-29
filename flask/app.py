@@ -56,9 +56,9 @@ def get_all_roles(staff_id):
         result =  all(elem in completed_skills for elem in required_skills)
         #adding field "attained" to each role
         if result:
-            role["attained"] = "True"
+            role["attained"] = 1
         else:
-            role["attained"] = "False"
+            role["attained"] = 0
     if all_roles:
         return jsonify({
             'data': all_roles
