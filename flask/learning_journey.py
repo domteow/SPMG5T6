@@ -50,3 +50,12 @@ class Learning_journey(db.Model):
             return [lj.to_dict() for lj in learning_journey]
         else:
             return []
+
+    def get_learning_journey_role_by_id(journey_id):
+        learning_journey_role = Learning_journey.query.filter_by(journey_id=journey_id).first()
+
+        if learning_journey_role:
+            return learning_journey_role.to_dict()
+
+        else: 
+            return []
