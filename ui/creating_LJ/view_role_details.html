@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/vue@next"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./homepage_standard.css">
+    <link rel="stylesheet" href="./view_role_details.css">
     <link rel="stylesheet" href="../navbar.css">
 
     <!-- font family -->
@@ -76,32 +76,35 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <!-- logo -->
-            <div class="logo">
-                <img src="../img/logo.png" class="logoimg" width="50%" alt="">
+            <div class="rolename" id="rolename">
+                
+            </div>
+            <div class="roledetailsHead">
+                Role Details: 
+            </div>
+            <div class="roledetails" id="roledetails">
+
+            </div>
+            <div class="role_skills_head">
+                Skills Required: 
+            </div>
+            <ul class="role_skills" id="role_skills">
+
+            </ul>
+
+            <div class="createLJ" onclick="confirmCreateLJ()">
+                Create Learning Journey
             </div>
 
-            <!-- search -->
-            <div class="searchdiv">
-                <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a role" name="roleName" id="roleName">
-            </div>
-
-            <!-- roles available -->
-            <div class="rolesavail">
-                <div class="browseroles">
-                    Browse Roles
+            <a href="../staff/homepage_standard.html">
+                <div class="cancelLJ">
+                    Cancel
                 </div>
-
-                <!-- ADD ALL ROLES WITH ID='allroles' -->
-                <div class="allroles" id="allroles">
-                    
-                </div>
-            </div>
+            </a>
         </div>
     </div>
 
-
     <script src="../nav.js"></script>
-    <script src="./homepage_standard.js"></script>
+    <script src="./view_role_details.js"></script>
 </body>
 </html>

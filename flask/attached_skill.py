@@ -47,6 +47,7 @@ class Attached_skill(db.Model):
             return []
 
     
+    # FOR ONE COURSE
     def get_attached_skill_by_course_id(course_id):
         attached_skill = Attached_skill.query.filter_by(course_id=course_id).all()
 
@@ -58,6 +59,7 @@ class Attached_skill(db.Model):
 
     # pls help me check if correct ... 
 
+    # FOR MANY COURSES
     # parses in list of course_ids and try to find the attached skill for each course  
     def get_attached_skill_by_course_ids(course_ids):
         attached_skill = []
@@ -66,6 +68,7 @@ class Attached_skill(db.Model):
             # this assumes that one course have > 1 skill 
             get_skill = Attached_skill.query.filter_by(course_id=course_id).all()
             # creates a key using course_id
+
             # appends each skill to the course 
             for skill in get_skill: 
                 if skill.skill_id not in attached_skill:
