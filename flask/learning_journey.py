@@ -5,10 +5,12 @@ from ljps_role import Ljps_role
 from staff import Staff
 
 app = Flask(__name__)
-#MAC OS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
-#Windows OS
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+import platform
+my_os = platform.system()
+if my_os == "Windows":
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
                                            'pool_recycle': 280}
@@ -25,9 +27,9 @@ class Learning_journey(db.Model):
     staff_id = db.Column(db.Integer, db.ForeignKey(Staff.staff_id), nullable=False)
     status = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, journey_id, role_id, staff_id, status):
+    def __init__(self, journey_id, ljpsr_id, staff_id, status):
         self.journey_id = journey_id
-        self.role_id = role_id
+        self.ljpsr_id = ljpsr_id
         self.staff_id = staff_id
         self.status = status
 
@@ -48,3 +50,42 @@ class Learning_journey(db.Model):
             return [lj.to_dict() for lj in learning_journey]
         else:
             return []
+
+    def get_learning_journey_role_by_id(journey_id):
+        learning_journey_role = Learning_journey.query.filter_by(journey_id=journey_id).first()
+
+        if learning_journey_role:
+            return learning_journey_role.to_dict()
+
+        else: 
+            return []
+            
+    # creating LJ in learning_journey table (dom)
+    def create_learning_journey(ljpsr_id,staff_id):
+        journey_id = db.session.query(Learning_journey.journey_id).count() + 1
+        new_journey = Learning_journey(journey_id, ljpsr_id,staff_id,0)
+
+        try:
+            db.session.add(new_journey)
+            db.session.commit()
+
+        except:
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "ljpsr_id" : ljpsr_id,
+                        "staff_id" : staff_id
+                    },
+                    "message": "An error occurred creating a LJ"
+                }
+            )
+
+        return jsonify(
+        {
+            "code": 201,
+            "data": new_journey.to_dict()
+        }
+    )
+
+    # creating lj courses in lj_course table (dom)

@@ -1,3 +1,4 @@
+from turtle import st
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -13,10 +14,13 @@ from registration import Registration
 from role_required_skill import Role_required_skill
 
 app = Flask(__name__)
-#MAC OS
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
-#Windows OS
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+
+import platform
+my_os = platform.system()
+if my_os == "Windows":
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
                                         
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
@@ -68,9 +72,21 @@ def testing(staff_id):
         }), 404
 
 #View a role after selecting
-@app.route("/role/<int:role_id>")
-def view_role(role_id):
-    role = Ljps_role.get
+@app.route("/role/<int:ljpsr_id>")
+def view_role(ljpsr_id):
+    role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
+    skills = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
+    skill_list = []
+    for skill in skills:
+        skill_info = Skill.get_skill_by_id(skill["skill_id"])
+        skill_list.append(skill_info)
+    if role:
+        return jsonify({
+            "data": {
+                "role": role,
+                "skills": skill_list
+            }
+        })
 
 # Find COURSE by course_id
 @app.route("/course/<string:course_id>")
@@ -137,7 +153,7 @@ def skill_by_id(skill_id):
 @app.route("/attached_skill_by_skill/<int:skill_id>")
 def attached_skill_by_skill(skill_id):
     attached_skill = Attached_skill.get_attached_skill_by_skill_id(skill_id)
-    if len(attached_skill):
+    if len(attached_skill): 
         return jsonify({
             "data": {
                     "attached_skill": attached_skill
@@ -181,6 +197,7 @@ def role_require_skill_by_ljpsr(ljpsr_id):
 
 # Viewing skills needed for a role, according to which staff wants it
 # (acceptance criteria is that staff who queries this should not which skill he/she already possesses)
+
 @app.route("/view_skills_needed_for_role/<int:staff_id>/<int:ljpsr_id>")
 def view_skills_needed_for_role(staff_id, ljpsr_id):
     # 1. from staff ID passed in, get the skills this staff has already acquired
@@ -232,6 +249,41 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
 #     course = Course.getCourseByID(id)
 #     #to json
 #     return #json
+
+# Creating a Learning Journey (dom)
+@app.route("/createlj/<int:ljpsr_id>&<int:staff_id>", methods=['POST'])
+def new_learning_journey(ljpsr_id, staff_id):
+    # call create lj function in Learning Journey class 
+    createLJ_result = Learning_journey.create_learning_journey(ljpsr_id, staff_id)
+    print('function called to create LJ')
+    print(createLJ_result)
+    return createLJ_result
+
+# Add Course(s) to existing Learning Journey (jann)
+@app.route("/add_course/<int:journey_id>", methods=['POST'])
+def add_course_to_existing_learning_journey(journey_id):
+    # once inside Learning Journey, click "add course" 
+
+    # get the courses ALR in the learning journey. 
+    added_courses = Lj_course.get_lj_course_by_journey(journey_id)
+
+
+    # using the learning journey id, get the role_id attached to the learning journey. 
+    lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id)
+
+    # using the role_id, get the skills attached to the role. 
+    role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr(lj_role)
+
+    # get all courses related to role_related_skills
+
+    for skill in role_related_skills:
+        all_courses = Attached_skill.get_attached_skill_by_skill_id(skill)
+
+    # with the list of skill_id, display all the courses that the user can choose from. 
+    
+        # however, use a IF function to indicate a status next to courses 
+        # that are alr in the LJ ("This course has alr been added"). 
+        # next to each course, show the course desc. 
 
 
 if __name__ == '__main__':
