@@ -293,26 +293,32 @@ def add_course_to_existing_learning_journey(journey_id):
     # once inside Learning Journey, click "add course" 
 
     # get the courses ALR in the learning journey. 
-    added_courses = Lj_course.get_lj_course_by_journey(journey_id)
-
+    added_courses = Lj_course.get_lj_course_by_journey_list(journey_id) # data type: list 
 
     # using the learning journey id, get the role_id attached to the learning journey. 
-    lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id)
+    lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id) # data type: str (i hope)
 
     # using the role_id, get the skills attached to the role. 
-    role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr(lj_role)
+    role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(lj_role)  # data type: list 
 
-    # get all courses related to role_related_skills
+    # get all courses related to role_related_skills 
+    all_courses = Attached_skill.get_attached_skill_by_course_ids(role_related_skills) # data type: list
+    all_courses_with_description = [] # data type: list of tuples e.g. [(is101, stupid mod, TRUE)] where index 0 is course, index 1 is desc, index 2 is TRUE (can take) 
 
-    for skill in role_related_skills:
-        all_courses = Attached_skill.get_attached_skill_by_skill_id(skill)
+    # show description 
+    for course in all_courses: 
+        course_info = Course.get_course_by_id(course)
+        course_desc = course_info['course_desc']
+        can_take = True
 
-    # with the list of skill_id, display all the courses that the user can choose from. 
-    
         # however, use a IF function to indicate a status next to courses 
-        # that are alr in the LJ ("This course has alr been added"). 
-        # next to each course, show the course desc. 
+        # TRUE = can take, FALSE = take alr 
+        if course in added_courses:
+            can_take = False 
 
+        all_courses_with_description.append((course, course_desc, can_take)) 
+    
+    return all_courses_with_description
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
