@@ -45,3 +45,28 @@ class Attached_skill(db.Model):
             return [atts.to_dict() for atts in attached_skill]
         else:
             return []
+
+    # pls help me check if correct ... 
+
+    # parses in list of course_ids and try to find the attached skill for each one 
+    def get_attached_skill_by_course_ids(courses):
+        attached_skill = {}
+        
+        # loop through each course 
+        for course in courses: 
+            # this assumes that one course have > 1 skill 
+            get_skill = Attached_skill.query.filter_by(course=course).all()
+
+            # creates a key using course_id
+            attached_skill[course] = []
+            # appends each skill to the course 
+            for skill in get_skill: 
+                attached_skill[course].append(skill)
+        
+        if len(attached_skill):
+            return attached_skill
+
+        else:
+            return []
+
+        
