@@ -192,9 +192,9 @@ def role_require_skill_by_ljpsr(ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
 
+#USER STORY SA-1
 # Viewing skills needed for a role, according to which staff wants it
-# (acceptance criteria is that staff who queries this should not which skill he/she already possesses)
-
+# (acceptance criteria is that staff who queries this should know which skill he/she already possesses)
 @app.route("/view_skills_needed_for_role/<int:staff_id>/<int:ljpsr_id>")
 def view_skills_needed_for_role(staff_id, ljpsr_id):
     # Get LJPS role Details
@@ -212,15 +212,8 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
     #         skills_completed.append(skill['skill_id'])
         # skills_completed.extend(attached_skills)  
     
-    # 2. from LJPS role ID, get all the skills related to it from role_required_skill
-    skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
-    
-    # 3. separate them out into skills_completed and skills_not_yet_completed for this LJPS role.
-    skills_under_ljpsr_details = []
-    # Loop below is to get all details of the skills under that role
-    for skill in skills_under_ljpsr:
-        details = Skill.get_skill_by_id(skill['skill_id'])
-        skills_under_ljpsr_details.append(details)
+    # 2. get all skills + their details under this LJPS role with the helper function
+    skills_under_ljpsr_details = get_skill_detail_under_ljpsr(ljpsr_id)
 
     # Loop below is to add in an additional field 'completed' , if user has completed that skill it will be set to 1, else 0.
     for skill in skills_under_ljpsr_details:
@@ -240,8 +233,45 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
         return jsonify({
             "message": "Role has no skills assigned to it."
         }), 404
-   
+
+# USER STORY SA-6
+# View courses under the skills in that role by user 
+# IMPT: only relevant courses that are active should be displayed
+@app.route("/view_courses_under_skill/<int:staff_id>/<int:ljpsr_id>")
+def view_courses_under_skill(staff_id, ljpsr_id):
+
+    # # Get LJPS role Details
+    role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
+
+    skills_under_ljpsr_details = get_skill_detail_under_ljpsr(ljpsr_id)
+
+    # for each skill in skills_under_ljpsr_details, query the attached_skill table to get the course, then query the course table to get the course details, and insert these courses as key (courses) value (array of course objects) pairs back into skills_under_ljpsr_details
+    for skill in skills_under_ljpsr_details:
+        # array below is to store all  courses objects (+ their details) of each skill
+        all_course_details = []
+        courses_attached = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+        for course in courses_attached:
+            course_detail = Course.get_course_by_id(course)
+            if course_detail["course_status"] == 'Active':
+                all_course_details.append(course_detail)
+        skill['courses'] = all_course_details
     
+    if len(skills_under_ljpsr_details):
+        return jsonify({
+            "data": {
+                    "ljps_role": role,
+                    "skills_with_courses": skills_under_ljpsr_details
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Role has no skills assigned to it."
+        }), 404
+    
+
+
+
+       
     
 
 # @app.route("/path/<int:id>", methods = ['POST'])
@@ -320,5 +350,22 @@ def add_course_to_existing_learning_journey(journey_id):
     
     return all_courses_with_description
 
+######################################################################
+# HELPER FUNCTIONS BELOW
+######################################################################
+
+# This helper function will get details of each skill under the LJPS Role passed in
+def get_skill_detail_under_ljpsr(ljpsr_id):
+
+    #from LJPS role ID, get all the skills related to it from role_required_skill (Array of skill IDs)
+    skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+
+    skills_under_ljpsr_details = []
+    for skill in skills_under_ljpsr:
+        details = Skill.get_skill_by_id(skill)
+        skills_under_ljpsr_details.append(details)
+    return skills_under_ljpsr_details
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
+

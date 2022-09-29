@@ -46,6 +46,17 @@ class Attached_skill(db.Model):
         else:
             return []
 
+    # For list of course IDs
+    def get_attached_course_by_skill_id_list(skill_id):
+        courses = []
+        attached_course = Attached_skill.query.filter_by(skill_id=skill_id).all()
+
+        if len(attached_course):
+            for course in attached_course:
+                if course.course_id not in courses:
+                    courses.append(course.course_id)
+
+        return courses 
     
     # FOR ONE COURSE
     def get_attached_skill_by_course_id(course_id):
