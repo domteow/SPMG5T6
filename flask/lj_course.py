@@ -44,3 +44,29 @@ class Lj_course(db.Model):
             return [ljc.to_dict() for ljc in lj_course]
         else:
             return []
+
+    #create lj courses (dom)
+    def create_lj_course(journey_id, course_id):
+        new_lj_course = Lj_course(journey_id, course_id)
+
+        try:
+            db.session.add(new_lj_course)
+            db.session.commit()
+
+        except:
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "journey_id" : journey_id,
+                        "course_id" : course_id
+                    },
+                    "message": "An error occurred creating a LJ"
+                }
+            )
+
+        return jsonify(
+        {
+            "code": 201,
+            "data": new_lj_course.to_dict()
+        }
