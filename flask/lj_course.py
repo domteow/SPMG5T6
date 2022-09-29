@@ -69,4 +69,4 @@ class Lj_course(db.Model):
         {
             "code": 201,
             "data": new_lj_course.to_dict()
-        }
+        })
