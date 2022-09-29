@@ -227,8 +227,11 @@ insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) val
 
 insert into course (course_id, course_name, course_desc, course_status, course_type, course_category) values
 ('COURSE1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
-('COURSE2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business');
-
+('COURSE2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business'),
+('COURSE3',	'Accounting Fundamentals',	'financial statements and more!',	'Active', 'Internal',	'Finance'),
+('COURSE4', 'Writing & Reasoning',	'be better at writing emails',	'Active',	'Internal',	'Business'),
+('COURSE5',	'User Interface & User Experience',	'prototypes, wireframes, user design stuff',	'Active',	'Internal',	'Design'),
+('COURSE6',	'Business Value with User Experience',	'how nice app make good money',	'Active',	'External', 'Design');
 -- --------------------------------------------------------
 
 --
@@ -238,7 +241,12 @@ insert into course (course_id, course_name, course_desc, course_status, course_t
 insert into skill (skill_id, skill_desc, skill_name) values
 (1, 'Researching an organization and its working environment to formulate a strategy', 'Strategic Analysis'),
 (2, 'A set of tools and calculations used in determining whether a system meets certain specification requirements', 'Capabilities Analysis'),
-(3, 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management');
+(3, 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management'),
+(4,	'design for usability', 'User-Centric Design'),
+(5,	'how to bring value to business',	'Value Proposition'),
+(6,	'beginner level accounting things', 'Accounting (Basics)'), 
+(7,	'how to talk like businessman and woman',	'Business Communication');
+
 -- --------------------------------------------------------
 
 --
@@ -248,7 +256,12 @@ insert into skill (skill_id, skill_desc, skill_name) values
 insert into attached_skill (skill_id, course_id) values
 (1, 'COURSE1'), -- skill: strat analysis, course: biz strat
 (2, 'COURSE1'), -- skill: cap analysis, course: biz strat
-(2, 'COURSE2'); -- skill: cap analysis, course: foundations of pm
+(2, 'COURSE2'), -- skill: cap analysis, course: foundations of pm
+(3, 'COURSE2'), -- skill: project mgt, course: foundations of pm
+(6, 'COURSE3'), -- skill: accounting (basics), course: accounting fundamentals
+(7, 'COURSE4'), -- skill: biz comm, course: writing & reasoning
+(4, 'COURSE5'), -- skill: user-centric design, course: user interface & user exp 
+(5, 'COURSE6'); -- skill: value prop, course: business value with ux 
 
 -- --------------------------------------------------------
 
@@ -259,7 +272,13 @@ insert into attached_skill (skill_id, course_id) values
 insert into registration (reg_id, course_id, staff_id, reg_status, completion_status) values
 (1, 'COURSE1', 2, 'Registered', 'In-Progress'), -- business strategy, kelvin, in prog
 (2, 'COURSE2', 1, 'Registered', 'In-Progress'), -- foundations of pm, jann, in prog
-(3, 'COURSE1', 1, 'Registered', 'Completed'); -- business strategy, jann, completed
+(3, 'COURSE1', 1, 'Registered', 'Completed'), -- business strategy, jann, completed
+(4,	'COURSE5', 3,	'Registered',	'In-Progress'), -- uiux, dom, in prog 
+(5,	'COURSE2', 2,	'Registered',	'In-Progress'), -- foundations of pm, kelvin, completed
+(6,	'COURSE3',	2, 'Registered',	'Completed'), -- accounting fundamentals, kelvin, completed
+(7, 'COURSE6',	3,	'Registered',	'In-Progress'), -- business value with ui, dom, inprog
+(8,	'COURSE1',	1,	'Registered',	'In-Progress'), -- business strat, jann, in prog
+(9,	'COURSE3',	1,	'Registered',	'In-Progress'); -- accounting fundamentals, jann, in prog 
 
 -- --------------------------------------------------------
 
@@ -270,7 +289,8 @@ insert into registration (reg_id, course_id, staff_id, reg_status, completion_st
 insert into ljps_role (ljpsr_id, role_title, role_desc) values
 (1, 'Accountant', 'Accountants are responsible for financial audits, reconciling bank statements, and ensuring financial records are accurate throughout the year.'), 
 (2, 'Project Manager', 'Project managers are accountable for planning and allocating resources, preparing budgets, monitoring progress, and keeping stakeholders informed throughout the project lifecycle'),
-(3, 'Business Intelligence Analysts', 'Business Intelligence Analysts capitalise on data and translate it into insights for the company in order to make informed decisions.');
+(3,	'UI/UX Designer',	'design allinone application and all its features'), 
+(4,	'Business Development',	'help to develop the business'); 
 
 -- --------------------------------------------------------
 
@@ -279,10 +299,16 @@ insert into ljps_role (ljpsr_id, role_title, role_desc) values
 --
 
 insert into role_required_skill (skill_id, ljpsr_id) values
-(1, 1), -- strat analysis, accountant
-(2, 1), -- cap analysis, accountant
-(3, 2); -- project management, project manager
-
+(1,	1), -- strat analysis, accountant
+(2,	1), -- cap analysis, accountant
+(6,	1), -- value prop, accountant
+(3,	2), -- project mgt, project manager
+(7,	2), -- business comm, proj manager
+(4,	3), -- user-centric design, ui/ux designer
+(5,	3), -- value prop, ui/ux designer
+(1,	4), -- strat analysis, biz dev
+(2,	4), -- cap analysis, biz dev
+(7,	4); -- biz comm, biz dev
 -- --------------------------------------------------------
 
 --
@@ -292,7 +318,8 @@ insert into role_required_skill (skill_id, ljpsr_id) values
 insert into learning_journey (journey_id, ljpsr_id, staff_id, status) values
 (1, 1, 2, 0), -- accountant, kelvin, incomplete
 (2, 2, 1, 0), -- project manager, jann, incomplete
-(3, 1, 1, 0); -- accountant, jann, incomplete
+(3, 1, 1, 0), -- accountant, jann, incomplete
+(4, 3, 3, 0); -- uiux designer, dom, incomplete
 
 -- --------------------------------------------------------
 
