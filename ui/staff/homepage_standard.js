@@ -21,6 +21,8 @@ roles = {
     ]
 }
 
+var staff_id = 1
+sessionStorage.setItem('staff_id', staff_id)
 var place = document.getElementById('allroles');
 var all_roles = roles['roles_deets'];
 
@@ -63,7 +65,37 @@ for (let role in all_roles){
     }
 }
 
-function createLJ(roleid){
+// function createLJ(roleid){
+//     sessionStorage.setItem('role_id', roleid);
+
+
+//     location.href = '../creating_LJ/view_role_details.html';
+// }
+
+// get all required skills related to the selected role
+async function createLJ(roleid){
     sessionStorage.setItem('role_id', roleid);
-    location.href = '../creating_LJ/view_role_details.html';
+
+    var serviceURL = "/view_skills_needed_for_role/" + String(staff_id) + '&' + String(ljpsr_id)
+
+    try {
+        const response =
+            await fetch(
+            serviceURL, { mode: 'cors', method: 'GET' }
+        );
+        console.log(response)
+        const result = await response.json();
+        console.log(result)
+        if(result.code === 201) {
+            console.log('Role selected')
+            sessionStorage.setItem('role_details', result)
+        }
+        
+
+    } catch (error) {
+        console.log(error)
+        console.log('error')
+    }
+
+    // location.href = '../creating_LJ/view_role_details.html';
 }

@@ -3,8 +3,9 @@ var selectedCourses = sessionStorage.getItem('checkedCourses');
 var role_name = sessionStorage.getItem('role_name');
 var course_dict = {};
 var courses = selectedCourses.split(',');
-var staff_id = 3 //sessionStorage.getItem('staff_id')
+var staff_id = sessionStorage.getItem('staff_id')
 
+var skillarr = sessionStorage.getItem('skillarr') //array of skill IDs
 document.getElementById('rolename').innerText = role_name;
 
 
