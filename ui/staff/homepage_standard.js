@@ -24,7 +24,7 @@ roles = {
 var staff_id = 1
 sessionStorage.setItem('staff_id', staff_id)
 var place = document.getElementById('allroles');
-var all_roles = roles['roles_deets'];
+var all_roles = roles['data'];
 
 for (let role in all_roles){
     var roled = all_roles[role];
@@ -43,9 +43,7 @@ for (let role in all_roles){
             <div class="row">
                 <div class="col-4 roledeets">`+ role_name + `</div>
                 <div class= 'col-4 completed'>Attained Skills Required</div>
-                <div class="col-4 ncompleted" id=${role_id} onclick='createLJ(this.id)'>
-                Take Skills Required
-                </div>
+                <div class='col-4'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
             </div>
         </div>`
     }
@@ -57,9 +55,7 @@ for (let role in all_roles){
             <div class="row">
                 <div class="col-4 roledeets">${role_name}</div>
                 <div class= 'col-4 completed'></div>
-                <div class="col-4 ncompleted" id=${role_id} onclick='createLJ(this.id)'>
-                    Take Skills Required
-                </div>
+                <div class='col-4'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
             </div>
         </div>`
     }

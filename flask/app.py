@@ -41,28 +41,24 @@ db.create_all()
 
 #First page with all roles + attained status
 @app.route("/all_roles/<int:staff_id>")
-def testing(staff_id):
+def get_all_roles(staff_id):
+    #get all roles in dictionary format
     all_roles = Ljps_role.get_all_learning_journey_roles()
+    #get courses completed by staff in list format
     completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    #get skills completed by staff in list format
+    completed_skills = Attached_skill.get_attached_skill_by_course_ids(completed_courses)
     #looping through all available roles
     for role in all_roles:
         #find the required skills in the role
-        required_skills = Role_required_skill.get_role_require_skill_by_ljpsr(role["ljpsr_id"])
-        #check if staff has role by comparing num of completed_skills
-        print(required_skills)
-        num_skills = len(required_skills)
-        completed_skills = 0
-        for required_skill in required_skills:
-            attached_courses = Attached_skill.get_attached_course_by_skill_id(required_skill["skill_id"])
-            for attached_course in attached_courses:
-                if attached_course["course_id"] in completed_courses:
-                    completed_skills += 1
-                    break
+        required_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(role["ljpsr_id"])
+        #check if staff has role by completed_skills to required_skills
+        result =  all(elem in completed_skills for elem in required_skills)
         #adding field "attained" to each role
-        if num_skills == completed_skills:
-            role["attained"] = "True"
+        if result:
+            role["attained"] = 1
         else:
-            role["attained"] = "False"
+            role["attained"] = 0
     if all_roles:
         return jsonify({
             'data': all_roles
@@ -209,11 +205,11 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
     # above is an array of COURSE_IDs
 
     # b. get all rows in attached_skill table with those course IDs, to get the skill IDs
-    skills_completed = []
-    for completed_course in completed_courses:
-        attached_skills = Attached_skill.get_attached_skill_by_course_id(completed_course)
-        for skill in attached_skills:
-            skills_completed.append(skill['skill_id'])
+    skills_completed = Attached_skill.get_attached_skill_by_course_ids(completed_courses)
+    # for completed_course in completed_courses:
+    #     attached_skills = Attached_skill.get_attached_skill_by_course_id(completed_course)
+    #     for skill in attached_skills:
+    #         skills_completed.append(skill['skill_id'])
         # skills_completed.extend(attached_skills)  
     
     # 2. from LJPS role ID, get all the skills related to it from role_required_skill
@@ -266,6 +262,30 @@ def new_learning_journey(ljpsr_id, staff_id):
     print('function called to create LJ')
     print(createLJ_result)
     return createLJ_result
+
+# Reading a Learning Journey
+@app.route("/readlj/<int:staff_id>")
+def read_learning_journeys(staff_id):
+    # call read lj function in Learning Journey class 
+    read_result = Learning_journey.get_learning_journey_by_staff_id(staff_id)
+    if len(read_result):
+        for lj in read_result:
+            ljps_result = Ljps_role.get_learning_journey_role_by_id(lj['ljpsr_id'])
+            lj['role_title'] = ljps_result['role_title']
+            lj['role_desc'] = ljps_result['role_desc']
+            role_skill_result = Role_required_skill.get_role_require_skill_by_ljpsr(lj['ljpsr_id'])
+            all_skills = []
+            for skill in role_skill_result:
+                skill_result = Skill.get_skill_by_id(skill['skill_id'])
+                all_skills.append({"skill_id":skill['skill_id'],"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"status":0})
+            lj['skills'] = all_skills
+            lj_course_result = Lj_course.get_lj_course_by_journey(lj['journey_id'])
+            all_courses = []
+            for lj_course in lj_course_result:
+                course = Course.get_course_by_id(lj_course['course_id'])
+                all_courses.append({"course_id":course['course_id'],"course_name":course['course_name'],"course_desc":course['course_desc'],"course_status":course['course_status'],"course_type":course['course_type'],"course_category":course['course_category']})
+            lj['courses'] = all_courses
+    return jsonify({"learning_journeys":read_result})
 
 # Add Course(s) to existing Learning Journey (jann)
 @app.route("/add_course/<int:journey_id>", methods=['POST'])

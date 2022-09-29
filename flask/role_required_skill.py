@@ -44,3 +44,15 @@ class Role_required_skill(db.Model):
             return [rrs.to_dict() for rrs in role_require_skill]
         else:
             return []
+
+    def get_role_require_skill_by_ljpsr_list(ljpsr_id):
+        skills = []
+        role_require_skill = Role_required_skill.query.filter_by(ljpsr_id=ljpsr_id).all()
+
+        if len(role_require_skill):
+            for skill in role_require_skill:
+                if skill.skill_id not in skills:
+                    skills.append(skill.skill_id)
+
+        return skills
+

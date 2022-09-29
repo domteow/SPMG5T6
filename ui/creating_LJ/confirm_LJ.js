@@ -43,7 +43,7 @@ for(var skill_name in course_dict){
 }
 
 // function confirmLJ(){
-//     location.href = '../staff/dashboards_standard.html';
+//     location.href = '../staff/dashboard_standard.html';
 // }
 
 
@@ -77,5 +77,5 @@ async function confirmLJ(){
 
     // creating courses in lj_course table
 
-    // location.href = '../staff/dashboards_standard.html';
+    // location.href = '../staff/dashboard_standard.html';
 }
