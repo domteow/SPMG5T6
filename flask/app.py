@@ -41,25 +41,21 @@ db.create_all()
 
 #First page with all roles + attained status
 @app.route("/all_roles/<int:staff_id>")
-def testing(staff_id):
+def get_all_roles(staff_id):
+    #get all roles in dictionary format
     all_roles = Ljps_role.get_all_learning_journey_roles()
+    #get courses completed by staff in list format
     completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    #get skills completed by staff in list format
+    completed_skills = Attached_skill.get_attached_skill_by_course_ids(completed_courses)
     #looping through all available roles
     for role in all_roles:
         #find the required skills in the role
-        required_skills = Role_required_skill.get_role_require_skill_by_ljpsr(role["ljpsr_id"])
-        #check if staff has role by comparing num of completed_skills
-        print(required_skills)
-        num_skills = len(required_skills)
-        completed_skills = 0
-        for required_skill in required_skills:
-            attached_courses = Attached_skill.get_attached_course_by_skill_id(required_skill["skill_id"])
-            for attached_course in attached_courses:
-                if attached_course["course_id"] in completed_courses:
-                    completed_skills += 1
-                    break
+        required_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(role["ljpsr_id"])
+        #check if staff has role by completed_skills to required_skills
+        result =  all(elem in completed_skills for elem in required_skills)
         #adding field "attained" to each role
-        if num_skills == completed_skills:
+        if result:
             role["attained"] = "True"
         else:
             role["attained"] = "False"
