@@ -92,7 +92,7 @@ input:focus{
 
 .ncompleted{
     text-align: center;
-    width: 30%;
+    width: 100%;
     font-family: roboto,sans-serif;
     font-weight: 600;
     font-style: normal;
@@ -101,8 +101,18 @@ input:focus{
     color: #000;
     text-align: center;
     border-radius: 8px;
-    padding: 1%;
+    padding: 3%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+a{
+    text-decoration: none;
+    /* border: 1px solid grey; */
+    padding: 0%;
+}
+
+a:hover{
+    text-decoration: none;
 }
 
 /* responsiveness */

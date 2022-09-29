@@ -1,0 +1,322 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+}
+
+.maincontent{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+}
+
+.hiuser{
+    font-family: roboto,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 30px;
+}
+
+.ljtitlediv{
+    margin-top: 3%;
+}
+
+.ljtitle{
+    font-family: roboto,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 24px;
+}
+
+/* carousel part */ 
+
+.carousel{
+    margin-top: 3%;
+    padding-bottom: 3%;
+    border-bottom: 1px solid #DDDDDD;
+}
+
+/* .carousel-inner{
+    border: 1px solid yellowgreen;
+} */
+
+.caroucontainer{
+    /* border: 1px solid pink; */
+    width:100%;
+}
+
+.learningjourney{
+    height: 200px; 
+    background-color: #E5E5FE;
+    border-radius: 10px;
+    padding: 3%;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.title{
+    padding: 2%;
+    font-family: roboto,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 20px;
+    color: #000;
+    margin-top: 5%;
+    margin-left: 2%;
+}
+
+.progresstitle{
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px;
+    color: #000;
+    margin-top: 15%;
+    margin-left: 2%;
+}
+
+.progress{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+.progress-bar{
+    background-color:#9E82CA;
+}
+
+.activepath{
+    background-color: #ffe9e9;
+    box-shadow: 12px 20px #FFA0A0;
+}
+
+.activeprogress{
+    background-color: #FFA0A0;
+}
+
+.carousel-item{
+    background-color: aliceblue 0.8;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+a:visited{
+    text-decoration: none;
+}
+
+a:active{
+    text-decoration: none;
+}
+
+/* end of carousel */ 
+
+/* lj courses */ 
+.ljcourses{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0%;
+    padding:0%;
+}
+
+.coursestaking{
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 24px;
+    color: #000;
+    margin-top: 2%;
+    margin-bottom: 0%;
+    padding: 0%;
+}
+
+.title{
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    color: #000;
+    margin-top: 2%;
+}
+
+.searchcol{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.5%;
+}
+
+.searchicon{
+    padding-left: 3%;
+}
+
+input{
+    border: 0px solid;
+    height: 100%;
+    width: 80%;
+    padding: 1.5%;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+.newcoursebutton{
+    background-color: #190063;
+    color: #FFDBA5;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: roboto,sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+    height: 90%;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-top:2%;
+    border-radius: 10px;
+}
+
+.searchfield{
+    margin-top: 2%;
+}
+
+.courses{
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+.module{
+    text-align: left;
+    margin-left: 0%;
+    padding: 0%;
+}
+
+.course{
+    width:90%;
+    background-color: #F8F8F8;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 2%;
+    margin: 0%;
+}
+
+.courseName{
+    font-family: roboto,sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size:20px;
+    padding-top: 1%;
+    
+}
+
+.courseComplete{
+    color: #85c687;;
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.courseNotComplete{
+    color: #D89A60;
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.row{
+    margin-top: 2%;
+}
+
+.ico{
+    margin-left:1%;
+}
+
+/* delete button */ 
+.delete{
+    padding: 1%;
+    background-color: rgb(245, 86, 86);
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px;
+    border-radius: 3px;
+    width:25%;
+    color: white;
+    text-align: center;
+    margin-bottom: 5%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+    .navitem{
+        font-size: 20px;
+    }
+    .module{
+        margin-top: 5%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .courseName{
+        width:80%;
+        font-size: 16px;
+        padding-left: 7%;
+        padding-top: 3%;
+    }
+    .ico{
+        padding-left: 5%;
+    }
+
+    .course{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .multi-item-carousel .carousel-inner > .item {
+        transition: 500ms ease-in-out left;
+      }
+      .multi-item-carousel .carousel-inner .active.left {
+        left: -50%;
+      }
+      .multi-item-carousel .carousel-inner .active.right {
+        left: 50%;
+      }
+      .multi-item-carousel .carousel-inner .next {
+        left: 50%;
+      }
+      .multi-item-carousel .carousel-inner .prev {
+        left: -50%;
+      }
+    .newcourse{
+        margin-top: 3%;
+        height: 100%;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
