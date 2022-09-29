@@ -32,11 +32,12 @@ CORS(app)
 
 db.create_all()
 
-# @app.route("/testing/<int:staff_id>")
-# def testding(staff_id):
-#     testing = Registration.get_completed_courses_by_staff_id(staff_id)
+# @app.route("/testing")
+# def testding():
+#     courses = ["COURSE1","COURSE2"]
+#     testing = Attached_skill.get_attached_skill_by_course_ids(courses)
 
-#     return testing
+#     return jsonify({"data": testing})
 
 #First page with all roles + attained status
 @app.route("/all_roles/<int:staff_id>")
@@ -52,7 +53,7 @@ def testing(staff_id):
         num_skills = len(required_skills)
         completed_skills = 0
         for required_skill in required_skills:
-            attached_courses = Attached_skill.get_attached_skill_by_skill_id(required_skill["skill_id"])
+            attached_courses = Attached_skill.get_attached_course_by_skill_id(required_skill["skill_id"])
             for attached_course in attached_courses:
                 if attached_course["course_id"] in completed_courses:
                     completed_skills += 1
@@ -83,7 +84,7 @@ def view_role(ljpsr_id):
     if role:
         return jsonify({
             "data": {
-                "role": role,
+                "ljps_role": role,
                 "skills": skill_list
             }
         })
@@ -153,7 +154,7 @@ def skill_by_id(skill_id):
 @app.route("/attached_skill_by_skill/<int:skill_id>")
 def attached_skill_by_skill(skill_id):
     attached_skill = Attached_skill.get_attached_skill_by_skill_id(skill_id)
-    if len(attached_skill):
+    if len(attached_skill): 
         return jsonify({
             "data": {
                     "attached_skill": attached_skill
@@ -197,14 +198,55 @@ def role_require_skill_by_ljpsr(ljpsr_id):
 
 # Viewing skills needed for a role, according to which staff wants it
 # (acceptance criteria is that staff who queries this should not which skill he/she already possesses)
-@app.route("/view_skills_needed_for_role/<int:staff_id>")
+
+@app.route("/view_skills_needed_for_role/<int:staff_id>/<int:ljpsr_id>")
 def view_skills_needed_for_role(staff_id, ljpsr_id):
+    # Get LJPS role Details
+    role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
     # 1. from staff ID passed in, get the skills this staff has already acquired
+    # a. get all rows in registration table with this staff_id, then get the course_id for those which are marked completed under completion_status column
+    completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    # above is an array of COURSE_IDs
 
-    # 2. from LJPS role ID, get all the skills related to it
+    # b. get all rows in attached_skill table with those course IDs, to get the skill IDs
+    skills_completed = []
+    for completed_course in completed_courses:
+        attached_skills = Attached_skill.get_attached_skill_by_course_id(completed_course)
+        for skill in attached_skills:
+            skills_completed.append(skill['skill_id'])
+        # skills_completed.extend(attached_skills)  
+    
+    # 2. from LJPS role ID, get all the skills related to it from role_required_skill
+    skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
+    
+    # 3. separate them out into skills_completed and skills_not_yet_completed for this LJPS role.
+    skills_under_ljpsr_details = []
+    # Loop below is to get all details of the skills under that role
+    for skill in skills_under_ljpsr:
+        details = Skill.get_skill_by_id(skill['skill_id'])
+        skills_under_ljpsr_details.append(details)
 
-    # 3. separate them out into skills_already_acquired and skills_not_yet_acquired for this LJPS role.
-    pass
+    # Loop below is to add in an additional field 'completed' , if user has completed that skill it will be set to 1, else 0.
+    for skill in skills_under_ljpsr_details:
+        if skill['skill_id'] in skills_completed:
+            skill['completed'] = 1
+        else:
+            skill['completed'] = 0
+    
+    if len(skills_under_ljpsr_details):
+        return jsonify({
+            "data": {
+                    "ljps_role": role,
+                    "skills": skills_under_ljpsr_details
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Role has no skills assigned to it."
+        }), 404
+   
+    
+    
 
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
@@ -224,6 +266,32 @@ def new_learning_journey(ljpsr_id, staff_id):
     print('function called to create LJ')
     print(createLJ_result)
     return createLJ_result
+
+# Add Course(s) to existing Learning Journey (jann)
+@app.route("/add_course/<int:journey_id>", methods=['POST'])
+def add_course_to_existing_learning_journey(journey_id):
+    # once inside Learning Journey, click "add course" 
+
+    # get the courses ALR in the learning journey. 
+    added_courses = Lj_course.get_lj_course_by_journey(journey_id)
+
+
+    # using the learning journey id, get the role_id attached to the learning journey. 
+    lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id)
+
+    # using the role_id, get the skills attached to the role. 
+    role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr(lj_role)
+
+    # get all courses related to role_related_skills
+
+    for skill in role_related_skills:
+        all_courses = Attached_skill.get_attached_skill_by_skill_id(skill)
+
+    # with the list of skill_id, display all the courses that the user can choose from. 
+    
+        # however, use a IF function to indicate a status next to courses 
+        # that are alr in the LJ ("This course has alr been added"). 
+        # next to each course, show the course desc. 
 
 
 if __name__ == '__main__':
