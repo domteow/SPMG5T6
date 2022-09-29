@@ -32,11 +32,12 @@ CORS(app)
 
 db.create_all()
 
-# @app.route("/testing/<int:staff_id>")
-# def testding(staff_id):
-#     testing = Registration.get_completed_courses_by_staff_id(staff_id)
+# @app.route("/testing")
+# def testding():
+#     courses = ["COURSE1","COURSE2"]
+#     testing = Attached_skill.get_attached_skill_by_course_ids(courses)
 
-#     return testing
+#     return jsonify({"data": testing})
 
 #First page with all roles + attained status
 @app.route("/all_roles/<int:staff_id>")
@@ -52,7 +53,7 @@ def testing(staff_id):
         num_skills = len(required_skills)
         completed_skills = 0
         for required_skill in required_skills:
-            attached_courses = Attached_skill.get_attached_skill_by_skill_id(required_skill["skill_id"])
+            attached_courses = Attached_skill.get_attached_course_by_skill_id(required_skill["skill_id"])
             for attached_course in attached_courses:
                 if attached_course["course_id"] in completed_courses:
                     completed_skills += 1
