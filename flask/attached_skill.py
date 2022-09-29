@@ -48,7 +48,7 @@ class Attached_skill(db.Model):
 
     # pls help me check if correct ... 
 
-    # parses in list of course_ids and try to find the attached skill for each one 
+    # parses in list of course_ids and try to find the attached skill for each course  
     def get_attached_skill_by_course_ids(courses):
         attached_skill = {}
         
