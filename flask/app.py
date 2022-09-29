@@ -221,6 +221,25 @@ def new_learning_journey(ljpsr_id, staff_id):
     print(createLJ_result)
     return createLJ_result
 
+# Add Course(s) to existing Learning Journey (jann)
+@app.route("/add_course/<int:journey_id>", methods=['POST'])
+def add_course_to_existing_learning_journey(journey_id):
+    # once inside Learning Journey, click "add course" 
+
+    # get the courses ALR in the learning journey. 
+    added_courses = Lj_course.get_lj_course_by_journey(journey_id)
+
+    # using the learning journey id, get the role_id attached to the learning journey. 
+    lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id)
+
+    # using the role_id, get the skills attached to the role. 
+    role_related_skill = Role_required_skill.get_role_require_skill_by_ljpsr(lj_role)
+
+    # with the list of skill_id, display all the courses that the user can choose from. 
+        # however, use a IF function to indicate a status next to courses 
+        # that are alr in the LJ ("This course has alr been added"). 
+        # next to each course, show the course desc. 
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
