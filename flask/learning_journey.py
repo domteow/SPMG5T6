@@ -52,14 +52,14 @@ class Learning_journey(db.Model):
             return []
 
     def get_learning_journey_role_by_id(journey_id):
-        learning_journey_role = Learning_journey.query.filter_by(journey_id=journey_id).first()
+        learning_journey = Learning_journey.query.filter_by(journey_id=journey_id).first()
 
-        if learning_journey_role:
-            return learning_journey_role.to_dict()
+        if len(learning_journey):
+            return learning_journey.ljpsr_id
 
         else: 
-            return []
-            
+            return "Error: No role"
+
     # creating LJ in learning_journey table (dom)
     def create_learning_journey(journey_id, ljpsr_id,staff_id):
         # journey_id = db.session.query(Learning_journey.journey_id).count() + 1
