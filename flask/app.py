@@ -280,7 +280,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
 #     #to json
 #     return #json
 
-# Creating a Learning Journey (dom)
+# Creating a LJ in learning_journey table (dom)
 @app.route("/createlj/<int:ljpsr_id>&<int:staff_id>", methods=['POST'])
 def new_learning_journey(ljpsr_id, staff_id):
     journey_id = db.session.query(Learning_journey.journey_id).count() + 1
@@ -288,10 +288,12 @@ def new_learning_journey(ljpsr_id, staff_id):
     # call create lj function in Learning Journey class 
     createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
     # call create lj course function in Lj_course class
-    createLJ_course_result = Lj_course.create_lj_course
+    # createLJ_course_result = Lj_course.create_lj_course(journey_id, )
     print('function called to create LJ')
     print(createLJ_result)
     return createLJ_result
+
+
 
 # Reading a Learning Journey
 @app.route("/readlj/<int:staff_id>")

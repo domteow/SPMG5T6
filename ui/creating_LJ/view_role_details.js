@@ -151,10 +151,11 @@ role_descriptions = {
     ]
 }
 
-// var role_details = role_descriptions['roles_details'];
+// Retrieving and populating required skills for selected role (dom)
+
 var role_details = JSON.parse(sessionStorage.getItem('role_details'));
 console.log(role_details)
-var role_id = role_details.ljps_role.ljpsr_id;
+var ljpsr_role_id = role_details.ljps_role.ljpsr_id;
 
 var role_name_div = document.getElementById('rolename');
 
@@ -218,9 +219,9 @@ for (var skill in skills){
 //     }
 // }
 
-console.log(role_id);
+console.log(ljpsr_role_id);
 
 function confirmCreateLJ(){
-    sessionStorage.setItem('role_id', role_id);
+    sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
     location.href = './choose_LJ_courses.html';
 }
