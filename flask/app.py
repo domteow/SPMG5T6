@@ -83,7 +83,7 @@ def view_role(ljpsr_id):
     if role:
         return jsonify({
             "data": {
-                "role": role,
+                "ljps_role": role,
                 "skills": skill_list
             }
         })
@@ -200,6 +200,8 @@ def role_require_skill_by_ljpsr(ljpsr_id):
 
 @app.route("/view_skills_needed_for_role/<int:staff_id>/<int:ljpsr_id>")
 def view_skills_needed_for_role(staff_id, ljpsr_id):
+    # Get LJPS role Details
+    role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
     # 1. from staff ID passed in, get the skills this staff has already acquired
     # a. get all rows in registration table with this staff_id, then get the course_id for those which are marked completed under completion_status column
     completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
@@ -233,7 +235,8 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
     if len(skills_under_ljpsr_details):
         return jsonify({
             "data": {
-                    "skills_under_ljpsr_details": skills_under_ljpsr_details
+                    "ljps_role": role,
+                    "skills": skills_under_ljpsr_details
                 }
         }), 200
     else:
