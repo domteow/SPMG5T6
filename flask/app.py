@@ -267,6 +267,30 @@ def new_learning_journey(ljpsr_id, staff_id):
     print(createLJ_result)
     return createLJ_result
 
+# Reading a Learning Journey
+@app.route("/readlj/<int:staff_id>")
+def read_learning_journeys(staff_id):
+    # call read lj function in Learning Journey class 
+    read_result = Learning_journey.get_learning_journey_by_staff_id(staff_id)
+    if len(read_result):
+        for lj in read_result:
+            ljps_result = Ljps_role.get_learning_journey_role_by_id(lj['ljpsr_id'])
+            lj['role_title'] = ljps_result['role_title']
+            lj['role_desc'] = ljps_result['role_desc']
+            role_skill_result = Role_required_skill.get_role_require_skill_by_ljpsr(lj['ljpsr_id'])
+            all_skills = []
+            for skill in role_skill_result:
+                skill_result = Skill.get_skill_by_id(skill['skill_id'])
+                all_skills.append({"skill_id":skill['skill_id'],"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"status":0})
+            lj['skills'] = all_skills
+            lj_course_result = Lj_course.get_lj_course_by_journey(lj['journey_id'])
+            all_courses = []
+            for lj_course in lj_course_result:
+                course = Course.get_course_by_id(lj_course['course_id'])
+                all_courses.append({"course_id":course['course_id'],"course_name":course['course_name'],"course_desc":course['course_desc'],"course_status":course['course_status'],"course_type":course['course_type'],"course_category":course['course_category']})
+            lj['courses'] = all_courses
+    return jsonify({"learning_journeys":read_result})
+
 # Add Course(s) to existing Learning Journey (jann)
 @app.route("/add_course/<int:journey_id>", methods=['POST'])
 def add_course_to_existing_learning_journey(journey_id):
