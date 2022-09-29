@@ -323,6 +323,23 @@ insert into learning_journey (journey_id, ljpsr_id, staff_id, status) values
 
 -- --------------------------------------------------------
 
+--
+-- Dumping data for table `lj_course`
+--
+
+insert into lj_course (journey_id, course_id) values
+(1,	'COURSE1'),  -- lj #1 (accountant, kelvin, incomplete), business strat
+(1,	'COURSE2'),  -- lj #1 (accountant, kelvin, incomplete), foundations of pm 
+(1,	'COURSE3'),  -- lj #1 (accountant, kelvin, incomplete), accounting fundamentals
+(2,	'COURSE2'),  -- lj #2 (PM, jann, incomplete), foundations of pm
+(2,	'COURSE4'),  -- lj #2 (PM, jann, incomplete), wr
+(3,	'COURSE1'),  -- lj #3 (accountant, jann, incomplete), business strat
+(3,	'COURSE3'),  -- lj #3 (accountant, jann, incomplete), foundations of pm 
+(4,	'COURSE5'),  -- lj #4 (uiux, dom, incomplete), uiux
+(4,	'COURSE6');  -- lj #4 (uiux, dom, incomplete), biz value w ux 
+
+-- --------------------------------------------------------
+
 -- 
 -- Import data for table `staff`
 
