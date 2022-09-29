@@ -137,9 +137,9 @@ CREATE TABLE learning_journey (
 --
 
 CREATE TABLE lj_course (
-  lj_course_id int NOT NULL PRIMARY KEY,
   journey_id int NOT NULL,
-  course_id varchar(20) NOT NULL
+  course_id varchar(20) NOT NULL, 
+  constraint lj_course_pk primary key (journey_id, course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
