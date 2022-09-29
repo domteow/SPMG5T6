@@ -52,8 +52,8 @@ class Learning_journey(db.Model):
             return []
 
     # creating LJ in learning_journey table (dom)
-    def create_learning_journey(ljpsr_id,staff_id):
-        journey_id = db.session.query(Learning_journey.journey_id).count() + 1
+    def create_learning_journey(journey_id, ljpsr_id,staff_id):
+        # journey_id = db.session.query(Learning_journey.journey_id).count() + 1
         new_journey = Learning_journey(journey_id, ljpsr_id,staff_id,0)
 
         try:
@@ -79,4 +79,4 @@ class Learning_journey(db.Model):
         }
     )
 
-    # creating lj courses in lj_course table (dom)
+    
