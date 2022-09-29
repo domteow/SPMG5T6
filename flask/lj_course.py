@@ -70,6 +70,7 @@ class Lj_course(db.Model):
             "code": 201,
             "data": new_lj_course.to_dict()
         })
+
         
     def get_lj_course_by_journey_list(journey_id):
         lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
@@ -81,4 +82,3 @@ class Lj_course(db.Model):
                 courses.append(lj_course.course_id)
     	
         return courses 
-

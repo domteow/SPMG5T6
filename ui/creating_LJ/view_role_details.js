@@ -151,7 +151,8 @@ role_descriptions = {
     ]
 }
 
-var role_details = role_descriptions['roles_details'];
+// var role_details = role_descriptions['roles_details'];
+var role_details = sessionStorage.getItem('role_details');
 
 var role_id = sessionStorage.getItem('role_id');
 
