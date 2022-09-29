@@ -197,14 +197,52 @@ def role_require_skill_by_ljpsr(ljpsr_id):
 
 # Viewing skills needed for a role, according to which staff wants it
 # (acceptance criteria is that staff who queries this should not which skill he/she already possesses)
-@app.route("/view_skills_needed_for_role/<int:staff_id>")
+
+@app.route("/view_skills_needed_for_role/<int:staff_id>/<int:ljpsr_id>")
 def view_skills_needed_for_role(staff_id, ljpsr_id):
     # 1. from staff ID passed in, get the skills this staff has already acquired
+    # a. get all rows in registration table with this staff_id, then get the course_id for those which are marked completed under completion_status column
+    completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    # above is an array of COURSE_IDs
 
-    # 2. from LJPS role ID, get all the skills related to it
+    # b. get all rows in attached_skill table with those course IDs, to get the skill IDs
+    skills_completed = []
+    for completed_course in completed_courses:
+        attached_skills = Attached_skill.get_attached_skill_by_course_id(completed_course)
+        for skill in attached_skills:
+            skills_completed.append(skill['skill_id'])
+        # skills_completed.extend(attached_skills)  
+    
+    # 2. from LJPS role ID, get all the skills related to it from role_required_skill
+    skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr(ljpsr_id)
+    
+    # 3. separate them out into skills_completed and skills_not_yet_completed for this LJPS role.
+    skills_under_ljpsr_details = []
+    # Loop below is to get all details of the skills under that role
+    for skill in skills_under_ljpsr:
+        details = Skill.get_skill_by_id(skill['skill_id'])
+        skills_under_ljpsr_details.append(details)
 
-    # 3. separate them out into skills_already_acquired and skills_not_yet_acquired for this LJPS role.
-    pass
+    # Loop below is to add in an additional field 'completed' , if user has completed that skill it will be set to 1, else 0.
+    for skill in skills_under_ljpsr_details:
+        if skill['skill_id'] in skills_completed:
+            skill['completed'] = 1
+        else:
+            skill['completed'] = 0
+    
+    if len(skills_under_ljpsr_details):
+        return jsonify({
+            "data": {
+                    "skills_under_ljpsr_details": skills_under_ljpsr_details
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "Role has no skills assigned to it."
+        }), 404
+   
+    
+    
 
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):

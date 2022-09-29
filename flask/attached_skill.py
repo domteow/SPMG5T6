@@ -46,6 +46,16 @@ class Attached_skill(db.Model):
         else:
             return []
 
+    
+    def get_attached_skill_by_course_id(course_id):
+        attached_skill = Attached_skill.query.filter_by(course_id=course_id).all()
+
+        if len(attached_skill):
+            return [atts.to_dict() for atts in attached_skill]
+        else:
+            return []
+
+
     # pls help me check if correct ... 
 
     # parses in list of course_ids and try to find the attached skill for each course  
@@ -69,4 +79,4 @@ class Attached_skill(db.Model):
         else:
             return []
 
-        
+
