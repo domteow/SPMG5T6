@@ -22,10 +22,14 @@ CORS(app)
 class Lj_course(db.Model):
     __tablename__ = 'lj_course'
 
-    journey_id = db.Column(db.Integer, db.ForeignKey('Learning_journey.journey_id'), primary_key=True,
+    journey_id = db.Column(db.Integer, db.ForeignKey(Learning_journey.journey_id), primary_key=True,
     nullable = False)
-    course_id = db.Column(db.Integer, db.ForeignKey('Course.course_id'), primary_key=True,
+    course_id = db.Column(db.Integer, db.ForeignKey(Course.course_id), primary_key=True,
     nullable = False)
+
+    def __init__(self, journey_id, course_id):
+        self.journey_id = journey_id
+        self.course_id = course_id
 
     def to_dict(self):
         """
@@ -71,14 +75,14 @@ class Lj_course(db.Model):
             "data": new_lj_course.to_dict()
         })
 
-        
+    # Do not see the point of this function... if we assume learning journey cannot add repeated courses.
     def get_lj_course_by_journey_list(journey_id):
         lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
         courses = []
 
         if len(lj_course):
           for course in lj_course: 
-            if lj_course.course_id not in courses:
-                courses.append(lj_course.course_id)
+            if course.course_id not in courses:
+                courses.append(course.course_id)
     	
         return courses 
