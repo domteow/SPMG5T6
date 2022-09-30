@@ -74,8 +74,30 @@ class Lj_course(db.Model):
             "code": 201,
             "data": new_lj_course.to_dict()
         })
+    
+    def delete_lj_course(journey_id, course_id):
+        to_delete = Lj_course.query.filter_by(journey_id=journey_id,course_id=course_id).first()
+        if to_delete:
+            db.session.delete(to_delete)
+            db.session.commit()
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": {
+                        "lj_course": to_delete.to_dict()
+                    }
+                }
+            )
+        return jsonify(
+            {
+                "code": 404,
+                "data": {
+                    "lj_course": to_delete.to_dict()
+                },
+                "message": "Course not found in learning journey."
+            }
+        ), 404
 
-    # Do not see the point of this function... if we assume learning journey cannot add repeated courses.
     def get_lj_course_by_journey_list(journey_id):
         lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
         courses = []

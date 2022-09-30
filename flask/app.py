@@ -360,6 +360,14 @@ def add_course_to_existing_learning_journey(journey_id):
     
     # return all_courses_with_description
 
+@app.route("/delete_course/<int:journey_id>", methods=['DELETE'])
+def delete_drug(journey_id):
+    data = request.get_json()
+    for course_id in data['courses']:
+        Lj_course.delete_lj_course(journey_id, course_id)
+    newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
+    return jsonify({"courses":newly_added_courses})
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
