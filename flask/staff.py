@@ -56,3 +56,10 @@ class Staff(db.Model):
             return [staff.to_dict() for staff in staffs]
         else:
             return None
+    
+    def get_all_staff():
+        staffs = Staff.query.all()
+        if len(staffs):
+            return [staff.to_dict() for staff in staffs]
+        else:
+            return None

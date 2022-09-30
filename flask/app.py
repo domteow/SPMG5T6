@@ -387,6 +387,25 @@ def get_team_members(staff_id):
         "team_members" : team_members
     })
 
+@app.route("/get_all_staff/<int:staff_id>")
+def get_all_staff(staff_id):
+    hr_info = Staff.get_staff_by_id(staff_id)
+    role_info = Role.get_role_by_id(hr_info['role_id'])
+
+    if role_info['role_name'] != "hr":
+        return jsonify({
+            "Error" : "You are not a HR."
+        })
+    all_team = Staff.get_all_staff()
+    all_staff = []
+    for staff in all_team:
+        if staff['staff_id'] != hr_info['staff_id']:
+            all_staff.append(staff)
+    return jsonify({
+        "hr" : hr_info,
+        "all_staff" : all_staff
+    })
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
