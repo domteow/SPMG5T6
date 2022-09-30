@@ -359,7 +359,7 @@ def add_course_to_existing_learning_journey(journey_id):
     #     all_courses_with_description.append((course, course_desc, can_take)) 
     
     # return all_courses_with_description
-
+# Delete courses from Learning Journey
 @app.route("/delete_course/<int:journey_id>", methods=['DELETE'])
 def delete_drug(journey_id):
     data = request.get_json()
@@ -367,6 +367,25 @@ def delete_drug(journey_id):
         Lj_course.delete_lj_course(journey_id, course_id)
     newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
     return jsonify({"courses":newly_added_courses})
+
+@app.route("/get_team_members/<int:staff_id>")
+def get_team_members(staff_id):
+    manager_info = Staff.get_staff_by_id(staff_id)
+    role_info = Role.get_role_by_id(manager_info['role_id'])
+
+    if role_info['role_name'] != "manager":
+        return jsonify({
+            "Error" : "You are not a manager."
+        })
+    all_team = Staff.get_staff_from_department(manager_info['dept'])
+    team_members = []
+    for staff in all_team:
+        if staff['staff_id'] != manager_info['staff_id']:
+            team_members.append(staff)
+    return jsonify({
+        "manager" : manager_info,
+        "team_members" : team_members
+    })
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
