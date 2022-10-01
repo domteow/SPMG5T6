@@ -151,10 +151,11 @@ role_descriptions = {
     ]
 }
 
-// var role_details = role_descriptions['roles_details'];
-var role_details = sessionStorage.getItem('role_details');
+// Retrieving and populating required skills for selected role (dom)
 
-var role_id = sessionStorage.getItem('role_id');
+var role_details = JSON.parse(sessionStorage.getItem('role_details'));
+console.log(role_details)
+var ljpsr_role_id = role_details.ljps_role.ljpsr_id;
 
 var role_name_div = document.getElementById('rolename');
 
@@ -162,38 +163,65 @@ var role_details_div = document.getElementById('roledetails');
 
 var role_skills_list = document.getElementById('role_skills');
 
-for (var idx in role_details){
-    var item = role_details[idx];
-    var itemRole_id = item["role_id"];
-    var rname = item['role_name'];
-    var rdeet = item['role_desc'];
-    var skills = item['skills'];
-    // console.log(skills);
-    // console.log(rname);
-    if (itemRole_id == role_id){
-        role_name_div.innerHTML = `${rname}`;
-        role_details_div.innerHTML = `${rdeet}`;
-        for (var skill in skills){
-            // console.log(skill);
-            var skill_details = skills[skill];
-            var skill_name = skill_details['skill_name'];
-            var skill_desc = skill_details['skill_desc'];
-            // console.log(skill_desc);
-            role_skills_list.innerHTML += `
-                <li class='skillname'>
-                    ${skill_name}
-                    <div class='skilldesc'>
-                        ${skill_desc}
-                    </div>
-                </li>
-            `
-        }
-    }
+
+
+var rname = role_details.ljps_role.role_title;
+var rdeet = role_details.ljps_role.role_desc;
+var skills = role_details.skills
+// console.log(skills);
+// console.log(rname);
+role_name_div.innerHTML = `${rname}`;
+role_details_div.innerHTML = `${rdeet}`;
+for (var skill in skills){
+    // console.log(skill);
+    var skill_details = skills[skill];
+    var skill_name = skill_details['skill_name'];
+    var skill_desc = skill_details['skill_desc'];
+    // console.log(skill_desc);
+    role_skills_list.innerHTML += `
+        <li class='skillname'>
+            ${skill_name}
+            <div class='skilldesc'>
+                ${skill_desc}
+            </div>
+        </li>
+    `
 }
 
-console.log(role_id);
+
+// for (var idx in role_details){
+//     console.log(idx)
+//     var item = role_details[idx];
+//     var itemRole_id = item["role_id"];
+//     var rname = item['role_name'];
+//     var rdeet = item['role_desc'];
+//     var skills = item['skills'];
+//     // console.log(skills);
+//     // console.log(rname);
+//     if (itemRole_id == role_id){
+//         role_name_div.innerHTML = `${rname}`;
+//         role_details_div.innerHTML = `${rdeet}`;
+//         for (var skill in skills){
+//             // console.log(skill);
+//             var skill_details = skills[skill];
+//             var skill_name = skill_details['skill_name'];
+//             var skill_desc = skill_details['skill_desc'];
+//             // console.log(skill_desc);
+//             role_skills_list.innerHTML += `
+//                 <li class='skillname'>
+//                     ${skill_name}
+//                     <div class='skilldesc'>
+//                         ${skill_desc}
+//                     </div>
+//                 </li>
+//             `
+//         }
+//     }
+// }
+
+console.log(ljpsr_role_id);
 
 function confirmCreateLJ(){
-    sessionStorage.setItem('role_id', role_id);
+    sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
     location.href = './choose_LJ_courses.html';
 }

@@ -68,23 +68,26 @@ for (let role in all_roles){
 //     location.href = '../creating_LJ/view_role_details.html';
 // }
 
-// get all required skills related to the selected role
+// get all required skills related to the selected role (dom)
 async function createLJ(roleid){
-    sessionStorage.setItem('role_id', roleid);
+    // roleid selected now becomes learning journey role id
+    sessionStorage.setItem('ljpsr_id', roleid);
 
-    var serviceURL = "/view_skills_needed_for_role/" + String(staff_id) + '&' + String(ljpsr_id)
+    var serviceURL = "http://127.0.0.1:5001/view_skills_needed_for_role/" + String(staff_id) + '/' + String(role_id)
 
     try {
         const response =
             await fetch(
             serviceURL, { mode: 'cors', method: 'GET' }
         );
-        console.log(response)
+        // console.log(response)
         const result = await response.json();
-        console.log(result)
-        if(result.code === 201) {
+        console.log(result.data)
+        if(result) {
             console.log('Role selected')
-            sessionStorage.setItem('role_details', result)
+            role_details = JSON.stringify(result.data)
+            sessionStorage.setItem('role_details', role_details)
+            location.href = '../creating_LJ/view_role_details.html';
         }
         
 

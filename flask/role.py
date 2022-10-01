@@ -36,3 +36,9 @@ class Role(db.Model):
             result[column] = getattr(self, column)
         return result
 
+    def get_role_by_id(role_id):
+        role = Role.query.filter_by(role_id=role_id).first()
+        if role:
+            return role.to_dict()
+        else:
+            return None

@@ -280,7 +280,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
 #     #to json
 #     return #json
 
-# Creating a Learning Journey (dom)
+# Creating a LJ in learning_journey table (dom)
 @app.route("/createlj/<int:ljpsr_id>&<int:staff_id>", methods=['POST'])
 def new_learning_journey(ljpsr_id, staff_id):
     journey_id = db.session.query(Learning_journey.journey_id).count() + 1
@@ -288,10 +288,12 @@ def new_learning_journey(ljpsr_id, staff_id):
     # call create lj function in Learning Journey class 
     createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
     # call create lj course function in Lj_course class
-    createLJ_course_result = Lj_course.create_lj_course
+    # createLJ_course_result = Lj_course.create_lj_course(journey_id, )
     print('function called to create LJ')
     print(createLJ_result)
     return createLJ_result
+
+
 
 # Reading a Learning Journey
 @app.route("/readlj/<int:staff_id>")
@@ -321,34 +323,88 @@ def read_learning_journeys(staff_id):
 @app.route("/add_course/<int:journey_id>", methods=['POST'])
 def add_course_to_existing_learning_journey(journey_id):
     # once inside Learning Journey, click "add course" 
+    data = request.get_json()
+    added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
+    for course_id in data['courses']:
+        if course_id not in added_courses:
+            Lj_course.create_lj_course(journey_id, course_id)
+    newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
+    return jsonify({"courses":newly_added_courses})
+    # for course_id in data['courses']:
+    #     Lj_course.create_lj_course(journey_id, course_id)
+    # # get the courses ALR in the learning journey. 
+    # added_courses = Lj_course.get_lj_course_by_journey_list(journey_id) # data type: list 
 
-    # get the courses ALR in the learning journey. 
-    added_courses = Lj_course.get_lj_course_by_journey_list(journey_id) # data type: list 
+    # # using the learning journey id, get the role_id attached to the learning journey. 
+    # lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id) # data type: str (i hope)
 
-    # using the learning journey id, get the role_id attached to the learning journey. 
-    lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id) # data type: str (i hope)
+    # # using the role_id, get the skills attached to the role. 
+    # role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(lj_role)  # data type: list 
 
-    # using the role_id, get the skills attached to the role. 
-    role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(lj_role)  # data type: list 
+    # # get all courses related to role_related_skills 
+    # all_courses = Attached_skill.get_attached_skill_by_course_ids(role_related_skills) # data type: list
+    # all_courses_with_description = [] # data type: list of tuples e.g. [(is101, stupid mod, TRUE)] where index 0 is course, index 1 is desc, index 2 is TRUE (can take) 
 
-    # get all courses related to role_related_skills 
-    all_courses = Attached_skill.get_attached_skill_by_course_ids(role_related_skills) # data type: list
-    all_courses_with_description = [] # data type: list of tuples e.g. [(is101, stupid mod, TRUE)] where index 0 is course, index 1 is desc, index 2 is TRUE (can take) 
+    # # show description 
+    # for course in all_courses: 
+    #     course_info = Course.get_course_by_id(course)
+    #     course_desc = course_info['course_desc']
+    #     can_take = True
 
-    # show description 
-    for course in all_courses: 
-        course_info = Course.get_course_by_id(course)
-        course_desc = course_info['course_desc']
-        can_take = True
+    #     # however, use a IF function to indicate a status next to courses 
+    #     # TRUE = can take, FALSE = take alr 
+    #     if course in added_courses:
+    #         can_take = False 
 
-        # however, use a IF function to indicate a status next to courses 
-        # TRUE = can take, FALSE = take alr 
-        if course in added_courses:
-            can_take = False 
-
-        all_courses_with_description.append((course, course_desc, can_take)) 
+    #     all_courses_with_description.append((course, course_desc, can_take)) 
     
-    return all_courses_with_description
+    # return all_courses_with_description
+# Delete courses from Learning Journey
+@app.route("/delete_course/<int:journey_id>", methods=['DELETE'])
+def delete_drug(journey_id):
+    data = request.get_json()
+    for course_id in data['courses']:
+        Lj_course.delete_lj_course(journey_id, course_id)
+    newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
+    return jsonify({"courses":newly_added_courses})
+
+@app.route("/get_team_members/<int:staff_id>")
+def get_team_members(staff_id):
+    manager_info = Staff.get_staff_by_id(staff_id)
+    role_info = Role.get_role_by_id(manager_info['role_id'])
+
+    if role_info['role_name'] != "manager":
+        return jsonify({
+            "Error" : "You are not a manager."
+        })
+    all_team = Staff.get_staff_from_department(manager_info['dept'])
+    team_members = []
+    for staff in all_team:
+        if staff['staff_id'] != manager_info['staff_id']:
+            team_members.append(staff)
+    return jsonify({
+        "manager" : manager_info,
+        "team_members" : team_members
+    })
+
+@app.route("/get_all_staff/<int:staff_id>")
+def get_all_staff(staff_id):
+    hr_info = Staff.get_staff_by_id(staff_id)
+    role_info = Role.get_role_by_id(hr_info['role_id'])
+
+    if role_info['role_name'] != "hr":
+        return jsonify({
+            "Error" : "You are not a HR."
+        })
+    all_team = Staff.get_all_staff()
+    all_staff = []
+    for staff in all_team:
+        if staff['staff_id'] != hr_info['staff_id']:
+            all_staff.append(staff)
+    return jsonify({
+        "hr" : hr_info,
+        "all_staff" : all_staff
+    })
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
