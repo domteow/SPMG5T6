@@ -208,7 +208,7 @@ $(async () => {
                     var course_id = course['course_id'];
                     skillscont.innerHTML += `
                         <div class='row coursename form-check'>
-                            <input class='form-check-input' type='checkbox' id=${course_id} name = 'skills' value = "${skillname}/ ${course_name}">
+                            <input class='form-check-input' type='checkbox' id=${course_id} name = 'skills' value = "${skillname}/ ${course_name}/ ${course_id}">
                             ${course_name}
                             <div class='course_desc'>${course_desc}</div>
                         </div>
@@ -240,7 +240,7 @@ function getValues(){
 
     var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
 
-    // console.log(checkedCourses[0]);
+    console.log(checkedCourses);
 
     sessionStorage.setItem('checkedCourses', checkedCourses);
     // sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
