@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from sqlalchemy import JSON
 from learning_journey import Learning_journey
 from course import Course
+import json
 
 app = Flask(__name__)
 import platform
@@ -24,7 +26,7 @@ class Lj_course(db.Model):
 
     journey_id = db.Column(db.Integer, db.ForeignKey(Learning_journey.journey_id), primary_key=True,
     nullable = False)
-    course_id = db.Column(db.Integer, db.ForeignKey(Course.course_id), primary_key=True,
+    course_id = db.Column(db.String(50), db.ForeignKey(Course.course_id), primary_key=True,
     nullable = False)
 
     def __init__(self, journey_id, course_id):
@@ -51,11 +53,26 @@ class Lj_course(db.Model):
 
     #create lj courses (dom)
     def create_lj_course(journey_id, course_arr):
-        new_lj_course = Lj_course(journey_id, course_arr)
         # parse course_arr from string to json object
-        
+        print(course_arr)
+        course_dict = json.loads(course_arr)
+        # print((course_dict.values()))
+        list_of_lj_courses = []
+        print('************CHECKING IF CAN GET LJ COURSE OBJECT*************')
+        for skill, courses_for_skill in course_dict.items():
+            # print(course_dict.values())
+            print(courses_for_skill)
+            for course in courses_for_skill:
+                course_id = course['course_id']
+                print(course)
+                # print(course_id)
+                new_lj_course = Lj_course(journey_id, course_id)
+                # print(new_lj_course)
+                list_of_lj_courses.append(new_lj_course)
+        print(list_of_lj_courses)
         try:
-            db.session.add(new_lj_course)
+            # db.session.bulk_save_objects(list_of_lj_courses)
+            db.session.add(list_of_lj_courses[0])
             db.session.commit()
 
         except:
@@ -64,9 +81,9 @@ class Lj_course(db.Model):
                     "code" : 500,
                     "data": {
                         "journey_id" : journey_id,
-                        "coursearr" : course_arr
+                        "course_id" : course_id
                     },
-                    "message": "An error occurred creating a LJ"
+                    "message": "dom error"
                 }
             )
 

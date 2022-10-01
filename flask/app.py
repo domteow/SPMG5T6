@@ -290,9 +290,9 @@ def new_learning_journey(ljpsr_id, staff_id, course_arr):
     # call create lj course function in Lj_course class
     createLJ_course_result = Lj_course.create_lj_course(journey_id,course_arr)
     print('function called to create LJ')
-    print(createLJ_result)
-    return createLJ_result
-
+    # print(createLJ_result)
+    # return createLJ_result
+    return createLJ_course_result
 
 
 # Reading a Learning Journey

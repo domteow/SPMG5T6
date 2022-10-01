@@ -16,30 +16,30 @@ console.log(courses);
 
 for(let i = 0; i<courses.length; i+=1){
     var course_comb = courses[i].split('/');
-    // console.log(course_comb);
+    console.log(course_comb);
 
     if (course_comb[0] in course_dict){
-        course_dict[course_comb[0]].push(course_comb[1]);
+        course_dict[course_comb[0]].push({'course_id':course_comb[2],'course_name':course_comb[1]});
     }
     else{
-        course_dict[course_comb[0]] = [course_comb[1]];
+        course_dict[course_comb[0]] = [{'course_id':course_comb[2],'course_name':course_comb[1]}];
     }
 }
 
 console.log(course_dict);
-
+console.log(JSON.stringify(course_dict))
 var courseskill = document.getElementById('courseskill');
 
 for(var skill_name in course_dict){
     // console.log(skill_name);
     var courses = course_dict[skill_name];
-    // console.log(courses);
+    console.log(courses);
     courseskill.innerHTML += `
         <div class='row skillname'> ${skill_name} <br> <ul>`; 
-    for (var course in courses){
-        // console.log(course)
+    for (var course of courses){
+        console.log(course)
         courseskill.innerHTML += `
-        <li>${courses[course]}</li>
+        <li>${course.course_name}</li>
         `;
     }
     courseskill.innerHTML+= `</ul></div>`;
@@ -52,6 +52,7 @@ for(var skill_name in course_dict){
 
 async function confirmLJ(){
     // creating LJ in learning_journey table
+    var course_arr = JSON.stringify(course_dict)
     var serviceURL = "http://127.0.0.1:5001/createlj/" + String(ljpsr_id) + '&' + String(staff_id) + '&' + String(course_arr)
     console.log(serviceURL)
 
@@ -62,8 +63,9 @@ async function confirmLJ(){
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 "ljpsr_id" : ljpsr_id,
-                "staff_id" : staff_id
+                "staff_id" : staff_id,
                 // stringify course array and add here
+                "course_arr" : course_arr
             })
         });
         console.log(response)
