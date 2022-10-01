@@ -67,12 +67,14 @@ class Lj_course(db.Model):
                 print(course)
                 # print(course_id)
                 new_lj_course = Lj_course(journey_id, course_id)
+                print('journey_id = ',journey_id)
                 # print(new_lj_course)
-                list_of_lj_courses.append(new_lj_course)
+                list_of_lj_courses.append(new_lj_course) #adding all the course objs to a list to bulk insert
         print(list_of_lj_courses)
         try:
-            # db.session.bulk_save_objects(list_of_lj_courses)
-            db.session.add(list_of_lj_courses[0])
+            db.session.bulk_save_objects(list_of_lj_courses)
+            # db.session.add_all(list_of_lj_courses)
+            # db.session.add(list_of_lj_courses)
             db.session.commit()
 
         except:
