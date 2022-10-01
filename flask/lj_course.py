@@ -50,9 +50,10 @@ class Lj_course(db.Model):
             return []
 
     #create lj courses (dom)
-    def create_lj_course(journey_id, course_id):
-        new_lj_course = Lj_course(journey_id, course_id)
-
+    def create_lj_course(journey_id, course_arr):
+        new_lj_course = Lj_course(journey_id, course_arr)
+        # parse course_arr from string to json object
+        
         try:
             db.session.add(new_lj_course)
             db.session.commit()
@@ -63,7 +64,7 @@ class Lj_course(db.Model):
                     "code" : 500,
                     "data": {
                         "journey_id" : journey_id,
-                        "course_id" : course_id
+                        "coursearr" : course_arr
                     },
                     "message": "An error occurred creating a LJ"
                 }

@@ -52,7 +52,7 @@ for(var skill_name in course_dict){
 
 async function confirmLJ(){
     // creating LJ in learning_journey table
-    var serviceURL = "http://127.0.0.1:5001/createlj/" + String(ljpsr_id) + '&' + String(staff_id)
+    var serviceURL = "http://127.0.0.1:5001/createlj/" + String(ljpsr_id) + '&' + String(staff_id) + '&' + String(course_arr)
     console.log(serviceURL)
 
     try {
@@ -63,6 +63,7 @@ async function confirmLJ(){
             body: JSON.stringify({
                 "ljpsr_id" : ljpsr_id,
                 "staff_id" : staff_id
+                // stringify course array and add here
             })
         });
         console.log(response)
