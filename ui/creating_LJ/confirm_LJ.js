@@ -83,5 +83,5 @@ async function confirmLJ(){
 
     // creating courses in lj_course table
     
-    // location.href = '../staff/dashboard_standard.html';
+    location.href = '../staff/dashboard_standard.html';
 }

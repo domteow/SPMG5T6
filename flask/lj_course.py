@@ -54,27 +54,24 @@ class Lj_course(db.Model):
     #create lj courses (dom)
     def create_lj_course(journey_id, course_arr):
         # parse course_arr from string to json object
-        print(course_arr)
+        # print(course_arr)
         course_dict = json.loads(course_arr)
-        # print((course_dict.values()))
+        
         list_of_lj_courses = []
         print('************CHECKING IF CAN GET LJ COURSE OBJECT*************')
         for skill, courses_for_skill in course_dict.items():
-            # print(course_dict.values())
-            print(courses_for_skill)
+
+            # print(courses_for_skill)
             for course in courses_for_skill:
                 course_id = course['course_id']
-                print(course)
-                # print(course_id)
+                
                 new_lj_course = Lj_course(journey_id, course_id)
-                print('journey_id = ',journey_id)
+                # print('journey_id = ',journey_id)
                 # print(new_lj_course)
                 list_of_lj_courses.append(new_lj_course) #adding all the course objs to a list to bulk insert
         print(list_of_lj_courses)
         try:
             db.session.bulk_save_objects(list_of_lj_courses)
-            # db.session.add_all(list_of_lj_courses)
-            # db.session.add(list_of_lj_courses)
             db.session.commit()
 
         except:
