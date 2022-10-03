@@ -202,10 +202,10 @@ ALTER TABLE `lj_course`
 -- Dumping data for table `role`
 --
 
-insert into role (role_id, role_name) values
-(1, 'staff'),
-(2, 'manager'),
-(3, 'hr');
+-- insert into role (role_id, role_name) values
+-- (1, 'staff'),
+-- (2, 'manager'),
+-- (3, 'hr');
 
 -- --------------------------------------------------------
 
@@ -213,10 +213,10 @@ insert into role (role_id, role_name) values
 -- Dumping data for table `staff`
 --
 
-insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
-(1, 1, 'Jann', 'Chia', 'Business Intelligence','jann@allinone.com'),
-(2, 1, 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
-(3, 1, 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
+-- insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
+-- (1, 1, 'Jann', 'Chia', 'Business Intelligence','jann@allinone.com'),
+-- (2, 1, 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
+-- (3, 1, 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
 
 
 -- --------------------------------------------------------
@@ -225,13 +225,13 @@ insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) val
 -- Dumping data for table `course`
 --
 
-insert into course (course_id, course_name, course_desc, course_status, course_type, course_category) values
-('COURSE1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
-('COURSE2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business'),
-('COURSE3',	'Accounting Fundamentals',	'financial statements and more!',	'Active', 'Internal',	'Finance'),
-('COURSE4', 'Writing & Reasoning',	'be better at writing emails',	'Active',	'Internal',	'Business'),
-('COURSE5',	'User Interface & User Experience',	'prototypes, wireframes, user design stuff',	'Active',	'Internal',	'Design'),
-('COURSE6',	'Business Value with User Experience',	'how nice app make good money',	'Active',	'External', 'Design');
+-- insert into course (course_id, course_name, course_desc, course_status, course_type, course_category) values
+-- ('COURSE1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
+-- ('COURSE2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business'),
+-- ('COURSE3',	'Accounting Fundamentals',	'financial statements and more!',	'Active', 'Internal',	'Finance'),
+-- ('COURSE4', 'Writing & Reasoning',	'be better at writing emails',	'Active',	'Internal',	'Business'),
+-- ('COURSE5',	'User Interface & User Experience',	'prototypes, wireframes, user design stuff',	'Active',	'Internal',	'Design'),
+-- ('COURSE6',	'Business Value with User Experience',	'how nice app make good money',	'Active',	'External', 'Design');
 -- --------------------------------------------------------
 
 --
@@ -270,15 +270,15 @@ insert into attached_skill (skill_id, course_id) values
 --
 
 insert into registration (reg_id, course_id, staff_id, reg_status, completion_status) values
-(1, 'COURSE1', 2, 'Registered', 'In-Progress'), -- business strategy, kelvin, in prog
-(2, 'COURSE2', 1, 'Registered', 'In-Progress'), -- foundations of pm, jann, in prog
-(3, 'COURSE1', 1, 'Registered', 'Completed'), -- business strategy, jann, completed
-(4,	'COURSE5', 3,	'Registered',	'In-Progress'), -- uiux, dom, in prog 
-(5,	'COURSE2', 2,	'Registered',	'In-Progress'), -- foundations of pm, kelvin, completed
-(6,	'COURSE3',	2, 'Registered',	'Completed'), -- accounting fundamentals, kelvin, completed
-(7, 'COURSE6',	3,	'Registered',	'In-Progress'), -- business value with ui, dom, inprog
-(8,	'COURSE1',	1,	'Registered',	'In-Progress'), -- business strat, jann, in prog
-(9,	'COURSE3',	1,	'Registered',	'In-Progress'); -- accounting fundamentals, jann, in prog 
+-- (1, 'COURSE1', 2, 'Registered', 'In-Progress'), -- business strategy, kelvin, in prog
+-- (2, 'COURSE2', 1, 'Registered', 'In-Progress'), -- foundations of pm, jann, in prog
+-- (3, 'COURSE1', 1, 'Registered', 'Completed'), -- business strategy, jann, completed
+-- (4,	'COURSE5', 3,	'Registered',	'In-Progress'), -- uiux, dom, in prog 
+-- (5,	'COURSE2', 2,	'Registered',	'In-Progress'), -- foundations of pm, kelvin, completed
+-- (6,	'COURSE3',	2, 'Registered',	'Completed'), -- accounting fundamentals, kelvin, completed
+-- (7, 'COURSE6',	3,	'Registered',	'In-Progress'), -- business value with ui, dom, inprog
+-- (8,	'COURSE1',	1,	'Registered',	'In-Progress'), -- business strat, jann, in prog
+-- (9,	'COURSE3',	1,	'Registered',	'In-Progress'); -- accounting fundamentals, jann, in prog 
 
 -- --------------------------------------------------------
 
@@ -341,104 +341,59 @@ insert into lj_course (journey_id, course_id) values
 -- --------------------------------------------------------
 
 -- 
--- Import data for table `staff`
 
--- show global variables like 'local_infile';
--- set global local_infile=true;
+Import data for table `courses`
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE staff 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+show global variables like 'local_infile';
+set global local_infile=true;
 
--- 
--- Import data for table `role`
-
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE role 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+LOAD DATA INFILE 
+'C:/wamp64/www/SPMG5T6/RawData/courses.csv' 
+INTO TABLE course
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 LINES; 
 
 -- 
--- Import data for table `course`
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE course 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+Import data for table `role`
 
--- 
--- Import data for table `registration`
+show global variables like 'local_infile';
+set global local_infile=true;
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE item 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+LOAD DATA INFILE 
+'C:/wamp64/www/SPMG5T6/RawData/role.csv' 
+INTO TABLE role
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 LINES; 
 
 -- 
--- Import data for table `skill`
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE item 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+Import data for table `registration`
 
--- 
--- Import data for table `ljps_role`
+show global variables like 'local_infile';
+set global local_infile=true;
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE item 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+LOAD DATA INFILE 
+'C:/wamp64/www/SPMG5T6/RawData/registration.csv' 
+INTO TABLE role
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 LINES; 
 
 -- 
--- Import data for table `learning_journey`
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE item 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+Import data for table `staff`
 
--- 
--- Import data for table `roles_required_skill`
+show global variables like 'local_infile';
+set global local_infile=true;
 
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE roles_required_skill 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
+LOAD DATA INFILE 
+'C:/wamp64/www/SPMG5T6/RawData/staff.csv' 
+INTO TABLE staff
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\r\n' 
+IGNORE 1 LINES; 
 
 -- 
--- Import data for table `lj_course`
-
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE lj_course 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
-
--- 
--- Import data for table `attached_skill`
-
--- LOAD DATA INFILE 
--- 'C:/wamp64/tmp/G10T04/Data/item.txt' 
--- INTO TABLE attached_skill 
--- FIELDS TERMINATED BY '\t' 
--- LINES TERMINATED BY '\r\n' 
--- IGNORE 1 LINES; 
