@@ -13,7 +13,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `all_in_one_db`
 --
-CREATE DATABASE IF NOT EXISTS `all_in_one_db` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `all_in_one_db`;
 USE `all_in_one_db`;
 
 -- --------------------------------------------------------
@@ -22,7 +22,9 @@ USE `all_in_one_db`;
 -- Table structure for table `staff`
 --
 
-CREATE TABLE staff (
+DROP TABLE IF EXISTS staff; 
+
+CREATE TABLE IF NOT EXISTS staff (
   staff_id int NOT NULL PRIMARY KEY,
   role_id int NOT NULL,
   staff_fname varchar(50) NOT NULL,
@@ -37,7 +39,9 @@ CREATE TABLE staff (
 -- Table structure for table `role`
 --
 
-CREATE TABLE role (
+DROP TABLE IF EXISTS role;
+
+CREATE TABLE IF NOT EXISTS role (
   role_id int NOT NULL PRIMARY KEY,
   role_name varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -48,7 +52,9 @@ CREATE TABLE role (
 -- Table structure for table `course`
 --
 
-CREATE TABLE course ( 
+DROP TABLE IF EXISTS course;
+
+CREATE TABLE IF NOT EXISTS course ( 
   course_id varchar(20) NOT NULL PRIMARY KEY,
   course_name varchar(50) NOT NULL,
   course_desc varchar(255) DEFAULT NULL,
@@ -63,7 +69,9 @@ CREATE TABLE course (
 -- Table structure for table `attached_skill`
 --
 
-CREATE TABLE attached_skill ( 
+DROP TABLE IF EXISTS attached_skill;
+
+CREATE TABLE IF NOT EXISTS attached_skill ( 
   skill_id int NOT NULL,
   course_id varchar(20) NOT NULL,
   constraint attached_skill_pk primary key (skill_id, course_id)
@@ -73,7 +81,9 @@ CREATE TABLE attached_skill (
 -- Table structure for table `registration`
 --
 
-CREATE TABLE registration ( 
+DROP TABLE IF EXISTS registration;
+
+CREATE TABLE IF NOT EXISTS registration ( 
   reg_id int NOT NULL PRIMARY KEY,
   course_id varchar(20) NOT NULL,
   staff_id int NOT NULL,
@@ -87,7 +97,9 @@ CREATE TABLE registration (
 -- Table structure for table `skill`
 --
 
-CREATE TABLE skill (
+DROP TABLE IF EXISTS skill;
+
+CREATE TABLE IF NOT EXISTS skill (
   skill_id int NOT NULL PRIMARY KEY,
   skill_desc varchar(255) NOT NULL,
   skill_name varchar(50) NOT NULL
@@ -99,7 +111,9 @@ CREATE TABLE skill (
 -- Table structure for table `ljps_role`
 --
 
-CREATE TABLE ljps_role ( 
+DROP TABLE IF EXISTS ljps_role;
+
+CREATE TABLE IF NOT EXISTS ljps_role ( 
   ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   role_title varchar(20) NOT NULL,
   role_desc varchar(255) NOT NULL
@@ -111,7 +125,9 @@ CREATE TABLE ljps_role (
 -- Table structure for table `role_required_skill`
 --
 
-CREATE TABLE role_required_skill (
+DROP TABLE IF EXISTS role_required_skill;
+
+CREATE TABLE IF NOT EXISTS role_required_skill (
   skill_id int NOT NULL,
   ljpsr_id int NOT NULL,
   constraint role_required_skill_pk primary key (skill_id, ljpsr_id)
@@ -123,7 +139,9 @@ CREATE TABLE role_required_skill (
 -- Table structure for table `learning_journey` 
 --
 
-CREATE TABLE learning_journey (
+DROP TABLE IF EXISTS learning_journey;
+
+CREATE TABLE IF NOT EXISTS learning_journey (
   journey_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   ljpsr_id int NOT NULL,
   staff_id int NOT NULL,
@@ -136,7 +154,9 @@ CREATE TABLE learning_journey (
 -- Table structure for table `lj_course`
 --
 
-CREATE TABLE lj_course (
+DROP TABLE IF EXISTS lj_course;
+
+CREATE TABLE IF NOT EXISTS lj_course (
   journey_id int NOT NULL,
   course_id varchar(20) NOT NULL, 
   constraint lj_course_pk primary key (journey_id, course_id)
@@ -198,40 +218,46 @@ ALTER TABLE `lj_course`
 
 -- --------------------------------------------------------
 
---
--- Dumping data for table `role`
---
+-- 
 
--- insert into role (role_id, role_name) values
--- (1, 'staff'),
--- (2, 'manager'),
--- (3, 'hr');
+show global variables like 'local_infile';
+set global local_infile=true;
 
--- --------------------------------------------------------
+LOAD DATA INFILE 
+'C:/wamp64/tmp/RawData/courses.csv' 
+INTO TABLE course
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
---
--- Dumping data for table `staff`
---
+-- 
 
--- insert into staff (staff_id, role_id, staff_fname, staff_lname, dept, email) values
--- (1, 1, 'Jann', 'Chia', 'Business Intelligence','jann@allinone.com'),
--- (2, 1, 'Kelvin', 'Yap', 'Business Intelligence', 'kelvin@allinone.com'),
--- (3, 1, 'Dom', 'Teow', 'Business Intelligence', 'dom@allinone.com');
+LOAD DATA INFILE 
+'C:/wamp64/tmp/RawData/role.csv' 
+INTO TABLE role
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
+-- 
 
--- --------------------------------------------------------
+LOAD DATA INFILE 
+'C:/wamp64/tmp/RawData/registration.csv' 
+INTO TABLE role
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
---
--- Dumping data for table `course`
---
+-- 
 
--- insert into course (course_id, course_name, course_desc, course_status, course_type, course_category) values
--- ('COURSE1', 'Business Strategy', 'you learn business strategy', 'Active', 'Internal', 'Business'),
--- ('COURSE2', 'Foundations of Project Management', 'discover foundational project management terminology', 'Active', 'Internal', 'Business'),
--- ('COURSE3',	'Accounting Fundamentals',	'financial statements and more!',	'Active', 'Internal',	'Finance'),
--- ('COURSE4', 'Writing & Reasoning',	'be better at writing emails',	'Active',	'Internal',	'Business'),
--- ('COURSE5',	'User Interface & User Experience',	'prototypes, wireframes, user design stuff',	'Active',	'Internal',	'Design'),
--- ('COURSE6',	'Business Value with User Experience',	'how nice app make good money',	'Active',	'External', 'Design');
+LOAD DATA INFILE 
+'C:/wamp64/tmp/RawData/staff.csv' 
+INTO TABLE staff
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
+
+-- 
 -- --------------------------------------------------------
 
 --
@@ -262,23 +288,6 @@ insert into attached_skill (skill_id, course_id) values
 (7, 'COURSE4'), -- skill: biz comm, course: writing & reasoning
 (4, 'COURSE5'), -- skill: user-centric design, course: user interface & user exp 
 (5, 'COURSE6'); -- skill: value prop, course: business value with ux 
-
--- --------------------------------------------------------
-
---
--- Dumping data for table 'registration'
---
-
--- insert into registration (reg_id, course_id, staff_id, reg_status, completion_status) values
--- (1, 'COURSE1', 2, 'Registered', 'In-Progress'), -- business strategy, kelvin, in prog
--- (2, 'COURSE2', 1, 'Registered', 'In-Progress'), -- foundations of pm, jann, in prog
--- (3, 'COURSE1', 1, 'Registered', 'Completed'), -- business strategy, jann, completed
--- (4,	'COURSE5', 3,	'Registered',	'In-Progress'), -- uiux, dom, in prog 
--- (5,	'COURSE2', 2,	'Registered',	'In-Progress'), -- foundations of pm, kelvin, completed
--- (6,	'COURSE3',	2, 'Registered',	'Completed'), -- accounting fundamentals, kelvin, completed
--- (7, 'COURSE6',	3,	'Registered',	'In-Progress'), -- business value with ui, dom, inprog
--- (8,	'COURSE1',	1,	'Registered',	'In-Progress'), -- business strat, jann, in prog
--- (9,	'COURSE3',	1,	'Registered',	'In-Progress'); -- accounting fundamentals, jann, in prog 
 
 -- --------------------------------------------------------
 
@@ -339,61 +348,3 @@ insert into lj_course (journey_id, course_id) values
 (4,	'COURSE6');  -- lj #4 (uiux, dom, incomplete), biz value w ux 
 
 -- --------------------------------------------------------
-
--- 
-
-Import data for table `courses`
-
-show global variables like 'local_infile';
-set global local_infile=true;
-
-LOAD DATA INFILE 
-'C:/wamp64/www/SPMG5T6/RawData/courses.csv' 
-INTO TABLE course
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
-IGNORE 1 LINES; 
-
--- 
-
-Import data for table `role`
-
-show global variables like 'local_infile';
-set global local_infile=true;
-
-LOAD DATA INFILE 
-'C:/wamp64/www/SPMG5T6/RawData/role.csv' 
-INTO TABLE role
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
-IGNORE 1 LINES; 
-
--- 
-
-Import data for table `registration`
-
-show global variables like 'local_infile';
-set global local_infile=true;
-
-LOAD DATA INFILE 
-'C:/wamp64/www/SPMG5T6/RawData/registration.csv' 
-INTO TABLE role
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
-IGNORE 1 LINES; 
-
--- 
-
-Import data for table `staff`
-
-show global variables like 'local_infile';
-set global local_infile=true;
-
-LOAD DATA INFILE 
-'C:/wamp64/www/SPMG5T6/RawData/staff.csv' 
-INTO TABLE staff
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
-IGNORE 1 LINES; 
-
--- 
