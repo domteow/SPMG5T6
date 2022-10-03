@@ -269,7 +269,7 @@ insert into attached_skill (skill_id, course_id) values
 -- Dumping data for table 'registration'
 --
 
-insert into registration (reg_id, course_id, staff_id, reg_status, completion_status) values
+-- insert into registration (reg_id, course_id, staff_id, reg_status, completion_status) values
 -- (1, 'COURSE1', 2, 'Registered', 'In-Progress'), -- business strategy, kelvin, in prog
 -- (2, 'COURSE2', 1, 'Registered', 'In-Progress'), -- foundations of pm, jann, in prog
 -- (3, 'COURSE1', 1, 'Registered', 'Completed'), -- business strategy, jann, completed
