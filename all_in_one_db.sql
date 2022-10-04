@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS staff (
   staff_lname varchar(50) NOT NULL,
   dept varchar(50) NOT NULL, 
   email varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS role;
 CREATE TABLE IF NOT EXISTS role (
   role_id int NOT NULL PRIMARY KEY,
   role_name varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS course (
   course_status varchar(15) DEFAULT NULL,
   course_type varchar(10) DEFAULT NULL,
   course_category varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS attached_skill (
   skill_id int NOT NULL,
   course_id varchar(20) NOT NULL,
   constraint attached_skill_pk primary key (skill_id, course_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 --
 -- Table structure for table `registration`
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS registration (
   staff_id int NOT NULL,
   reg_status varchar(20) NOT NULL,
   completion_status varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS skill (
   skill_id int NOT NULL PRIMARY KEY,
   skill_desc varchar(255) NOT NULL,
   skill_name varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS ljps_role (
   ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   role_title varchar(20) NOT NULL,
   role_desc varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS role_required_skill (
   skill_id int NOT NULL,
   ljpsr_id int NOT NULL,
   constraint role_required_skill_pk primary key (skill_id, ljpsr_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -146,7 +146,7 @@ CREATE TABLE IF NOT EXISTS learning_journey (
   ljpsr_id int NOT NULL,
   staff_id int NOT NULL,
   status int NOT NULL -- 1 = complete, 0 = incomplete
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
@@ -160,7 +160,7 @@ CREATE TABLE IF NOT EXISTS lj_course (
   journey_id int NOT NULL,
   course_id varchar(20) NOT NULL, 
   constraint lj_course_pk primary key (journey_id, course_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+);
 
 -- --------------------------------------------------------
 
