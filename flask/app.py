@@ -422,6 +422,12 @@ def get_skill_detail_under_ljpsr(ljpsr_id):
         skills_under_ljpsr_details.append(details)
     return skills_under_ljpsr_details
 
+# Find skills attatined by staff
+def get_skills_attained(staff_id):
+    completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    attained_skills = Attached_skill.get_attached_skill_by_course_ids(completed_courses)
+    return attained_skills
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001, debug=True)
 
