@@ -325,7 +325,7 @@ def read_learning_journeys(staff_id):
                     course_status = 1
                 all_courses.append({"course_id":course['course_id'],"course_name":course['course_name'],"course_desc":course['course_desc'],"course_status":course_status,"course_type":course['course_type'],"course_category":course['course_category']})
             lj['courses'] = all_courses
-    return jsonify({"learning_journeys":read_result})
+    return jsonify({"data":{"learning_journeys":read_result}})
 
 # Add Course(s) to existing Learning Journey (jann)
 @app.route("/add_course/<int:journey_id>", methods=['POST'])
