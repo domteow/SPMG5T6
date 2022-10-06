@@ -34,21 +34,21 @@ $(async () => {
             await fetch(
             serviceURL, { mode: 'cors', method: 'GET' }
         );
-        console.log(response)
+        // console.log(response)
         const result = await response.json();
         // console.log(result.data)
         if(result) {
-            console.log(result.data)
+            // console.log(result.data)
             all_roles = result.data
             
             for (let role in all_roles){
                 var roled = all_roles[role];
-                console.log(roled)
+                // console.log(roled)
                 var role_name = roled['role_title'];
                 var role_id = roled['ljpsr_id'];
                 var completed = roled['attained'];
                 // console.log(role_name);
-                console.log(role_id);
+                // console.log(role_id);
                 // console.log(completed);
             
                 if (completed == 1){
