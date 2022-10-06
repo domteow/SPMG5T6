@@ -206,11 +206,7 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
 
     # b. get all rows in attached_skill table with those course IDs, to get the skill IDs
     skills_completed = Attached_skill.get_attached_skill_by_course_ids(completed_courses)
-    # for completed_course in completed_courses:
-    #     attached_skills = Attached_skill.get_attached_skill_by_course_id(completed_course)
-    #     for skill in attached_skills:
-    #         skills_completed.append(skill['skill_id'])
-        # skills_completed.extend(attached_skills)  
+    
     
     # 2. get all skills + their details under this LJPS role with the helper function
     skills_under_ljpsr_details = get_skill_detail_under_ljpsr(ljpsr_id)
