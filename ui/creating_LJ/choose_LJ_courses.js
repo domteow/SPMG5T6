@@ -239,14 +239,21 @@ function getValues(){
     // console.log(Array.from(allChecked).map(checkbox => checkbox.value));
 
     var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
-
     console.log(checkedCourses);
+    if(checkedCourses.length == 0) {
+        alert("Please select at least one course to create your learning journey.")
+    }
+    else {
+        sessionStorage.setItem('checkedCourses', checkedCourses);
+        location.href = './confirm_LJ.html';
+    }
+    
 
-    sessionStorage.setItem('checkedCourses', checkedCourses);
+    
     // sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
     // sessionStorage.setItem('role_name', role_name);
     
 
-    location.href = './confirm_LJ.html';
+    
 }
 
