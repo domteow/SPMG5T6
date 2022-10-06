@@ -300,6 +300,8 @@ def new_learning_journey(ljpsr_id, staff_id, course_arr):
 def read_learning_journeys(staff_id):
     # call read lj function in Learning Journey class 
     read_result = Learning_journey.get_learning_journey_by_staff_id(staff_id)
+    attained_skills = get_skills_attained(staff_id)
+    completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
     if len(read_result):
         for lj in read_result:
             ljps_result = Ljps_role.get_learning_journey_role_by_id(lj['ljpsr_id'])
@@ -309,13 +311,19 @@ def read_learning_journeys(staff_id):
             all_skills = []
             for skill in role_skill_result:
                 skill_result = Skill.get_skill_by_id(skill['skill_id'])
-                all_skills.append({"skill_id":skill['skill_id'],"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"status":0})
+                curr_skill_status = 0
+                if skill_result['skill_id'] in attained_skills:
+                    curr_skill_status = 1
+                all_skills.append({"skill_id":skill['skill_id'],"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"status":curr_skill_status})
             lj['skills'] = all_skills
             lj_course_result = Lj_course.get_lj_course_by_journey(lj['journey_id'])
             all_courses = []
             for lj_course in lj_course_result:
                 course = Course.get_course_by_id(lj_course['course_id'])
-                all_courses.append({"course_id":course['course_id'],"course_name":course['course_name'],"course_desc":course['course_desc'],"course_status":course['course_status'],"course_type":course['course_type'],"course_category":course['course_category']})
+                course_status = 0
+                if course['course_id'] in completed_courses:
+                    course_status = 1
+                all_courses.append({"course_id":course['course_id'],"course_name":course['course_name'],"course_desc":course['course_desc'],"course_status":course_status,"course_type":course['course_type'],"course_category":course['course_category']})
             lj['courses'] = all_courses
     return jsonify({"learning_journeys":read_result})
 
