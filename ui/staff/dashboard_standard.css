@@ -215,6 +215,12 @@ input:focus{
     margin: 0%;
 }
 
+.courseinfo{
+    height:60px;
+    text-align: left;
+    padding:auto;
+}
+
 .courseName{
     font-family: roboto,sans-serif;
     font-weight: 500;
