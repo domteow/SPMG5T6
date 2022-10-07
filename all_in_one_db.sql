@@ -102,7 +102,8 @@ DROP TABLE IF EXISTS skill;
 CREATE TABLE IF NOT EXISTS skill (
   skill_id int NOT NULL PRIMARY KEY,
   skill_desc varchar(255) NOT NULL,
-  skill_name varchar(50) NOT NULL
+  skill_name varchar(50) NOT NULL,
+  active boolean NOT NULL DEFAULT 0 -- 0 = False, 1 = True 
 );
 
 -- --------------------------------------------------------
@@ -116,7 +117,8 @@ DROP TABLE IF EXISTS ljps_role;
 CREATE TABLE IF NOT EXISTS ljps_role ( 
   ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   role_title varchar(20) NOT NULL,
-  role_desc varchar(255) NOT NULL
+  role_desc varchar(255) NOT NULL, 
+  active boolean NOT NULL DEFAULT 0 -- 0 = False, 1 = True 
 );
 
 -- --------------------------------------------------------
@@ -258,93 +260,55 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS; 
 
 -- 
--- --------------------------------------------------------
 
---
--- Dumping data for table `skill`
---
+LOAD DATA INFILE 
+'C:/wamp64/tmp/LjpsData/attached_skill.csv' 
+INTO TABLE attached_skill
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
-insert into skill (skill_id, skill_desc, skill_name) values
-(1, 'Researching an organization and its working environment to formulate a strategy', 'Strategic Analysis'),
-(2, 'A set of tools and calculations used in determining whether a system meets certain specification requirements', 'Capabilities Analysis'),
-(3, 'Project management is the process of leading the work of a team to achieve all project goals within the given constraints', 'Project Management'),
-(4,	'design for usability', 'User-Centric Design'),
-(5,	'how to bring value to business',	'Value Proposition'),
-(6,	'beginner level accounting things', 'Accounting (Basics)'), 
-(7,	'how to talk like businessman and woman',	'Business Communication');
+-- 
 
--- --------------------------------------------------------
+LOAD DATA INFILE 
+'C:/wamp64/tmp/LjpsData/learning_journey.csv' 
+INTO TABLE learning_journey
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
---
--- Dumping data for table `attached_skill`
---
+-- 
 
-insert into attached_skill (skill_id, course_id) values
-(1, 'COURSE1'), -- skill: strat analysis, course: biz strat
-(2, 'COURSE1'), -- skill: cap analysis, course: biz strat
-(2, 'COURSE2'), -- skill: cap analysis, course: foundations of pm
-(3, 'COURSE2'), -- skill: project mgt, course: foundations of pm
-(6, 'COURSE3'), -- skill: accounting (basics), course: accounting fundamentals
-(7, 'COURSE4'), -- skill: biz comm, course: writing & reasoning
-(4, 'COURSE5'), -- skill: user-centric design, course: user interface & user exp 
-(5, 'COURSE6'); -- skill: value prop, course: business value with ux 
+LOAD DATA INFILE 
+'C:/wamp64/tmp/LjpsData/lj_course.csv' 
+INTO TABLE lj_course
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
--- --------------------------------------------------------
+-- 
 
---
--- Dumping data for table 'ljps_role'
---
+LOAD DATA INFILE 
+'C:/wamp64/tmp/LjpsData/ljps_role.csv' 
+INTO TABLE ljps_role
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
-insert into ljps_role (ljpsr_id, role_title, role_desc) values
-(1, 'Accountant', 'Accountants are responsible for financial audits, reconciling bank statements, and ensuring financial records are accurate throughout the year.'), 
-(2, 'Project Manager', 'Project managers are accountable for planning and allocating resources, preparing budgets, monitoring progress, and keeping stakeholders informed throughout the project lifecycle'),
-(3,	'UI/UX Designer',	'design allinone application and all its features'), 
-(4,	'Business Development',	'help to develop the business'); 
+-- 
 
--- --------------------------------------------------------
+LOAD DATA INFILE 
+'C:/wamp64/tmp/LjpsData/role_required_skill.csv' 
+INTO TABLE role_required_skill
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
 
---
--- Dumping data for table `role_required_skill`
---
+-- 
 
-insert into role_required_skill (skill_id, ljpsr_id) values
-(1,	1), -- strat analysis, accountant
-(2,	1), -- cap analysis, accountant
-(6,	1), -- value prop, accountant
-(3,	2), -- project mgt, project manager
-(7,	2), -- business comm, proj manager
-(4,	3), -- user-centric design, ui/ux designer
-(5,	3), -- value prop, ui/ux designer
-(1,	4), -- strat analysis, biz dev
-(2,	4), -- cap analysis, biz dev
-(7,	4); -- biz comm, biz dev
--- --------------------------------------------------------
-
---
--- Dumping data for table `learning_journey`
---
-
-insert into learning_journey (journey_id, ljpsr_id, staff_id, status) values
-(1, 1, 2, 0), -- accountant, kelvin, incomplete
-(2, 2, 1, 0), -- project manager, jann, incomplete
-(3, 1, 1, 0), -- accountant, jann, incomplete
-(4, 3, 3, 0); -- uiux designer, dom, incomplete
-
--- --------------------------------------------------------
-
---
--- Dumping data for table `lj_course`
---
-
-insert into lj_course (journey_id, course_id) values
-(1,	'COURSE1'),  -- lj #1 (accountant, kelvin, incomplete), business strat
-(1,	'COURSE2'),  -- lj #1 (accountant, kelvin, incomplete), foundations of pm 
-(1,	'COURSE3'),  -- lj #1 (accountant, kelvin, incomplete), accounting fundamentals
-(2,	'COURSE2'),  -- lj #2 (PM, jann, incomplete), foundations of pm
-(2,	'COURSE4'),  -- lj #2 (PM, jann, incomplete), wr
-(3,	'COURSE1'),  -- lj #3 (accountant, jann, incomplete), business strat
-(3,	'COURSE3'),  -- lj #3 (accountant, jann, incomplete), foundations of pm 
-(4,	'COURSE5'),  -- lj #4 (uiux, dom, incomplete), uiux
-(4,	'COURSE6');  -- lj #4 (uiux, dom, incomplete), biz value w ux 
-
--- --------------------------------------------------------
+LOAD DATA INFILE 
+'C:/wamp64/tmp/LjpsData/skill.csv' 
+INTO TABLE skill 
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
