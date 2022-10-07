@@ -1,35 +1,35 @@
 ﻿skill_id,skill_desc,skill_name,active
 1,Problem-solving skills help you determine why an issue is happening and how to resolve that issue. ,Problem Solving ,1
 2,Critical thinking is the ability to analyze facts and form a judgment.,Critical Thinking,1
-3,"Project management is the application of processes, methods, skills, knowledge and experience to achieve specific project objectives according to the project acceptance criteria within agreed parameters.",Project Management,1
-4,"With BPM, companies can improve process effectiveness and productivity and better manage change",Business Process Modelling,1
+3,Project management is the application of processes methods skills knowledge and experience to achieve specific project objectives according to the project acceptance criteria within agreed parameters.,Project Management,1
+4,With BPM companies can improve process effectiveness and productivity and better manage change,Business Process Modelling,1
 5,Change management skills are skills that you can use to help your company through the process of making organizational changes.,Change Management,1
-6,"Empathic communication involves both accepting and allowing different perspectives and emotions in other people, and also sharing it with them to enable encouragement and support. ",Emphatic Communication,1
+6,Empathic communication involves both accepting and allowing different perspectives and emotions in other people and also sharing it with them to enable encouragement and support. ,Emphatic Communication,1
 7,Enter information into a database and ensure that your data collection sources are accurate,Data Collection,1
-8,"This is the ability to gather, analyze and draw practical conclusions from data, as well as communicate data findings to others.",Data Analysis,1
-9,"Compliance analyst skills are the qualities needed to ensure an organization follows any company, financial or government requirements.",Compliance Understanding,1
-10,"Risk management is the process of identifying, assessing and controlling financial, legal, strategic and security risks to an organization's capital and earnings.",Risk Management,1
-11,"They are the skills that help you navigate co-worker interactions with patience, perspective, and respect and in a way that exhibits the values of your workplace.",Building Workplace Culture,1
-12,"The skills you need to treat, communicate with and lead your people as a manager for maximum results.",People Management,1
+8,This is the ability to gather analyze and draw practical conclusions from data as well as communicate data findings to others.,Data Analysis,1
+9,Compliance analyst skills are the qualities needed to ensure an organization follows any company financial or government requirements.,Compliance Understanding,1
+10,Risk management is the process of identifying assessing and controlling financial legal strategic and security risks to an organization's capital and earnings.,Risk Management,1
+11,They are the skills that help you navigate co-worker interactions with patience perspective and respect and in a way that exhibits the values of your workplace.,Building Workplace Culture,1
+12,The skills you need to treat communicate with and lead your people as a manager for maximum results.,People Management,1
 13,Proper conflict resolution skills are designed to keep disagreements from escalating while continuing to discuss each point of view and eventually reach a collaborative conclusion.,Conflict Management,1
 14,Coaching skills are the qualities and actions that focus on helping individuals improve performance,Coaching,1
-15,"Setting goals helps trigger new behaviors, helps guides your focus and helps you sustain that momentum in life.",Goal Setting,1
-16,"Decision-making skills are all of the skills you need to make an informed, rational decision.",Decision Making,1
+15,Setting goals helps trigger new behaviors helps guides your focus and helps you sustain that momentum in life.,Goal Setting,1
+16,Decision-making skills are all of the skills you need to make an informed rational decision.,Decision Making,1
 17,Time management is the ability to use your time productively and efficiently. ,Time Management,1
-18,"Being able to  transfer information from upper management to employees and communicate their teams’ performance or needs to high-level managers. In most cases, supervisors are experts in their field and can efficiently manage daily operations as a result.",Supervisory Basics,1
+18,Being able to  transfer information from upper management to employees and communicate their teams’ performance or needs to high-level managers. In most cases supervisors are experts in their field and can efficiently manage daily operations as a result.,Supervisory Basics,1
 19,You will cquire the knowledge and skills in setting up a smart living solution.,Urban Solutions,1
-20,"Brand management is a process that entails various methods (logo, packaging, design, price, advertising, etc.) to boost the perceived value of a specific brand or product",Brand Management,1
+20,Brand management is a process that entails various methods (logo packaging design price advertising etc.) to boost the perceived value of a specific brand or product,Brand Management,1
 21,Stakeholder management is the process of maintaining good relationships with the people who have most impact on your work. ,Stakeholder Management,1
 22,Manages print requests and makes printer queue status information available to end users and network administrators.,Print Server,1
 23,Setting up our Canon MFC for customers,Canon MFC Set Up,1
 24,A help desk is the first point of contact for customers and employees alike. Customers need answers and the help desk is where they turn.,Helpdesk Basics,1
 25,Open Platform Communications (OPC) allow industrial devices and applications to communicate using universal protocols and simplifying operations.,Open Platform Communcations,1
-26,"Sustainable Development means adopting business strategies and activities that meet the needs of the enterprise and its stakeholders today while protecting, sustaining and enhancing the human and natural resources that will be needed in the future.",Sustainability Development,1
-27,"Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn, gradually improving its accuracy.",Machine Learning,1
+26,Sustainable Development means adopting business strategies and activities that meet the needs of the enterprise and its stakeholders today while protecting sustaining and enhancing the human and natural resources that will be needed in the future.,Sustainability Development,1
+27,Machine learning is a branch of artificial intelligence (AI) and computer science which focuses on the use of data and algorithms to imitate the way that humans learn gradually improving its accuracy.,Machine Learning,1
 28,Technology Intelligence (TI) is an activity that enables companies to identify the technological opportunities and threats that could affect the future growth and survival of their business.,Technology Intelligence,1
-29,"The definition of technology strategy is the creation of an overall business plan which consists of principles, objectives, and tactics for using technology to achieve organizational objectives.",Technology Strategy,1
+29,The definition of technology strategy is the creation of an overall business plan which consists of principles objectives and tactics for using technology to achieve organizational objectives.,Technology Strategy,1
 30,Industry 4.0 technology helps you manage and optimize all aspects of your manufacturing processes and supply chain.,Understanding Industry 4.0,1
-31,"Advanced-manufacturing technologies can boost innovation, too, by allowing manufacturers to create new kinds of products that can't be made cost effectively with conventional processes. ",Understanding Advanced Manufacturing,1
+31,Advanced-manufacturing technologies can boost innovation too by allowing manufacturers to create new kinds of products that can't be made cost effectively with conventional processes. ,Understanding Advanced Manufacturing,1
 32,IoT also facilitates the continuous optimization of business processes and even impacts employee engagement and performance. ,Internet of Things,1
 33,Cybersecurity is important because it protects all categories of data from theft and damage. ,Cybersecurity,1
-34,"Network security helps to protect sensitive data, improve network efficiency, and prevent cybercrime. ",Network Security,1
+34,Network security helps to protect sensitive data improve network efficiency and prevent cybercrime. ,Network Security,1
