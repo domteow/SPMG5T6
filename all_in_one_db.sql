@@ -7,31 +7,18 @@
 -- Server version: 5.7.26
 -- PHP Version: 7.4.2
 
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
+SET FOREIGN_KEY_CHECKS= 0;
 
 --
 -- Database: `all_in_one_db`
 --
+
+DROP DATABASE IF EXISTS `all_in_one_db`; 
 CREATE DATABASE IF NOT EXISTS `all_in_one_db`;
 USE `all_in_one_db`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `staff`
---
-
-DROP TABLE IF EXISTS staff; 
-
-CREATE TABLE IF NOT EXISTS staff (
-  staff_id int NOT NULL PRIMARY KEY,
-  role_id int NOT NULL,
-  staff_fname varchar(50) NOT NULL,
-  staff_lname varchar(50) NOT NULL,
-  dept varchar(50) NOT NULL, 
-  email varchar(50) NOT NULL
-);
 
 -- --------------------------------------------------------
 
@@ -44,6 +31,23 @@ DROP TABLE IF EXISTS role;
 CREATE TABLE IF NOT EXISTS role (
   role_id int NOT NULL PRIMARY KEY,
   role_name varchar(20) NOT NULL
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `staff`
+--
+
+DROP TABLE IF EXISTS staff; 
+
+CREATE TABLE IF NOT EXISTS staff (
+  staff_id int NOT NULL PRIMARY KEY,
+  staff_fname varchar(50) NOT NULL,
+  staff_lname varchar(50) NOT NULL,
+  dept varchar(50) NOT NULL,
+  email varchar(50) NOT NULL, 
+  role_id int NOT NULL
 );
 
 -- --------------------------------------------------------
@@ -77,6 +81,8 @@ CREATE TABLE IF NOT EXISTS attached_skill (
   constraint attached_skill_pk primary key (skill_id, course_id)
 );
 
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `registration`
 --
@@ -103,7 +109,7 @@ CREATE TABLE IF NOT EXISTS skill (
   skill_id int NOT NULL PRIMARY KEY,
   skill_desc varchar(255) NOT NULL,
   skill_name varchar(50) NOT NULL,
-  active boolean NOT NULL DEFAULT 0 -- 0 = False, 1 = True 
+  active int NOT NULL -- 0 = False, 1 = True 
 );
 
 -- --------------------------------------------------------
@@ -118,7 +124,7 @@ CREATE TABLE IF NOT EXISTS ljps_role (
   ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   role_title varchar(20) NOT NULL,
   role_desc varchar(255) NOT NULL, 
-  active boolean NOT NULL DEFAULT 0 -- 0 = False, 1 = True 
+  active int NOT NULL -- 0 = False, 1 = True 
 );
 
 -- --------------------------------------------------------
@@ -228,6 +234,7 @@ set global local_infile=true;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/RawData/courses.csv' 
 INTO TABLE course
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -237,15 +244,7 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/RawData/role.csv' 
 INTO TABLE role
-FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\n' 
-IGNORE 1 ROWS; 
-
--- 
-
-LOAD DATA INFILE 
-'C:/wamp64/tmp/RawData/registration.csv' 
-INTO TABLE role
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -255,6 +254,16 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/RawData/staff.csv' 
 INTO TABLE staff
+CHARACTER SET latin1 
+FIELDS TERMINATED BY ',' 
+LINES TERMINATED BY '\n' 
+IGNORE 1 ROWS; 
+
+-- 
+
+LOAD DATA INFILE 
+'C:/wamp64/tmp/RawData/registration.csv' 
+INTO TABLE registration
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -264,6 +273,7 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/LjpsData/attached_skill.csv' 
 INTO TABLE attached_skill
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -273,6 +283,7 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/LjpsData/learning_journey.csv' 
 INTO TABLE learning_journey
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -282,6 +293,7 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/LjpsData/lj_course.csv' 
 INTO TABLE lj_course
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -291,6 +303,7 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/LjpsData/ljps_role.csv' 
 INTO TABLE ljps_role
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -300,6 +313,7 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/LjpsData/role_required_skill.csv' 
 INTO TABLE role_required_skill
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
@@ -309,6 +323,10 @@ IGNORE 1 ROWS;
 LOAD DATA INFILE 
 'C:/wamp64/tmp/LjpsData/skill.csv' 
 INTO TABLE skill 
+CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
 LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
+
+SET FOREIGN_KEY_CHECKS = 1;
+
