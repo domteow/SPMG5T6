@@ -31,13 +31,10 @@
 
 .carousel{
     margin-top: 3%;
+    padding-left: 0%;
     padding-bottom: 3%;
     border-bottom: 1px solid #DDDDDD;
 }
-
-/* .carousel-inner{
-    border: 1px solid yellowgreen;
-} */
 
 .caroucontainer{
     /* border: 1px solid pink; */
@@ -87,7 +84,7 @@
 
 .activepath{
     background-color: #ffe9e9;
-    box-shadow: 12px 20px #FFA0A0;
+    box-shadow: 12px 16px #FFA0A0;
 }
 
 .activeprogress{
@@ -112,6 +109,10 @@ a:visited{
 
 a:active{
     text-decoration: none;
+}
+
+.carousel-inner{
+    height:240px;
 }
 
 /* end of carousel */ 
@@ -174,6 +175,7 @@ input:focus{
     color: #757575;
 }
 
+
 .newcoursebutton{
     background-color: #190063;
     color: #FFDBA5;
@@ -199,6 +201,7 @@ input:focus{
 .courses{
     margin-top: 2%;
     margin-bottom: 5%;
+    
 }
 
 .module{
