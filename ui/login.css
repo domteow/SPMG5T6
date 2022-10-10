@@ -73,6 +73,32 @@ a{
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.form-control{
+    width:75%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2%;
+    font-family: roboto,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 22px;
+}
+
+.rowlog{
+    margin-top: 7%;
+}
+
+.login{
+    width: 50%;
+    text-align: center;
+    background-color: #FFDBA5;
+    margin-left: auto;
+    margin-right: auto;
+    color: black;
+    border-radius: 5px;
+    padding: 1%;
+}
+
 
 /* responsiveness */
 @media screen and (max-width: 768px) {
