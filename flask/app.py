@@ -99,38 +99,6 @@ def course_by_id(course_id):
         }), 404
 
 
-
-# Find learning journeys by staff_id
-@app.route("/lj/<int:staff_id>")
-def learning_journey_by_staff(staff_id):
-    learning_journey = Learning_journey.get_learning_journey_by_staff_id(staff_id)
-    if len(learning_journey):
-        return jsonify({
-            "data": {
-                    "learning_journey": learning_journey
-                }
-        }), 200
-    else:
-        return jsonify({
-            "message": "Staff does not have any learning journeys."
-        }), 404
-
-
-# Find learning journey role from ljpsr_id
-@app.route("/ljpsr/<int:ljpsr_id>")
-def learning_journey_role_by_id(ljpsr_id):
-    ljpsr = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
-    if ljpsr:
-        return jsonify({
-            "data": {
-                    "ljpsr": ljpsr
-                }
-        }), 200
-    else:
-        return jsonify({
-            "message": "Learning Journey Role does not exist."
-        }), 404
-
 # Find skill by skill_id
 @app.route("/skill/<int:skill_id>")
 def skill_by_id(skill_id):
@@ -144,21 +112,6 @@ def skill_by_id(skill_id):
     else:
         return jsonify({
             "message": "Skill not found."
-        }), 404
-
-# Find attached_skill by skill_id
-@app.route("/attached_skill_by_skill/<int:skill_id>")
-def attached_skill_by_skill(skill_id):
-    attached_skill = Attached_skill.get_attached_skill_by_skill_id(skill_id)
-    if len(attached_skill): 
-        return jsonify({
-            "data": {
-                    "attached_skill": attached_skill
-                }
-        }), 200
-    else:
-        return jsonify({
-            "message": "Skill not attached to any courses."
         }), 404
 
 
