@@ -89,10 +89,8 @@
 //     ]
 //   }
 
-var learning_journeys = sessionStorage.getItem('learning_journeys');
-// console.log(learning_journeys['data']);
 
-var ljpaths = learning_journeys['data'];
+var ljpaths = JSON.parse(sessionStorage.getItem('learning_journeys'));
 // console.log(ljpaths[0]); 
 
 var courses_div = document.getElementById('courses_in_LJ');
@@ -134,7 +132,7 @@ function showpath(pathid){
 
                 // course not completed 
                 if (new_iscomplete == 0){
-                    if (courseCount == 1){
+                    if (newPath_course_idx == 0 || newPath_course_idx % 2 == 0){
                         new_course_content += `
                         <div class="row">
                             <div class="col-sm-6 module">
@@ -176,7 +174,7 @@ function showpath(pathid){
 
                 // course completed (iscomplete == 1)
                 else{
-                    if (courseCount == 1){
+                    if (newPath_course_idx == 0 || newPath_course_idx % 2 == 0){
                         new_course_content += `
                         <div class="row">
                             <div class="col-sm-6 module">

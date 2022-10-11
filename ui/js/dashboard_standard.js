@@ -26,7 +26,7 @@ $(async () => {
             // console.log(result.data)
             learning_journeys = result.data
             console.log(learning_journeys)
-            // sessionStorage.setItem('learning_journeys', learning_journeys);
+            sessionStorage.setItem('learning_journeys', JSON.stringify(learning_journeys));
 
             var firstLJ = learning_journeys[0];
 
