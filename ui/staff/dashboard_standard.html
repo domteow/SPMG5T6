@@ -23,7 +23,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./css/dashboard_standard.css">
+    <link rel="stylesheet" href="../css/dashboard_standard.css">
     <link rel="stylesheet" href="./css/navbar.css">
 
     <!-- less -->
@@ -44,9 +44,12 @@
 
         <!-- user profile -->
         <div class="user">
-            <img src="../img/face.jpg" class="userface" alt="">
-            <div class="user_name">
-                Jane Doe
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
             </div>
         </div>
 
@@ -86,8 +89,8 @@
     <div class="main">
         <div class="maincontent">
             <!-- say hi to user LOL -->
-            <div class="hiuser">
-                Hi
+            <div class="hiuser" id="hiuser">
+                <!-- Hi <span class="user_name" id="user_name"></span> -->
             </div>
 
             <!-- learning journey carousel header -->

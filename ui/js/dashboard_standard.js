@@ -1,9 +1,14 @@
 var ljpaths_div = document.getElementById('ljpaths');
 var courses_div = document.getElementById('courses_in_LJ');
 var courseCount = 1;
-var staff_id = 1;
+var staff_id = sessionStorage.getItem('staff_id');
 var count = 1;
 var first_slide = true;
+
+var full_name = sessionStorage.getItem('full_name');
+console.log(full_name);
+document.getElementById('hiuser').innerHTML = 'Hi, ' + full_name;
+
 
 // the data is placed in learning_journeys 
 $(async () => {
@@ -21,6 +26,7 @@ $(async () => {
             // console.log(result.data)
             learning_journeys = result.data
             console.log(learning_journeys)
+            // sessionStorage.setItem('learning_journeys', learning_journeys);
 
             var firstLJ = learning_journeys[0];
 
@@ -33,7 +39,7 @@ $(async () => {
                 console.log(lj_arr);
                 var journey_id = lj_arr['journey_id'];
                 var role_title = lj_arr['role_title'];
-
+                
                 if (first_slide){
                     if (count == 1){
                         // first_slide == true, count == 1, means this is the first learning journey shown = auto checked
@@ -188,6 +194,7 @@ $(async () => {
                 }
             }
 
+
             // console.log('end');
             // console.log(count);
 
@@ -211,7 +218,8 @@ $(async () => {
             var coursecontent =``;
 
             for (var course_idx in firstcourses){
-                // console.log(course_idx);
+                console.log(course_idx);
+                console.log(courseCount);
                 var course_details = firstcourses[course_idx];
                 var course_name = course_details['course_name'];
                 var iscomplete = course_details['course_status'];
@@ -219,7 +227,7 @@ $(async () => {
 
                 // course not completed 
                 if (iscomplete == 0){
-                    if (courseCount == 1){
+                    if (course_idx == 0 || course_idx%2 == 0){
                         coursecontent += `
                         <div class="row">
                             <div class="col-sm-6 module">
@@ -261,7 +269,7 @@ $(async () => {
 
                 // course completed (iscomplete == 1)
                 else{
-                    if (courseCount == 1){
+                    if (course_idx == 0 || course_idx%2 == 0){
                         coursecontent += `
                         <div class="row">
                             <div class="col-sm-6 module">
@@ -304,11 +312,12 @@ $(async () => {
                 if(courseCount == 1){
                     courseCount+=1;
                 }                
-                else{
+                if(courseCount ==2) {
                     courseCount == 1;
                 }
             }
-            courses_div.innerHTML += coursecontent;              
+            courses_div.innerHTML += coursecontent;  
+            console.log(courses_div);            
         }
         
 

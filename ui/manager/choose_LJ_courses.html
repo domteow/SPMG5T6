@@ -43,24 +43,33 @@
 
         <!-- user profile -->
         <div class="user">
-            <img src="../img/face.jpg" class="userface" alt="">
-            <div class="user_name">
-                Jane Doe
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
             </div>
         </div>
 
         <!-- pages -->
-        <a href="./homepage_standard.html" class="navtext">
+        <a href="./homepage_manager.html" class="navtext">
             <div class="navitem act">
                 <img src="../img/explore_active.png" alt=""> Explore
             </div>
         </a>
-        <a href="./dashboard_standard.html" class="navtext">
-            <div class="navitem">
-                <img src="../img/dashboard.png" alt=""> Dashboard
-            </div>
-        </a>
-        <a href="./settings_standard.html" class="navtext">
+
+        <div class="dropdown navitem">
+            <button class="btn dropdown-toggle dashy" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/dashboard.png"  alt=""> Dashboard
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item itey" href="./dashboard_manager_personal.html">Personal</a></li>
+              <li><a class="dropdown-item" href="./dashboard_manager_team.html">My Team</a></li>
+            </ul>
+        </div>
+        
+        <a href="./settings_manager.html" class="navtext">
             <div class="navitem">
                 <img src="../img/settings.png" alt=""> Settings
             </div>
@@ -102,7 +111,7 @@
             <div class="createLJ" id="createLJ" onclick="getValues()">
                 Next
             </div>
-            <a href="./homepage_standard.html">
+            <a href="./homepage_manager.html">
                 <div class="cancelLJ">
                     Cancel
                 </div>

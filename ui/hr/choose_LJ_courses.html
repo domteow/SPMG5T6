@@ -24,7 +24,7 @@
 
     <!-- css -->
     <link rel="stylesheet" href="../css/choose_LJ_courses.css">
-    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- less -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -43,24 +43,39 @@
 
         <!-- user profile -->
         <div class="user">
-            <img src="../img/face.jpg" class="userface" alt="">
-            <div class="user_name">
-                Jane Doe
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
             </div>
         </div>
 
         <!-- pages -->
-        <a href="./homepage_standard.html" class="navtext">
+        <a href="./homepage_hr.html" class="navtext">
             <div class="navitem act">
                 <img src="../img/explore_active.png" alt=""> Explore
             </div>
         </a>
-        <a href="./dashboard_standard.html" class="navtext">
+
+        <a href="./dashboard_hr.html" class="navtext">
             <div class="navitem">
-                <img src="../img/dashboard.png" alt=""> Dashboard
+                <img src="../img/dashboard.png"  alt=""> Dashboard
             </div>
         </a>
-        <a href="./settings_standard.html" class="navtext">
+
+        <div class="dropdown navitem">
+            <button class="btn dropdown-toggle dashy" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/edit.png"  alt=""> Edit
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item itey" href="./edit_roles.html">Roles</a></li>
+              <li><a class="dropdown-item" href="./edit_skills.html">Skills</a></li>
+            </ul>
+        </div>
+        
+        <a href="./settings_hr.html" class="navtext">
             <div class="navitem">
                 <img src="../img/settings.png" alt=""> Settings
             </div>
@@ -102,7 +117,7 @@
             <div class="createLJ" id="createLJ" onclick="getValues()">
                 Next
             </div>
-            <a href="./homepage_standard.html">
+            <a href="./homepage_hr.html">
                 <div class="cancelLJ">
                     Cancel
                 </div>

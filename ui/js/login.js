@@ -2,7 +2,7 @@
 // THE USER WILL KEY IN THEIR STAFF ID THEN SEND 
 // login() WILL TAKE THE STAFF ID AND STORE IN SESSIONSTORAGE
 // BACKEND WILL TELL FRONTEND WHO THIS STAFF IS
-
+// sessionStorage.clear();
 function login(){
     var staff_id = document.getElementById('staff_ID').value;
     sessionStorage.setItem('staff_id', staff_id);
@@ -28,9 +28,16 @@ function login(){
                 sessionStorage.setItem('staff_role', staff_role)
                 sessionStorage.setItem('full_name', full_name)
                 sessionStorage.setItem('dept', dept)
-
-
-                
+                }
+                console.log(staff_role);
+                if (staff_role == 1){
+                    location.href = './hr/homepage_hr.html';
+                }
+                if (staff_role == 2){
+                    location.href = './staff/homepage_standard.html';
+                }
+                if(staff_role == 3){
+                    location.href = './manager/homepage_manager.html';
                 }
         } catch (error) {
             console.log(error)
@@ -38,6 +45,3 @@ function login(){
         }
     })
 }
-
-// BACKEND TO USE ^ staff_id TO TELL FRONTEND USER DETAILS
-

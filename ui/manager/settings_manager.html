@@ -17,9 +17,12 @@
     <!-- vue -->
     <script src="https://unpkg.com/vue@next"></script>
 
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
     <!-- css -->
-    <link rel="stylesheet" href="../settings.css">
-    <link rel="stylesheet" href="../navbar.css">
+    <link rel="stylesheet" href="../css/settings.css">
+    <link rel="stylesheet" href="./css/navbar.css">
 
     <!-- font family -->
     <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
@@ -35,9 +38,12 @@
 
         <!-- user profile -->
         <div class="user">
-            <img src="../img/face.jpg" class="userface" alt="">
-            <div class="user_name">
-                Jane Doe
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
             </div>
         </div>
 
@@ -88,23 +94,24 @@
                     <div class="col-sm-2 title">
                         Name:
                     </div>
-                    <div class="col-sm-10 content">
-                        Jane Doe
+                    <div class="col-sm-10 content" id="full_name">
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 title">
-                        Position:
+                        Department:
                     </div>
-                    <div class="col-sm-10 content">
-                        Manager
+                    <div class="col-sm-10 content" id="department">
+                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-  <script src="../nav.js"></script>
+  <script src="../js/nav.js"></script>
+  <script src="../js/settings.js"></script>
 
 </body>
 </html>

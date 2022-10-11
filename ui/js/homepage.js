@@ -16,7 +16,7 @@ $(async () => {
         const result = await response.json();
         // console.log(result.data)
         if(result) {
-            // console.log(result.data)
+            console.log(result.data)
             all_roles = result.data
             
             for (let role in all_roles){

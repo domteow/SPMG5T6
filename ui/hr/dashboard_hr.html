@@ -23,8 +23,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./dashboard.css">
-    <link rel="stylesheet" href="./hrnavbar.css">
+    <link rel="stylesheet" href="../css/dashboard_standard.css">
+    <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- less -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -43,9 +43,12 @@
 
         <!-- user profile -->
         <div class="user">
-            <img src="../img/face.jpg" class="userface" alt="">
-            <div class="user_name">
-                Jane Doe
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
             </div>
         </div>
 
@@ -93,266 +96,86 @@
     </div>
     <!-- end of phone nav menu -->
     
+
     <!-- main content -->
     <div class="main">
         <div class="maincontent">
-            <div class="hiUser">
-
-                <!-- INPUT STAFF NAME ({STAFF_FNAME}) -->
-                Hi <span class="username" id="username"></span>
-
+            <!-- say hi to user LOL -->
+            <div class="hiuser" id="hiuser">
+                <!-- Hi <span class="user_name" id="user_name"></span> -->
             </div>
 
-            <!-- learning journey -->
-            <div class="ljdiv">
-                <div class="myLJ">
-                    Your Learning Journey(s)
-                </div>
-                <div class="container lj" id="learningjourney">
-                    <div class="row carourow">
-                      <div class="col-md-12">
-                        <div class="carousel slide multi-item-carousel" id="theCarousel">
-                          <div class="carousel-inner">
-                            <div class="item active">
-                              <div class="col-xs-4">
-
-                                <!-- THE BELOW DIV WITH ID PATH_ IS FOR EACH INDIVIDUAL LEARNING JOURNEY PATH -->
-                                <!-- NAME OF LEARNING JOURNEY WITH ID='pathname' -->
-                                <!-- PROGRESS BAR WIDTH PERCENTAGE WITH ID='progressbar' -->
-                                    <div class="path activecarou" id="path1" onclick="showpath(this.id)">
-                                        <div class="pathname" id="pathname">
-                                            <img src="../img/pathicon.png" alt=""> CEO
-                                        </div>
-                                        <div class="progr">
-                                            Progress
-                                        </div>
-                                        <div class="progress" id="pathprogress">
-                                            <div class="progress-bar" role="progressbar" id="progressbar" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                              <div class="col-xs-4">
-                                    <div class="path" id="path2" onclick="showpath(this.id)">
-                                        <div class="pathname" id="pathname">
-                                            <img src="../img/pathicon.png" alt=""> CEO
-                                        </div>
-                                        <div class="progr">
-                                            Progress
-                                        </div>
-                                        <div class="progress" id="pathprogress">
-                                            <div class="progress-bar" role="progressbar" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                              <div class="col-xs-4" id="3"  onclick="showpath(this.id)"><a href="#1">
-                                <div class="path" id="path">
-                                    <div class="pathname" id="pathname">
-                                        <img src="../img/pathicon.png" alt=""> CEO
-                                    </div>
-                                    <div class="progr">
-                                        Progress
-                                    </div>
-                                    <div class="progress" id="pathprogress">
-                                        <div class="progress-bar" role="progressbar" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                              </a></div>
-                            </div>
-                            <div class="item">
-                              <div class="col-xs-4"><a href="#1">
-                                <div class="path" id="path">
-                                    <div class="pathname" id="pathname">
-                                        <img src="../img/pathicon.png" alt=""> CEO
-                                    </div>
-                                    <div class="progr">
-                                        Progress
-                                    </div>
-                                    <div class="progress" id="pathprogress">
-                                        <div class="progress-bar" role="progressbar" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                              </a></div>
-                            </div>
-                            <div class="item">
-                              <div class="col-xs-4"><a href="#1"><div class="path" id="path">
-                                <div class="pathname" id="pathname">
-                                    <img src="../img/pathicon.png" alt=""> CEO
-                                </div>
-                                <div class="progr">
-                                    Progress
-                                </div>
-                                <div class="progress" id="pathprogress">
-                                    <div class="progress-bar" role="progressbar" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div></a></div>
-                            </div>
-                            <div class="item">
-                              <div class="col-xs-4"><a href="#1">
-                                <div class="path" id="path">
-                                    <div class="pathname" id="pathname">
-                                        <img src="../img/pathicon.png" alt=""> CEO
-                                    </div>
-                                    <div class="progr">
-                                        Progress
-                                    </div>
-                                    <div class="progress" id="pathprogress">
-                                        <div class="progress-bar" role="progressbar" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                              </a></div>
-                            </div>
-                            <!-- add  more items here -->
-                          </div>
-                          <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                          <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                        </div>
-                      </div>
-                    </div>
+            <!-- learning journey carousel header -->
+            <div class="ljtitlediv">
+                <div class="ljtitle">
+                    My Learning Journey(s)
                 </div>
             </div>
-            <!-- end of learning journey carousel -->
+
+            <!-- learning journey carousel-->
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval=false>
+                <div class="carousel-inner" id="ljpaths">
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <!-- end of carousel -->
+
+            <!-- courses you're taking -->
+            <div class="coursestaking">
+                Course(s) You're Taking
+            </div>
 
             <!-- courses in learning journey search -->
             <div class="ljcourse">
-                <div class="title">
-                    Courses You're Taking
-                </div>
-
                 <div class="container-fluid searchfield">
                     <div class="row">
                         <div class="col-sm-8 searchcol">
                             <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a course" name="roleName" id="roleName">
                         </div>
-                        <div class="col-sm-4 newcourse">
-                            <div class="newcoursebutton">
-                                Add New Courses
+                        
+                            <div class="col-sm-4 newcourse">
+                                <a href="#">
+                                    <div class="newcoursebutton">
+                                        Edit Learning Journey
+                                    </div>
+                                </a>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
             <!-- courses in learning journey search -->
 
             <!-- courses in the learning journey -->
-            <div class="container-fluid courses">
-                <div class="row">
+            <div class="container-fluid courses" id="courses_in_LJ">
+            
 
                     <!-- THE DIV 'MODULE' BELOW IS FOR EACH INDIVIDUAL COURSE TAKEN/ TAKING -->
                     <!-- NAME OF COURSE HAS ID='courseName' -->
                     <!-- FOR THOSE THAT ARE COMPLETED ID='complete' CLASS='courseNotComplete' -->
                     <!-- FOR THOSE THAT ARE NOT COMPLETED ID='notcomplete' CLASS='courseComplete' -->
-                    <div class="col-sm-6 module">
-                        <div class="container-fluid course">
-                            <div class="row ">
-                                <div class="col-sm-2">
-                                    <img src="../img/leadership.png" alt="">
-                                </div>
-                                <div class="col-sm-6 courseName" id="courseName">
-                                    Leadership
-                                </div>
-                                <div class="col-sm-4 courseComplete" id="complete">
-                                    Completed
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
+                    
+            </div>
 
-                    <div class="col-sm-6 module">
-                        <div class="container-fluid course">
-                            <div class="row ">
-                                <div class="col-2">
-                                    <img src="../img/comm.png" alt="">
-                                </div>
-                                <div class="col-6 courseName" id="courseName">
-                                    Writing and Reasoning
-                                </div>
-                                <div class="col-sm-4 courseComplete" id="complete">
-                                    Completed
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6 module">
-                        <div class="container-fluid course">
-                            <div class="row ">
-                                <div class="col-sm-2">
-                                    <img src="../img/leadership.png" alt="">
-                                </div>
-                                <div class="col-sm-6 courseName" id="courseName">
-                                    Communication
-                                </div>
-                                <div class="col-sm-4 courseNotComplete" id="notcomplete">
-                                    In Progress
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-
-                    <div class="col-sm-6 module">
-                        <div class="container-fluid course">
-                            <div class="row ">
-                                <div class="col-sm-2">
-                                    <img src="../img/comm.png" alt="">
-                                </div>
-                                <div class="col-sm-6 courseName" id="courseName">
-                                    Writing and Reasoning
-                                </div>
-                                <div class="col-sm-4 courseNotComplete" id="notcomplete">
-                                    In Progress
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-6 module">
-                        <div class="container-fluid course">
-                            <div class="row ">
-                                <div class="col-sm-2">
-                                    <img src="../img/leadership.png" alt="">
-                                </div>
-                                <div class="col-sm-6 courseName" id="courseName">
-                                    bla
-                                </div>
-                                <div class="col-sm-4 courseNotComplete" id="notcomplete">
-                                    In Progress
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-
-                    <div class="col-sm-6 module">
-                        <div class="container-fluid course">
-                            <div class="row ">
-                                <div class="col-sm-2">
-                                    <img src="../img/comm.png" alt="">
-                                </div>
-                                <div class="col-sm-6 courseName" id="courseName">
-                                    blabla
-                                </div>
-                                <div class="col-sm-4 courseNotComplete" id="notcomplete">
-                                    In Progress
-                                </div>
-                            </div>
-                        </div>                        
-                    </div>
-                </div>
+            <div class="delete">
+                Delete Learning Journey
             </div>
         </div>
     </div>
+        </div>
+    </div>
 
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
-    <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script>
-    
-    <script src="../nav.js"></script>
-    <script src="../carousel.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/dashboard_standard.js"></script>
+    <script src="../js/dashboard_onclick.js"></script>
 </body>
 </html>
