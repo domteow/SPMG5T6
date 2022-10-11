@@ -1,3 +1,4 @@
+/* USED FOR BOTH MANAGER AND REGULAR STAFF */ 
 /* navigation bar */
 .sidenav {
     height: 100%;
@@ -61,6 +62,13 @@
     font-weight: 400;
     font-style: normal;
     font-size: 22px;
+}
+
+.dept{
+    font-family: roboto, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 18px;
 }
 
 .logout{

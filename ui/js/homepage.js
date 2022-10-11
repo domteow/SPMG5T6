@@ -1,5 +1,6 @@
-var staff_id = 1
-sessionStorage.setItem('staff_id', staff_id)
+// var staff_id = 1
+// sessionStorage.setItem('staff_id', staff_id)
+var staff_id = sessionStorage.getItem('staff_id');
 var place = document.getElementById('allroles');
 var all_roles;
 
@@ -15,7 +16,7 @@ $(async () => {
         const result = await response.json();
         // console.log(result.data)
         if(result) {
-            // console.log(result.data)
+            console.log(result.data)
             all_roles = result.data
             
             for (let role in all_roles){
@@ -82,7 +83,17 @@ async function createLJ(role_id){
             console.log('Role selected')
             role_details = JSON.stringify(result.data)
             sessionStorage.setItem('role_details', role_details)
-            location.href = '../creating_LJ/view_role_details.html';
+            var staff_role = sessionStorage.getItem('staff_role');
+            console.log(staff_role);
+            if (staff_role == 1){
+                location.href = '../hr/view_role_details.html';
+            }
+            if(staff_role == 2){
+                location.href = '../staff/view_role_details.html';
+            }
+            if(staff_role == 3){
+                location.href = '../manager/view_role_details.html';
+            }
         }
         
 

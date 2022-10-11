@@ -21,3 +21,10 @@ else{
     document.getElementById('navey').innerHTML = `<button class="openbtn" id="navey" onclick="openNav()"><img src="../img/menu icon.png" alt=""></button>`;
     closeNav();
 }
+
+var full_name = sessionStorage.getItem('full_name');
+var dept = sessionStorage.getItem('dept');
+var full_name_div = document.getElementById('user_name');
+var dept_div = document.getElementById('dept');
+full_name_div.innerText = full_name;
+dept_div.innerText = dept;

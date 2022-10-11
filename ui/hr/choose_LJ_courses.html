@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJPS Explore</title>
+    <title>LJPS Dashboard</title>
     <link rel="icon" href="../img/webicon.png">
 
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>
 
     <!-- bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -21,8 +23,11 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="../css/settings.css">
-    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="../css/choose_LJ_courses.css">
+    <link rel="stylesheet" href="./css/hrnavbar.css">
+
+    <!-- less -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
     <!-- font family -->
     <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
@@ -48,25 +53,31 @@
         </div>
 
         <!-- pages -->
-        <a href="./homepage_manager.html" class="navtext">
+        <a href="./homepage_hr.html" class="navtext">
+            <div class="navitem act">
+                <img src="../img/explore_active.png" alt=""> Explore
+            </div>
+        </a>
+
+        <a href="./dashboard_hr.html" class="navtext">
             <div class="navitem">
-                <img src="../img/explore.png" alt=""> Explore
+                <img src="../img/dashboard.png"  alt=""> Dashboard
             </div>
         </a>
 
         <div class="dropdown navitem">
             <button class="btn dropdown-toggle dashy" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../img/dashboard.png"  alt=""> Dashboard
+                <img src="../img/edit.png"  alt=""> Edit
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item itey" href="./dashboard_manager_personal.html">Personal</a></li>
-              <li><a class="dropdown-item" href="./dashboard_manager_team.html">My Team</a></li>
+              <li><a class="dropdown-item itey" href="./edit_roles.html">Roles</a></li>
+              <li><a class="dropdown-item" href="./edit_skills.html">Skills</a></li>
             </ul>
         </div>
         
-        <a href="./settings_manager.html" class="navtext">
-            <div class="navitem act">
-                <img src="../img/settings_active.png" alt=""> Settings
+        <a href="./settings_hr.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/settings.png" alt=""> Settings
             </div>
         </a>
     
@@ -83,35 +94,44 @@
     <div id="navmenu">
         <div class="navey" id="navey"></div>
     </div>
-    
+    <!-- end of phone nav menu -->
+
+    <!-- main content -->
     <div class="main">
-        <div class="maincontent">
-            <div class="settings">
-                Settings
+        <div class="maincontent" id="ljj">
+            <div class="roletitle" id="roletitle">
+
             </div>
-            <div class="container-fluid settingsContainer">
-                <div class="row">
-                    <div class="col-sm-2 title">
-                        Name:
-                    </div>
-                    <div class="col-sm-10 content" id="full_name">
-                        
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2 title">
-                        Department:
-                    </div>
-                    <div class="col-sm-10 content" id="department">
-                        
-                    </div>
-                </div>
+            <div class="roledescription" id="roledescription">
+
             </div>
+            <div class="container-fluid skillscontainer" id="skillscontainer">
+
+            </div>
+            <!-- THIS VERSION SHOULD HAVE THE UPDATED DASHBOARD WITH THE NEWLY ADDED LEARNING JOURNEY -->
+            <!-- <a href="../staff/dashboards_standard.html">
+                <div class="createLJ" id="createLJ">
+                    Create Learning Journey
+                </div>
+            </a> -->
+            <div class="createLJ" id="createLJ" onclick="getValues()">
+                Next
+            </div>
+            <a href="./homepage_hr.html">
+                <div class="cancelLJ">
+                    Cancel
+                </div>
+            </a>
+            
+
+
+
+
+
         </div>
     </div>
 
-  <script src="../js/nav.js"></script>
-  <script src="../js/settings.js"></script>
-
+    <script src="../js/nav.js"></script>
+    <script src="../js/choose_LJ_courses.js"></script>
 </body>
 </html>

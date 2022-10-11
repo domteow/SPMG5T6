@@ -1,0 +1,120 @@
+/* USED FOR BOTH MANAGER AND REGULAR STAFF */ 
+/* navigation bar */
+.sidenav {
+    height: 100%;
+    width: 245px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fcfcfc;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+}
+
+.navitem {
+    margin-top: 5%;
+    width:80%;
+    text-align: left;
+    padding-left: 1%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+    padding: 5%;
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    color: #000;
+    margin-top: 15%;
+}
+
+.act{
+    background-color: #190063;
+    color: #FFDBA5;
+}
+
+.user{
+    width:85%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 15%;
+    margin-bottom: 35%;
+}
+
+.userface{
+    border-radius: 50%;
+    border: 1px solid black;
+    width: 75px;
+    height: 75px;
+}
+
+.user_name{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 22px;
+}
+
+.logout{
+    margin-top: 100%;
+    margin-bottom: 0%;
+    text-align: center;
+    width: 225px;
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #190063;
+}
+
+.openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+}
+  
+.closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.dashy{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    color: #000;
+    padding-left: 0%;
+}
+
+.dropdown{
+    width:90%;
+    margin-left:auto;
+    margin-right: auto;
+}
+
+.dropdown-item:hover{
+    background-color: #190063;
+    color:#FFDBA5;
+}
+
+.dropdown-menu:active{
+    outline: transparent;
+    border: none;
+}
+
+/* end of nav bar */ 

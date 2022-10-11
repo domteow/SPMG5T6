@@ -39,6 +39,19 @@ db.create_all()
 
 #     return jsonify({"data": testing})
 
+#login
+@app.route("/login/<int:staff_id>")
+def login(staff_id):
+    staff = Staff.get_staff_by_id(staff_id)
+    if staff:
+        return jsonify({
+            'data': staff
+            }), 200
+    else:
+        return jsonify({
+            "message": "There is no staff with that ID"
+        }), 404
+        
 #First page with all roles + attained status
 @app.route("/all_roles/<int:staff_id>")
 def get_all_roles(staff_id):
