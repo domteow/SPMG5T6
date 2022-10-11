@@ -216,7 +216,7 @@ $(async () => {
                 content+= `<div class = 'col'></div><div class = 'col'></div>`;
             }
 
-            if (count == 2){
+            if (remainder == 2){
                 content +=`<div class = 'col'></div>`;
             }
 
