@@ -245,7 +245,18 @@ function getValues(){
     }
     else {
         sessionStorage.setItem('checkedCourses', checkedCourses);
-        location.href = './confirm_LJ.html';
+        var staff_role = sessionStorage.getItem('staff_role');
+        console.log(staff_role);
+        if (staff_role == 1){
+            location.href = '../hr/confirm_LJ.html';
+        }
+        if(staff_role == 2){
+            location.href = '../staff/confirm_LJ.html';
+        }
+        if(staff_role == 3){
+            location.href = '../manager/confirm_LJ.html';
+        }
+        // location.href = './confirm_LJ.html';
     }
     
 

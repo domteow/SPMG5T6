@@ -83,7 +83,17 @@ async function createLJ(role_id){
             console.log('Role selected')
             role_details = JSON.stringify(result.data)
             sessionStorage.setItem('role_details', role_details)
-            location.href = '../creating_LJ/view_role_details.html';
+            var staff_role = sessionStorage.getItem('staff_role');
+            console.log(staff_role);
+            if (staff_role == 1){
+                location.href = '../hr/view_role_details.html';
+            }
+            if(staff_role == 2){
+                location.href = '../staff/view_role_details.html';
+            }
+            if(staff_role == 3){
+                location.href = '../manager/view_role_details.html';
+            }
         }
         
 

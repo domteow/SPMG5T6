@@ -81,7 +81,20 @@ async function confirmLJ(){
         console.log('error')
     }
 
+
     // creating courses in lj_course table
+
+    var staff_role = sessionStorage.getItem('staff_role');
+    console.log(staff_role);
+    if (staff_role == 1){
+        location.href = '../hr/dashboard_hr.html';
+    }
+    if(staff_role == 2){
+        location.href = '../staff/dashboard_standard.html';
+    }
+    if(staff_role == 3){
+        location.href = '../manager/dashboard_manager_personal.html';
+    }
     
-    location.href = '../staff/dashboard_standard.html';
+    // location.href = '../staff/dashboard_standard.html';
 }

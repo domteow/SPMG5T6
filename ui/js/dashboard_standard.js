@@ -1,3 +1,10 @@
+window.onload = function(){
+    if(!window.location.hash) {
+		window.location = window.location + '#loaded';
+		window.location.reload();
+	}
+}
+
 var ljpaths_div = document.getElementById('ljpaths');
 var courses_div = document.getElementById('courses_in_LJ');
 var courseCount = 1;
@@ -25,23 +32,24 @@ $(async () => {
         if(result) {
             // console.log(result.data)
             learning_journeys = result.data
-            console.log(learning_journeys)
+            // console.log(learning_journeys)
             sessionStorage.setItem('learning_journeys', JSON.stringify(learning_journeys));
 
             var firstLJ = learning_journeys[0];
 
             // this entire chunk is to display the learning journey 
+            console.log(learning_journeys);
 
             for (var lj_index in learning_journeys){
-                console.log(count);
-                console.log(first_slide);
+                // console.log(count);
+                // console.log(first_slide);
                 var lj_arr = learning_journeys[lj_index];
-                console.log(lj_arr);
+                // console.log(lj_arr);
                 var journey_id = lj_arr['journey_id'];
                 var role_title = lj_arr['role_title'];
-                
+                console.log(lj_index);
                 if (first_slide){
-                    if (count == 1){
+                    if (lj_index==0 || lj_index%3==0){
                         // first_slide == true, count == 1, means this is the first learning journey shown = auto checked
                         sessionStorage.setItem('activeLJ', journey_id);
                         var content = `
@@ -65,7 +73,7 @@ $(async () => {
                                     </div>
                         `;
                     }
-                    if (count == 3){
+                    if (lj_index==2 || (lj_index-2)%3==0){
                         content += `
                                     <div class="col">
                                         <a href="#">
@@ -87,7 +95,7 @@ $(async () => {
                         </div>                        
                         `;
                     }
-                    if (count == 2){
+                    if (lj_index == 1 || (lj_index-4)%3==0){
                         content += `
                         <div class="col">
                             <a href="#">
@@ -118,9 +126,9 @@ $(async () => {
 
                 // not first slide 
                 else{
-                    console.log(count);
-                    console.log(first_slide);
-                    if (count == 1){
+                    // console.log(count);
+                    // console.log(first_slide);
+                    if (lj_index==0 || lj_index%3==0){
                         content += `
                         <div class="carousel-item">
                             <div class="container caroucontainer">
@@ -143,7 +151,7 @@ $(async () => {
                         `;
                         // count += 1;
                     }
-                    if (count == 3){
+                    if (lj_index==2 || (lj_index-2)%3==0){
                         content += `
                                     <div class="col">
                                         <a href="#">
@@ -165,7 +173,7 @@ $(async () => {
                         </div>
                         `;
                     }
-                    if (count == 2){
+                    if (lj_index==1 || (lj_index-4)%3==0){
                         content += `
                         <div class="col">
                             <a href="#">
@@ -185,12 +193,12 @@ $(async () => {
                         `;
                     }
                     
-                    if (count <3){
-                        count += 1;
-                    }
-                    else{
-                        count == 0;
-                    }
+                    // if (count <3){
+                    //     count += 1;
+                    // }
+                    // else{
+                    //     count == 0;
+                    // }
                 }
             }
 
@@ -198,15 +206,25 @@ $(async () => {
             // console.log('end');
             // console.log(count);
 
-            if (count == 2) {
+
+
+            var len = learning_journeys.length;
+            console.log(len);
+            var remainder = len % 3;
+
+            if (remainder == 1) {
                 content+= `<div class = 'col'></div><div class = 'col'></div>`;
             }
 
-            if (count == 3){
+            if (count == 2){
                 content +=`<div class = 'col'></div>`;
             }
 
+
+            console.log(content);
+
             ljpaths_div.innerHTML += content;
+
 
             // console.log(ljpaths_div);
 

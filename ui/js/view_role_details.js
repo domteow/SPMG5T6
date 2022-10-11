@@ -223,5 +223,16 @@ console.log(ljpsr_role_id);
 
 function confirmCreateLJ(){
     sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
-    location.href = './choose_LJ_courses.html';
+    var staff_role = sessionStorage.getItem('staff_role');
+    console.log(staff_role);
+    if (staff_role == 1){
+        location.href = '../hr/choose_LJ_courses.html';
+    }
+    if(staff_role == 2){
+        location.href = '../staff/choose_LJ_courses.html';
+    }
+    if(staff_role == 3){
+        location.href = '../manager/choose_LJ_courses.html';
+    }
+    // location.href = './choose_LJ_courses.html';
 }
