@@ -1,5 +1,6 @@
-var staff_id = 1
-sessionStorage.setItem('staff_id', staff_id)
+// var staff_id = 1
+// sessionStorage.setItem('staff_id', staff_id)
+var staff_id = sessionStorage.getItem('staff_id');
 var place = document.getElementById('allroles');
 var all_roles;
 

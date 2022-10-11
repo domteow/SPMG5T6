@@ -211,7 +211,6 @@ $(async () => {
             var coursecontent =``;
 
             for (var course_idx in firstcourses){
-                // console.log('rhys look here');
                 // console.log(course_idx);
                 var course_details = firstcourses[course_idx];
                 var course_name = course_details['course_name'];

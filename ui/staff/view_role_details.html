@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJPS Settings</title>
+    <title>LJPS Explore</title>
     <link rel="icon" href="../img/webicon.png">
 
     <!-- bootstrap -->
@@ -18,7 +18,7 @@
     <script src="https://unpkg.com/vue@next"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="../settings.css">
+    <link rel="stylesheet" href="./css/view_role_details.css">
     <link rel="stylesheet" href="./css/navbar.css">
 
     <!-- font family -->
@@ -43,8 +43,8 @@
 
         <!-- pages -->
         <a href="./homepage_standard.html" class="navtext">
-            <div class="navitem">
-                <img src="../img/explore.png" alt=""> Explore
+            <div class="navitem act">
+                <img src="../img/explore_active.png" alt=""> Explore
             </div>
         </a>
         <a href="./dashboard_standard.html" class="navtext">
@@ -53,8 +53,8 @@
             </div>
         </a>
         <a href="./settings_standard.html" class="navtext">
-            <div class="navitem act">
-                <img src="../img/settings_active.png" alt=""> Settings
+            <div class="navitem">
+                <img src="../img/settings.png" alt=""> Settings
             </div>
         </a>
     
@@ -71,34 +71,40 @@
     <div id="navmenu">
         <div class="navey" id="navey"></div>
     </div>
-    
+    <!-- end of phone nav menu -->
+
+    <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <div class="settings">
-                Settings
+            <div class="rolename" id="rolename">
+                
             </div>
-            <div class="container-fluid settingsContainer">
-                <div class="row">
-                    <div class="col-sm-2 title">
-                        Name:
-                    </div>
-                    <div class="col-sm-10 content">
-                        Jane Doe
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2 title">
-                        Position:
-                    </div>
-                    <div class="col-sm-10 content">
-                        Staff
-                    </div>
-                </div>
+            <div class="roledetailsHead">
+                Role Details: 
             </div>
+            <div class="roledetails" id="roledetails">
+
+            </div>
+            <div class="role_skills_head">
+                Skills Required: 
+            </div>
+            <ul class="role_skills" id="role_skills">
+
+            </ul>
+
+            <div class="createLJ" onclick="confirmCreateLJ()">
+                Create Learning Journey
+            </div>
+
+            <a href="./homepage_standard.html">
+                <div class="cancelLJ">
+                    Cancel
+                </div>
+            </a>
         </div>
     </div>
 
-  <script src="../js/nav.js"></script>
-
+    <script src="../js/nav.js"></script>
+    <script src="../js/view_role_details.js"></script>
 </body>
 </html>
