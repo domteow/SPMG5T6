@@ -300,35 +300,7 @@ def add_course_to_existing_learning_journey(journey_id):
             Lj_course.create_lj_course(journey_id, course_id)
     newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
     return jsonify({"courses":newly_added_courses})
-    # for course_id in data['courses']:
-    #     Lj_course.create_lj_course(journey_id, course_id)
-    # # get the courses ALR in the learning journey. 
-    # added_courses = Lj_course.get_lj_course_by_journey_list(journey_id) # data type: list 
 
-    # # using the learning journey id, get the role_id attached to the learning journey. 
-    # lj_role = Learning_journey.get_learning_journey_role_by_id(journey_id) # data type: str (i hope)
-
-    # # using the role_id, get the skills attached to the role. 
-    # role_related_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(lj_role)  # data type: list 
-
-    # # get all courses related to role_related_skills 
-    # all_courses = Attached_skill.get_attached_skill_by_course_ids(role_related_skills) # data type: list
-    # all_courses_with_description = [] # data type: list of tuples e.g. [(is101, stupid mod, TRUE)] where index 0 is course, index 1 is desc, index 2 is TRUE (can take) 
-
-    # # show description 
-    # for course in all_courses: 
-    #     course_info = Course.get_course_by_id(course)
-    #     course_desc = course_info['course_desc']
-    #     can_take = True
-
-    #     # however, use a IF function to indicate a status next to courses 
-    #     # TRUE = can take, FALSE = take alr 
-    #     if course in added_courses:
-    #         can_take = False 
-
-    #     all_courses_with_description.append((course, course_desc, can_take)) 
-    
-    # return all_courses_with_description
 # Delete courses from Learning Journey
 @app.route("/delete_course/<int:journey_id>", methods=['DELETE'])
 def delete_drug(journey_id):
