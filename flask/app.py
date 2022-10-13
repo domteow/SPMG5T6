@@ -406,18 +406,43 @@ def get_all_skills():
         }), 404
 
 #######################IN PROGRESS##################################
-# @app.route("/create_role/<string:role_name>&<string:role_desc>&<int:ljpsr_id>", methods=['POST'])
-# def new_role(ljpsr_id, staff_id, course_arr):
-#     ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+@app.route("/create_role", methods=['POST'])
+def new_role():
+    data = request.get_json()
+    ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+    role_title = data["newRoleName"]
+    role_desc = data["newRoleDescription"]
+    skills_str = data["newRoleSkills"]
+    skills = json.loads(skills_str)
 
-#     # call create lj function in Learning Journey class 
-#     createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
-#     # call create lj course function in Lj_course class
-#     createLJ_course_result = Lj_course.create_lj_course(journey_id,course_arr)
-#     print('function called to create LJ')
-#     # print(createLJ_result)
-#     # return createLJ_result
-#     return createLJ_course_result        
+    # call create role function to add new role to DB
+    create_role_result = Ljps_role.create_learning_journey_role(ljpsr_id, role_title, role_desc)
+    
+    for skill_id in skills:
+        print(skill_id)
+        create_role_skill_result = Role_required_skill.create_new_role_required_skill(skill_id, ljpsr_id)
+        print(create_role_skill_result)
+        if not create_role_skill_result:
+            break
+
+    if not create_role_result or not create_role_skill_result:
+        if not create_role_skill_result and not create_role_result:
+            return jsonify({
+                "message": "There was an error creating the role and its skills."
+            }), 404
+        elif not create_role_skill_result:
+            return jsonify({
+                "message": "There was an error adding the skill(s) to the role"
+            }), 404
+        else:
+             return jsonify({
+                "message": "There was an error adding the role"
+            }), 404
+    else:
+        return jsonify({
+            "message": "The role was successfully created"
+        }), 200
+   
 
 ######################################################################
 # HELPER FUNCTIONS BELOW

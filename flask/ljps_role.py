@@ -23,11 +23,13 @@ class Ljps_role(db.Model):
     ljpsr_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     role_title = db.Column(db.String(50), nullable = False)
     role_desc = db.Column(db.String(255))
+    active = db.Column(db.Integer, nullable=False)
 
-    def __init__(self, ljpsr_id, role_title, role_desc):
+    def __init__(self, ljpsr_id, role_title, role_desc, active):
         self.ljpsr_id = ljpsr_id
         self.role_title = role_title
         self.role_desc = role_desc
+        self.active = active
 
     def to_dict(self):
         """
@@ -54,5 +56,33 @@ class Ljps_role(db.Model):
         else:
             return []
 
+    #Create new active learning journey role and add to database
     def create_learning_journey_role(ljpsr_id, role_title, role_desc):
-        return None
+        # journey_id = db.session.query(Learning_journey.journey_id).count() + 1
+        new_ljps_role = Ljps_role(ljpsr_id, role_title, role_desc, 1)
+
+        try:
+            db.session.add(new_ljps_role)
+            db.session.commit()
+
+        except:
+            return False
+            # jsonify(
+            #     {
+            #         "code" : 500,
+            #         "data": {
+            #             "ljpsr_id" : ljpsr_id,
+            #             "role_title" : role_title,
+            #             "role_desc" : role_desc
+            #         },
+            #         "message": "An error occurred creating a new Learning Journey role"
+            #     }
+            # )
+
+        return True
+        # jsonify(
+        # {
+        #     "code": 201,
+        #     "data": new_ljps_role.to_dict()
+        # }
+    # )
