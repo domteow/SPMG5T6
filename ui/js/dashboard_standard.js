@@ -344,3 +344,22 @@ $(async () => {
         console.log('error')
     }
 })
+
+// function to edit courses in learning journey (dom)
+// click on edit learning journey button to use this
+function edit_LJ() {
+
+    sessionStorage.setItem('staff_id', staff_id)
+    staff_role = sessionStorage.getItem('staff_role')
+    if (staff_role == 1){
+        location.href = './hr/edit_LJ_courses.html';
+    }
+    if (staff_role == 2 || staff_role == 4){
+        location.href = './staff/edit_LJ_courses.html';
+    }
+    if(staff_role == 3){
+        location.href = './manager/edit_LJ_courses.html';
+    }
+
+    // location.href = './staff/edit_LJ_courses.html'
+}
