@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS registration (
 DROP TABLE IF EXISTS skill;
 
 CREATE TABLE IF NOT EXISTS skill (
-  skill_id int NOT NULL PRIMARY KEY,
+  skill_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   skill_desc varchar(65535) NOT NULL,
   skill_name varchar(255) NOT NULL,
   active int NOT NULL -- 0 = False, 1 = True 
