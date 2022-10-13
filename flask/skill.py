@@ -48,3 +48,11 @@ class Skill(db.Model):
             return skill.to_dict()
         else:
             return None
+
+    #get all skills 
+    def get_all_skills():
+        skills = Skill.query.all()
+        if skills:
+            return [skill.to_dict() for skill in skills]
+        else:
+            return None

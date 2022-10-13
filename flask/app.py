@@ -414,6 +414,71 @@ def createSkill():
             }
         )
 
+
+##################### Start of User story SA-2 (KELVIN) #####################
+#To retrieve all skills and details
+@app.route("/skills")
+def get_all_skills():
+    skills = Skill.get_all_skills()
+
+    if len(skills):
+        return jsonify({
+            "data": {
+                    "skills": skills
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "There are no skills."
+        }), 404
+
+#Create a role and add its relevant skills
+#Takes in role_title, role_desc, and a list of skill_id to add to role
+@app.route("/create_role", methods=['POST'])
+def new_role():
+    data = request.get_json()
+    ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+    role_title = data["newRoleName"]
+    role_desc = data["newRoleDesc"]
+    skills_str = data["newRoleSkills"]
+    skills = json.loads(skills_str)
+
+    #check if the role name already exists
+    if Ljps_role.check_learning_journey_role_exists(role_title):
+        return jsonify({
+                "message": "The role name already exists",
+            }), 401
+
+    # call create role function to add new role to DB
+    create_role_result = Ljps_role.create_learning_journey_role(ljpsr_id, role_title, role_desc)
+    
+    #for skill_id in skills, add the skill to the role
+    for skill_id in skills:
+        create_role_skill_result = Role_required_skill.create_new_role_required_skill(skill_id, ljpsr_id)
+        if not create_role_skill_result:
+            break
+    
+    #check if either creation fails
+    if not create_role_result or not create_role_skill_result:
+        if not create_role_skill_result and not create_role_result:
+            return jsonify({
+                "message": "There was an error creating the role and its skills."
+            }), 404
+        elif not create_role_skill_result:
+            return jsonify({
+                "message": "There was an error adding the skill(s) to the role"
+            }), 404
+        else:
+             return jsonify({
+                "message": "There was an error adding the role"
+            }), 404
+    else:
+        return jsonify({
+            "message": "The role was successfully created"
+        }), 201
+################### End of User story SA-2 (KELVIN) ##########################
+   
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
