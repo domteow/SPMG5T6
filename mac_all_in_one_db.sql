@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS registration (
 DROP TABLE IF EXISTS skill;
 
 CREATE TABLE IF NOT EXISTS skill (
-  skill_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  skill_id int NOT NULL PRIMARY KEY,
   skill_desc varchar(65535) NOT NULL,
   skill_name varchar(255) NOT NULL,
   active int NOT NULL -- 0 = False, 1 = True 
@@ -232,100 +232,100 @@ show global variables like 'local_infile';
 set global local_infile=true;
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/RawData/courses.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/RawData/courses.csv' 
 INTO TABLE course
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/RawData/role.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/RawData/role.csv' 
 INTO TABLE role
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/RawData/staff.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/RawData/staff.csv' 
 INTO TABLE staff
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/RawData/registration.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/RawData/registration.csv' 
 INTO TABLE registration
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/LjpsData/attached_skill.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/LjpsData/attached_skill.csv'
 INTO TABLE attached_skill
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/LjpsData/learning_journey.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/LjpsData/learning_journey.csv'
 INTO TABLE learning_journey
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/LjpsData/lj_course.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/LjpsData/lj_course.csv' 
 INTO TABLE lj_course
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/LjpsData/ljps_role.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/LjpsData/ljps_role.csv'
 INTO TABLE ljps_role
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/LjpsData/role_required_skill.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/LjpsData/role_required_skill.csv'
 INTO TABLE role_required_skill
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 -- 
 
 LOAD DATA INFILE 
-'C:/wamp64/tmp/LjpsData/skill.csv' 
+'/Applications/MAMP/htdocs/SPMG5T6/LjpsData/skill.csv'
 INTO TABLE skill 
 CHARACTER SET latin1 
 FIELDS TERMINATED BY ',' 
-LINES TERMINATED BY '\r\n' 
+LINES TERMINATED BY '\n' 
 IGNORE 1 ROWS; 
 
 SET FOREIGN_KEY_CHECKS = 1;

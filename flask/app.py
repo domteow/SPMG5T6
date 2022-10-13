@@ -1,3 +1,4 @@
+import json
 from turtle import st
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
@@ -230,12 +231,6 @@ def view_courses_under_skill(staff_id, ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
     
-
-
-
-       
-    
-
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
 #     course = Course.getCourseByID(id)
@@ -348,6 +343,52 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
+# Create Skill (HR)
+@app.route("/createSkill", methods=['POST'])
+def createSkill():
+
+    data = request.get_json()
+    print(data)
+
+    if (data["skill_name"] == "") or (data["skill_desc"] == ""): 
+        return jsonify(
+            {
+                "code": 500, 
+                "data": {
+                    "skill_name": data["skill_name"], 
+                    "skill_desc": data["skill_desc"]
+                }, 
+                "message": "Skill name and skill description cannot be empty."
+            }
+        ), 500
+
+    else: 
+        new_skill = Skill(**data)
+
+        try: 
+            db.session.add(new_skill)
+            db.session.commit()
+
+        except: 
+            return jsonify(
+                {
+                    "code": 500, 
+                "data": {
+                    "skill_id": data["skill_id"]
+                }, 
+                "message": "An error occurred while creating skill."
+                }
+
+            ), 500
+
+        return jsonify(
+            {
+                "code": 201, 
+                "data": new_skill.to_dict()
+            }
+        )
+
+
 #User story SA-2 (KELVIN)
 @app.route("/skills")
 def get_all_skills():
@@ -377,7 +418,7 @@ def get_all_skills():
 #     # print(createLJ_result)
 #     # return createLJ_result
 #     return createLJ_course_result        
-    
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################

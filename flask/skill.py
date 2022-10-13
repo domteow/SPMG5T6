@@ -20,7 +20,7 @@ CORS(app)
 class Skill(db.Model):
     __tablename__ = 'skill'
 
-    skill_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    skill_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     skill_name = db.Column(db.String(50))
     skill_desc = db.Column(db.String(255))
 
