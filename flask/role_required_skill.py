@@ -55,4 +55,14 @@ class Role_required_skill(db.Model):
                     skills.append(skill.skill_id)
 
         return skills
-
+    
+    def create_ljps_skill(ljpsr_id, skill_id):
+        new_ljps_skill = Role_required_skill(ljpsr_id,skill_id)
+        try:
+            db.session.add(new_ljps_skill)
+            db.session.commit()
+            return jsonify(new_ljps_skill.to_dict()), 201
+        except Exception:
+            return jsonify({
+                "message": "Unable to commit to database."
+            }), 500

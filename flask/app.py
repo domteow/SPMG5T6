@@ -348,6 +348,20 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
+# Add Skill(s) to existing LJPS role (bryan)
+@app.route("/add_skill_to_ljps_role/", methods=['POST'])
+def add_course_to_existing_learning_journey():
+    # once inside Learning Journey, click "add course" 
+    data = request.get_json()
+    ljpsr_id = data['ljpsr_id']
+    skills_to_add = data['skills']
+    added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    for skill in skills_to_add:
+        if skill not in added_skills:
+            Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+    newly_added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    return jsonify({"skills":newly_added_skills})
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
