@@ -148,9 +148,10 @@ async function addRole(){
                 console.log(result)
                 if(response.status === 201) {
                     console.log('Learning Journey created');
+                    alert("The role " + role_name + " has been successfully created")
                     location.href = './roles_page.html';
                 } else if (response.status === 401) {
-                    alert("The role name already exists");
+                    alert("The role name " + role_name + " already exists");
                 }
                 
         

@@ -51,7 +51,6 @@ class Ljps_role(db.Model):
 
     def check_learning_journey_role_exists(role_title):
         check = Ljps_role.query.filter_by(role_title=role_title).first()
-        
         return check
 
     def get_all_learning_journey_roles():
