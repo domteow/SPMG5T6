@@ -206,9 +206,11 @@ $(async () => {
                     var course_name = course['course_name'];
                     var course_desc = course['course_desc'];
                     var course_id = course['course_id'];
+                    console.log(course_name);
+                    
                     skillscont.innerHTML += `
                         <div class='row coursename form-check'>
-                            <input class='form-check-input' type='checkbox' id=${course_id} name = 'skills' value = "${skillname}/${course_name}/${course_id}">
+                            <input class='form-check-input' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='skills' value = "${skillname}/${course_name}/${course_id}">
                             ${course_name}
                             <div class='course_desc'>${course_desc}</div>
                         </div>
@@ -217,6 +219,9 @@ $(async () => {
                     `
                 }
             }
+
+            console.log(skillscont);
+            
         }
         
 
@@ -225,18 +230,30 @@ $(async () => {
         console.log('error')
     }
 })
-
-
-
     
+function handleChange(cb) {
+    var cbval = cb.id;
+    if(cb.checked == true) {
+        // to check all checkbox with the SAME ID -> course_id
+        var cbox = `input[id=${cbval}]`
+        var allCB = document.querySelectorAll(cbox);
+        for (var i=0; i< allCB.length; i++){
+            allCB[i].checked = true;
+        }
+      
+    } else {
+        // to uncheck all checkbox
+        var cbox = `input[id=${cbval}]`
+        var allCB = document.querySelectorAll(cbox);
+        for (var i=0; i< allCB.length; i++){
+            allCB[i].checked = false;
+        }
 
+    }
+}
 
 function getValues(){
     const allChecked = document.querySelectorAll('input[name=skills]:checked');
-
-    // console.log(allChecked);
-
-    // console.log(Array.from(allChecked).map(checkbox => checkbox.value));
 
     var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(checkedCourses);

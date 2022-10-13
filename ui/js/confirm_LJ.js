@@ -96,5 +96,4 @@ async function confirmLJ(){
         location.href = '../manager/dashboard_manager_personal.html';
     }
     
-    // location.href = '../staff/dashboard_standard.html';
 }
