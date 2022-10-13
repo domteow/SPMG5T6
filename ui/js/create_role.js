@@ -153,7 +153,7 @@ async function addRole(){
             // var staff_role = sessionStorage.getItem('staff_role');
             // console.log(staff_role);
             
-            location.href = './edit_roles.html';
+            location.href = './roles_page.html';
         }
 
 }
