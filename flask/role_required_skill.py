@@ -63,7 +63,6 @@ class Role_required_skill(db.Model):
     #Add skill to role
     def create_new_role_required_skill(skill_id, ljpsr_id):
         new_role_required_skill = Role_required_skill(skill_id, ljpsr_id)
-        print(new_role_required_skill.ljpsr_id, new_role_required_skill.skill_id)
         try:
             db.session.add(new_role_required_skill)
             db.session.commit()

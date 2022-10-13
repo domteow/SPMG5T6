@@ -107,7 +107,8 @@ function handleChange(cb) {
     }
 }
 
-function addRole(){
+async function addRole(){
+    var serviceURL = "http://127.0.0.1:5001/create_role"
     var role_name = document.getElementById('role_name').value;
     console.log(role_name);
     var role_desc = document.getElementById('role_desc').value;
@@ -117,18 +118,42 @@ function addRole(){
 
     var newRoleSkills = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(newRoleSkills);
-    if(newRoleSkills.length == 0) {
-        alert("Please select at least one course to create your learning journey.")
-    }
-    else {
-        sessionStorage.setItem('newRoleName', role_name);
-        sessionStorage.setItem('newRoleDesc', role_desc);
-        sessionStorage.setItem('newRoleSkills', newRoleSkills);
-
-        // var staff_role = sessionStorage.getItem('staff_role');
-        // console.log(staff_role);
+    
+        if(newRoleSkills.length == 0) {
+            alert("Please select at least one course to create your learning journey.")
+        }
+        else {
+            sessionStorage.setItem('newRoleName', role_name);
+            sessionStorage.setItem('newRoleDesc', role_desc);
+            sessionStorage.setItem('newRoleSkills', newRoleSkills);
+            try {
+                const response =
+                    await fetch(
+                    serviceURL, { mode: 'cors', method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        "newRoleName" : role_name,
+                        "newRoleDesc" : role_desc,
+                        // stringify course array and add here
+                        "newRoleSkills" : JSON.stringify(newRoleSkills)
+                    })
+                });
+                console.log(response)
+                const result = await response.json();
+                console.log(result)
+                if(result.code === 201) {
+                    console.log('Learning Journey created')
+                }
+                
         
-        location.href = './edit_roles.html';
-    }
+            } catch (error) {
+                console.log(error)
+                console.log('error')
+            }
+            // var staff_role = sessionStorage.getItem('staff_role');
+            // console.log(staff_role);
+            
+            location.href = './edit_roles.html';
+        }
 
 }

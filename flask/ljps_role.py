@@ -58,31 +58,13 @@ class Ljps_role(db.Model):
 
     #Create new active learning journey role and add to database
     def create_learning_journey_role(ljpsr_id, role_title, role_desc):
-        # journey_id = db.session.query(Learning_journey.journey_id).count() + 1
         new_ljps_role = Ljps_role(ljpsr_id, role_title, role_desc, 1)
-
         try:
             db.session.add(new_ljps_role)
             db.session.commit()
 
         except:
             return False
-            # jsonify(
-            #     {
-            #         "code" : 500,
-            #         "data": {
-            #             "ljpsr_id" : ljpsr_id,
-            #             "role_title" : role_title,
-            #             "role_desc" : role_desc
-            #         },
-            #         "message": "An error occurred creating a new Learning Journey role"
-            #     }
-            # )
 
         return True
-        # jsonify(
-        # {
-        #     "code": 201,
-        #     "data": new_ljps_role.to_dict()
-        # }
-    # )
+        

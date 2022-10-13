@@ -389,7 +389,7 @@ def createSkill():
         )
 
 
-#User story SA-2 (KELVIN)
+#Start of User story SA-2 (KELVIN)
 @app.route("/skills")
 def get_all_skills():
     skills = Skill.get_all_skills()
@@ -405,13 +405,12 @@ def get_all_skills():
             "message": "There are no skills."
         }), 404
 
-#######################IN PROGRESS##################################
 @app.route("/create_role", methods=['POST'])
 def new_role():
     data = request.get_json()
     ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
     role_title = data["newRoleName"]
-    role_desc = data["newRoleDescription"]
+    role_desc = data["newRoleDesc"]
     skills_str = data["newRoleSkills"]
     skills = json.loads(skills_str)
 
@@ -419,9 +418,7 @@ def new_role():
     create_role_result = Ljps_role.create_learning_journey_role(ljpsr_id, role_title, role_desc)
     
     for skill_id in skills:
-        print(skill_id)
         create_role_skill_result = Role_required_skill.create_new_role_required_skill(skill_id, ljpsr_id)
-        print(create_role_skill_result)
         if not create_role_skill_result:
             break
 
@@ -441,7 +438,8 @@ def new_role():
     else:
         return jsonify({
             "message": "The role was successfully created"
-        }), 200
+        }), 201
+#End of User story SA-2 (KELVIN)
    
 
 ######################################################################
