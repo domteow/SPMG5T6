@@ -92,4 +92,35 @@ class Attached_skill(db.Model):
         return attached_skill
 
 
+    # Adding 1 or more courses to ONE skill
+    def add_courses_to_skill(skill_id, courses):
+        rows = []
+        for course in courses:
+            rows.append(Attached_skill(skill_id, course))
+        try:
+            db.session.bulk_save_objects(rows)
+            db.session.commit()
+        except:
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "skill_id" : skill_id,
+                        "courses" : courses
+                    },
+                    "message": "dom error"
+                }
+            ),500
+
+        return jsonify(
+        {
+            "code": 201,
+            "data": {
+                "skill_id" : skill_id,
+                "courses" : courses
+            },
+            "message": "Courses added successfully"
+        }),200
+
+
 

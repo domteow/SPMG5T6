@@ -477,6 +477,39 @@ def new_role():
             "message": "The role was successfully created"
         }), 201
 ################### End of User story SA-2 (KELVIN) ##########################
+
+
+# USER STORY SA-15 CHILD ISSUE SA-36(bruno)
+# Add course to skill
+@app.route("/add_course_to_skill", methods=['POST'])
+def add_course_to_skill():
+    # added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
+    # for course_id in data['courses']:
+    #     if course_id not in added_courses:
+    #         Lj_course.create_lj_course(journey_id, course_id)
+    # newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
+    # return jsonify({"courses":newly_added_courses})
+
+    # Step 1: Read the data passed over, and get the skill ID and array of courses to be added (courses_to_add)
+    data = request.get_json()
+    skill_id = data['skill_id']
+    courses_to_add = data['course_arr']
+    print(skill_id,courses_to_add)
+    # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
+    existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+    print(existing_course_array)
+    # Step 3: Compare existing_course_array with courses_to_add. If duplicates found, return error code 400
+    for addCourse in courses_to_add:
+        for existCourse in existing_course_array:
+            if existCourse == addCourse:
+                return jsonify({
+                    "code": 400,
+                    "message": "You are adding 1 or more duplicate course(s)"
+                })
+
+    # Step 4: If no duplicates, add the skill_id, course_id for each course in courses_to_add into the attached_skill table. 
+    return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
+
    
 
 ######################################################################
