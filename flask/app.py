@@ -365,7 +365,7 @@ def get_all_skills():
         }), 404
 
 #######################IN PROGRESS##################################
-# @app.route("/create_role/<string:role_name>&<string:role_desc>&<string:course_arr>", methods=['POST'])
+# @app.route("/create_role/<string:role_name>&<string:role_desc>&<int:ljpsr_id>", methods=['POST'])
 # def new_role(ljpsr_id, staff_id, course_arr):
 #     ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
 
