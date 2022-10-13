@@ -21,7 +21,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="../css/confirm_LJ.css">
+    <link rel="stylesheet" href="./css/create_role.css">
     <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- font family -->
@@ -49,8 +49,8 @@
 
         <!-- pages -->
         <a href="./homepage_hr.html" class="navtext">
-            <div class="navitem act">
-                <img src="../img/explore_active.png" alt=""> Explore
+            <div class="navitem">
+                <img src="../img/explore.png" alt=""> Explore
             </div>
         </a>
 
@@ -60,9 +60,9 @@
             </div>
         </a>
 
-        <div class="dropdown navitem">
-            <button class="btn dropdown-toggle dashy" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../img/edit.png"  alt=""> Edit
+        <div class="dropdown navitem act">
+            <button class="btn dropdown-toggle dashy" type="button" style="color:#FFDBA5;" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/edit_active.png"  alt=""> Edit
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
               <li><a class="dropdown-item itey" href="./edit_roles.html">Roles</a></li>
@@ -94,27 +94,87 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <div class="rolename" id="rolename">
+            <div class="pgTitle">
+                Create a New Role
+            </div> 
+            
+            <!-- insert role details-->
 
+            <!-- name -->
+            <div class="container-fluid name">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Name of Role:
+                    </div>
+                </div>
+                <div class="row valinput">
+                    <div class="col">
+                        <div class="input-group nameinput">
+                            <input type="text" class="form-control" id="role_name" placeholder="Name of role" aria-label="new_role_name" aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="skillschosen">
-                Skill and Courses Chosen: 
+
+            <div class="container-fluid desc">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Description of Role:
+                    </div>
+                    <div class="row valinput">
+                        <div class="input-group">
+                            <textarea class="form-control" id="role_desc" placeholder="Role Description" aria-label="With textarea"></textarea>
+                          </div>
+                    </div>
+                </div>
             </div>
-            <div class="container-fluid courseskill" id="courseskill">
-                
+
+            <div class="skilltitle">
+                Skills under Role:
             </div>
-            <div class="createLJ" onclick="confirmLJ()">
-                Confirm Learning Journey
+            
+            <!-- search stuff -->
+            <div class="container-fluid search">
+                <div class="row">
+                    <div class="col-sm-9 searchdiv">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a role" oninput="searchRole()" name="roleName" id="roleName">
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <!-- search options -->
+                        <div class="searchOpt">
+                            <ul id="myUL">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+            </div> 
+
+            <div class="container-fluid skills">
+                <div class="row" id="allSkills">
+                    
+                </div>
             </div>
-            <a href="./homepage_hr.html">
-                <div class="cancelLJ">
-                    Cancel
+            
+            <a href="#" class="roleLink">
+                <div class="addRole" onclick="addRole()">
+                    Add New Role
                 </div>
             </a>
+
+            <div class="cancel">
+                <a href="./edit_roles.html">
+                    <div class="canceltext">Cancel</div>
+                </a>
+            </div>
+
         </div>
     </div>
 
     <script src="../js/nav.js"></script>
-    <script src="../js/confirm_LJ.js"></script>
+    <script src="../js/create_role.js"></script>
 </body>
 </html>

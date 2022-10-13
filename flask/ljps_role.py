@@ -53,3 +53,6 @@ class Ljps_role(db.Model):
             return [role.to_dict() for role in roles]
         else:
             return []
+
+    def create_learning_journey_role(ljpsr_id, role_title, role_desc):
+        return None

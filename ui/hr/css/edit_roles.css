@@ -1,0 +1,162 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+    margin-bottom: 10%;
+}
+
+.maincontent{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+.rolestitle{
+    font-family: roboto, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.search{
+    margin-top:5%;
+}
+
+.searchdiv{
+    border:1px solid black;
+    border-radius: 10px;
+    height: 10%;
+    background-color: #FFF;
+    text-align: left;
+}
+
+.searchicon{
+    padding-left: 3%;
+}
+
+li{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #FFDBA5;
+}
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+ 
+.searchOpt{
+    text-align: left;
+    width:95%;
+    margin-left: 7%;
+}
+
+.searchrow{
+    padding: 0%;
+    width: 68%;
+}
+
+#myUL li a {
+border: 1px solid black;
+/* margin-top: -1px; Prevent double borders */
+background-color: #f6f6f6;
+padding: 12px;
+text-decoration: none;
+font-size: 18px;
+color: black;
+display: block
+}
+
+#myUL{
+    display: none;
+}
+
+input{
+    border: 0px solid;
+    height: 100%;
+    width: 80%;
+    padding: 1.5%;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+a{
+    text-decoration: none;
+    /* border: 1px solid grey; */
+    padding: 0%;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.addNewRole{
+    border-radius: 3px;
+    background-color: #190063;
+    color: #FFDBA5;
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.5%;
+
+}
+
+.addRoleText{
+    color: #FFDBA5;
+}
+
+.accordion-item{
+    border: none;
+    border-bottom: 1px solid #cecece;
+}
+
+.editrole{
+    border-radius: 2px;
+    background-color: #190063;
+    color: #FFDBA5;
+    font-family: roboto, sans-serif;
+    font-size: 16px;
+    width: 10%;
+    text-align: center;
+    padding: 0.5%;
+    margin: 1%;
+}
+
+.isactivediv{
+    margin: 1%;
+}
+
+.existingRoles{
+    padding: 0%;
+    margin-top:2%;
+}
+
+.roleTitle{
+    font-weight: 700;
+    font-family: roboto, sans-serif;
+    font-size: 22px;
+}
+
+.accordion-body{
+    font-family: roboto, sans-serif;
+    font-size: 16px;
+}
