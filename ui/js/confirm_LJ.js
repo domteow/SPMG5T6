@@ -73,6 +73,7 @@ async function confirmLJ(){
         console.log(result)
         if(result.code === 201) {
             console.log('Learning Journey created')
+            alert('Learning Journey created')
         }
         
 

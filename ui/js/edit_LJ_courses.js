@@ -3,9 +3,9 @@
 
 // console.log(role_id);
 
-var role_details = JSON.parse(sessionStorage.getItem('role_details'));
-var ljpsr_role_id = role_details.ljps_role.ljpsr_id;
-console.log(role_details)
+// var role_details = JSON.parse(sessionStorage.getItem('role_details'));
+// var ljpsr_role_id = role_details.ljps_role.ljpsr_id;
+// console.log(role_details)
 
 // Retrieving courses for each skill (dom)
 staff_id = sessionStorage.getItem('staff_id')
