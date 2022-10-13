@@ -3,6 +3,7 @@
 var staff_id = sessionStorage.getItem('staff_id');
 var place = document.getElementById('allroles');
 var all_roles;
+var searchopt = document.getElementById('myUL');
 
 $(async () => {
     var serviceURL = "http://127.0.0.1:5001/all_roles/" + staff_id
@@ -28,15 +29,20 @@ $(async () => {
                 // console.log(role_name);
                 // console.log(role_id);
                 // console.log(completed);
+                var liID = '#' + role_name;
+
+                searchopt.innerHTML += `<li><a href=${liID}>${role_name}</a></li>`;
+
+
             
                 if (completed == 1){
                     /* IF THE PERSON HAS ALREADY ATTAINED ALL SKILLS REQUIRED */
                     place.innerHTML += 
-                    `<div class="roleCol container-fluid">
+                    `<div class="roleCol container-fluid" id=${role_name}>
                         <div class="row">
-                            <div class="col-4 roledeets">`+ role_name + `</div>
-                            <div class= 'col-4 completed'>Attained Skills Required</div>
-                            <div class='col-4'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
+                            <div class="col-sm-4 roledeets">`+ role_name + `</div>
+                            <div class= 'col-sm-4 completed'>Attained Skills Required</div>
+                            <div class='col-sm-4'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
                         </div>
                     </div>`
                 }
@@ -44,11 +50,11 @@ $(async () => {
                 else{
                     /* IF THE PERSON HAS NOT ATTAINED ALL SKILLS REQUIRED */
                     place.innerHTML += 
-                    `<div class="roleCol container-fluid">
+                    `<div class="roleCol container-fluid" id=${role_name}>
                         <div class="row">
-                            <div class="col-4 roledeets">${role_name}</div>
-                            <div class= 'col-4 completed'></div>
-                            <div class='col-4'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
+                            <div class="col-6 roledeets">${role_name}</div>
+                            <div class= 'col-3 notcompleted'>Skills required not attained</div>
+                            <div class='col-3'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
                         </div>
                     </div>`
                 }
@@ -103,4 +109,31 @@ async function createLJ(role_id){
     }
 
     // location.href = '../creating_LJ/view_role_details.html';
+}
+
+function searchRole() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("roleName");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    ul.style.display='inline';
+    li = ul.getElementsByTagName("li");
+    console.log(filter);
+    console.log(filter.length);
+
+    if(filter.length == 0){
+        ul.style.display = 'none';
+    }
+    else{
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
 }
