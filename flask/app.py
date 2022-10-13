@@ -350,7 +350,7 @@ def get_all_staff(staff_id):
 
 # Add Skill(s) to existing LJPS role (bryan)
 @app.route("/add_skill_to_ljps_role/", methods=['POST'])
-def add_course_to_existing_learning_journey():
+def add_skill_to_ljps_role():
     # once inside Learning Journey, click "add course" 
     data = request.get_json()
     ljpsr_id = data['ljpsr_id']
