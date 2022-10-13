@@ -21,8 +21,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="../css/confirm_LJ.css">
-    <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="./css/create_role.css">
+    <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- font family -->
     <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
@@ -48,23 +48,29 @@
         </div>
 
         <!-- pages -->
-        <a href="./homepage_manager.html" class="navtext">
-            <div class="navitem act">
-                <img src="../img/explore_active.png" alt=""> Explore
+        <a href="./homepage_hr.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/explore.png" alt=""> Explore
             </div>
         </a>
 
-        <div class="dropdown navitem">
-            <button class="btn dropdown-toggle dashy" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <a href="./dashboard_hr.html" class="navtext">
+            <div class="navitem">
                 <img src="../img/dashboard.png"  alt=""> Dashboard
+            </div>
+        </a>
+
+        <div class="dropdown navitem act">
+            <button class="btn dropdown-toggle dashy" type="button" style="color:#FFDBA5;" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/edit_active.png"  alt=""> Edit
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item itey" href="./dashboard_manager_personal.html">Personal</a></li>
-              <li><a class="dropdown-item" href="./dashboard_manager_team.html">My Team</a></li>
+              <li><a class="dropdown-item itey" href="./edit_roles.html">Roles</a></li>
+              <li><a class="dropdown-item" href="./edit_skills.html">Skills</a></li>
             </ul>
         </div>
         
-        <a href="./settings_manager.html" class="navtext">
+        <a href="./settings_hr.html" class="navtext">
             <div class="navitem">
                 <img src="../img/settings.png" alt=""> Settings
             </div>
@@ -88,27 +94,66 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <div class="rolename" id="rolename">
+            <div class="pgTitle">
+                Create a New Role
+            </div> 
+            
+            <!-- insert role details-->
 
+            <!-- name -->
+            <div class="container-fluid name">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Name of Role:
+                    </div>
+                </div>
+                <div class="row valinput">
+                    <div class="col">
+                        <div class="input-group nameinput">
+                            <input type="text" class="form-control" id="role_name" placeholder="Name of role" aria-label="new_role_name" aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="skillschosen">
-                Skill and Courses Chosen: 
+
+            <div class="container-fluid desc">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Description of Role:
+                    </div>
+                    <div class="row valinput">
+                        <div class="input-group">
+                            <textarea class="form-control" id="role_desc" placeholder="Role Description" aria-label="With textarea"></textarea>
+                          </div>
+                    </div>
+                </div>
             </div>
-            <div class="container-fluid courseskill" id="courseskill">
-                
+
+            <div class="container-fluid skills">
+                <div class="row" id="allSkills">
+                    <div class="col inputtitle">
+                        Skills under Role:
+                    </div>
+                    
+                </div>
             </div>
-            <div class="createLJ" onclick="confirmLJ()">
-                Confirm Learning Journey
-            </div>
-            <a href="./homepage_manager.html">
-                <div class="cancelLJ">
-                    Cancel
+            
+            <a href="#" class="roleLink">
+                <div class="addRole" onclick="addRole()">
+                    Add New Role
                 </div>
             </a>
+
+            <div class="cancel">
+                <a href="./edit_roles.html">
+                    <div class="canceltext">Cancel</div>
+                </a>
+            </div>
+
         </div>
     </div>
 
     <script src="../js/nav.js"></script>
-    <script src="../js/confirm_LJ.js"></script>
+    <script src="../js/create_role.js"></script>
 </body>
 </html>
