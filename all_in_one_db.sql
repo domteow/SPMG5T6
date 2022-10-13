@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS staff (
   staff_fname varchar(50) NOT NULL,
   staff_lname varchar(50) NOT NULL,
   dept varchar(50) NOT NULL,
-  email varchar(50) NOT NULL, 
+  email varchar(255) NOT NULL, 
   role_id int NOT NULL
 );
 
@@ -60,8 +60,8 @@ DROP TABLE IF EXISTS course;
 
 CREATE TABLE IF NOT EXISTS course ( 
   course_id varchar(20) NOT NULL PRIMARY KEY,
-  course_name varchar(50) NOT NULL,
-  course_desc varchar(255) DEFAULT NULL,
+  course_name varchar(255) NOT NULL,
+  course_desc varchar(65535) DEFAULT NULL,
   course_status varchar(15) DEFAULT NULL,
   course_type varchar(10) DEFAULT NULL,
   course_category varchar(50) DEFAULT NULL
@@ -107,8 +107,8 @@ DROP TABLE IF EXISTS skill;
 
 CREATE TABLE IF NOT EXISTS skill (
   skill_id int NOT NULL PRIMARY KEY,
-  skill_desc varchar(255) NOT NULL,
-  skill_name varchar(50) NOT NULL,
+  skill_desc varchar(65535) NOT NULL,
+  skill_name varchar(255) NOT NULL,
   active int NOT NULL -- 0 = False, 1 = True 
 );
 
@@ -122,8 +122,8 @@ DROP TABLE IF EXISTS ljps_role;
 
 CREATE TABLE IF NOT EXISTS ljps_role ( 
   ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  role_title varchar(20) NOT NULL,
-  role_desc varchar(255) NOT NULL, 
+  role_title varchar(255) NOT NULL,
+  role_desc varchar(65535) NOT NULL, 
   active int NOT NULL -- 0 = False, 1 = True 
 );
 
