@@ -118,9 +118,14 @@ async function addRole(){
 
     var newRoleSkills = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(newRoleSkills);
-    
-        if(newRoleSkills.length == 0) {
-            alert("Please select at least one course to create your learning journey.")
+        if (role_name == "") {
+            alert("Role name cannot be empty.")
+        }
+        else if (role_desc == ""){
+            alert("Role description cannot be empty.")
+        }
+        else if(newRoleSkills.length == 0) {
+            alert("Please select at least one skill to add to your role.")
         }
         else {
             sessionStorage.setItem('newRoleName', role_name);
@@ -141,8 +146,11 @@ async function addRole(){
                 console.log(response)
                 const result = await response.json();
                 console.log(result)
-                if(result.code === 201) {
-                    console.log('Learning Journey created')
+                if(response.status === 201) {
+                    console.log('Learning Journey created');
+                    location.href = './roles_page.html';
+                } else if (response.status === 401) {
+                    alert("The role name already exists");
                 }
                 
         
@@ -153,7 +161,7 @@ async function addRole(){
             // var staff_role = sessionStorage.getItem('staff_role');
             // console.log(staff_role);
             
-            location.href = './roles_page.html';
+            
         }
 
 }

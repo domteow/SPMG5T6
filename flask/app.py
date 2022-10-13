@@ -414,6 +414,12 @@ def new_role():
     skills_str = data["newRoleSkills"]
     skills = json.loads(skills_str)
 
+    if Ljps_role.check_learning_journey_role_exists:
+        return jsonify({
+                "message": "The role name already exists",
+                "code": 401
+            }), 401
+
     # call create role function to add new role to DB
     create_role_result = Ljps_role.create_learning_journey_role(ljpsr_id, role_title, role_desc)
     
