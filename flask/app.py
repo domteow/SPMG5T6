@@ -364,18 +364,19 @@ def get_all_skills():
             "message": "There are no skills."
         }), 404
 
-@app.route("/create_role/<string:role_name>&<string:role_desc>&<string:course_arr>", methods=['POST'])
-def new_role(ljpsr_id, staff_id, course_arr):
-    ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+#######################IN PROGRESS##################################
+# @app.route("/create_role/<string:role_name>&<string:role_desc>&<string:course_arr>", methods=['POST'])
+# def new_role(ljpsr_id, staff_id, course_arr):
+#     ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
 
-    # call create lj function in Learning Journey class 
-    createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
-    # call create lj course function in Lj_course class
-    createLJ_course_result = Lj_course.create_lj_course(journey_id,course_arr)
-    print('function called to create LJ')
-    # print(createLJ_result)
-    # return createLJ_result
-    return createLJ_course_result        
+#     # call create lj function in Learning Journey class 
+#     createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
+#     # call create lj course function in Lj_course class
+#     createLJ_course_result = Lj_course.create_lj_course(journey_id,course_arr)
+#     print('function called to create LJ')
+#     # print(createLJ_result)
+#     # return createLJ_result
+#     return createLJ_course_result        
     
 ######################################################################
 # HELPER FUNCTIONS BELOW
