@@ -343,30 +343,53 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
-# Create Skill (HR)
+# SA-19 Show all courses to add to new skill (HR)
+@app.route("/courses", methods=['GET'])
+def showCourses():
+    all_courses = Course.get_all_courses()
+
+    if all_courses:
+        return jsonify({
+            'data': all_courses
+            }), 200
+    else:
+        return jsonify({
+            "message": "There are no courses."
+        }), 404
+
+# SA-19 Create Skill (HR)
 @app.route("/createSkill", methods=['POST'])
 def createSkill():
+    skill_id = db.session.query(Skill.skill_id).count() + 1 
+    active = 1 
+    skill_name = request.get_json()['skill_name']
+    skill_desc = request.get_json()['skill_desc']
+    courses = request.get_json()['newSkillCourses']
 
-    data = request.get_json()
-    print(data)
-
-    if (data["skill_name"] == "") or (data["skill_desc"] == ""): 
+    if (skill_name == "") or (skill_desc == ""): 
         return jsonify(
             {
                 "code": 500, 
                 "data": {
-                    "skill_name": data["skill_name"], 
-                    "skill_desc": data["skill_desc"]
+                    "skill_id": skill_id, 
+                    "skill_name": skill_name, 
+                    "skill_desc": skill_desc,
+                    "active": active
                 }, 
                 "message": "Skill name and skill description cannot be empty."
             }
         ), 500
 
     else: 
-        new_skill = Skill(**data)
-
+        new_skill = Skill(skill_id, active, skill_name, skill_desc)
+        list_of_attached_courses = []
+        for course in courses:
+            attached_skill = Attached_skill(course, skill_id)
+            list_of_attached_courses.append(attached_skill)
         try: 
             db.session.add(new_skill)
+            db.session.commit()
+            db.session.bulk_save_objects(list_of_attached_courses)
             db.session.commit()
 
         except: 
@@ -374,7 +397,10 @@ def createSkill():
                 {
                     "code": 500, 
                 "data": {
-                    "skill_id": data["skill_id"]
+                    "skill_id": skill_id, 
+                    "skill_name": skill_name, 
+                    "skill_desc": skill_desc,
+                    "active": active
                 }, 
                 "message": "An error occurred while creating skill."
                 }
@@ -387,8 +413,6 @@ def createSkill():
                 "data": new_skill.to_dict()
             }
         )
-
-
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
