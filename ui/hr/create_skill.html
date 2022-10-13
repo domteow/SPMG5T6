@@ -21,8 +21,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./homepage.css">
-    <link rel="stylesheet" href="./hrnavbar.css">
+    <link rel="stylesheet" href="./css/create_skill.css">
+    <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- font family -->
     <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
@@ -65,8 +65,8 @@
                 <img src="../img/edit_active.png"  alt=""> Edit
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item itey" href="./roles_page.html">Roles</a></li>
-              <li><a class="dropdown-item" href="./edit_skills.html">Skills</a></li>
+              <li><a class="dropdown-item itey" href="./edit_roles.html">Roles</a></li>
+              <li><a class="dropdown-item" href="./skills_page.html">Skills</a></li>
             </ul>
         </div>
         
@@ -94,10 +94,87 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
+            <div class="pgTitle">
+                Create a New Skill
+            </div> 
             
+            <!-- insert skill details-->
+
+            <!-- name -->
+            <div class="container-fluid name">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Name of Skill:
+                    </div>
+                </div>
+                <div class="row valinput">
+                    <div class="col">
+                        <div class="input-group nameinput">
+                            <input type="text" class="form-control name_input" id="skill_name" placeholder="Name of Skill" aria-label="new_skill_name" aria-describedby="basic-addon2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid desc">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Description of Skill:
+                    </div>
+                    <div class="row valinput">
+                        <div class="input-group">
+                            <textarea class="form-control" id="skill_desc" placeholder="Skill Description" aria-label="With textarea"></textarea>
+                          </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="coursetitle">
+                Courses under skill:
+            </div>
+            
+            <!-- search stuff -->
+            <div class="container-fluid search">
+                <div class="row">
+                    <div class="col-sm-9 searchdiv">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a course" oninput="searchCourse()" name="courseName" id="courseName">
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <!-- search options -->
+                        <div class="searchOpt">
+                            <ul id="myUL">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-3"></div>
+                </div>
+            </div> 
+
+            <div class="container-fluid courses">
+                <div class="row" id="allCourses">
+                    
+                </div>
+            </div>
+            
+            <a href="#" class="skillLink">
+                <div class="addSkill" onclick="addCourse()">
+                    Add New Skill
+                </div>
+            </a>
+
+            <div class="cancel">
+                <a href="./edit_skills.html">
+                    <div class="canceltext">Cancel</div>
+                </a>
+            </div>
+
         </div>
     </div>
 
-    <script src="../nav.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/create_skill.js"></script>
 </body>
 </html>

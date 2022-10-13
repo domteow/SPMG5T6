@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS registration (
 DROP TABLE IF EXISTS skill;
 
 CREATE TABLE IF NOT EXISTS skill (
-  skill_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  skill_id int NOT NULL PRIMARY KEY,
   skill_desc varchar(65535) NOT NULL,
   skill_name varchar(255) NOT NULL,
   active int NOT NULL -- 0 = False, 1 = True 
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS skill (
 DROP TABLE IF EXISTS ljps_role;
 
 CREATE TABLE IF NOT EXISTS ljps_role ( 
-  ljpsr_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  ljpsr_id int NOT NULL PRIMARY KEY,
   role_title varchar(255) NOT NULL,
   role_desc varchar(65535) NOT NULL, 
   active int NOT NULL -- 0 = False, 1 = True 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS role_required_skill (
 DROP TABLE IF EXISTS learning_journey;
 
 CREATE TABLE IF NOT EXISTS learning_journey (
-  journey_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  journey_id int NOT NULL PRIMARY KEY,
   ljpsr_id int NOT NULL,
   staff_id int NOT NULL,
   status int NOT NULL -- 1 = complete, 0 = incomplete
