@@ -1,5 +1,4 @@
 $(async () => {
-    // JANN PLEASE CHECK serviceURL
     var serviceURL = "http://127.0.0.1:5001/courses"
 
     try {
@@ -11,11 +10,8 @@ $(async () => {
         const result = await response.json();
         // console.log(result.data)
         if(result) {
-            // JANN PLEASE CHECK THAT THE console.log(result.data) WORKS AND IS CORRECT OUTPUT THANKS 
-            // THE REST DONT NEED DO
             // console.log(result.data)
             all_courses = result.data
-            all_courses = all_courses.courses;
             // console.log(all_skills);
             var searchdiv = document.getElementById('myUL');
             var coursediv = document.getElementById('allCourses');
@@ -26,11 +22,13 @@ $(async () => {
                 var course = all_courses[course_idx];
                 var course_name = course.course_name;
                 var course_id = course.course_id;
+                // console.log(course_name);
+                // console.log(course_id);
 
-                // add skill into search 
-                searchdiv.innerHTML += `<li><a href='#'${course_id}>${course_name}</a></li>`;
+                // add course into search 
+                searchdiv.innerHTML += `<li><a href='#${course_id}'>${course_name}</a></li>`;
 
-                if (course_idx == 0 || skill_idx%2==0){
+                if (course_idx == 0 ||course_idx%2==0){
                     courseinput += `
                         <div class='row courserow'>
                             <div class='col-sm-6 coursename form-check' id=${course_id}>
@@ -53,6 +51,7 @@ $(async () => {
             // console.log(skillinput);
             coursediv.innerHTML += courseinput;
         
+            console.log(searchdiv);
         }
         
 
