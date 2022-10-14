@@ -25,7 +25,7 @@ $(async () => {
                 var skill_id = skill.skill_id;
 
                 // add skill into search 
-                searchdiv.innerHTML += `<li><a href='#'${skill_id}>${skill_name}</a></li>`;
+                searchdiv.innerHTML += `<li><a href='#${skill_id}'>${skill_name}</a></li>`;
 
                 if (skill_idx == 0 || skill_idx%2==0){
                     skillinput += `
