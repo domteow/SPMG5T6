@@ -4,13 +4,13 @@
 // console.log(role_id);
 
 // var role_details = JSON.parse(sessionStorage.getItem('role_details'));
-// var ljpsr_role_id = role_details.ljps_role.ljpsr_id;
+var ljpsr_id = sessionStorage.getItem('ljpsr_id');
 // console.log(role_details)
 
 // Retrieving courses for each skill (dom)
 staff_id = sessionStorage.getItem('staff_id')
 $(async () => {
-    var serviceURL = "http://127.0.0.1:5001/view_courses_under_skill/" + staff_id + '/' + ljpsr_role_id
+    var serviceURL = "http://127.0.0.1:5001/view_courses_under_skill/" + staff_id + '/' + ljpsr_id
 
     try {
         const response =

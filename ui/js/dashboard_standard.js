@@ -377,15 +377,15 @@ async function edit_LJ() {
 
     sessionStorage.setItem('staff_id', staff_id)
     staff_role = sessionStorage.getItem('staff_role')
-    // if (staff_role == 1){
-    //     location.href = './edit_LJ_courses.html';
-    // }
-    // if (staff_role == 2 || staff_role == 4){
-    //     location.href = './edit_LJ_courses.html';
-    // }
-    // if(staff_role == 3){
-    //     location.href = './edit_LJ_courses.html';
-    // }
+    if (staff_role == 1){
+        location.href = './edit_LJ_courses.html';
+    }
+    if (staff_role == 2 || staff_role == 4){
+        location.href = './edit_LJ_courses.html';
+    }
+    if(staff_role == 3){
+        location.href = './edit_LJ_courses.html';
+    }
 
     // location.href = './staff/edit_LJ_courses.html'
 }
