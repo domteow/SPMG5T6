@@ -110,7 +110,8 @@ function handleChange(cb) {
     }
 }
 
-function addCourse(){
+async function addCourse(){
+    var serviceURL = "http://127.0.0.1:5001/create_skill"
     var skill_name = document.getElementById('skill_name').value;
     console.log(skill_name);
     var skill_desc = document.getElementById('skill_desc').value;
@@ -120,18 +121,59 @@ function addCourse(){
 
     var newSkillCourses = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(newSkillCourses);
-    if(newSkillCourses.length == 0) {
+
+    if (skill_name == "") {
+        alert("Skill name cannot be empty.")
+    }
+
+    else if (skill_desc == "") {
+        alert("Skill description cannot be empty.")
+    }
+
+    else if (newSkillCourses.length == 0) {
         alert("Please select at least one course to create your learning journey.")
     }
+
     else {
         sessionStorage.setItem('newSkillName', skill_name);
         sessionStorage.setItem('newSkillDesc', skill_desc);
         sessionStorage.setItem('newSkillCourses', newSkillCourses);
 
-        // var staff_role = sessionStorage.getItem('staff_role');
-        // console.log(staff_role);
-        
-        location.href = './edit_skills.html';
-    }
+        try {
+            const response = 
+                await fetch(
+                    serviceURL, 
+                    {
+                        mode: 'cors', method: 'POST', 
+                        headers: {"Content-Type": "application/json"}, 
+                        body: JSON.stringify({
+                            "newSkillName": skill_name, 
+                            "newSkillDesc": skill_desc, 
+                            "newSkillCourses": JSON.stringify(newSkillCourses)
+                        })
+                    }
+                );
+            
+            console.log(response)
+            const result = await response.json(); 
+            console.log(result)
 
+            if (response.status == 201) {
+                console.log("Skill created.")
+                alert("The skill " + skill_name + " has been successfully created.")
+                location.href = './edit_skills.html';
+            } else if (response.status === 401) {
+                alelrt("The skill name " + skill_name + " already exists.")
+            }
+            
+        } 
+
+        catch (error) {
+            console.log(error)
+            console.log("error")
+        }
+        
+        // var staff_role = sessionStorage.getItem('staff_role');
+        // console.log(staff_role);   
+    }
 }
