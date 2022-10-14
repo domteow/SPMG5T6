@@ -343,9 +343,11 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
-# SA-19 Show all courses to add to new skill (HR)
+##################### Start of User story SA-19 (JANN) #####################
+
+# To retrieve all skills 
 @app.route("/courses", methods=['GET'])
-def showCourses():
+def get_all_courses():
     all_courses = Course.get_all_courses()
 
     if all_courses:
@@ -357,76 +359,63 @@ def showCourses():
             "message": "There are no courses."
         }), 404
 
-# SA-19 Create Skill (HR)
-@app.route("/createSkill", methods=['POST'])
+# Create a skill & assign courses to newly-created skill (HR)
+@app.route("/create_skill", methods=['POST'])
 def createSkill():
-    skill_id = db.session.query(Skill.skill_id).count() + 1 
-    active = 1 
-    skill_name = request.get_json()['skill_name']
-    skill_desc = request.get_json()['skill_desc']
-    courses = request.get_json()['newSkillCourses']
-
-    if (skill_name == "") or (skill_desc == ""): 
-# Create Skill (HR)
-@app.route("/createSkill", methods=['POST'])
-def createSkill():
-
     data = request.get_json()
-    print(data)
 
-    if (data["skill_name"] == "") or (data["skill_desc"] == ""): 
+    skill_id = db.session.query(Skill.skill_id).count() + 1 
+    skill_name = data["newSkillName"]
+    skill_desc = data["newSkillDesc"]
+    active = 1 
+    attached_courses_str = data["newSkillCourses"]
+    attached_courses = json.loads(attached_courses_str)
+
+    # check if skill name exists 
+    if Skill.check_skill_exists(skill_name):
         return jsonify(
             {
-                "code": 500, 
+                "code": 401, 
                 "data": {
-                    "skill_id": skill_id, 
-                    "skill_name": skill_name, 
-                    "skill_desc": skill_desc,
-                    "active": active
+                    "skill_name": skill_name
                 }, 
-                "message": "Skill name and skill description cannot be empty."
-            }
-        ), 500
-
-    else: 
-        new_skill = Skill(skill_id, active, skill_name, skill_desc)
-        list_of_attached_courses = []
-        for course in courses:
-            attached_skill = Attached_skill(course, skill_id)
-            list_of_attached_courses.append(attached_skill)
-        try: 
-            db.session.add(new_skill)
-            db.session.commit()
-            db.session.bulk_save_objects(list_of_attached_courses)
-            db.session.commit()
-        new_skill = Skill(**data)
-
-        try: 
-            db.session.add(new_skill)
-            db.session.commit()
-
-        except: 
-            return jsonify(
-                {
-                    "code": 500, 
-                "data": {
-                    "skill_id": skill_id, 
-                    "skill_name": skill_name, 
-                    "skill_desc": skill_desc,
-                    "active": active
-                }, 
-                "message": "An error occurred while creating skill."
-                }
-
-            ), 500
-
-        return jsonify(
-            {
-                "code": 201, 
-                "data": new_skill.to_dict()
+                "message": "The skill name already exists. "
             }
         )
 
+    # call create_skill method in Skill class to add skill to db
+    create_skill_result = Skill.create_skill(skill_id, skill_name, skill_desc, active)
+
+    # for each course in selected courses, add course to newly-created skill
+    for course in attached_courses:
+        create_attached_course_result = Attached_skill.create_attached_skill(course, skill_id)
+
+        if not create_attached_course_result:
+            break 
+    
+    # check if creation pass/fail 
+    if not create_skill_result or not create_attached_course_result:
+        if not create_skill_result and not create_attached_course_result:
+            return jsonify({
+                "message": "There was an error creating the skill and assigning it to relevant courses."
+            }), 404 
+
+        elif not create_skill_result:
+            return jsonify({
+                "message": "There was an error creating the skill."
+            }), 404 
+        
+        else:
+            return jsonify({
+                "message": "There was an error assigning relevant courses to this skill."
+            }), 404 
+    
+    else: 
+        return jsonify({
+            "message": "The role was successfully created."
+        }), 201 
+
+##################### End  of User story SA-19 (JANN) #####################
 
 ##################### Start of User story SA-2 (KELVIN) #####################
 #To retrieve all skills and details
