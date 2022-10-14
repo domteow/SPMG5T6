@@ -20,7 +20,7 @@ CORS(app)
 class Ljps_role(db.Model):
     __tablename__ = 'ljps_role'
 
-    ljpsr_id = db.Column(db.Integer, primary_key=True)
+    ljpsr_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     role_title = db.Column(db.String(50), nullable = False)
     role_desc = db.Column(db.String(255))
     active = db.Column(db.Integer, nullable=False)
