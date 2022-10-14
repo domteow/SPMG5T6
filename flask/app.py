@@ -483,13 +483,6 @@ def new_role():
 # Add course to skill
 @app.route("/add_course_to_skill", methods=['POST'])
 def add_course_to_skill():
-    # added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
-    # for course_id in data['courses']:
-    #     if course_id not in added_courses:
-    #         Lj_course.create_lj_course(journey_id, course_id)
-    # newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
-    # return jsonify({"courses":newly_added_courses})
-
     # Step 1: Read the data passed over, and get the skill ID and array of courses to be added (courses_to_add)
     data = request.get_json()
     skill_id = data['skill_id']
