@@ -91,5 +91,17 @@ class Attached_skill(db.Model):
                     
         return attached_skill
 
+    def create_attached_skill(course_id, skill_id):
+        new_attached_skill = Attached_skill(course_id, skill_id)
+
+        try:
+            db.session.add(new_attached_skill)
+            db.session.commit()
+        
+        except: 
+            return False
+        
+        return True 
+
 
 
