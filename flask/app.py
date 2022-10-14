@@ -367,6 +367,14 @@ def createSkill():
     courses = request.get_json()['newSkillCourses']
 
     if (skill_name == "") or (skill_desc == ""): 
+# Create Skill (HR)
+@app.route("/createSkill", methods=['POST'])
+def createSkill():
+
+    data = request.get_json()
+    print(data)
+
+    if (data["skill_name"] == "") or (data["skill_desc"] == ""): 
         return jsonify(
             {
                 "code": 500, 
@@ -390,6 +398,11 @@ def createSkill():
             db.session.add(new_skill)
             db.session.commit()
             db.session.bulk_save_objects(list_of_attached_courses)
+            db.session.commit()
+        new_skill = Skill(**data)
+
+        try: 
+            db.session.add(new_skill)
             db.session.commit()
 
         except: 
