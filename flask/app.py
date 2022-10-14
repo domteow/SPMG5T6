@@ -482,6 +482,22 @@ def new_role():
 
 
 # USER STORY SA-15 CHILD ISSUE SA-36(bruno)
+# For front-end, get all courses + course details related to the skill selected
+@app.route("/get_courses_by_skill/<int:skill_id>")
+def get_courses_by_skill(skill_id):
+    # Get a list of the course IDs related to the skill
+    course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+    all_course_details = []
+    for course in course_ids:
+        all_course_details.append(Course.get_course_by_id(course))
+
+    return jsonify({
+            "data": {
+                    
+                    "courses": all_course_details
+                }
+        }), 200
+
 # Add course to skill
 @app.route("/add_course_to_skill", methods=['POST'])
 def add_course_to_skill():
