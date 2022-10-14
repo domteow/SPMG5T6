@@ -24,8 +24,12 @@ CORS(app)
 class Role_required_skill(db.Model):
     __tablename__ = 'role_required_skill'
 
-    ljpsr_id = db.Column(db.Integer, db.ForeignKey('Ljps_role.ljpsj_id'), primary_key=True)
-    skill_id = db.Column(db.Integer,  db.ForeignKey('Skill.skill_id'),primary_key=True)
+    skill_id = db.Column(db.Integer,  db.ForeignKey(Skill.skill_id),primary_key=True)
+    ljpsr_id = db.Column(db.Integer, db.ForeignKey(Ljps_role.ljpsr_id), primary_key=True)
+
+    def __init__(self, skill_id, ljpsr_id):
+        self.skill_id = skill_id
+        self.ljpsr_id = ljpsr_id
     
     def to_dict(self):
         """
@@ -55,4 +59,16 @@ class Role_required_skill(db.Model):
                     skills.append(skill.skill_id)
 
         return skills
+
+    #Add skill to role
+    def create_new_role_required_skill(skill_id, ljpsr_id):
+        new_role_required_skill = Role_required_skill(skill_id, ljpsr_id)
+        try:
+            db.session.add(new_role_required_skill)
+            db.session.commit()
+        except:
+            return False
+        
+        return True
+
 

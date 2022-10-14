@@ -1,0 +1,224 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+    margin-bottom: 10%;
+}
+
+.maincontent{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+
+.pgTitle{
+    font-family: roboto, sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.nameinput{
+    width: 50%;
+}
+
+.form-control{
+    padding: 2%;
+    border: 1px solid #190063;
+    /* padding-left: 2%; */
+    font-family: roboto, sans-serif;
+    font-size: 18px;
+    color: #000;
+    
+}
+
+.name_input{
+    padding-left: 4%;
+}
+
+.name{
+    margin-top: 2%;
+    padding: 0%;
+}
+
+.inputtitle{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+}
+
+.coursetitle{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin-top: 3%;
+    margin-bottom: 2%;
+}
+
+input{
+    border: 1px solid #190063;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+.valinput{
+    margin-top: 2%;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+.addSkill{
+    background-color: #190063;
+    border-radius: 3px;
+    color: #FFDBA5;
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 22px;
+    width: 25%;
+    padding: 1%;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.cancel{
+    margin-top: 1%;
+    margin-bottom: 8%;
+    border-radius: 5px;
+    padding: 1%;
+    width: 10%;
+    text-align: center;
+    background-color: #f16262;
+    color: #FFF;
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 18px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.canceltext{
+    color: #fff;
+}
+
+a{
+    text-decoration: none;
+}
+
+.skillLink{
+    margin-top: 5%;
+    width: 25%;
+}
+
+.desc{
+    margin-top: 2%;
+    padding: 0%;
+}
+
+.courses{
+    margin-top: 2%;
+    padding: 0%;
+}
+
+
+.searchdiv{
+    border:1px solid black;
+    border-radius: 10px;
+    height: 10%;
+    background-color: #FFF;
+    text-align: left;
+}
+
+.searchicon{
+    padding-left: 3%;
+}
+
+li{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #FFDBA5;
+}
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+ 
+.searchOpt{
+    text-align: left;
+    width:95%;
+    margin-left: 7%;
+}
+
+.searchrow{
+    padding: 0%;
+    width: 68%;
+}
+
+#myUL li a {
+border: 1px solid black;
+/* margin-top: -1px; Prevent double borders */
+background-color: #f6f6f6;
+padding: 12px;
+text-decoration: none;
+font-size: 18px;
+color: black;
+display: block
+}
+
+#myUL{
+    display: none;
+}
+
+input{
+    border: 0px solid;
+    height: 100%;
+    width: 80%;
+    padding: 1.5%;
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+.coursename{
+    font-family: roboto, sans-serif;
+    font-size: 22px;
+}
+
+.courserow{
+    margin-bottom: 1%;
+}

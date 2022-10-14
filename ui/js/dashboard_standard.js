@@ -38,7 +38,7 @@ $(async () => {
             var firstLJ = learning_journeys[0];
 
             // this entire chunk is to display the learning journey 
-            console.log(learning_journeys);
+            
 
             for (var lj_index in learning_journeys){
                 // console.log(count);
@@ -192,20 +192,9 @@ $(async () => {
                         </div>
                         `;
                     }
-                    
-                    // if (count <3){
-                    //     count += 1;
-                    // }
-                    // else{
-                    //     count == 0;
-                    // }
                 }
             }
-
-
-            // console.log('end');
-            // console.log(count);
-
+            // end of displaying the learning journey 
 
 
             var len = learning_journeys.length;
@@ -225,8 +214,6 @@ $(async () => {
 
             ljpaths_div.innerHTML += content;
 
-
-            // console.log(ljpaths_div);
 
             // ^ FINISH displaying the diff paths
 

@@ -27,6 +27,53 @@
     padding-left: 3%;
 }
 
+
+
+li{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #FFDBA5;
+}
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+ 
+.searchOpt{
+    text-align: left;
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.searchrow{
+    padding: 0%;
+    width: 68%;
+}
+
+#myUL li a {
+border: 1px solid black;
+/* margin-top: -1px; Prevent double borders */
+background-color: #f6f6f6;
+padding: 12px;
+text-decoration: none;
+font-size: 18px;
+color: black;
+display: block
+}
+
+#myUL{
+    display: none;
+}
+
 input{
     border: 0px solid;
     height: 100%;
@@ -69,14 +116,14 @@ input:focus{
 }
 
 .roledeets{
-    font-size: 26px;
+    font-size: 20px;
     font-family: roboto,sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
 .completed{
-    width: 30%;
+    /* width: 30%; */
     /* background-color: #CFFFD1; */
     color: #85c687;;
     font-family: roboto,sans-serif;
@@ -90,9 +137,23 @@ input:focus{
     /* border: 1px solid black */
 }
 
+.notcompleted{
+    /* width: 10%; */
+    /* background-color: #CFFFD1; */
+    color: #a9a9a9;
+    font-family: roboto,sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 14px;
+    text-align: right;
+    border-radius: 8px;
+    padding: 1%;
+    padding-right: 2%;
+}
+
 .ncompleted{
     text-align: center;
-    width: 100%;
+    /* width: 80%; */
     font-family: roboto,sans-serif;
     font-weight: 600;
     font-style: normal;

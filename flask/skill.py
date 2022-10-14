@@ -20,14 +20,16 @@ CORS(app)
 class Skill(db.Model):
     __tablename__ = 'skill'
 
-    skill_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    skill_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     skill_name = db.Column(db.String(50))
     skill_desc = db.Column(db.String(255))
+    active = db.Column(db.Integer)
 
-    def __init__(self, skill_id, skill_name, skill_desc):
+    def __init__(self, skill_id, skill_name, skill_desc, active):
         self.skill_id = skill_id
         self.skill_name = skill_name
         self.skill_desc = skill_desc
+        self.active = active 
         
     def to_dict(self):
         """
@@ -46,3 +48,28 @@ class Skill(db.Model):
             return skill.to_dict()
         else:
             return None
+
+    #get all skills 
+    def get_all_skills():
+        skills = Skill.query.all()
+        if skills:
+            return [skill.to_dict() for skill in skills]
+        else:
+            return None
+
+    def check_skill_exists(skill_name):
+        check = Skill.query.filter_by(skill_name=skill_name).first()
+
+        return check 
+
+    def create_skill(skill_id, skill_name, skill_desc, active):
+        new_skill = Skill(skill_id, skill_name, skill_desc, active)
+
+        try: 
+            db.session.add(new_skill)
+            db.session.commit()
+        
+        except:
+            return False
+        
+        return True

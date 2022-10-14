@@ -28,6 +28,10 @@ class Attached_skill(db.Model):
     skill_id = db.Column(db.Integer, db.ForeignKey('Skill.skill_id'), primary_key=True,
     nullable = False)
 
+    def __init__(self, course_id, skill_id):
+        self.course_id = course_id
+        self.skill_id = skill_id
+
     def to_dict(self):
         """
         'to_dict' converts the object into a dictionary,
@@ -86,6 +90,18 @@ class Attached_skill(db.Model):
                     attached_skill.append(skill.skill_id)
                     
         return attached_skill
+
+    def create_attached_skill(course_id, skill_id):
+        new_attached_skill = Attached_skill(course_id, skill_id)
+
+        try:
+            db.session.add(new_attached_skill)
+            db.session.commit()
+        
+        except: 
+            return False
+        
+        return True 
 
 
 
