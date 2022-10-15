@@ -534,12 +534,12 @@ def add_course_to_skill():
                 return jsonify({
                     "code": 400,
                     "message": "You are adding 1 or more duplicate course(s)"
-                })
+                }), 400
 
     # Step 4: If no duplicates, add the skill_id, course_id for each course in courses_to_add into the attached_skill table. 
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 ##################### END of User story SA-15 (BRUNO) #####################
-   
+
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
