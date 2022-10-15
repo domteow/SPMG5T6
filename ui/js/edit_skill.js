@@ -212,7 +212,7 @@ function saveSkill(){
 
     // get value of skill name from form and compare 
     var new_skill_name = document.getElementById('skill_name').value;
-    if (new_skill_desc != curr_skill_name){
+    if (new_skill_name != curr_skill_name){
         // to input the backend to send new skill name
 
     }
