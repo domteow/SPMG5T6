@@ -22,8 +22,8 @@ class Ljps_role(db.Model):
 
     ljpsr_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     role_title = db.Column(db.String(50), nullable = False)
-    role_desc = db.Column(db.String(255))
-    active = db.Column(db.Integer, nullable=False)
+    role_desc = db.Column(db.String(255), nullable = False)
+    active = db.Column(db.Integer, nullable = False)
 
     def __init__(self, ljpsr_id, role_title, role_desc, active):
         self.ljpsr_id = ljpsr_id

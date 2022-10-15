@@ -343,6 +343,41 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
+
+# Edit Skills in existing LJPS role
+@app.route("/edit_skills_in_ljps_role", methods=['POST'])
+def edit_skills_in_ljps_role():
+    data = request.get_json()
+    ljpsr_id = data['ljpsr_id']
+    updated_skills = data['skills']
+    current_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    newly_added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    return jsonify({"skills":newly_added_skills})
+
+
+# Add Skill(s) to existing LJPS role
+def add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
+    for skill in updated_skills:
+        if skill not in current_skills:
+            Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+
+
+# Find all existing roles with skills
+@app.route("/read_all_roles")
+def read_all_roles():
+    all_roles = Ljps_role.get_all_learning_journey_roles()
+    if len(all_roles):
+        for role in all_roles:
+            role_skill_result = Role_required_skill.get_role_require_skill_by_ljpsr_list(role['ljpsr_id'])
+            all_skills = []
+            for skill in role_skill_result:
+                skill_result = Skill.get_skill_by_id(skill)
+                all_skills.append({"skill_id":skill,"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"active":skill_result['active']})
+            role['skills'] = all_skills
+
+    return jsonify({"data":all_roles})
+
 ##################### Start of User story SA-19 (JANN) #####################
 
 # To retrieve all skills 
@@ -521,7 +556,7 @@ def add_course_to_skill():
     # Step 4: If no duplicates, add the skill_id, course_id for each course in courses_to_add into the attached_skill table. 
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 
-   
+ 
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
