@@ -44,3 +44,10 @@ class Course(db.Model):
             return course.to_dict()
         else:
             return None
+
+    def get_all_courses():
+        courses = Course.query.all()
+        if courses:
+            return [course.to_dict() for course in courses]
+        else:
+            return []

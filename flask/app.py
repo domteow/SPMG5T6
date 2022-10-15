@@ -1,3 +1,4 @@
+import json
 from turtle import st
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
@@ -230,12 +231,6 @@ def view_courses_under_skill(staff_id, ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
     
-
-
-
-       
-    
-
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
 #     course = Course.getCourseByID(id)
@@ -348,6 +343,7 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
+
 # Edit Skills in existing LJPS role
 @app.route("/edit_skills_in_ljps_role", methods=['POST'])
 def edit_skills_in_ljps_role():
@@ -381,6 +377,186 @@ def read_all_roles():
             role['skills'] = all_skills
 
     return jsonify({"data":all_roles})
+
+##################### Start of User story SA-19 (JANN) #####################
+
+# To retrieve all skills 
+@app.route("/courses", methods=['GET'])
+def get_all_courses():
+    all_courses = Course.get_all_courses()
+
+    if all_courses:
+        return jsonify({
+            'data': all_courses
+            }), 200
+    else:
+        return jsonify({
+            "message": "There are no courses."
+        }), 404
+
+# Create a skill & assign courses to newly-created skill (HR)
+@app.route("/create_skill", methods=['POST'])
+def createSkill():
+    data = request.get_json()
+
+    skill_id = db.session.query(Skill.skill_id).count() + 1 
+    skill_name = data["newSkillName"]
+    skill_desc = data["newSkillDesc"]
+    active = 1 
+    attached_courses_str = data["newSkillCourses"]
+    attached_courses = json.loads(attached_courses_str)
+
+    # check if skill name exists 
+    if Skill.check_skill_exists(skill_name):
+        return jsonify(
+            {
+                "code": 401, 
+                "data": {
+                    "skill_name": skill_name
+                }, 
+                "message": "The skill name already exists. "
+            }
+        )
+
+    # call create_skill method in Skill class to add skill to db
+    create_skill_result = Skill.create_skill(skill_id, skill_name, skill_desc, active)
+
+    # for each course in selected courses, add course to newly-created skill
+    for course in attached_courses:
+        create_attached_course_result = Attached_skill.create_attached_skill(course, skill_id)
+
+        if not create_attached_course_result:
+            break 
+    
+    # check if creation pass/fail 
+    if not create_skill_result or not create_attached_course_result:
+        if not create_skill_result and not create_attached_course_result:
+            return jsonify({
+                "message": "There was an error creating the skill and assigning it to relevant courses."
+            }), 404 
+
+        elif not create_skill_result:
+            return jsonify({
+                "message": "There was an error creating the skill."
+            }), 404 
+        
+        else:
+            return jsonify({
+                "message": "There was an error assigning relevant courses to this skill."
+            }), 404 
+    
+    else: 
+        return jsonify({
+            "message": "The role was successfully created."
+        }), 201 
+
+##################### End  of User story SA-19 (JANN) #####################
+
+##################### Start of User story SA-2 (KELVIN) #####################
+#To retrieve all skills and details
+@app.route("/skills")
+def get_all_skills():
+    skills = Skill.get_all_skills()
+
+    if len(skills):
+        return jsonify({
+            "data": {
+                    "skills": skills
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "There are no skills."
+        }), 404
+
+#Create a role and add its relevant skills
+#Takes in role_title, role_desc, and a list of skill_id to add to role
+@app.route("/create_role", methods=['POST'])
+def new_role():
+    data = request.get_json()
+    ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+    role_title = data["newRoleName"]
+    role_desc = data["newRoleDesc"]
+    skills_str = data["newRoleSkills"]
+    skills = json.loads(skills_str)
+
+    #check if the role name already exists
+    if Ljps_role.check_learning_journey_role_exists(role_title):
+        return jsonify({
+                "message": "The role name already exists",
+            }), 401
+
+    # call create role function to add new role to DB
+    create_role_result = Ljps_role.create_learning_journey_role(ljpsr_id, role_title, role_desc)
+    
+    #for skill_id in skills, add the skill to the role
+    for skill_id in skills:
+        create_role_skill_result = Role_required_skill.create_new_role_required_skill(skill_id, ljpsr_id)
+        if not create_role_skill_result:
+            break
+    
+    #check if either creation fails
+    if not create_role_result or not create_role_skill_result:
+        if not create_role_skill_result and not create_role_result:
+            return jsonify({
+                "message": "There was an error creating the role and its skills."
+            }), 404
+        elif not create_role_skill_result:
+            return jsonify({
+                "message": "There was an error adding the skill(s) to the role"
+            }), 404
+        else:
+             return jsonify({
+                "message": "There was an error adding the role"
+            }), 404
+    else:
+        return jsonify({
+            "message": "The role was successfully created"
+        }), 201
+################### End of User story SA-2 (KELVIN) ##########################
+
+
+# USER STORY SA-15 CHILD ISSUE SA-36(bruno)
+# For front-end, get all courses + course details related to the skill selected
+@app.route("/get_courses_by_skill/<int:skill_id>")
+def get_courses_by_skill(skill_id):
+    # Get a list of the course IDs related to the skill
+    course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+    all_course_details = []
+    for course in course_ids:
+        all_course_details.append(Course.get_course_by_id(course))
+
+    return jsonify({
+            "data": {
+                    
+                    "courses": all_course_details
+                }
+        }), 200
+
+# Add course to skill
+@app.route("/add_course_to_skill", methods=['POST'])
+def add_course_to_skill():
+    # Step 1: Read the data passed over, and get the skill ID and array of courses to be added (courses_to_add)
+    data = request.get_json()
+    skill_id = data['skill_id']
+    courses_to_add = data['course_arr']
+    print(skill_id,courses_to_add)
+    # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
+    existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+    print(existing_course_array)
+    # Step 3: Compare existing_course_array with courses_to_add. If duplicates found, return error code 400
+    for addCourse in courses_to_add:
+        for existCourse in existing_course_array:
+            if existCourse == addCourse:
+                return jsonify({
+                    "code": 400,
+                    "message": "You are adding 1 or more duplicate course(s)"
+                })
+
+    # Step 4: If no duplicates, add the skill_id, course_id for each course in courses_to_add into the attached_skill table. 
+    return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
+
+ 
 
 ######################################################################
 # HELPER FUNCTIONS BELOW

@@ -20,7 +20,7 @@ CORS(app)
 class Ljps_role(db.Model):
     __tablename__ = 'ljps_role'
 
-    ljpsr_id = db.Column(db.Integer, primary_key=True)
+    ljpsr_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     role_title = db.Column(db.String(50), nullable = False)
     role_desc = db.Column(db.String(255), nullable = False)
     active = db.Column(db.Integer, nullable = False)
@@ -49,9 +49,26 @@ class Ljps_role(db.Model):
         else:
             return None
 
+    def check_learning_journey_role_exists(role_title):
+        check = Ljps_role.query.filter_by(role_title=role_title).first()
+        return check
+
     def get_all_learning_journey_roles():
         roles = Ljps_role.query.all()
         if roles:
             return [role.to_dict() for role in roles]
         else:
             return []
+
+    #Create new active learning journey role and add to database
+    def create_learning_journey_role(ljpsr_id, role_title, role_desc):
+        new_ljps_role = Ljps_role(ljpsr_id, role_title, role_desc, 1)
+        try:
+            db.session.add(new_ljps_role)
+            db.session.commit()
+
+        except:
+            return False
+
+        return True
+        

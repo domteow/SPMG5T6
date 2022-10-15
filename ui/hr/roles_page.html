@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LJPS Explore</title>
+    <link rel="icon" href="../img/webicon.png">
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="./css/roles_page.css">
+    <link rel="stylesheet" href="./css/hrnavbar.css">
+
+    <!-- font family -->
+    <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
+
+    <!-- animate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- navigation bar -->
+    <div class="sidenav" id="mySidebar">
+        <!-- close nav for phone -->
+        <a href="javascript:void(0)" class="closebtn" id="close" onclick="closeNav()">X</a>
+
+        <!-- user profile -->
+        <div class="user">
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
+            </div>
+        </div>
+
+        <!-- pages -->
+        <a href="./homepage_hr.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/explore.png" alt=""> Explore
+            </div>
+        </a>
+
+        <a href="./dashboard_hr.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/dashboard.png"  alt=""> Dashboard
+            </div>
+        </a>
+
+        <div class="dropdown navitem act">
+            <button class="btn dropdown-toggle dashy" type="button" style="color:#FFDBA5;" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/edit_active.png"  alt=""> Edit
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item itey" href="./roles_page.html">Roles</a></li>
+                <li><a class="dropdown-item" href="./skills_page.html">Skills</a></li>
+            </ul>
+        </div>
+        
+        <a href="./settings_hr.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/settings.png" alt=""> Settings
+            </div>
+        </a>
+    
+        <!-- log out -->
+        <a href="../login.html">
+            <div class="logout">
+                <img src="../img/logout.png" alt=""> Log out
+            </div>
+        </a>
+    </div>
+    <!-- end of navigation bar -->
+
+    <!-- phone nav menu -->
+    <div id="navmenu">
+        <div class="navey" id="navey"></div>
+    </div>
+    <!-- end of phone nav menu -->
+
+    <!-- main body -->
+    <div class="main">
+        <div class="maincontent">
+            <div class="rolestitle">
+                ROLES
+            </div>    
+
+            <!-- search stuff -->
+            <div class="container-fluid search">
+                <div class="row">
+                    <div class="col-sm-8 searchdiv">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a role" oninput="searchRole()" name="roleName" id="roleName">
+                    </div>
+    
+                    <div class="col-sm-4 addNewRole">
+                        <a href="./create_role.html"><div class='addRoleText'>+ Add New Role</div></a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <!-- search options -->
+                        <div class="searchOpt">
+                            <ul id="myUL">
+                                <li><a href="#1">rhys</a></li>
+                                <li><a href="#2">cute!</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4"></div>
+                </div>
+            </div> 
+
+            <!-- to display all the EXISTING roles -->
+            <div class="existingRoles accordion" id="existingRoles">
+                <div class="accordion-item" id="1">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div id="role-head-1">
+                                    <button class="accordion-button collapsed roleTitle" type="button" data-bs-toggle="collapse" data-bs-target="#role-1" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                        rhys
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 editrole">
+                                Edit
+                            </div>
+                            <div class="col-sm-2 isactivediv">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option value="1" selected>Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="role-1" class="accordion-collapse collapse" aria-labelledby="role-head-1">
+                                    <div class="accordion-body">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, incidunt id numquam cupiditate culpa doloremque ex deleniti eveniet, corrupti, placeat ducimus mollitia earum! Beatae architecto voluptas non, eaque possimus rerum!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item" id="2">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div id="role-head-2">
+                                    <button class="accordion-button collapsed roleTitle" type="button" data-bs-toggle="collapse" data-bs-target="#role-2" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                        Cute!
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-sm-2 editrole">
+                                Edit
+                            </div>
+                            <div class="col-sm-2 isactivediv">
+                                <select class="form-select" aria-label="Default select example">
+                                    <option value="1" selected>Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="role-2" class="accordion-collapse collapse" aria-labelledby="role-head-2">
+                                    <div class="accordion-body">
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, incidunt id numquam cupiditate culpa doloremque ex deleniti eveniet, corrupti, placeat ducimus mollitia earum! Beatae architecto voluptas non, eaque possimus rerum!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/roles_page.js"></script>
+</body>
+</html>
