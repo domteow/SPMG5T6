@@ -1,6 +1,5 @@
 var edit_skill_id = sessionStorage.getItem('edit_skill_id');
-var skill_name_div = document.getElementById('skill_name');
-var skill_desc_div = document.getElementById('skill_desc');
+
 
 // to add existing skill name and description into input field value 
 $(async () => {
@@ -24,11 +23,16 @@ $(async () => {
             
 
             for (var skill_idx in all_skills){
+                var skill_name_div = document.getElementById('skill_name');
+                var skill_desc_div = document.getElementById('skill_desc');
                 var skill = all_skills[skill_idx];
 
                 var skill_name = skill['skill_name'];
                 var skill_desc = skill['skill_desc'];
                 var skill_id = skill['skill_id'];
+
+                sessionStorage.setItem('curr_skill_name', skill_name);
+                sessionStorage.setItem('curr_skill_desc', skill_desc);
 
                 if (skill_id == edit_skill_id){
                     // console.log(skill_id);
@@ -73,6 +77,27 @@ function searchCourse() {
                 li[i].style.display = "none";
             }
         }
+    }
+}
+
+function handleChange(cb) {
+    var cbval = cb.id;
+    if(cb.checked == true) {
+        // to check all checkbox with the SAME ID -> course_id
+        var cbox = `input[id=${cbval}]`
+        var allCB = document.querySelectorAll(cbox);
+        for (var i=0; i< allCB.length; i++){
+            allCB[i].checked = true;
+        }
+      
+    } else {
+        // to uncheck all checkbox
+        var cbox = `input[id=${cbval}]`
+        var allCB = document.querySelectorAll(cbox);
+        for (var i=0; i< allCB.length; i++){
+            allCB[i].checked = false;
+        }
+
     }
 }
 
@@ -140,7 +165,7 @@ $(async () => {
     }
 })
 
-
+// to check checkboxes of existing courses under that skill 
 $(async () =>{
     var serviceURL = "http://127.0.0.1:5001//get_courses_by_skill/" + edit_skill_id
 
@@ -156,6 +181,9 @@ $(async () =>{
             // console.log(result.data)
             var courses = result.data.courses;
             // console.log(courses);
+            curr_courses = [];
+            currcourses = JSON.stringify(courses)
+            sessionStorage.setItem('curr_courses', currcourses);
 
             for (var course_idx in courses){
                 // console.log(course_idx);
@@ -167,10 +195,85 @@ $(async () =>{
             }
 
         }
-        
 
     } catch (error) {
         console.log(error)
         console.log('error')
     }
 })
+
+function saveSkill(){
+    var skill_id = sessionStorage.getItem('edit_skill_id');
+    var curr_skill_name = sessionStorage.getItem('curr_skill_name');
+    var curr_skill_desc = sessionStorage.getItem('curr_skill_desc');
+    var curr_courses = sessionStorage.getItem('curr_courses');
+    curr_courses = JSON.parse(curr_courses);
+    
+
+    // get value of skill name from form and compare 
+    var new_skill_name = document.getElementById('skill_name').value;
+    if (new_skill_desc != curr_skill_name){
+        // to input the backend to send new skill name
+
+    }
+
+
+    // get value of skill desc from form and compare 
+    var new_skill_desc = document.getElementById('skill_desc').value;
+    if (new_skill_desc != curr_skill_desc){
+        // to input the backend to send new skill description 
+
+    }
+
+    // get values of courses in skill from form and compare 
+    const allChecked = document.querySelectorAll('input[name=courses]:checked');
+
+    var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
+    // console.log(checkedCourses);
+
+    if (checkedCourses.length== 0){
+        alert("Please select at least one course to be added under this skill.");
+    }
+
+    else{
+
+        var added_courses = [];
+        var deleted_courses = [];
+        var curr_course_ids = [];
+        for (var curr_idx in curr_courses){
+            var curr_course = curr_courses[curr_idx];
+            var curr_course_id = curr_course['course_id'];
+            curr_course_ids.push(curr_course_id);
+        }
+        
+        for (var new_idx in checkedCourses){
+            var new_id = checkedCourses[new_idx];
+            // if new id is not in curr_course ->  save to added_courses
+            if(!curr_course_ids.includes(new_id)){
+                added_courses.push(new_id);
+            }
+        }
+
+        for (var old_idx in curr_course_ids){
+            var old_id = curr_course_ids[old_idx];
+            // if old id not in checkedCourses -> save to deleted_courses 
+            if (!checkedCourses.includes(old_id)){
+                deleted_courses.push(old_id);
+            }
+        }
+
+        if (added_courses.length >0){
+            console.log(added_courses.length);
+            // to input backend to add course to skill 
+
+        }
+
+        if (deleted_courses.length > 0){
+            // to input backend to delete course from skill
+        }
+    }
+
+
+
+
+}
