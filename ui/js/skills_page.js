@@ -1,5 +1,10 @@
+function editSkill(skill_id){
+    sessionStorage.setItem('edit_skill_id', skill_id);
+    location.href = './edit_skill.html';
+}
+
 $(async () => {
-    var serviceURL = "http://127.0.0.1:5001/skills"
+    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses"
 
     try {
         const response =
@@ -18,19 +23,26 @@ $(async () => {
             var searchdiv = document.getElementById('myUL');
             var skillsdiv = document.getElementById('existingSkills');
             var skilldiv_content = ``;
+            
 
             for (var skill_idx in all_skills){
                 var skill = all_skills[skill_idx];
+
                 var skill_name = skill['skill_name'];
                 var skill_desc = skill['skill_desc'];
                 var skill_id = skill['skill_id'];
                 var active = skill['active'];
+                var skill_courses = skill['courses'];
+                var course_content = ``;
+                
 
                 searchdiv.innerHTML += `<li><a href="#${skill_name}">${skill_name}</a></li>`;
 
-                $(async()=>{
-                    var serviceURL = "http://127.0.0.1:5001/skills"
-                })
+                for (var course_idx in skill_courses){
+                    var course = skill_courses[course_idx];
+                    var course_name = course['course_name'];
+                    course_content += `<li class='skill_desc_text'>${course_name}</li>`;
+                }
 
                 if (active == 1){
                     skilldiv_content += `
@@ -68,8 +80,8 @@ $(async () => {
                                                     Courses:
                                                 </div>
                                                 <div class='skill_desc_text'>
-                                                    <ul id='${skill_id}courses'>
-                                                    
+                                                    <ul>
+                                                        ${course_content}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -116,9 +128,9 @@ $(async () => {
                                                 <div class='skill_desc_title'>
                                                     Courses:
                                                 </div>
-                                                <div class='skill_desc_text'>
-                                                    <ul id='${skill_id}courses'>
-                                                    
+                                                <div >
+                                                    <ul>
+                                                        ${course_content}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -171,3 +183,4 @@ function searchRole() {
         }
     }
 }
+
