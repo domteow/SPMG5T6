@@ -22,12 +22,14 @@ class Ljps_role(db.Model):
 
     ljpsr_id = db.Column(db.Integer, primary_key=True)
     role_title = db.Column(db.String(50), nullable = False)
-    role_desc = db.Column(db.String(255))
+    role_desc = db.Column(db.String(255), nullable = False)
+    active = db.Column(db.Integer, nullable = False)
 
-    def __init__(self, ljpsr_id, role_title, role_desc):
+    def __init__(self, ljpsr_id, role_title, role_desc, active):
         self.ljpsr_id = ljpsr_id
         self.role_title = role_title
         self.role_desc = role_desc
+        self.active = active
 
     def to_dict(self):
         """
