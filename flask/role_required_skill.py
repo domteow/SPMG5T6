@@ -72,6 +72,22 @@ class Role_required_skill(db.Model):
                 "message": "Unable to commit to database."
             }), 500
 
+    def delete_ljps_skill(ljpsr_id, skill_id):
+        role_link_skill = Role_required_skill.query.filter_by(ljpsr_id=ljpsr_id,skill_id=skill_id).first()
+        if role_link_skill:
+            db.session.delete(role_link_skill)
+            db.session.commit()
+            return jsonify(
+                {
+                    "message": "Successfully deleted from database."
+                }
+            ), 200
+        return jsonify(
+            {
+                "message": "Unable to commit to database."
+            }
+        ), 500
+
 
     #Add skill to role
     def create_new_role_required_skill(skill_id, ljpsr_id):

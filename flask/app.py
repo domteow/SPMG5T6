@@ -343,7 +343,7 @@ def get_all_staff(staff_id):
         "all_staff" : all_staff
     })
 
-##################### Start of User story SA-9 (BRYAN) #####################
+##################### Start of User story SA-9 & SA-13 (BRYAN) #####################
 
 # Edit Skills in existing LJPS role
 @app.route("/edit_skills_in_ljps_role", methods=['POST'])
@@ -356,6 +356,8 @@ def edit_skills_in_ljps_role():
     current_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
     # Compare and add the skills to the LJPS role
     add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    # Compare and delete the skills
+    delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
     # After updating, get the retrieve all the current skills to send back out
     newly_added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
     return jsonify({"skills":newly_added_skills})
@@ -367,6 +369,13 @@ def add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
         if skill not in current_skills:
             # add skill if not in the current skill list
             Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+
+# Delete Skill(s) to existing LJPS role
+def delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
+    for skill in current_skills:
+        if skill not in updated_skills:
+            # delete skill if not in the updated skill list
+            Role_required_skill.delete_ljps_skill(ljpsr_id, skill)
 
 
 # Find all existing roles with skills
@@ -387,7 +396,7 @@ def read_all_roles():
 
     return jsonify({"data":all_roles})
 
-##################### End  of User story SA-9 (BRYAN) #####################
+##################### End  of User story SA-9 & SA-13 (BRYAN) #####################
 
 ##################### Start of User story SA-19 (JANN) #####################
 
