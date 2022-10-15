@@ -497,7 +497,7 @@ def get_courses_by_skill(skill_id):
                     "courses": all_course_details
                 }
         }), 200
-
+# Get all skills, and course details related to each skill 
 @app.route("/get_all_skills_and_courses")
 def get_all_skills_and_courses():
     # Refer to helper function get_skill_and_course_details
@@ -545,7 +545,7 @@ def add_course_to_skill():
 # HELPER FUNCTIONS BELOW
 ######################################################################
 
-# This helper function will return a list of all skill details. In each skill, there will be the courses under the skill and its details too. 
+# This helper function will return a list of all skill details. In each skill object, there will be the courses under the skill and its details too. 
 def get_skill_and_course_details():
     # Array of skill objects
     skills = Skill.get_all_skills()
