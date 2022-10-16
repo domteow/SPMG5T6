@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from skill import Skill
 from course import Course
+from sqlalchemy.exc import SQLAlchemyError
 
 
 app = Flask(__name__)
@@ -22,11 +23,11 @@ CORS(app)
 
 class Attached_skill(db.Model):
     __tablename__ = 'attached_skill'
-
-    course_id = db.Column(db.String(20), db.ForeignKey('Course.course_id'), primary_key=True,
+    skill_id = db.Column(db.Integer, db.ForeignKey(Skill.skill_id), primary_key=True,
     nullable = False)
-    skill_id = db.Column(db.Integer, db.ForeignKey('Skill.skill_id'), primary_key=True,
+    course_id = db.Column(db.String(20), db.ForeignKey(Course.course_id), primary_key=True,
     nullable = False)
+    
 
     def __init__(self, course_id, skill_id):
         self.course_id = course_id
@@ -102,6 +103,39 @@ class Attached_skill(db.Model):
             return False
         
         return True 
+
+
+    # Adding 1 or more courses to ONE skill
+    def add_courses_to_skill(skill_id, courses):
+        rows = []
+        for course in courses:
+            rows.append(Attached_skill(skill_id = int(skill_id), course_id = course))
+
+        try:
+            db.session.bulk_save_objects(rows)
+            db.session.commit()
+        except SQLAlchemyError as e:
+            error = str(e.__dict__['orig'])
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "skill_id" : skill_id,
+                        "courses" : courses
+                    },
+                    "message": error
+                }
+            ),500
+
+        return jsonify(
+        {
+            "code": 201,
+            "data": {
+                "skill_id" : skill_id,
+                "courses" : courses
+            },
+            "message": "Courses added successfully"
+        }),200
 
 
 
