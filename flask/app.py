@@ -231,6 +231,12 @@ def view_courses_under_skill(staff_id, ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
     
+
+
+
+       
+    
+
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
 #     course = Course.getCourseByID(id)
@@ -342,6 +348,61 @@ def get_all_staff(staff_id):
         "hr" : hr_info,
         "all_staff" : all_staff
     })
+
+##################### Start of User story SA-9 & SA-13 (BRYAN) #####################
+
+# Edit Skills in existing LJPS role
+@app.route("/edit_skills_in_ljps_role", methods=['POST'])
+def edit_skills_in_ljps_role():
+    # retrieve data from POST call
+    data = request.get_json()
+    ljpsr_id = data['ljpsr_id']
+    updated_skills = data['skills']
+    # Get the current skills which this particular LJPS role contains
+    current_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    # Compare and add the skills to the LJPS role
+    add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    # Compare and delete the skills
+    delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    # After updating, get the retrieve all the current skills to send back out
+    newly_added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    return jsonify({"skills":newly_added_skills})
+
+
+# Add Skill(s) to existing LJPS role
+def add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
+    for skill in updated_skills:
+        if skill not in current_skills:
+            # add skill if not in the current skill list
+            Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+
+# Delete Skill(s) to existing LJPS role
+def delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
+    for skill in current_skills:
+        if skill not in updated_skills:
+            # delete skill if not in the updated skill list
+            Role_required_skill.delete_ljps_skill(ljpsr_id, skill)
+
+
+# Find all existing roles with skills
+@app.route("/read_all_roles")
+def read_all_roles():
+    # Find all LJPS roles in the db
+    all_roles = Ljps_role.get_all_learning_journey_roles()
+    if len(all_roles):
+        for role in all_roles:
+            # get all the skills of that particular LJPS role
+            role_skill_result = Role_required_skill.get_role_require_skill_by_ljpsr_list(role['ljpsr_id'])
+            all_skills = []
+            for skill in role_skill_result:
+                # find each skill details
+                skill_result = Skill.get_skill_by_id(skill)
+                all_skills.append({"skill_id":skill,"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"active":skill_result['active']})
+            role['skills'] = all_skills
+
+    return jsonify({"data":all_roles})
+
+##################### End  of User story SA-9 & SA-13 (BRYAN) #####################
 
 ##################### Start of User story SA-19 (JANN) #####################
 
@@ -539,7 +600,6 @@ def add_course_to_skill():
     # Step 4: If no duplicates, add the skill_id, course_id for each course in courses_to_add into the attached_skill table. 
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 ##################### END of User story SA-15 (BRUNO) #####################
-
 
 ######################################################################
 # HELPER FUNCTIONS BELOW

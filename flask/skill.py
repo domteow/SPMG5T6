@@ -20,16 +20,17 @@ CORS(app)
 class Skill(db.Model):
     __tablename__ = 'skill'
 
-    skill_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    skill_id = db.Column(db.Integer, primary_key=True, nullable=False)
     skill_name = db.Column(db.String(50))
     skill_desc = db.Column(db.String(255))
-    active = db.Column(db.Integer)
+    active = db.Column(db.Integer, nullable=False)
+
 
     def __init__(self, skill_id, skill_name, skill_desc, active):
         self.skill_id = skill_id
         self.skill_name = skill_name
         self.skill_desc = skill_desc
-        self.active = active 
+        self.active = active
         
     def to_dict(self):
         """
