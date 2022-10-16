@@ -21,7 +21,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./css/skills_page.css">
+    <link rel="stylesheet" href="./css/edit_skill.css">
     <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- font family -->
@@ -94,44 +94,91 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <div class="skillstitle">
-                SKILLS
-            </div>    
+            <div class="pgTitle" id="top">
+                Create a New Skill
+            </div> 
+            
+            <!-- insert skill details-->
 
+            <!-- name -->
+            <div class="container-fluid name">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Name of Skill:
+                    </div>
+                </div>
+                <div class="row valinput">
+                    <div class="col">
+                        <div class="input-group nameinput">
+                            <input type="text" class="form-control name_input" id="skill_name" placeholder="Name of Skill" aria-label="new_skill_name" aria-describedby="basic-addon2">
+                        </div>
+                        <div id="nameError" class="errmsg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid desc">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Description of Skill:
+                    </div>
+                    <div class="row valinput">
+                        <div class="input-group">
+                            <textarea class="form-control" id="skill_desc" placeholder="Skill Description" aria-label="With textarea"></textarea>
+                        </div>
+                        <div class="errmsg" id="descError"></div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="coursetitle">
+                Courses under skill:
+            </div>
+            
             <!-- search stuff -->
             <div class="container-fluid search">
                 <div class="row">
-                    <div class="col-sm-8 searchdiv">
-                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a role" oninput="searchRole()" name="roleName" id="roleName">
+                    <div class="col-sm-9 searchdiv">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a course" oninput="searchCourse()" name="courseName" id="courseName">
                     </div>
-    
-                    <button class="col-sm-4 addNewSkill">
-                        <a href="./create_skill.html"><div class='addSkillText'>+ Add New Skill</div></a>
-                    </button>
+                    <div class="col-sm-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                         <!-- search options -->
                         <div class="searchOpt">
                             <ul id="myUL">
-                                
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3"></div>
                 </div>
             </div> 
 
-            <!-- to display all the EXISTING skills -->
-            <div class="existingSkills accordion" id="existingSkills">
-                
+            <div class="container-fluid courses">
+                <div class="row errmsg" id="courseError"></div>
+                <div class="row" id="allCourses">
+                    
+                </div>
             </div>
             
             
+            <button class="addSkill" onclick="saveSkill()">
+                Save Changes
+            </button>
+            
+
+            <div class="cancel">
+                <a href="./skills_page.html">
+                    <div class="canceltext">Cancel</div>
+                </a>
+            </div>
+
         </div>
     </div>
 
     <script src="../js/nav.js"></script>
-    <script src="../js/skills_page.js"></script>
+    <script src="../js/edit_skill.js"></script>
 </body>
 </html>
