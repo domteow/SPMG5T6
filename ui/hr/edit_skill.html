@@ -94,7 +94,7 @@
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <div class="pgTitle">
+            <div class="pgTitle" id="top">
                 Create a New Skill
             </div> 
             
@@ -112,6 +112,7 @@
                         <div class="input-group nameinput">
                             <input type="text" class="form-control name_input" id="skill_name" placeholder="Name of Skill" aria-label="new_skill_name" aria-describedby="basic-addon2">
                         </div>
+                        <div id="nameError" class="errmsg"></div>
                     </div>
                 </div>
             </div>
@@ -124,9 +125,11 @@
                     <div class="row valinput">
                         <div class="input-group">
                             <textarea class="form-control" id="skill_desc" placeholder="Skill Description" aria-label="With textarea"></textarea>
-                          </div>
+                        </div>
+                        <div class="errmsg" id="descError"></div>
                     </div>
                 </div>
+                
             </div>
 
             <div class="coursetitle">
@@ -154,6 +157,7 @@
             </div> 
 
             <div class="container-fluid courses">
+                <div class="row errmsg" id="courseError"></div>
                 <div class="row" id="allCourses">
                     
                 </div>
