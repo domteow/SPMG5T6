@@ -231,6 +231,12 @@ def view_courses_under_skill(staff_id, ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
     
+
+
+
+       
+    
+
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
 #     course = Course.getCourseByID(id)
