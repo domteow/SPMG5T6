@@ -60,7 +60,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-sm-2 isactivediv">
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" name='${skill_id}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
@@ -109,7 +109,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-sm-2 isactivediv">
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" name='${skill_id}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>
                                         </select>
@@ -184,3 +184,8 @@ function searchRole() {
     }
 }
 
+function deleteskill(activeCheck){
+    var skillid = activeCheck.name;
+    var isactive = activeCheck.value;
+    // insert backend here to delete skill (jann)
+}
