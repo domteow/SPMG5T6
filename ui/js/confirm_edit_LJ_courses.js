@@ -75,7 +75,7 @@ async function confirm_edit_LJ(){
         console.log(response)
         const result = await response.json();
         console.log(result)
-        if(result.code === 201) {
+        if(response.status === 201 || response.status === 200) {
             console.log('Learning Journey edited')
             alert('Learning Journey edited')
         }

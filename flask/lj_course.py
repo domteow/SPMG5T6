@@ -133,41 +133,58 @@ class Lj_course(db.Model):
     def edit_lj_course(journey_id, course_arr): 
         # check the courses given in course_arr and
         # remove duplicates
-        arr = json.loads(course_arr)
-        temp = []
-        course_dict = {}
-        for k,v in arr.items():
-            if v not in temp:
-                temp.append(v)
-                course_dict[k] = v
-        # print('***course_dict***')
-        # print(course_dict)
-        list_of_lj_courses = []
+        course_dict = json.loads(course_arr)
+        course_id_add = []
         
-        print('************CHECKING IF CAN GET LJ COURSE OBJECT*************')
-        for skill, courses_for_skill in course_dict.items():
-
-            # print(courses_for_skill)
-            for course in courses_for_skill:
-                # print(course)
-                course_id = course['course_id']
+        for course in course_dict.values():
+            if course[0]['course_id'] not in course_id_add:
+                # print('***********course*************')
+                # print(course[0]['course_id'])
+                course_id_add.append(course[0]['course_id'])
                 
-                new_lj_course = Lj_course(journey_id, course_id)
-                # print('journey_id = ',journey_id)
-                # print(new_lj_course)
-                list_of_lj_courses.append(new_lj_course) #adding all the course objs to a list to bulk insert
-        print(list_of_lj_courses)
+        print('***course_dict***')
+        print(course_dict)
+        
+        print('***course_id_add***')
+        print(course_id_add)
+        
+        
 
 
 
         # read the lj courses in the database and check
         # what exists and what doesnt
-        DB_courses = [course for course in Lj_course.query.filter_by(journey_id=journey_id).all()]
+        DB_courses = [course.course_id for course in Lj_course.query.filter_by(journey_id=journey_id).all()]
         print('********DATABASE COURSES*************')
-        print(type(DB_courses))
-
+        print((DB_courses))
+        ljc_to_add = []
         # if the course exists in course_arr but not in DB,
         # add the course to DB
+        for course_id in course_id_add:
+            if course_id not in DB_courses:
+                new_lj_course = Lj_course(journey_id, course_id)
+                ljc_to_add.append(new_lj_course)
+        try:
+            db.session.bulk_save_objects(ljc_to_add)
+            db.session.commit()
+
+        except:
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "journey_id" : journey_id,
+                        "course_id" : course_id
+                    },
+                    "message": "dom error"
+                }
+            )
+
+        # return jsonify(
+        # {
+        #     "code": 201,
+        #     "data": ljc_to_add
+        # })
 
         # if the course exists in DB but not in course_arr,
         # remove the course from DB

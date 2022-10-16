@@ -9,6 +9,9 @@ var journey_id = sessionStorage.getItem('activeLJ')
 // console.log(journey_id)
 // console.log(role_details)
 
+// Retrieving course already in learning journey
+
+
 // Retrieving courses for each skill (dom)
 staff_id = sessionStorage.getItem('staff_id')
 $(async () => {

@@ -219,6 +219,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
                 all_course_details.append(course_detail)
         skill['courses'] = all_course_details
     
+
     if len(skills_under_ljpsr_details):
         return jsonify({
             "data": {
@@ -321,6 +322,9 @@ def edit_LJ():
     print(data)
     Lj_course.edit_lj_course(journey_id, course_arr)
     return data
+
+
+
 ##################### End of User story SA-20 (DOM) #####################
 
 @app.route("/get_team_members/<int:staff_id><string:course_arr>")
