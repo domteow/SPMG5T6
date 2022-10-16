@@ -5,6 +5,8 @@
 
 // var role_details = JSON.parse(sessionStorage.getItem('role_details'));
 var ljpsr_id = sessionStorage.getItem('ljpsr_id');
+var journey_id = sessionStorage.getItem('activeLJ')
+// console.log(journey_id)
 // console.log(role_details)
 
 // Retrieving courses for each skill (dom)
@@ -57,7 +59,7 @@ $(async () => {
                     var course_id = course['course_id'];
                     skillscont.innerHTML += `
                         <div class='row coursename form-check'>
-                            <input class='form-check-input' type='checkbox' id=${course_id} name = 'skills' value = "${skillname}/${course_name}/${course_id}">
+                            <input class='form-check-input' type='checkbox' id=${course_id} onchange="handleChange(this)" name = 'skills' value = "${skillname}/${course_name}/${course_id}">
                             ${course_name}
                             <div class='course_desc'>${course_desc}</div>
                         </div>
@@ -100,7 +102,7 @@ function getValues(){
             location.href = '../hr/confirm_LJ.html';
         }
         if(staff_role == 2){
-            location.href = '../staff/confirm_LJ.html';
+            location.href = '../staff/confirm_edit_LJ_courses.html';
         }
         if(staff_role == 3){
             location.href = '../manager/confirm_LJ.html';
@@ -117,3 +119,23 @@ function getValues(){
     
 }
 
+function handleChange(cb) {
+    var cbval = cb.id;
+    if(cb.checked == true) {
+        // to check all checkbox with the SAME ID -> course_id
+        var cbox = `input[id=${cbval}]`
+        var allCB = document.querySelectorAll(cbox);
+        for (var i=0; i< allCB.length; i++){
+            allCB[i].checked = true;
+        }
+      
+    } else {
+        // to uncheck all checkbox
+        var cbox = `input[id=${cbval}]`
+        var allCB = document.querySelectorAll(cbox);
+        for (var i=0; i< allCB.length; i++){
+            allCB[i].checked = false;
+        }
+
+    }
+}

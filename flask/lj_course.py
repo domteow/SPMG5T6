@@ -1,3 +1,5 @@
+from configparser import DuplicateSectionError
+from multiprocessing.reduction import duplicate
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
@@ -125,3 +127,50 @@ class Lj_course(db.Model):
                 courses.append(course.course_id)
     	
         return courses 
+
+    # User story SA-20
+    # add/remove lj courses (dom)
+    def edit_lj_course(journey_id, course_arr): 
+        # check the courses given in course_arr and
+        # remove duplicates
+        arr = json.loads(course_arr)
+        temp = []
+        course_dict = {}
+        for k,v in arr.items():
+            if v not in temp:
+                temp.append(v)
+                course_dict[k] = v
+        # print('***course_dict***')
+        # print(course_dict)
+        list_of_lj_courses = []
+        
+        print('************CHECKING IF CAN GET LJ COURSE OBJECT*************')
+        for skill, courses_for_skill in course_dict.items():
+
+            # print(courses_for_skill)
+            for course in courses_for_skill:
+                # print(course)
+                course_id = course['course_id']
+                
+                new_lj_course = Lj_course(journey_id, course_id)
+                # print('journey_id = ',journey_id)
+                # print(new_lj_course)
+                list_of_lj_courses.append(new_lj_course) #adding all the course objs to a list to bulk insert
+        print(list_of_lj_courses)
+
+
+
+        # read the lj courses in the database and check
+        # what exists and what doesnt
+        DB_courses = [course for course in Lj_course.query.filter_by(journey_id=journey_id).all()]
+        print('********DATABASE COURSES*************')
+        print(type(DB_courses))
+
+        # if the course exists in course_arr but not in DB,
+        # add the course to DB
+
+        # if the course exists in DB but not in course_arr,
+        # remove the course from DB
+
+        
+        

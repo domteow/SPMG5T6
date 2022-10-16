@@ -252,6 +252,7 @@ def new_learning_journey(ljpsr_id, staff_id, course_arr):
     return createLJ_course_result
 
 
+
 # Reading a Learning Journey
 @app.route("/readlj/<int:staff_id>")
 def read_learning_journeys(staff_id):
@@ -305,7 +306,18 @@ def delete_drug(journey_id):
     newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
     return jsonify({"courses":newly_added_courses})
 
-@app.route("/get_team_members/<int:staff_id>")
+##################### Start of User story SA-20 (DOM) #####################
+@app.route("/edit_LJ_courses/", methods = ['POST'])
+def edit_LJ():
+    data = request.get_json()
+    journey_id = data['journey_id']
+    course_arr = data['course_arr']
+    print(data)
+    Lj_course.edit_lj_course(journey_id, course_arr)
+    return data
+##################### End of User story SA-20 (DOM) #####################
+
+@app.route("/get_team_members/<int:staff_id><string:course_arr>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])
