@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LJPS Explore</title>
+    <link rel="icon" href="../img/webicon.png">
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!-- bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- vue -->
+    <script src="https://unpkg.com/vue@next"></script>
+
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <!-- css -->
+    <link rel="stylesheet" href="../css/confirm_LJ.css">
+    <link rel="stylesheet" href="./css/navbar.css">
+
+    <!-- font family -->
+    <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
+
+    <!-- animate -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <!-- navigation bar -->
+    <div class="sidenav" id="mySidebar">
+        <!-- close nav for phone -->
+        <a href="javascript:void(0)" class="closebtn" id="close" onclick="closeNav()">X</a>
+
+        <!-- user profile -->
+        <div class="user">
+            <img src="../img/face.jpg" class="userface" alt="">
+            <div class="user_name">
+                Jane Doe
+            </div>
+        </div>
+
+        <!-- pages -->
+        <!-- pages -->
+        <a href="./homepage_standard.html" class="navtext">
+            <div class="navitem act">
+                <img src="../img/explore_active.png" alt=""> Explore
+            </div>
+        </a>
+        <a href="./dashboard_standard.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/dashboard.png" alt=""> Dashboard
+            </div>
+        </a>
+        <a href="./settings_standard.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/settings.png" alt=""> Settings
+            </div>
+        </a>
+    
+        <!-- log out -->
+        <a href="../login.html">
+            <div class="logout">
+                <img src="../img/logout.png" alt=""> Log out
+            </div>
+        </a>
+    </div>
+    <!-- end of navigation bar -->
+
+    <!-- phone nav menu -->
+    <div id="navmenu">
+        <div class="navey" id="navey"></div>
+    </div>
+    <!-- end of phone nav menu -->
+
+    <!-- main body -->
+    <div class="main">
+        <div class="maincontent">
+            <div class="rolename" id="rolename">
+
+            </div>
+            <div class="skillschosen">
+                Skill and Courses Chosen: 
+            </div>
+            <div class="container-fluid courseskill" id="courseskill">
+                
+            </div>
+            <div class="createLJ" onclick="confirm_edit_LJ()">
+                Confirm Learning Journey
+            </div>
+            <a href="./homepage_standard.html">
+                <div class="cancelLJ">
+                    Cancel
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/confirm_edit_LJ_courses.js"></script>
+</body>
+</html>

@@ -23,6 +23,7 @@ CORS(app)
 
 class Role_required_skill(db.Model):
     __tablename__ = 'role_required_skill'
+
     ljpsr_id = db.Column(db.Integer, db.ForeignKey(Ljps_role.ljpsr_id), primary_key=True)
     skill_id = db.Column(db.Integer,  db.ForeignKey(Skill.skill_id),primary_key=True)
     
@@ -58,7 +59,6 @@ class Role_required_skill(db.Model):
                     skills.append(skill.skill_id)
 
         return skills
-
     
     def create_ljps_skill(ljpsr_id, skill_id):
         new_ljps_skill = Role_required_skill(ljpsr_id,skill_id)

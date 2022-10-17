@@ -50,19 +50,23 @@ for(var skill_name in course_dict){
 // }
 
 
-async function confirmLJ(){
+async function confirm_edit_LJ(){
     // creating LJ in learning_journey table
     var course_arr = JSON.stringify(course_dict)
-    var serviceURL = "http://127.0.0.1:5001/createlj/" + String(ljpsr_id) + '&' + String(staff_id) + '&' + String(course_arr)
+    console.log(course_arr)
+    var journey_id = sessionStorage.getItem("activeLJ")
+    // var serviceURL = "http://127.0.0.1:5001/edit_LJ_courses/" + Number(journey_id) + '&' + String(course_arr)
+    var serviceURL = "http://127.0.0.1:5001/edit_LJ_courses/" 
+
     console.log(serviceURL)
 
     try {
         const response =
             await fetch(
-            serviceURL, { mode: 'cors', method: 'POST',
+            serviceURL, { mode: 'cors', method: ['POST'],
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                "ljpsr_id" : ljpsr_id,
+                "journey_id" : journey_id,
                 "staff_id" : staff_id,
                 // stringify course array and add here
                 "course_arr" : course_arr
@@ -71,9 +75,9 @@ async function confirmLJ(){
         console.log(response)
         const result = await response.json();
         console.log(result)
-        if(result.code === 201) {
-            console.log('Learning Journey created')
-            alert('Learning Journey created')
+        if(response.status === 201 || response.status === 200) {
+            console.log('Learning Journey edited')
+            alert('Learning Journey edited')
         }
         
 
@@ -87,14 +91,14 @@ async function confirmLJ(){
 
     var staff_role = sessionStorage.getItem('staff_role');
     console.log(staff_role);
-    if (staff_role == 1){
-        location.href = '../hr/dashboard_hr.html';
-    }
-    if(staff_role == 2){
-        location.href = '../staff/dashboard_standard.html';
-    }
-    if(staff_role == 3){
-        location.href = '../manager/dashboard_manager_personal.html';
-    }
+    // if (staff_role == 1){
+    //     location.href = '../hr/dashboard_hr.html';
+    // }
+    // if(staff_role == 2){
+    //     location.href = '../staff/dashboard_standard.html';
+    // }
+    // if(staff_role == 3){
+    //     location.href = '../manager/dashboard_manager_personal.html';
+    // }
     
 }

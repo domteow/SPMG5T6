@@ -81,6 +81,10 @@ input{
     height: 100%;
     width: 80%;
     padding: 1.5%;
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
 }
 
 input:focus{
@@ -127,6 +131,8 @@ a:hover{
 .accordion-item{
     border: none;
     border-bottom: 1px solid #cecece;
+    margin-top: 1%;
+    margin-bottom: 0.5%;
 }
 
 .editskill{
@@ -137,7 +143,6 @@ a:hover{
     font-size: 16px;
     width: 10%;
     text-align: center;
-    padding-top: 1%;
     margin: 1%;
 }
 
@@ -147,7 +152,7 @@ a:hover{
 
 .existingSkills{
     padding: 0%;
-    margin-top:2%;
+    margin-top:4%;
 }
 
 .skillTitle{
@@ -159,4 +164,15 @@ a:hover{
 .accordion-body{
     font-family: roboto, sans-serif;
     font-size: 16px;
+}
+
+.skill_desc_title{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.skill_desc_text{
+    font-family: roboto, sans-serif;
+    font-size: 18px;
 }

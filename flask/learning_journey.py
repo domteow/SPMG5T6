@@ -22,7 +22,7 @@ CORS(app)
 class Learning_journey(db.Model):
     __tablename__ = 'learning_journey'
 
-    journey_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    journey_id = db.Column(db.Integer, primary_key=True, nullable=False)
     ljpsr_id = db.Column(db.Integer, db.ForeignKey(Ljps_role.ljpsr_id), nullable=False)
     staff_id = db.Column(db.Integer, db.ForeignKey(Staff.staff_id), nullable=False)
     status = db.Column(db.Integer, nullable=False)

@@ -161,8 +161,7 @@ async function addRole(){
             }
             // var staff_role = sessionStorage.getItem('staff_role');
             // console.log(staff_role);
-            
-            
+
         }
 
 }

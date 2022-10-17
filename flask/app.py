@@ -219,6 +219,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
                 all_course_details.append(course_detail)
         skill['courses'] = all_course_details
     
+
     if len(skills_under_ljpsr_details):
         return jsonify({
             "data": {
@@ -231,6 +232,12 @@ def view_courses_under_skill(staff_id, ljpsr_id):
             "message": "Role has no skills assigned to it."
         }), 404
     
+
+
+
+       
+    
+
 # @app.route("/path/<int:id>", methods = ['POST'])
 # def addCourseToLJ(id):
 #     course = Course.getCourseByID(id)
@@ -250,6 +257,7 @@ def new_learning_journey(ljpsr_id, staff_id, course_arr):
     # print(createLJ_result)
     # return createLJ_result
     return createLJ_course_result
+
 
 
 # Reading a Learning Journey
@@ -305,7 +313,21 @@ def delete_drug(journey_id):
     newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
     return jsonify({"courses":newly_added_courses})
 
-@app.route("/get_team_members/<int:staff_id>")
+##################### Start of User story SA-20 (DOM) #####################
+@app.route("/edit_LJ_courses/", methods = ['POST'])
+def edit_LJ():
+    data = request.get_json()
+    journey_id = data['journey_id']
+    course_arr = data['course_arr']
+    print(data)
+    Lj_course.edit_lj_course(journey_id, course_arr)
+    return data
+
+
+
+##################### End of User story SA-20 (DOM) #####################
+
+@app.route("/get_team_members/<int:staff_id><string:course_arr>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])
@@ -535,8 +557,8 @@ def new_role():
         }), 201
 ################### End of User story SA-2 (KELVIN) ##########################
 
-
-# USER STORY SA-15 CHILD ISSUE SA-36(bruno)
+##################### Start of User story SA-15 (BRUNO) #####################
+# USER STORY SA-15 CHILD ISSUE SA-37(bruno)
 # For front-end, get all courses + course details related to the skill selected
 @app.route("/get_courses_by_skill/<int:skill_id>")
 def get_courses_by_skill(skill_id):
@@ -552,7 +574,25 @@ def get_courses_by_skill(skill_id):
                     "courses": all_course_details
                 }
         }), 200
+# Get all skills, and course details related to each skill 
+@app.route("/get_all_skills_and_courses")
+def get_all_skills_and_courses():
+    # Refer to helper function get_skill_and_course_details
+    all_skills_and_courses = get_skill_and_course_details()
 
+    if len(all_skills_and_courses):
+        return jsonify({
+            "data": {
+                    "skills": all_skills_and_courses
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "There are no skills."
+        }), 400
+
+
+# USER STORY SA-15 CHILD ISSUE SA-36(bruno)
 # Add course to skill
 @app.route("/add_course_to_skill", methods=['POST'])
 def add_course_to_skill():
@@ -571,16 +611,32 @@ def add_course_to_skill():
                 return jsonify({
                     "code": 400,
                     "message": "You are adding 1 or more duplicate course(s)"
-                })
+                }), 400
 
     # Step 4: If no duplicates, add the skill_id, course_id for each course in courses_to_add into the attached_skill table. 
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
-
- 
+##################### END of User story SA-15 (BRUNO) #####################
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
+
+# This helper function will return a list of all skill details. In each skill object, there will be the courses under the skill and its details too. 
+def get_skill_and_course_details():
+    # Array of skill objects
+    skills = Skill.get_all_skills()
+    # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
+    for skill in skills:
+        # array to hold all the courses related to the skill
+        all_courses = []
+        course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+        for course in course_ids:
+            course_details = Course.get_course_by_id(course)
+            all_courses.append(course_details)
+        # Append all_courses array to the skill objects
+        skill['courses'] = all_courses
+    return skills
+
 
 # This helper function will get details of each skill under the LJPS Role passed in
 def get_skill_detail_under_ljpsr(ljpsr_id):
