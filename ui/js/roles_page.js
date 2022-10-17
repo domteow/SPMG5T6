@@ -1,3 +1,8 @@
+function editRole(role_id){
+    sessionStorage.setItem('edit_role_id', role_id);
+    location.href = './edit_role.html';
+}
+
 function searchRole() {
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById("roleName");
@@ -74,10 +79,10 @@ $(async () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <button class="col-sm-2 editrole" id="${role_id}" onclick="editRole(this.id)">
+                                    <button class="col-6 col-md-2 editrole" id="${role_id}" onclick="editRole(this.id)">
                                         Edit
                                     </button>
-                                    <div class="col-sm-2 isactivediv">
+                                    <div class="col-6 col-md-2 isactivediv">
                                         <select class="form-select" name=${role_id} aria-label="Default select example" onchange='deleterole(this)'>
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
@@ -123,10 +128,10 @@ $(async () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <button class="col-sm-2 editrole" id="${role_id}" onclick="editRole(this.id)">
+                                    <button class="col-6 col-md-2 editrole" id="${role_id}" onclick="editRole(this.id)">
                                         Edit
                                     </button>
-                                    <div class="col-sm-2 isactivediv">
+                                    <div class="col-6 col-md-2 isactivediv">
                                         <select class="form-select" name=${role_id} aria-label="Default select example" onchange='deleterole(this)'>
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>
@@ -181,3 +186,4 @@ function deleterole(activeCheck){
     // insert backend here to delete role (kelvvvvvvvvvv) 
 
 }
+

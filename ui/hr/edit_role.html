@@ -21,7 +21,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./css/edit_skill.css">
+    <link rel="stylesheet" href="./css/edit_roles.css">
     <link rel="stylesheet" href="./css/hrnavbar.css">
 
     <!-- font family -->
@@ -95,22 +95,22 @@
     <div class="main">
         <div class="maincontent">
             <div class="pgTitle" id="top">
-                Edit Skill
+                Edit Role
             </div> 
             
-            <!-- insert skill details-->
+            <!-- insert role details-->
 
             <!-- name -->
             <div class="container-fluid name">
                 <div class="row">
                     <div class="col inputtitle">
-                        Name of Skill:
+                        Name of Role:
                     </div>
                 </div>
                 <div class="row valinput">
                     <div class="col">
                         <div class="input-group nameinput">
-                            <input type="text" class="form-control name_input" id="skill_name" placeholder="Name of Skill" aria-label="new_skill_name" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control name_input" id="role_name" placeholder="Name of Role" aria-label="new_role_name" aria-describedby="basic-addon2">
                         </div>
                         <div id="nameError" class="errmsg"></div>
                     </div>
@@ -120,11 +120,11 @@
             <div class="container-fluid desc">
                 <div class="row">
                     <div class="col inputtitle">
-                        Description of Skill:
+                        Description of Role:
                     </div>
                     <div class="row valinput">
                         <div class="input-group">
-                            <textarea class="form-control" id="skill_desc" placeholder="Skill Description" aria-label="With textarea"></textarea>
+                            <textarea class="form-control" id="role_desc" placeholder="Role Description" aria-label="With textarea"></textarea>
                         </div>
                         <div class="errmsg" id="descError"></div>
                     </div>
@@ -132,15 +132,15 @@
                 
             </div>
 
-            <div class="coursetitle">
-                Courses under skill:
+            <div class="skilltitle">
+                Skills under role:
             </div>
             
             <!-- search stuff -->
             <div class="container-fluid search">
                 <div class="row">
                     <div class="col-sm-9 searchdiv">
-                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a course" oninput="searchCourse()" name="courseName" id="courseName">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a skill" oninput="searchSkill()" name="skillName" id="skillName">
                     </div>
                     <div class="col-sm-3"></div>
                 </div>
@@ -156,21 +156,21 @@
                 </div>
             </div> 
 
-            <div class="container-fluid courses">
-                <div class="row errmsg" id="courseError"></div>
-                <div class="row" id="allCourses">
+            <div class="container-fluid skills">
+                <div class="row errmsg" id="skillError"></div>
+                <div class="row" id="allSkills">
                     
                 </div>
             </div>
             
             
-            <button class="addSkill" onclick="saveSkill()">
+            <button class="addRole" onclick="editRole()">
                 Save Changes
             </button>
             
 
             <div class="cancel">
-                <a href="./skills_page.html">
+                <a href=".//roles_page.html">
                     <div class="canceltext">Cancel</div>
                 </a>
             </div>
@@ -179,6 +179,6 @@
     </div>
 
     <script src="../js/nav.js"></script>
-    <script src="../js/edit_skill.js"></script>
+    <script src="../js/edit_role.js"></script>
 </body>
 </html>

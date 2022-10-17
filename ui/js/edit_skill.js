@@ -24,15 +24,14 @@ $(async () => {
             var skill_desc = skill["skill_desc"];
             var skill_id = skill["skill_id"];
 
-            sessionStorage.setItem("curr_skill_name", skill_name);
-            sessionStorage.setItem("curr_skill_desc", skill_desc);
-
             if (skill_id == edit_skill_id) {
-            // console.log(skill_id);
-            // console.log(edit_skill_id);
+                // console.log(skill_id);
+                // console.log(edit_skill_id);
+                sessionStorage.setItem("curr_skill_name", skill_name);
+                sessionStorage.setItem("curr_skill_desc", skill_desc);
 
-            skill_name_div.value = skill_name;
-            skill_desc_div.value = skill_desc;
+                skill_name_div.value = skill_name;
+                skill_desc_div.value = skill_desc;
             }
         }
         }
@@ -84,10 +83,10 @@ function handleChange(cb) {
         allCB[i].checked = false;
         }
     }
-    }
+}
 
-    // to add all courses available into div
-    $(async () => {
+// to add all courses available into div
+$(async () => {
     var serviceURL = "http://127.0.0.1:5001/courses";
 
     try {
@@ -96,50 +95,50 @@ function handleChange(cb) {
         const result = await response.json();
         // console.log(result.data)
         if (result) {
-        // console.log(result.data)
-        all_courses = result.data;
-        // console.log(all_skills);
-        var searchdiv = document.getElementById("myUL");
-        var coursediv = document.getElementById("allCourses");
-        var courseinput = ``;
+            // console.log(result.data)
+            all_courses = result.data;
+            // console.log(all_skills);
+            var searchdiv = document.getElementById("myUL");
+            var coursediv = document.getElementById("allCourses");
+            var courseinput = ``;
 
-        for (var course_idx in all_courses) {
-            var course = all_courses[course_idx];
-            var course_name = course.course_name;
-            var course_id = course.course_id;
-            // console.log(course_name);
-            // console.log(course_id);
+            for (var course_idx in all_courses) {
+                var course = all_courses[course_idx];
+                var course_name = course.course_name;
+                var course_id = course.course_id;
+                // console.log(course_name);
+                // console.log(course_id);
 
-            // add course into search
-            searchdiv.innerHTML += `<li><a href='#${course_id}'>${course_name}</a></li>`;
+                // add course into search
+                searchdiv.innerHTML += `<li><a href='#${course_id}'>${course_name}</a></li>`;
 
-            if (course_idx == 0 || course_idx % 2 == 0) {
-            courseinput += `
-                            <div class='row courserow'>
-                                <div class='col-sm-6 coursename form-check' id='course${course_id}'>
-                                    <input class='form-check-input courseName' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='courses' value =${course_id}>
-                                    ${course_name}
+                if (course_idx == 0 || course_idx % 2 == 0) {
+                courseinput += `
+                                <div class='row courserow'>
+                                    <div class='col-sm-6 coursename form-check' id='course${course_id}'>
+                                        <input class='form-check-input courseName' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='courses' value =${course_id}>
+                                        ${course_name}
+                                    </div>
+                                
+                            `;
+                } else {
+                courseinput += `
+                                    <div class='col-sm-6 coursename form-check' id='course${course_id}'>
+                                        <input class='form-check-input courseName' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='courses' value =${course_id}>
+                                        ${course_name}
+                                    </div>
                                 </div>
-                            
-                        `;
-            } else {
-            courseinput += `
-                                <div class='col-sm-6 coursename form-check' id='course${course_id}'>
-                                    <input class='form-check-input courseName' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='courses' value =${course_id}>
-                                    ${course_name}
-                                </div>
-                            </div>
-                        `;
+                            `;
+                }
             }
-        }
-        // console.log(skillinput);
-        coursediv.innerHTML += courseinput;
+            // console.log(skillinput);
+            coursediv.innerHTML += courseinput;
 
-        // console.log(searchdiv);
-        }
-    } catch (error) {
-        console.log(error);
-        console.log("error");
+            // console.log(searchdiv);
+            }
+        } catch (error) {
+            console.log(error);
+            console.log("error");
     } 
 });
 
@@ -184,7 +183,7 @@ async function saveSkill() {
     curr_courses = JSON.parse(curr_courses);
     var error_count = 0;
     var nameError = document.getElementById('nameError');
-    var descError = document.getElementById('descError')
+    var descError = document.getElementById('descError');
 
     // SKILL NAME
     // get value of skill name from form and compare
