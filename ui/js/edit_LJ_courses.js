@@ -1,6 +1,7 @@
 
 var ljpsr_id = sessionStorage.getItem('ljpsr_id');
 var journey_id = sessionStorage.getItem('activeLJ')
+console.log(journey_id)
 staff_id = sessionStorage.getItem('staff_id')
 // console.log(journey_id)
 // console.log(role_details)
@@ -136,13 +137,13 @@ function getValues(){
         var staff_role = sessionStorage.getItem('staff_role');
         console.log(staff_role);
         if (staff_role == 1){
-            location.href = '../hr/confirm_LJ.html';
+            location.href = '../hr/confirm_edit_LJ_courses.html';
         }
         if(staff_role == 2){
             location.href = '../staff/confirm_edit_LJ_courses.html';
         }
         if(staff_role == 3){
-            location.href = '../manager/confirm_LJ.html';
+            location.href = '../manager/confirm_edit_LJ_courses.html';
         }
         // location.href = './confirm_LJ.html';
     }
