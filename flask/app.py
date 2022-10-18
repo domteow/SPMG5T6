@@ -373,31 +373,30 @@ def edit_skills_in_ljps_role():
     # retrieve data from POST call
     data = request.get_json()
     ljpsr_id = data['ljpsr_id']
-    updated_skills = data['skills']
-    # Get the current skills which this particular LJPS role contains
-    current_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    added_skills = data['added_skills']
+    deleted_skills = data['deleted_skills']
     # Compare and add the skills to the LJPS role
-    add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    if len(added_skills) > 0:
+        add_skill_to_ljps_role(ljpsr_id,added_skills)
     # Compare and delete the skills
-    delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    if len(deleted_skills) > 0:
+        delete_skill_to_ljps_role(ljpsr_id,deleted_skills)
     # After updating, get the retrieve all the current skills to send back out
     newly_added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
-    return jsonify({"skills":newly_added_skills})
+    return jsonify({"data":newly_added_skills})
 
 
 # Add Skill(s) to existing LJPS role
-def add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
-    for skill in updated_skills:
-        if skill not in current_skills:
-            # add skill if not in the current skill list
-            Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+def add_skill_to_ljps_role(ljpsr_id,added_skills):
+    for skill in added_skills:
+        # add skill if not in the current skill list
+        Role_required_skill.create_ljps_skill(ljpsr_id, skill)
 
 # Delete Skill(s) to existing LJPS role
-def delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
-    for skill in current_skills:
-        if skill not in updated_skills:
-            # delete skill if not in the updated skill list
-            Role_required_skill.delete_ljps_skill(ljpsr_id, skill)
+def delete_skill_to_ljps_role(ljpsr_id,deleted_skills):
+    for skill in deleted_skills:
+        # delete skill if not in the updated skill list
+        Role_required_skill.delete_ljps_skill(ljpsr_id, skill)
 
 
 # Find all existing roles with skills
