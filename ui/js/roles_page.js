@@ -199,6 +199,7 @@ function deleterole(activeCheck){
                 new_lj_details = JSON.stringify(result.data)
                 var message = result.data.message;
                 // console.log(staff_role);
+                alert(message)
             }
         } catch (error) {
             console.log(error)

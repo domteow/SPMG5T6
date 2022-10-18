@@ -83,3 +83,11 @@ class Ljps_role(db.Model):
         except:
             return False
         return True
+    
+    #only get active roles
+    def get_all_learning_journey_roles_active():
+        roles = Ljps_role.query.filter_by(active=1).all()
+        if roles:
+            return [role.to_dict() for role in roles]
+        else:
+            return []

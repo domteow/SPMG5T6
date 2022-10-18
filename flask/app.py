@@ -57,7 +57,7 @@ def login(staff_id):
 @app.route("/all_roles/<int:staff_id>")
 def get_all_roles(staff_id):
     #get all roles in dictionary format
-    all_roles = Ljps_role.get_all_learning_journey_roles()
+    all_roles = Ljps_role.get_all_learning_journey_roles_active()
     #get courses completed by staff in list format
     completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
     #get skills completed by staff in list format
