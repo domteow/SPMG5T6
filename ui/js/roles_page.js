@@ -182,6 +182,7 @@ $(async () => {
 
 var erroralert = document.getElementById('alerts');
 erroralert.innerHTML = ``;
+var count = 100;
 
 function deleterole(activeCheck){
     var isactive = activeCheck.value;
@@ -208,9 +209,10 @@ function deleterole(activeCheck){
                 // console.log(staff_role);
                 // alert(message)
                 erroralert.style.display = 'block';
+                count += 1;
                 erroralert.innerHTML += `
-                    <div class="alert position-relative " id="alert"> 
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <div class="alert position-relative " id="${count}"> 
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                         <div class="alert-header">
                             <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
                             <strong class="me-auto">LJPS</strong>
@@ -221,26 +223,36 @@ function deleterole(activeCheck){
                             ${message}
                         </div>
                     </div>`;
-
             
+                
 
             }
         } catch (error) {
             console.log(error)
             erroralert.innerHTML += `
-                    <div class="alert position-relative " id="alert"> 
-                        <div class="alert-header">
-                            <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
-                            <strong class="me-auto">LJPS</strong>
-                            <small></small>
-                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                        </div>
-                        <div class="alert-body">
-                            ${error}
-                        </div>
-                    </div>`;
+                <div class="alert position-relative " id="alert"> 
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <div class="alert-header">
+                        <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                        <strong class="me-auto">LJPS</strong>
+                        <small></small>
+                        
+                    </div>
+                    <div class="alert-body">
+                        ${error}
+                    </div>
+                </div>`;
         }
     })
+    
+        var county = '#' + count;
+        setTimeout(function() {
+            var div = document.getElementById(count);
+            console.log(div);
+            div.style.display ='none';
+        }, 1500);
+    
 }
+
 
 
