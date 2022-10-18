@@ -58,6 +58,24 @@ class Skill(db.Model):
         else:
             return None
 
+    def get_all_skills_active():
+        skills = Skill.query(active=1).all()
+        if skills:
+            return [skill.to_dict() for skill in skills]
+        else:
+            return None
+
+    def get_active_skills_list(skills_under_ljpsr):
+        active_skills = []
+
+        for skill_id in skills_under_ljpsr: 
+            active_skill = Skill.query.filter_by(skill_id=skill_id).first()
+
+            if active_skill.active == 1: 
+                active_skills.append(active_skill.skill_id)
+
+        return active_skills
+
     def check_skill_exists(skill_name):
         check = Skill.query.filter_by(skill_name=skill_name).first()
 
@@ -73,4 +91,14 @@ class Skill(db.Model):
         except:
             return False
         
+        return True
+
+    def toggle_active(skill_id, isactive):
+        skill = Skill.query.filter(skill_id=skill_id).first()
+        skill.active = isactive
+
+        try:
+            db.session.commit()
+        except:
+            return False
         return True
