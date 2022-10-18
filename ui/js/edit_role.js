@@ -11,7 +11,7 @@ $(async () => {
         );
         // console.log(response)
         const result = await response.json();
-        // console.log(result.data)
+        console.log(result.data)
         if(result) {
             var all_roles = result.data;
             for (var role_idx in all_roles){
@@ -33,7 +33,76 @@ $(async () => {
                     role_desc_div.value = role_desc;
                 }
             }
-
+            // to add all skills available into div 
+            $(async () => {
+                var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses";
+            
+                try {
+                    const response = 
+                        await fetch(
+                            serviceURL, { mode: "cors", method: "GET" });
+                    // console.log(response)
+                    const result = await response.json();
+                    // console.log(result.data)
+                    if (result) {
+                        // console.log(result.data)
+                        all_skills = result.data.skills;
+                        // console.log(all_skills);
+                        var searchdiv = document.getElementById("myUL");
+                        var skillsdiv = document.getElementById("allSkills");
+                        var skillsinput = ``;
+            
+                        for (var skill_idx in all_skills) {
+                            var skill = all_skills[skill_idx];
+                            var skill_name = skill.skill_name;
+                            var skill_id = skill.skill_id;
+            
+                            // add skill into search
+                            searchdiv.innerHTML += `<li><a href='#${skill_id}'>${skill_name}</a></li>`;
+            
+                            if (skill_idx == 0 || skill_idx % 2 == 0) {
+                            skillsinput += `
+                                            <div class='row skillrow'>
+                                                <div class='col-sm-6 skillname form-check' id='skill${skill_id}'>
+                                                    <input class='form-check-input skillName' type='checkbox' id=${skill_id}  name='skills' value =${skill_id}>
+                                                    ${skill_name}
+                                                </div>
+                                            
+                                        `;
+                            } else {
+                            skillsinput += `
+                                                <div class='col-sm-6 skillname form-check' id='skill${skill_id}'>
+                                                    <input class='form-check-input skillName' type='checkbox' id=${skill_id} name='skills' value =${skill_id}>
+                                                    ${skill_name}
+                                                </div>
+                                            </div>
+                                        `;
+                            }
+                        }
+                        // console.log(skillinput);
+                        skillsdiv.innerHTML += skillsinput;
+            
+                        var curr_role_skills = sessionStorage.getItem('curr_role_skills');
+                        curr_role_skills = JSON.parse(curr_role_skills);
+                        var curr_skills_id = [];
+            
+                        for (var skill_idx in curr_role_skills){
+                            var curr_skill = curr_role_skills[skill_idx];
+                            var skill_id = curr_skill['skill_id'];
+                            curr_skills_id.push(skill_id);
+                            var skill_checkbox = document.getElementById(skill_id);
+                            skill_checkbox.checked=true;
+                        }
+            
+            
+                        console.log(curr_skills_id);
+                        sessionStorage.setItem('curr_skill_ids', JSON.stringify(curr_skills_id));       
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        console.log("error");
+                } 
+            });
         }
     }
     catch(error){
@@ -86,76 +155,6 @@ function handleChange(cb) {
     }
 }
 
-// to add all skills available into div 
-$(async () => {
-    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses";
-
-    try {
-        const response = 
-            await fetch(
-                serviceURL, { mode: "cors", method: "GET" });
-        // console.log(response)
-        const result = await response.json();
-        // console.log(result.data)
-        if (result) {
-            // console.log(result.data)
-            all_skills = result.data.skills;
-            // console.log(all_skills);
-            var searchdiv = document.getElementById("myUL");
-            var skillsdiv = document.getElementById("allSkills");
-            var skillsinput = ``;
-
-            for (var skill_idx in all_skills) {
-                var skill = all_skills[skill_idx];
-                var skill_name = skill.skill_name;
-                var skill_id = skill.skill_id;
-
-                // add skill into search
-                searchdiv.innerHTML += `<li><a href='#${skill_id}'>${skill_name}</a></li>`;
-
-                if (skill_idx == 0 || skill_idx % 2 == 0) {
-                skillsinput += `
-                                <div class='row skillrow'>
-                                    <div class='col-sm-6 skillname form-check' id='skill${skill_id}'>
-                                        <input class='form-check-input skillName' type='checkbox' id=${skill_id}  name='skills' value =${skill_id}>
-                                        ${skill_name}
-                                    </div>
-                                
-                            `;
-                } else {
-                skillsinput += `
-                                    <div class='col-sm-6 skillname form-check' id='skill${skill_id}'>
-                                        <input class='form-check-input skillName' type='checkbox' id=${skill_id} name='skills' value =${skill_id}>
-                                        ${skill_name}
-                                    </div>
-                                </div>
-                            `;
-                }
-            }
-            // console.log(skillinput);
-            skillsdiv.innerHTML += skillsinput;
-
-            var curr_role_skills = sessionStorage.getItem('curr_role_skills');
-            curr_role_skills = JSON.parse(curr_role_skills);
-            var curr_skills_id = [];
-
-            for (var skill_idx in curr_role_skills){
-                var curr_skill = curr_role_skills[skill_idx];
-                var skill_id = curr_skill['skill_id'];
-                curr_skills_id.push(skill_id);
-                var skill_checkbox = document.getElementById(skill_id);
-                skill_checkbox.checked=true;
-            }
-
-
-            console.log(curr_skills_id);
-            sessionStorage.setItem('curr_skill_ids', JSON.stringify(curr_skills_id));            
-            }
-        } catch (error) {
-            console.log(error);
-            console.log("error");
-    } 
-});
 
 async function editRole(){
     var role_id = sessionStorage.getItem('edit_role_id');
@@ -206,25 +205,47 @@ async function editRole(){
         for (var new_idx in checkedSkills){
             var new_id = checkedSkills[new_idx];
             // if new id not in curr_skill -> save to added_skills 
-            if(!curr_skill_ids.includes(new_id)){
-                added_skills.push(new_id);
+            if(!curr_skill_ids.includes(parseInt(new_id))){
+                added_skills.push(parseInt(new_id));
             }
         }
 
         for (var old_idx in curr_skill_ids) {
             var old_id = curr_skill_ids[old_idx];
             // if old id not in checkedCourses -> save to deleted_courses
-            if (!checkedSkills.includes(old_id)) {
+            if (!checkedSkills.includes(old_id.toString())) {
                 deleted_skills.push(old_id);
             }
         }
 
-        if (added_skills.length > 0){
-            // bryan to add backend
-        }
+        if (added_skills.length > 0 || deleted_skills.length > 0){
 
-        if (deleted_skills.length > 0){
+            console.log("added_skills====",added_skills)
+            console.log("deleted_skills====", deleted_skills)
             // bryan to add backend
+            $(async () => {
+                console.log("new here")
+                var serviceURL = "http://127.0.0.1:5001/edit_skills_in_ljps_role";
+                try {
+                    const response = 
+                        await fetch(
+                            serviceURL, { mode: "cors", method: "POST", 
+                            headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": '*' },
+                            body: JSON.stringify({
+                                "ljpsr_id" : role_id,
+                                "added_skills" : added_skills,
+                                "deleted_skills" : deleted_skills
+                            })});
+                    const result = await response.json();
+                    if (result) {
+                        // console.log(result.data)
+                        all_skills = result.data;         
+                        }
+                    } catch (error) {
+                        console.log(error);
+                        console.log("error");
+                } 
+            })
         }
     }
 
