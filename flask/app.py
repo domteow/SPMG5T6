@@ -557,14 +557,15 @@ def new_role():
 ##################### End of User story SA-2 (KELVIN) #######################
 
 ##################### Start of User story SA-7 (KELVIN) #####################
-@app.route("/delete_role/<int:role_id>&<int:is_active>")
-def delete_role(role_id, is_active):
+@app.route("/delete_role/<int:role_id>&<int:is_active>&<string:role_name>")
+def delete_role(role_id, is_active, role_name):
     result = Ljps_role.toggle_active(role_id, is_active)
+    print(role_name)
     if result:
         if is_active == 1:
-            message = "The role has been toggled to active"
+            message = role_name + " is now active"
         else:
-            message = "The role has been toggled to inactive"
+            message = role_name + " is now inactive"
             
         return jsonify({
             "data": {

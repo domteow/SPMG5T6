@@ -83,7 +83,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-6 col-md-2 isactivediv">
-                                        <select class="form-select" name=${role_id} aria-label="Default select example" onchange='deleterole(this)'>
+                                        <select class="form-select" name="${role_id}/${role_name}" aria-label="Default select example" onchange='deleterole(this)'>
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
@@ -132,7 +132,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-6 col-md-2 isactivediv">
-                                        <select class="form-select" name=${role_id} aria-label="Default select example" onchange='deleterole(this)'>
+                                        <select class="form-select" name="${role_id}/${role_name}" aria-label="Default select example" onchange='deleterole(this)'>
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>
                                         </select>
@@ -185,11 +185,14 @@ erroralert.innerHTML = ``;
 
 function deleterole(activeCheck){
     var isactive = activeCheck.value;
-    var roleid = activeCheck.name;
+    var values = activeCheck.name;
+    var roleid = values.split("/")[0]
+    var role_name = values.split("/")[1]
+
     
     // insert backend here to delete role (kelvvvvvvvvvv) 
     $(async () => {
-        var serviceURL = "http://127.0.0.1:5001/delete_role/" + roleid + "&" + isactive
+        var serviceURL = "http://127.0.0.1:5001/delete_role/" + roleid + "&" + isactive + "&" + role_name
         try {
             const response =
                 await fetch(
