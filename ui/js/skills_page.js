@@ -188,4 +188,25 @@ function deleteskill(activeCheck){
     var skillid = activeCheck.name;
     var isactive = activeCheck.value;
     // insert backend here to delete skill (jann)
+
+    var serviceURL = "http://127.0.0.1:5001/delete_skill/" + skillid + "&" + isactive
+    
+    try {
+        const response = 
+            await fetch(
+                serviceURL, {mode: 'cors', method: 'GET'}
+            ); 
+
+        const result = await response.json()
+
+        if (result) {
+            console.log('User data retrieved.')
+            new_skill_details = JSON.stringify(result.data)
+
+            var message = result.data.message; 
+        }
+    } catch (error) {
+        console.log(error)
+        console.log('error')
+    }
 }
