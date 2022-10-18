@@ -554,7 +554,31 @@ def new_role():
         return jsonify({
             "message": "The role was successfully created"
         }), 201
-################### End of User story SA-2 (KELVIN) ##########################
+##################### End of User story SA-2 (KELVIN) #######################
+
+##################### Start of User story SA-7 (KELVIN) #####################
+@app.route("/delete_role/<int:role_id>&<int:is_active>")
+def delete_role(role_id, is_active):
+    result = Ljps_role.toggle_active(role_id, is_active)
+    if result:
+        if is_active == 1:
+            message = "The role has been toggled to active"
+        else:
+            message = "The role has been toggled to inactive"
+            
+        return jsonify({
+            "data": {
+                    "message": message
+                }
+            }), 200
+    else:
+        return jsonify({
+            "data": {
+                "message": "There was an issue toggling the role active/inactive state"
+                }
+        }), 404
+
+##################### End of User story SA-7 (KELVIN) ########################
 
 ##################### Start of User story SA-15 (BRUNO) #####################
 # USER STORY SA-15 CHILD ISSUE SA-37(bruno)

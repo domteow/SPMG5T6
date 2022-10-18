@@ -184,6 +184,26 @@ function deleterole(activeCheck){
     var isactive = activeCheck.value;
     var roleid = activeCheck.name;
     // insert backend here to delete role (kelvvvvvvvvvv) 
-
+    $(async () => {
+        var serviceURL = "http://127.0.0.1:5001/delete_role/" + roleid + "&" + isactive
+        try {
+            const response =
+                await fetch(
+                serviceURL, { mode: 'cors', method: 'GET' }
+            );
+            // console.log(response)
+            const result = await response.json();
+            // console.log(result.data)
+            if(result) {
+                console.log('User data retrieved')
+                new_lj_details = JSON.stringify(result.data)
+                var message = result.data.message;
+                // console.log(staff_role);
+            }
+        } catch (error) {
+            console.log(error)
+            console.log('error')
+        }
+    })
 }
 
