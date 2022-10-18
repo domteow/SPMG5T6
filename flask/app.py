@@ -601,6 +601,31 @@ def add_course_to_skill():
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 ##################### END of User story SA-15 (BRUNO) #####################
 
+##################### START of User story SA-8 (JANN) #####################
+@app.route("/delete_skill/<int:skill_id>&<int:isactive>")
+def delete_skill(skill_id, isactive):
+    result = Skill.toggle_active(skill_id, isactive)
+    if result:
+        if isactive == 1:
+            message = "The role has been toggled to active."
+
+        else:
+            message = "The role has been toggled to inactive." 
+            
+
+        return jsonify({
+            "code": 200, 
+            "message": message 
+        }), 200  
+    
+    else: 
+        return jsonify({
+            "code": 404, 
+            "message": "There is an issue with changing the skill's activation status."
+        }), 404
+
+##################### END of User story SA-8 (JANN) #####################
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
@@ -608,7 +633,7 @@ def add_course_to_skill():
 # This helper function will return a list of all skill details. In each skill object, there will be the courses under the skill and its details too. 
 def get_skill_and_course_details():
     # Array of skill objects
-    skills = Skill.get_all_skills()
+    skills = Skill.get_all_skills_active()
     # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
     for skill in skills:
         # array to hold all the courses related to the skill
@@ -628,8 +653,11 @@ def get_skill_detail_under_ljpsr(ljpsr_id):
     #from LJPS role ID, get all the skills related to it from role_required_skill (Array of skill IDs)
     skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
 
+    # get active skills 
+    active_skills_under_ljpsr = Skill.get_active_skills_list(skills_under_ljpsr)
+
     skills_under_ljpsr_details = []
-    for skill in skills_under_ljpsr:
+    for skill in active_skills_under_ljpsr:
         details = Skill.get_skill_by_id(skill)
         skills_under_ljpsr_details.append(details)
     return skills_under_ljpsr_details
