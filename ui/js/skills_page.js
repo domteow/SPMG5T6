@@ -184,7 +184,7 @@ function searchRole() {
     }
 }
 
-function deleteskill(activeCheck){
+async function deleteskill(activeCheck){
     var skillid = activeCheck.name;
     var isactive = activeCheck.value;
     // insert backend here to delete skill (jann)
