@@ -180,9 +180,13 @@ $(async () => {
     }
 })
 
+var erroralert = document.getElementById('alerts');
+erroralert.innerHTML = ``;
+
 function deleterole(activeCheck){
     var isactive = activeCheck.value;
     var roleid = activeCheck.name;
+    
     // insert backend here to delete role (kelvvvvvvvvvv) 
     $(async () => {
         var serviceURL = "http://127.0.0.1:5001/delete_role/" + roleid + "&" + isactive
@@ -199,12 +203,41 @@ function deleterole(activeCheck){
                 new_lj_details = JSON.stringify(result.data)
                 var message = result.data.message;
                 // console.log(staff_role);
-                alert(message)
+                // alert(message)
+                erroralert.style.display = 'block';
+                erroralert.innerHTML += `
+                    <div class="alert position-relative " id="alert"> 
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <div class="alert-header">
+                            <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                            <strong class="me-auto">LJPS</strong>
+                            <small></small>
+                            
+                        </div>
+                        <div class="alert-body">
+                            ${message}
+                        </div>
+                    </div>`;
+
+            
+
             }
         } catch (error) {
             console.log(error)
-            console.log('error')
+            erroralert.innerHTML += `
+                    <div class="alert position-relative " id="alert"> 
+                        <div class="alert-header">
+                            <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                            <strong class="me-auto">LJPS</strong>
+                            <small></small>
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        </div>
+                        <div class="alert-body">
+                            ${error}
+                        </div>
+                    </div>`;
         }
     })
 }
+
 
