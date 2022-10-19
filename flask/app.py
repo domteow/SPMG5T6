@@ -646,6 +646,23 @@ def get_skill_and_course_details():
         skill['courses'] = all_courses
     return skills
 
+# (FOR HR) This helper function will return a list of all skill details for both INACTIVE & ACTIVE skills. 
+# In each skill object, there will be the courses under the skill and its details too. 
+def get_skill_and_course_details_hr():
+    # Array of skill objects
+    skills = Skill.get_all_skills()
+    # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
+    for skill in skills:
+        # array to hold all the courses related to the skill
+        all_courses = []
+        course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+        for course in course_ids:
+            course_details = Course.get_course_by_id(course)
+            all_courses.append(course_details)
+        # Append all_courses array to the skill objects
+        skill['courses'] = all_courses
+    return skills
+
 
 # This helper function will get details of each skill under the LJPS Role passed in
 def get_skill_detail_under_ljpsr(ljpsr_id):

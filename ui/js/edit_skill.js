@@ -2,7 +2,7 @@ var edit_skill_id = sessionStorage.getItem("edit_skill_id");
 
 // to add existing skill name and description into input field value
 $(async () => {
-    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses";
+    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses_hr";
 
     try {
         const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
