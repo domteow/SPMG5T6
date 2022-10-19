@@ -184,6 +184,9 @@ function searchRole() {
     }
 }
 
+var erroralert = document.getElementById('alerts');
+erroralert.innerHTML = ``;
+var count = 100;
 async function deleteskill(activeCheck){
     var skillid = activeCheck.name;
     var isactive = activeCheck.value;
@@ -204,9 +207,42 @@ async function deleteskill(activeCheck){
             new_skill_details = JSON.stringify(result.data)
 
             var message = result.data.message; 
+            erroralert.style.display = 'block';
+                count += 1;
+                erroralert.innerHTML += `
+                    <div class="alert position-relative " id="${count}"> 
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <div class="alert-header">
+                            <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                            <strong class="me-auto">LJPS</strong>
+                            <small></small>
+                            
+                        </div>
+                        <div class="alert-body">
+                            ${message}
+                        </div>
+                    </div>`;
         }
     } catch (error) {
         console.log(error)
         console.log('error')
+        erroralert.innerHTML += `
+                <div class="alert position-relative " id="alert"> 
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <div class="alert-header">
+                        <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                        <strong class="me-auto">LJPS</strong>
+                        <small></small>
+                        
+                    </div>
+                    <div class="alert-body">
+                        ${error}
+                    </div>
+                </div>`;
     }
+    setTimeout(function() {
+        var div = document.getElementById(count);
+        console.log(div);
+        div.style.display ='none';
+    }, 1500);
 }
