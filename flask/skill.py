@@ -59,7 +59,7 @@ class Skill(db.Model):
             return None
 
     def get_all_skills_active():
-        skills = Skill.query(active=1).all()
+        skills = Skill.query.filter_by(active=1).all()
         if skills:
             return [skill.to_dict() for skill in skills]
         else:
