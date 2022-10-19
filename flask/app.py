@@ -616,6 +616,30 @@ def add_course_to_skill():
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 ##################### END of User story SA-15 (BRUNO) #####################
 
+##################### Start of User story SA-17 (BRUNO) #####################
+# Remove one or more courses related to the skill
+@app.route("/remove_course_from_skill", methods=['POST'])
+def remove_course_from_skill():
+    # Step 1: Read the data passed over, and get the skill ID and array of courses to be removed (courses_to_remove)
+    data = request.get_json()
+    skill_id = data['skill_id']
+    courses_to_remove = data['course_arr']
+    # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
+    existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+
+    # Step 3: Compare the length of both arrays, if same length means user is trying to delete all courses related to that skill, which is not allowed. 
+    if len(courses_to_remove) == len(existing_course_array):
+        return jsonify({
+                    "code": 400,
+                    "message": "You are removing all courses from the skill."
+                }), 400
+     # Step 4: If user not removing all courses, remove the skill_id, course_id for each course in courses_to_remove in the attached_skill table. 
+    return Attached_skill.remove_course_from_skill(skill_id, courses_to_remove)
+
+
+##################### END of User story SA-17 (BRUNO) #####################
+
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
