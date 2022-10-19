@@ -624,6 +624,23 @@ def delete_skill(skill_id, isactive):
             "message": "There is an issue with changing the skill's activation status."
         }), 404
 
+# For HR view in skills_page.js
+@app.route("/get_all_skills_and_courses_hr")
+def get_all_skills_and_courses_hr():
+    # Refer to helper function get_skill_and_course_details
+    all_skills_and_courses = get_skill_and_course_details_hr()
+
+    if len(all_skills_and_courses):
+        return jsonify({
+            "data": {
+                    "skills": all_skills_and_courses
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "There are no skills."
+        }), 400
+
 ##################### END of User story SA-8 (JANN) #####################
 
 ######################################################################

@@ -4,7 +4,7 @@ function editSkill(skill_id){
 }
 
 $(async () => {
-    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses"
+    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses_hr"
 
     try {
         const response =
