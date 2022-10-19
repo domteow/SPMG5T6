@@ -187,30 +187,49 @@ function searchRole() {
 var erroralert = document.getElementById('alerts');
 erroralert.innerHTML = ``;
 var count = 100;
-async function deleteskill(activeCheck){
+function deleteskill(activeCheck){
     var skillid = activeCheck.name;
     var isactive = activeCheck.value;
     // insert backend here to delete skill (jann)
 
-    var serviceURL = "http://127.0.0.1:5001/delete_skill/" + skillid + "&" + isactive
-    
-    try {
-        const response = 
-            await fetch(
-                serviceURL, {mode: 'cors', method: 'GET'}
-            ); 
+    $(async () => {
+        
+        var serviceURL = "http://127.0.0.1:5001/delete_skill/" + skillid + "&" + isactive
 
-        const result = await response.json()
+        try {
+            const response = 
+                await fetch(
+                    serviceURL, {mode: 'cors', method: 'GET'}
+                ); 
 
-        if (result) {
-            console.log('User data retrieved.')
-            new_skill_details = JSON.stringify(result.data)
+            const result = await response.json()
 
-            var message = result.data.message; 
-            erroralert.style.display = 'block';
-                count += 1;
-                erroralert.innerHTML += `
-                    <div class="alert position-relative " id="${count}"> 
+            if (result) {
+                console.log('User data retrieved.')
+                new_skill_details = JSON.stringify(result.data)
+
+                var message = result.data.message; 
+                erroralert.style.display = 'block';
+                    count += 1;
+                    erroralert.innerHTML += `
+                        <div class="alert position-relative " id="${count}"> 
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <div class="alert-header">
+                                <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                                <strong class="me-auto">LJPS</strong>
+                                <small></small>
+                                
+                            </div>
+                            <div class="alert-body">
+                                ${message}
+                            </div>
+                        </div>`;
+            }
+        } catch (error) {
+            console.log(error)
+            console.log('error')
+            erroralert.innerHTML += `
+                    <div class="alert position-relative " id="alert"> 
                         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
                         <div class="alert-header">
                             <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
@@ -219,27 +238,11 @@ async function deleteskill(activeCheck){
                             
                         </div>
                         <div class="alert-body">
-                            ${message}
+                            ${error}
                         </div>
                     </div>`;
         }
-    } catch (error) {
-        console.log(error)
-        console.log('error')
-        erroralert.innerHTML += `
-                <div class="alert position-relative " id="alert"> 
-                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                    <div class="alert-header">
-                        <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
-                        <strong class="me-auto">LJPS</strong>
-                        <small></small>
-                        
-                    </div>
-                    <div class="alert-body">
-                        ${error}
-                    </div>
-                </div>`;
-    }
+    })
     setTimeout(function() {
         var div = document.getElementById(count);
         console.log(div);

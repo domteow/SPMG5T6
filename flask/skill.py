@@ -94,7 +94,7 @@ class Skill(db.Model):
         return True
 
     def toggle_active(skill_id, isactive):
-        skill = Skill.query.filter(skill_id=skill_id).first()
+        skill = Skill.query.filter_by(skill_id=skill_id).first()
         skill.active = isactive
 
         try:
