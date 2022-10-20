@@ -219,6 +219,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
                 all_course_details.append(course_detail)
         skill['courses'] = all_course_details
     
+
     if len(skills_under_ljpsr_details):
         return jsonify({
             "data": {
@@ -256,6 +257,7 @@ def new_learning_journey(ljpsr_id, staff_id, course_arr):
     # print(createLJ_result)
     # return createLJ_result
     return createLJ_course_result
+
 
 
 # Reading a Learning Journey
@@ -311,7 +313,21 @@ def delete_drug(journey_id):
     newly_added_courses = Lj_course.get_lj_course_by_journey_list(journey_id)
     return jsonify({"courses":newly_added_courses})
 
-@app.route("/get_team_members/<int:staff_id>")
+##################### Start of User story SA-20 (DOM) #####################
+@app.route("/edit_LJ_courses/", methods = ['POST'])
+def edit_LJ():
+    data = request.get_json()
+    journey_id = data['journey_id']
+    course_arr = data['course_arr']
+    print(data)
+    Lj_course.edit_lj_course(journey_id, course_arr)
+    return data
+
+
+
+##################### End of User story SA-20 (DOM) #####################
+
+@app.route("/get_team_members/<int:staff_id><string:course_arr>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])
@@ -357,31 +373,30 @@ def edit_skills_in_ljps_role():
     # retrieve data from POST call
     data = request.get_json()
     ljpsr_id = data['ljpsr_id']
-    updated_skills = data['skills']
-    # Get the current skills which this particular LJPS role contains
-    current_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
+    added_skills = data['added_skills']
+    deleted_skills = data['deleted_skills']
     # Compare and add the skills to the LJPS role
-    add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    if len(added_skills) > 0:
+        add_skill_to_ljps_role(ljpsr_id,added_skills)
     # Compare and delete the skills
-    delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills)
+    if len(deleted_skills) > 0:
+        delete_skill_to_ljps_role(ljpsr_id,deleted_skills)
     # After updating, get the retrieve all the current skills to send back out
     newly_added_skills = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
-    return jsonify({"skills":newly_added_skills})
+    return jsonify({"data":newly_added_skills})
 
 
 # Add Skill(s) to existing LJPS role
-def add_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
-    for skill in updated_skills:
-        if skill not in current_skills:
-            # add skill if not in the current skill list
-            Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+def add_skill_to_ljps_role(ljpsr_id,added_skills):
+    for skill in added_skills:
+        # add skill if not in the current skill list
+        Role_required_skill.create_ljps_skill(ljpsr_id, skill)
 
 # Delete Skill(s) to existing LJPS role
-def delete_skill_to_ljps_role(ljpsr_id,updated_skills,current_skills):
-    for skill in current_skills:
-        if skill not in updated_skills:
-            # delete skill if not in the updated skill list
-            Role_required_skill.delete_ljps_skill(ljpsr_id, skill)
+def delete_skill_to_ljps_role(ljpsr_id,deleted_skills):
+    for skill in deleted_skills:
+        # delete skill if not in the updated skill list
+        Role_required_skill.delete_ljps_skill(ljpsr_id, skill)
 
 
 # Find all existing roles with skills
@@ -601,6 +616,7 @@ def add_course_to_skill():
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 ##################### END of User story SA-15 (BRUNO) #####################
 
+
 ##################### START of User story SA-8 (JANN) #####################
 @app.route("/delete_skill/<int:skill_id>&<int:isactive>&<string:skill_name>")
 def delete_skill(skill_id, isactive, skill_name):
@@ -642,6 +658,31 @@ def get_all_skills_and_courses_hr():
         }), 400
 
 ##################### END of User story SA-8 (JANN) #####################
+
+##################### Start of User story SA-17 (BRUNO) #####################
+# Remove one or more courses related to the skill
+@app.route("/remove_course_from_skill", methods=['POST'])
+def remove_course_from_skill():
+    # Step 1: Read the data passed over, and get the skill ID and array of courses to be removed (courses_to_remove)
+    data = request.get_json()
+    skill_id = data['skill_id']
+    courses_to_remove = data['course_arr']
+    # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
+    existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+
+    # Step 3: Compare the length of both arrays, if same length means user is trying to delete all courses related to that skill, which is not allowed. 
+    if len(courses_to_remove) == len(existing_course_array):
+        return jsonify({
+                    "code": 400,
+                    "message": "You are removing all courses from the skill."
+                }), 400
+     # Step 4: If user not removing all courses, remove the skill_id, course_id for each course in courses_to_remove in the attached_skill table. 
+    return Attached_skill.remove_course_from_skill(skill_id, courses_to_remove)
+
+
+##################### END of User story SA-17 (BRUNO) #####################
+
+
 
 ######################################################################
 # HELPER FUNCTIONS BELOW

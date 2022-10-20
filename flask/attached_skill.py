@@ -136,6 +136,35 @@ class Attached_skill(db.Model):
             },
             "message": "Courses added successfully"
         }),200
+    
+    #   remove 1 or more courses from ONE skill
+    def remove_course_from_skill(skill_id, courses):
+        try:
+            for course in courses:
+                Attached_skill.query.filter_by(skill_id=skill_id, course_id = course).delete()
+            db.session.commit()
+        except SQLAlchemyError as e:
+            error = str(e.__dict__['orig'])
+            return jsonify(
+                {
+                    "code" : 500,
+                    "data": {
+                        "skill_id" : skill_id,
+                        "courses" : courses
+                    },
+                    "message": error
+                }
+            ),500
+        return jsonify(
+        {
+            "code": 201,
+            "data": {
+                "skill_id" : skill_id,
+                "courses" : courses
+            },
+            "message": "Courses removed successfully"
+        }),200
+
 
 
 

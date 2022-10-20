@@ -53,10 +53,6 @@
     margin-bottom: 2%;
 }
 
-input{
-    border: 1px solid #190063;
-}
-
 ::placeholder{
     font-family: roboto, sans-serif;
     font-weight: 400;
@@ -192,7 +188,7 @@ display: block
 }
 
 input{
-    border: 0px solid;
+    border: 0px solid black;
     height: 100%;
     width: 80%;
     padding: 1.5%;
