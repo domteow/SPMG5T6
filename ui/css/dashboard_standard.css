@@ -16,6 +16,74 @@
     font-size: 30px;
 }
 
+
+li{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #FFDBA5;
+}
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+ 
+.searchOpt{
+    text-align: left;
+    width:65%;
+    margin-left: 3%;
+    margin-right: auto;
+    font-family: roboto, sans-serif;
+}
+
+.searchrow{
+    padding: 0%;
+    width: 68%;
+}
+
+#myUL li a {
+border: 1px solid black;
+/* margin-top: -1px; Prevent double borders */
+background-color: #f6f6f6;
+padding: 12px;
+text-decoration: none;
+font-size: 18px;
+color: black;
+display: block
+}
+
+#myUL{
+    display: none;
+}
+
+input{
+    border: 0px solid;
+    height: 100%;
+    width: 80%;
+    padding: 1.5%;
+    font-size: 30px;
+    font-family: roboto, sans-serif;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
 .ljtitlediv{
     margin-top: 3%;
 }
@@ -61,15 +129,16 @@
     color: #000;
     margin-top: 5%;
     margin-left: 2%;
+    height: 80px;
 }
 
 .progresstitle{
     font-family: roboto,sans-serif;
     font-weight: 600;
     font-style: normal;
-    font-size: 18px;
+    font-size: 16px;
     color: #000;
-    margin-top: 10%;
+    margin-top: 15px;
     margin-left: 2%;
 }
 
@@ -150,6 +219,8 @@ a:active{
     border: 1px solid black;
     border-radius: 5px;
     padding: 0.5%;
+    font-size: 18px;
+    font-family: roboto, sans-serif;;
 }
 
 .searchicon{
@@ -253,7 +324,7 @@ input:focus{
     padding-top: 2%;
 }
 
-.row{
+.lrow{
     margin-top: 2%;
 }
 

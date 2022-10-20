@@ -23,6 +23,7 @@
 .form-control{
     padding: 2%;
     padding-left: 2%;
+    border: 1px solid #000;
 }
 
 .name{
