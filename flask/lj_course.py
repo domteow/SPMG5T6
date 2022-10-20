@@ -136,11 +136,15 @@ class Lj_course(db.Model):
         course_dict = json.loads(course_arr)
         course_id_add = []
         
-        for course in course_dict.values():
-            if course[0]['course_id'] not in course_id_add:
-                # print('***********course*************')
-                # print(course[0]['course_id'])
-                course_id_add.append(course[0]['course_id'])
+        for courses_under_skill in course_dict.values():
+            
+            for course in courses_under_skill:
+                print('***course to be added***')
+                print(course)
+                if course['course_id'] not in course_id_add:
+                    print('***********course*************')
+                    print(course['course_id'])
+                    course_id_add.append(course['course_id'])
                 
         print('***course_dict***')
         print(course_dict)
@@ -163,6 +167,7 @@ class Lj_course(db.Model):
         # add the course to DB
         for course_id in course_id_add:
             if course_id not in DB_courses:
+                print(course_id)
                 new_lj_course = Lj_course(journey_id, course_id)
                 ljc_to_add.append(new_lj_course)
 
