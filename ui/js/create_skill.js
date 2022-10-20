@@ -159,8 +159,9 @@ async function addCourse(){
 
             if (response.status == 201) {
                 console.log("Skill created.")
-                alert("The skill " + skill_name + " has been successfully created.")
-                location.href = './edit_skills.html';
+                var message = "The skill " + skill_name + " has been successfully created.";
+                localStorage.setItem('errmessage', message);
+                location.href = './skills_page.html';
             } else if (response.status === 401) {
                 alelrt("The skill name " + skill_name + " already exists.")
             }

@@ -311,7 +311,9 @@ async function saveSkill() {
   }
 
   if (error_count == 0) {
-    alert("Your changes have been saved successfully!");
+    // alert("Your changes have been saved successfully!");
+    var message = new_skill_name + ' has been edited';
+    localStorage.setItem('errmessage', message);
     location.href = "./skills_page.html";
   } else {
     location.href = "#top";
