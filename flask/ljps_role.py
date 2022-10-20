@@ -71,4 +71,23 @@ class Ljps_role(db.Model):
             return False
 
         return True
-        
+    
+    #to change the active column between 0 and 1
+    def toggle_active(role_id, is_active):
+        role = Ljps_role.query.filter_by(ljpsr_id=role_id).first()
+        #check if role is active, if it is toggle to inactive(0) and vice versa
+        role.active = is_active
+        #attempt to update table, return True if success, False if fail.
+        try:
+            db.session.commit()
+        except:
+            return False
+        return True
+    
+    #only get active roles
+    def get_all_learning_journey_roles_active():
+        roles = Ljps_role.query.filter_by(active=1).all()
+        if roles:
+            return [role.to_dict() for role in roles]
+        else:
+            return []

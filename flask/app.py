@@ -57,7 +57,7 @@ def login(staff_id):
 @app.route("/all_roles/<int:staff_id>")
 def get_all_roles(staff_id):
     #get all roles in dictionary format
-    all_roles = Ljps_role.get_all_learning_journey_roles()
+    all_roles = Ljps_role.get_all_learning_journey_roles_active()
     #get courses completed by staff in list format
     completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
     #get skills completed by staff in list format
@@ -554,7 +554,32 @@ def new_role():
         return jsonify({
             "message": "The role was successfully created"
         }), 201
-################### End of User story SA-2 (KELVIN) ##########################
+##################### End of User story SA-2 (KELVIN) #######################
+
+##################### Start of User story SA-7 (KELVIN) #####################
+@app.route("/delete_role/<int:role_id>&<int:is_active>&<string:role_name>")
+def delete_role(role_id, is_active, role_name):
+    result = Ljps_role.toggle_active(role_id, is_active)
+    print(role_name)
+    if result:
+        if is_active == 1:
+            message = role_name + " is now active"
+        else:
+            message = role_name + " is now inactive"
+            
+        return jsonify({
+            "data": {
+                    "message": message
+                }
+            }), 200
+    else:
+        return jsonify({
+            "data": {
+                "message": "There was an issue toggling the role active/inactive state"
+                }
+        }), 404
+
+##################### End of User story SA-7 (KELVIN) ########################
 
 ##################### Start of User story SA-15 (BRUNO) #####################
 # USER STORY SA-15 CHILD ISSUE SA-37(bruno)
