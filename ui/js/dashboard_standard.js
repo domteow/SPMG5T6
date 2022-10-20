@@ -5,6 +5,34 @@ window.onload = function(){
 	}
 }
 
+
+function searchRole() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("roleName");
+    filter = input.value.toUpperCase();
+    ul = document.getElementById("myUL");
+    ul.style.display='inline';
+    li = ul.getElementsByTagName("li");
+    console.log(filter);
+    console.log(filter.length);
+
+    if(filter.length == 0){
+        ul.style.display = 'none';
+    }
+    else{
+
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+}
+
 var ljpaths_div = document.getElementById('ljpaths');
 var courses_div = document.getElementById('courses_in_LJ');
 var courseCount = 1;
@@ -38,6 +66,8 @@ $(async () => {
             var firstLJ = learning_journeys[0];
 
             // this entire chunk is to display the learning journey 
+
+            
             
 
             for (var lj_index in learning_journeys){
@@ -63,7 +93,7 @@ $(async () => {
                                                     <img src="../img/pathicon.png" alt=""> ${role_title}
                                                 </div>
                                                 <div class="progresstitle">
-                                                    Progess:
+                                                    Progress:
                                                 </div>
                                                 <div class="progress" id="pathprogress">
                                                     <div class="progress-bar activeprogress" role="progressbar" id="progressbar${journey_id}" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -82,7 +112,7 @@ $(async () => {
                                                     <img src="../img/pathicon.png" alt=""> ${role_title}
                                                 </div>
                                                 <div class="progresstitle">
-                                                    Progess:
+                                                    Progress:
                                                 </div>
                                                 <div class="progress" id="pathprogress">
                                                     <div class="progress-bar" role="progressbar" id="progressbar${journey_id}" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -104,7 +134,7 @@ $(async () => {
                                         <img src="../img/pathicon.png" alt=""> ${role_title}
                                     </div>
                                     <div class="progresstitle">
-                                        Progess:
+                                        Progress:
                                     </div>
                                     <div class="progress" id="pathprogress">
                                         <div class="progress-bar" role="progressbar" id="progressbar${journey_id}" style="width: 77%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -221,6 +251,7 @@ $(async () => {
             var firstcourses = firstLJ['courses']; // returns an array [] of courses and the details
             console.log(firstcourses);
             var coursecontent =``;
+            var searchbar = document.getElementById('myUL');
 
             for (var course_idx in firstcourses){
                 console.log(course_idx);
@@ -229,13 +260,14 @@ $(async () => {
                 var course_name = course_details['course_name'];
                 var iscomplete = course_details['course_status'];
                 
+                searchbar.innerHTML += `<li><a href='#${course_name}'>${course_name}</a></li>`;
 
                 // course not completed 
                 if (iscomplete == 0){
                     if (course_idx == 0 || course_idx%2 == 0){
                         coursecontent += `
-                        <div class="row">
-                            <div class="col-sm-6 module">
+                        <div class="row lrow">
+                            <div class="col-sm-6 module" id='${course_name}'>
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
                                         <div class="col-sm-2">
@@ -276,7 +308,7 @@ $(async () => {
                 else{
                     if (course_idx == 0 || course_idx%2 == 0){
                         coursecontent += `
-                        <div class="row">
+                        <div class="row lrow">
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">

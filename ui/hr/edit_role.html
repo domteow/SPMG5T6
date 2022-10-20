@@ -21,9 +21,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="./css/roles_page.css">
+    <link rel="stylesheet" href="./css/edit_roles.css">
     <link rel="stylesheet" href="./css/hrnavbar.css">
-    <link rel="stylesheet" href="../css/notificication.css">
 
     <!-- font family -->
     <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
@@ -92,56 +91,94 @@
     </div>
     <!-- end of phone nav menu -->
 
-    
     <!-- main body -->
     <div class="main">
         <div class="maincontent">
-            <div class="rolestitle">
-                ROLES
-            </div>    
+            <div class="pgTitle" id="top">
+                Edit Role
+            </div> 
+            
+            <!-- insert role details-->
 
+            <!-- name -->
+            <div class="container-fluid name">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Name of Role:
+                    </div>
+                </div>
+                <div class="row valinput">
+                    <div class="col">
+                        <div class="input-group nameinput">
+                            <input type="text" class="form-control name_input" id="role_name" placeholder="Name of Role" aria-label="new_role_name" aria-describedby="basic-addon2">
+                        </div>
+                        <div id="nameError" class="errmsg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid desc">
+                <div class="row">
+                    <div class="col inputtitle">
+                        Description of Role:
+                    </div>
+                    <div class="row valinput">
+                        <div class="input-group">
+                            <textarea class="form-control" id="role_desc" placeholder="Role Description" aria-label="With textarea"></textarea>
+                        </div>
+                        <div class="errmsg" id="descError"></div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="skilltitle">
+                Skills under role:
+            </div>
+            
             <!-- search stuff -->
             <div class="container-fluid search">
                 <div class="row">
-                    <div class="col-sm-8 searchdiv">
-                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a role" oninput="searchRole()" name="roleName" id="roleName">
+                    <div class="col-sm-9 searchdiv">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a skill" oninput="searchSkill()" name="skillName" id="skillName">
                     </div>
-    
-                    <button class="col-sm-4 addNewRole">
-                        <a href="./create_role.html"><div class='addRoleText'>+ Add New Role</div></a>
-                    </button>
+                    <div class="col-sm-3"></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-9">
                         <!-- search options -->
                         <div class="searchOpt">
                             <ul id="myUL">
-                                <li><a href="#1">rhys</a></li>
-                                <li><a href="#2">cute!</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-sm-4"></div>
+                    <div class="col-sm-3"></div>
                 </div>
             </div> 
 
-            <!-- to display all the EXISTING roles -->
-            <div class="existingRoles accordion" id="existingRoles">
-                
+            <div class="container-fluid skills">
+                <div class="row errmsg" id="skillError"></div>
+                <div class="row" id="allSkills">
+                    
+                </div>
             </div>
             
-        </div>
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="alerty">
             
-        </div>
+            <button class="addRole" onclick="editRole()">
+                Save Changes
+            </button>
+            
 
-        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="alerts">
-            
+            <div class="cancel">
+                <a href="./roles_page.html">
+                    <div class="canceltext">Cancel</div>
+                </a>
+            </div>
+
         </div>
     </div>
 
     <script src="../js/nav.js"></script>
-    <script src="../js/notification.js"></script>
-    <script src="../js/roles_page.js"></script>
+    <script src="../js/edit_role.js"></script>
 </body>
 </html>

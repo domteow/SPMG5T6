@@ -25,6 +25,7 @@
     <!-- css -->
     <link rel="stylesheet" href="../css/dashboard_standard.css">
     <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="../css/notificication.css">
 
     <!-- less -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -127,17 +128,23 @@
                 <div class="container-fluid searchfield">
                     <div class="row">
                         <div class="col-sm-8 searchcol">
-                            <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a course" name="roleName" id="roleName">
+                            <img src="../img/search.png" class="searchicon" alt=""> <input type="text" oninput="searchRole()" placeholder="Search for a course" name="roleName" id="roleName">
                         </div>
-                        
-                            <div class="col-sm-4 newcourse">
-                                <a href="#">
-                                    <div class="newcoursebutton" onclick="edit_LJ()">
-                                        Edit Learning Journey
-                                    </div>
-                                </a>
-                            </div>
-                        
+                        <div class="col-sm-4 newcourse">
+                            <a href="#">
+                                <div class="newcoursebutton" onclick="edit_LJ()">
+                                    Edit Learning Journey
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 searchOpt">
+                            <ul id="myUL">
+                                
+                            </ul>
+                        </div>
+                        <div class="col-sm-4"></div>
                     </div>
                 </div>
             </div>
@@ -158,12 +165,16 @@
                 Delete Learning Journey
             </div>
         </div>
-    </div>
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="alerty">
+            
         </div>
     </div>
-
+        <!-- </div>
+    </div> -->
+    
     <script src="../js/nav.js"></script>
     <script src="../js/dashboard_standard.js"></script>
     <script src="../js/dashboard_onclick.js"></script>
+    <script src="../js/notification.js"></script>
 </body>
 </html>

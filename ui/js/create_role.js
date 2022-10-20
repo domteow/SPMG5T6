@@ -31,7 +31,7 @@ $(async () => {
                     skillinput += `
                         <div class='row skillrow'>
                             <div class='col-sm-6 skillname form-check' id=${skill_id}>
-                                <input class='form-check-input skillName' type='checkbox' id=${skill_id} onchange="handleChange(this)"  name='skills' value =${skill_id}>
+                                <input class='form-check-input skillName' type='checkbox' id=${skill_id}   name='skills' value =${skill_id}>
                                 ${skill_name}
                             </div>
                         
@@ -40,7 +40,7 @@ $(async () => {
                 else{
                     skillinput += `
                             <div class='col-sm-6 skillname form-check' id=${skill_id}>
-                                <input class='form-check-input skillName' type='checkbox' id=${skill_id} onchange="handleChange(this)"  name='skills' value =${skill_id}>
+                                <input class='form-check-input skillName' type='checkbox' id=${skill_id}   name='skills' value =${skill_id}>
                                 ${skill_name}
                             </div>
                         </div>
@@ -86,26 +86,26 @@ function searchRole() {
     }
 }
 
-function handleChange(cb) {
-    var cbval = cb.id;
-    if(cb.checked == true) {
-        // to check all checkbox with the SAME ID -> course_id
-        var cbox = `input[id=${cbval}]`
-        var allCB = document.querySelectorAll(cbox);
-        for (var i=0; i< allCB.length; i++){
-            allCB[i].checked = true;
-        }
+// function handleChange(cb) {
+//     var cbval = cb.id;
+//     if(cb.checked == true) {
+//         // to check all checkbox with the SAME ID -> course_id
+//         var cbox = `input[id=${cbval}]`
+//         var allCB = document.querySelectorAll(cbox);
+//         for (var i=0; i< allCB.length; i++){
+//             allCB[i].checked = true;
+//         }
       
-    } else {
-        // to uncheck all checkbox
-        var cbox = `input[id=${cbval}]`
-        var allCB = document.querySelectorAll(cbox);
-        for (var i=0; i< allCB.length; i++){
-            allCB[i].checked = false;
-        }
+//     } else {
+//         // to uncheck all checkbox
+//         var cbox = `input[id=${cbval}]`
+//         var allCB = document.querySelectorAll(cbox);
+//         for (var i=0; i< allCB.length; i++){
+//             allCB[i].checked = false;
+//         }
 
-    }
-}
+//     }
+// }
 
 async function addRole(){
     var serviceURL = "http://127.0.0.1:5001/create_role"
@@ -147,8 +147,9 @@ async function addRole(){
                 const result = await response.json();
                 console.log(result)
                 if(response.status === 201) {
-                    console.log('Learning Journey created');
                     alert("The role " + role_name + " has been successfully created")
+                    var message = 'The role' + role_name + 'has been successfully created.'
+                    localStorage.setItem('errmessage', message);
                     location.href = './roles_page.html';
                 } else if (response.status === 401) {
                     alert("The role name " + role_name + " already exists");

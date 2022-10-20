@@ -4,7 +4,7 @@ function editSkill(skill_id){
 }
 
 $(async () => {
-    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses"
+    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses_hr"
 
     try {
         const response =
@@ -56,11 +56,12 @@ $(async () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <button class="col-sm-2 editskill" id="${skill_id}" onclick="editSkill(this.id)">
+                                    <button class="col-6 col-md-2 editskill" id="${skill_id}" onclick="editSkill(this.id)">
                                         Edit
                                     </button>
+                                    
                                     <div class="col-sm-2 isactivediv">
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" name='${skill_id}/${skill_name}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
@@ -109,7 +110,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-sm-2 isactivediv">
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" name='${skill_id}/${skill_name}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>
                                         </select>
@@ -184,3 +185,70 @@ function searchRole() {
     }
 }
 
+var erroralert = document.getElementById('alerts');
+erroralert.innerHTML = ``;
+var count = 100;
+function deleteskill(activeCheck){
+    var skilldeets = activeCheck.name;
+    var skill_id = skilldeets.split('/')[0];
+    var skill_name = skilldeets.split('/')[1];
+    var isactive = activeCheck.value;
+    // insert backend here to delete skill (jann)
+
+    $(async () => {
+        
+        var serviceURL = "http://127.0.0.1:5001/delete_skill/" + skill_id + "&" + isactive + "&" + skill_name
+
+        try {
+            const response = 
+                await fetch(
+                    serviceURL, {mode: 'cors', method: 'GET'}
+                ); 
+
+            const result = await response.json()
+
+            if (result) {
+                console.log('User data retrieved.')
+                new_skill_details = JSON.stringify(result.data)
+
+                var message = result.message; 
+                erroralert.style.display = 'block';
+                    count += 1;
+                    erroralert.innerHTML += `
+                        <div class="alert position-relative " id="${count}"> 
+                            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                            <div class="alert-header">
+                                <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                                <strong class="me-auto">LJPS</strong>
+                                <small></small>
+                                
+                            </div>
+                            <div class="alert-body">
+                                ${message}
+                            </div>
+                        </div>`;
+            }
+        } catch (error) {
+            console.log(error)
+            console.log('error')
+            erroralert.innerHTML += `
+                    <div class="alert position-relative " id="alert"> 
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <div class="alert-header">
+                            <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                            <strong class="me-auto">LJPS</strong>
+                            <small></small>
+                            
+                        </div>
+                        <div class="alert-body">
+                            ${error}
+                        </div>
+                    </div>`;
+        }
+    })
+    setTimeout(function() {
+        var div = document.getElementById(count);
+        console.log(div);
+        div.style.display ='none';
+    }, 1500);
+}
