@@ -32,7 +32,7 @@ $(async () => {
                     courseinput += `
                         <div class='row courserow'>
                             <div class='col-sm-6 coursename form-check' id=${course_id}>
-                                <input class='form-check-input courseName' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='courses' value =${course_id}>
+                                <input class='form-check-input courseName' type='checkbox' id=${course_id}  name='courses' value =${course_id}>
                                 ${course_name}
                             </div>
                         
@@ -41,7 +41,7 @@ $(async () => {
                 else{
                     courseinput += `
                             <div class='col-sm-6 coursename form-check' id=${course_id}>
-                                <input class='form-check-input courseName' type='checkbox' id=${course_id} onchange="handleChange(this)"  name='courses' value =${course_id}>
+                                <input class='form-check-input courseName' type='checkbox' id=${course_id} name='courses' value =${course_id}>
                                 ${course_name}
                             </div>
                         </div>
@@ -88,26 +88,26 @@ function searchCourse() {
     }
 }
 
-function handleChange(cb) {
-    var cbval = cb.id;
-    if(cb.checked == true) {
-        // to check all checkbox with the SAME ID -> course_id
-        var cbox = `input[id=${cbval}]`
-        var allCB = document.querySelectorAll(cbox);
-        for (var i=0; i< allCB.length; i++){
-            allCB[i].checked = true;
-        }
+// function handleChange(cb) {
+//     var cbval = cb.id;
+//     if(cb.checked == true) {
+//         // to check all checkbox with the SAME ID -> course_id
+//         var cbox = `input[id=${cbval}]`
+//         var allCB = document.querySelectorAll(cbox);
+//         for (var i=0; i< allCB.length; i++){
+//             allCB[i].checked = true;
+//         }
       
-    } else {
-        // to uncheck all checkbox
-        var cbox = `input[id=${cbval}]`
-        var allCB = document.querySelectorAll(cbox);
-        for (var i=0; i< allCB.length; i++){
-            allCB[i].checked = false;
-        }
+//     } else {
+//         // to uncheck all checkbox
+//         var cbox = `input[id=${cbval}]`
+//         var allCB = document.querySelectorAll(cbox);
+//         for (var i=0; i< allCB.length; i++){
+//             allCB[i].checked = false;
+//         }
 
-    }
-}
+//     }
+// }
 
 async function addCourse(){
     var serviceURL = "http://127.0.0.1:5001/create_skill"

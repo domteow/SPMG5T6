@@ -2,36 +2,40 @@ var edit_skill_id = sessionStorage.getItem("edit_skill_id");
 
 // to add existing skill name and description into input field value
 $(async () => {
-  var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses";
 
-  try {
-    const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
-    // console.log(response)
-    const result = await response.json();
-    // console.log(result.data)
-    if (result) {
-      // console.log(result.data)
-      all_skills = result.data;
-      all_skills = all_skills.skills;
-      // console.log(all_skills);
+    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses_hr";
 
-      for (var skill_idx in all_skills) {
-        var skill_name_div = document.getElementById("skill_name");
-        var skill_desc_div = document.getElementById("skill_desc");
-        var skill = all_skills[skill_idx];
+    try {
+        const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
+        // console.log(response)
+        const result = await response.json();
+        // console.log(result.data)
+        if (result) {
+        // console.log(result.data)
+        all_skills = result.data;
+        all_skills = all_skills.skills;
+        // console.log(all_skills);
 
-        var skill_name = skill["skill_name"];
-        var skill_desc = skill["skill_desc"];
-        var skill_id = skill["skill_id"];
+            for (var skill_idx in all_skills) {
+                var skill_name_div = document.getElementById("skill_name");
+                var skill_desc_div = document.getElementById("skill_desc");
+                var skill = all_skills[skill_idx];
 
-        if (skill_id == edit_skill_id) {
-          // console.log(skill_id);
-          // console.log(edit_skill_id);
-          sessionStorage.setItem("curr_skill_name", skill_name);
-          sessionStorage.setItem("curr_skill_desc", skill_desc);
+                var skill_name = skill["skill_name"];
+                var skill_desc = skill["skill_desc"];
+                var skill_id = skill["skill_id"];
 
-          skill_name_div.value = skill_name;
-          skill_desc_div.value = skill_desc;
+                sessionStorage.setItem("curr_skill_name", skill_name);
+                sessionStorage.setItem("curr_skill_desc", skill_desc);
+
+                if (skill_id == edit_skill_id) {
+                // console.log(skill_id);
+                // console.log(edit_skill_id);
+
+                skill_name_div.value = skill_name;
+                skill_desc_div.value = skill_desc;
+                }
+            }
         }
       }
     }
