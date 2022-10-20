@@ -60,7 +60,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-sm-2 isactivediv">
-                                        <select class="form-select" name='${skill_id}' onchange='deleteskill(this)' aria-label="Default select example">
+                                        <select class="form-select" name='${skill_id}/${skill_name}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
@@ -109,7 +109,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-sm-2 isactivediv">
-                                        <select class="form-select" name='${skill_id}' onchange='deleteskill(this)' aria-label="Default select example">
+                                        <select class="form-select" name='${skill_id}/${skill_name}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>
                                         </select>
@@ -188,13 +188,15 @@ var erroralert = document.getElementById('alerts');
 erroralert.innerHTML = ``;
 var count = 100;
 function deleteskill(activeCheck){
-    var skillid = activeCheck.name;
+    var skilldeets = activeCheck.name;
+    var skill_id = skilldeets.split('/')[0];
+    var skill_name = skilldeets.split('/')[1];
     var isactive = activeCheck.value;
     // insert backend here to delete skill (jann)
 
     $(async () => {
         
-        var serviceURL = "http://127.0.0.1:5001/delete_skill/" + skillid + "&" + isactive
+        var serviceURL = "http://127.0.0.1:5001/delete_skill/" + skill_id + "&" + isactive + "&" + skill_name
 
         try {
             const response = 
@@ -208,7 +210,7 @@ function deleteskill(activeCheck){
                 console.log('User data retrieved.')
                 new_skill_details = JSON.stringify(result.data)
 
-                var message = result.data.message; 
+                var message = result.message; 
                 erroralert.style.display = 'block';
                     count += 1;
                     erroralert.innerHTML += `

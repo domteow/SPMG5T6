@@ -602,15 +602,15 @@ def add_course_to_skill():
 ##################### END of User story SA-15 (BRUNO) #####################
 
 ##################### START of User story SA-8 (JANN) #####################
-@app.route("/delete_skill/<int:skill_id>&<int:isactive>")
-def delete_skill(skill_id, isactive):
+@app.route("/delete_skill/<int:skill_id>&<int:isactive>&<string:skill_name>")
+def delete_skill(skill_id, isactive, skill_name):
     result = Skill.toggle_active(skill_id, isactive)
     if result:
         if isactive == 1:
-            message = "The role has been toggled to active."
+            message = skill_name + " has been toggled to active."
 
         else:
-            message = "The role has been toggled to inactive." 
+            message = skill_name + " has been toggled to inactive." 
             
 
         return jsonify({
