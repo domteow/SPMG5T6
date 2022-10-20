@@ -147,8 +147,9 @@ async function addRole(){
                 const result = await response.json();
                 console.log(result)
                 if(response.status === 201) {
-                    console.log('Learning Journey created');
                     alert("The role " + role_name + " has been successfully created")
+                    var message = 'The role' + role_name + 'has been successfully created.'
+                    localStorage.setItem('errmessage', message);
                     location.href = './roles_page.html';
                 } else if (response.status === 401) {
                     alert("The role name " + role_name + " already exists");

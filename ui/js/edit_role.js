@@ -250,6 +250,8 @@ async function editRole(){
     }
 
     if (error_count == 0){
+        var message = new_role_name + ' has been edited.'
+        localStorage.setItem('errmessage', message);
         location.href ='./roles_page.html';
     }
 

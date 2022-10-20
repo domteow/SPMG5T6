@@ -181,14 +181,15 @@ $(async () => {
 })
 
 var erroralert = document.getElementById('alerts');
-erroralert.innerHTML = ``;
-var count = 100;
 
+var count = 100;
+console.log(erroralert);
 function deleterole(activeCheck){
     var isactive = activeCheck.value;
     var values = activeCheck.name;
     var roleid = values.split("/")[0]
     var role_name = values.split("/")[1]
+    erroralert.innerHTML = ``;
 
     
     // insert backend here to delete role (kelvvvvvvvvvv) 
@@ -223,9 +224,7 @@ function deleterole(activeCheck){
                             ${message}
                         </div>
                     </div>`;
-            
-                
-
+                console.log(erroralert);
             }
         } catch (error) {
             console.log(error)
@@ -254,5 +253,5 @@ function deleterole(activeCheck){
     
 }
 
-
+console.log(erroralert);
 
