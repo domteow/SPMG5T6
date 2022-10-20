@@ -57,7 +57,7 @@ def login(staff_id):
 @app.route("/all_roles/<int:staff_id>")
 def get_all_roles(staff_id):
     #get all roles in dictionary format
-    all_roles = Ljps_role.get_all_learning_journey_roles()
+    all_roles = Ljps_role.get_all_learning_journey_roles_active()
     #get courses completed by staff in list format
     completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
     #get skills completed by staff in list format
@@ -554,7 +554,32 @@ def new_role():
         return jsonify({
             "message": "The role was successfully created"
         }), 201
-################### End of User story SA-2 (KELVIN) ##########################
+##################### End of User story SA-2 (KELVIN) #######################
+
+##################### Start of User story SA-7 (KELVIN) #####################
+@app.route("/delete_role/<int:role_id>&<int:is_active>&<string:role_name>")
+def delete_role(role_id, is_active, role_name):
+    result = Ljps_role.toggle_active(role_id, is_active)
+    print(role_name)
+    if result:
+        if is_active == 1:
+            message = role_name + " is now active"
+        else:
+            message = role_name + " is now inactive"
+            
+        return jsonify({
+            "data": {
+                    "message": message
+                }
+            }), 200
+    else:
+        return jsonify({
+            "data": {
+                "message": "There was an issue toggling the role active/inactive state"
+                }
+        }), 404
+
+##################### End of User story SA-7 (KELVIN) ########################
 
 ##################### Start of User story SA-15 (BRUNO) #####################
 # USER STORY SA-15 CHILD ISSUE SA-37(bruno)
@@ -616,12 +641,97 @@ def add_course_to_skill():
     return Attached_skill.add_courses_to_skill(skill_id, courses_to_add)
 ##################### END of User story SA-15 (BRUNO) #####################
 
+
+##################### START of User story SA-8 (JANN) #####################
+@app.route("/delete_skill/<int:skill_id>&<int:isactive>&<string:skill_name>")
+def delete_skill(skill_id, isactive, skill_name):
+    result = Skill.toggle_active(skill_id, isactive)
+    if result:
+        if isactive == 1:
+            message = skill_name + " has been toggled to active."
+
+        else:
+            message = skill_name + " has been toggled to inactive." 
+            
+
+        return jsonify({
+            "code": 200, 
+            "message": message 
+        }), 200  
+    
+    else: 
+        return jsonify({
+            "code": 404, 
+            "message": "There is an issue with changing the skill's activation status."
+        }), 404
+
+# For HR view in skills_page.js
+@app.route("/get_all_skills_and_courses_hr")
+def get_all_skills_and_courses_hr():
+    # Refer to helper function get_skill_and_course_details
+    all_skills_and_courses = get_skill_and_course_details_hr()
+
+    if len(all_skills_and_courses):
+        return jsonify({
+            "data": {
+                    "skills": all_skills_and_courses
+                }
+        }), 200
+    else:
+        return jsonify({
+            "message": "There are no skills."
+        }), 400
+
+##################### END of User story SA-8 (JANN) #####################
+
+##################### Start of User story SA-17 (BRUNO) #####################
+# Remove one or more courses related to the skill
+@app.route("/remove_course_from_skill", methods=['POST'])
+def remove_course_from_skill():
+    # Step 1: Read the data passed over, and get the skill ID and array of courses to be removed (courses_to_remove)
+    data = request.get_json()
+    skill_id = data['skill_id']
+    courses_to_remove = data['course_arr']
+    # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
+    existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
+
+    # Step 3: Compare the length of both arrays, if same length means user is trying to delete all courses related to that skill, which is not allowed. 
+    if len(courses_to_remove) == len(existing_course_array):
+        return jsonify({
+                    "code": 400,
+                    "message": "You are removing all courses from the skill."
+                }), 400
+     # Step 4: If user not removing all courses, remove the skill_id, course_id for each course in courses_to_remove in the attached_skill table. 
+    return Attached_skill.remove_course_from_skill(skill_id, courses_to_remove)
+
+
+##################### END of User story SA-17 (BRUNO) #####################
+
+
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
 
 # This helper function will return a list of all skill details. In each skill object, there will be the courses under the skill and its details too. 
 def get_skill_and_course_details():
+    # Array of skill objects
+    skills = Skill.get_all_skills_active()
+    # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
+    for skill in skills:
+        # array to hold all the courses related to the skill
+        all_courses = []
+        course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+        for course in course_ids:
+            course_details = Course.get_course_by_id(course)
+            all_courses.append(course_details)
+        # Append all_courses array to the skill objects
+        skill['courses'] = all_courses
+    return skills
+
+# (FOR HR) This helper function will return a list of all skill details for both INACTIVE & ACTIVE skills. 
+# In each skill object, there will be the courses under the skill and its details too. 
+def get_skill_and_course_details_hr():
     # Array of skill objects
     skills = Skill.get_all_skills()
     # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
@@ -643,8 +753,11 @@ def get_skill_detail_under_ljpsr(ljpsr_id):
     #from LJPS role ID, get all the skills related to it from role_required_skill (Array of skill IDs)
     skills_under_ljpsr = Role_required_skill.get_role_require_skill_by_ljpsr_list(ljpsr_id)
 
+    # get active skills 
+    active_skills_under_ljpsr = Skill.get_active_skills_list(skills_under_ljpsr)
+
     skills_under_ljpsr_details = []
-    for skill in skills_under_ljpsr:
+    for skill in active_skills_under_ljpsr:
         details = Skill.get_skill_by_id(skill)
         skills_under_ljpsr_details.append(details)
     return skills_under_ljpsr_details

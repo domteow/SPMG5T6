@@ -158,12 +158,18 @@ class Lj_course(db.Model):
         print('********DATABASE COURSES*************')
         print((DB_courses))
         ljc_to_add = []
+        ljc_to_remove = []
         # if the course exists in course_arr but not in DB,
         # add the course to DB
         for course_id in course_id_add:
             if course_id not in DB_courses:
                 new_lj_course = Lj_course(journey_id, course_id)
                 ljc_to_add.append(new_lj_course)
+
+        for DB_course_id in DB_courses:
+            if DB_course_id not in course_id_add:
+                Lj_course.query.filter_by(journey_id=journey_id,course_id=DB_course_id).delete()
+                # ljc_to_remove.append(to_remove)
         try:
             db.session.bulk_save_objects(ljc_to_add)
             db.session.commit()

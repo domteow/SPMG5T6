@@ -78,6 +78,8 @@ async function confirm_edit_LJ(){
         if(response.status === 201 || response.status === 200) {
             console.log('Learning Journey edited')
             alert('Learning Journey edited')
+            // var message = 'Learning journey edited';
+            // localStorage.setItem('errmessage', message);
         }
         
 
@@ -89,16 +91,23 @@ async function confirm_edit_LJ(){
 
     // creating courses in lj_course table
 
+
     var staff_role = sessionStorage.getItem('staff_role');
     console.log(staff_role);
-    // if (staff_role == 1){
-    //     location.href = '../hr/dashboard_hr.html';
-    // }
-    // if(staff_role == 2){
-    //     location.href = '../staff/dashboard_standard.html';
-    // }
-    // if(staff_role == 3){
-    //     location.href = '../manager/dashboard_manager_personal.html';
-    // }
+    if (staff_role == 1){
+        var message = 'Learning journey edited';
+        localStorage.setItem('errmessage', message);
+        location.href = '../hr/dashboard_hr.html';
+    }
+    if(staff_role == 2){
+        var message = 'Learning journey edited';
+        localStorage.setItem('errmessage', message);
+        location.href = '../staff/dashboard_standard.html';
+    }
+    if(staff_role == 3){
+        var message = 'Learning journey edited';
+        localStorage.setItem('errmessage', message);
+        location.href = '../manager/dashboard_manager_personal.html';
+    }
     
 }

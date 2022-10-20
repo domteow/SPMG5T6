@@ -83,7 +83,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-6 col-md-2 isactivediv">
-                                        <select class="form-select" name=${role_id} aria-label="Default select example" onchange='deleterole(this)'>
+                                        <select class="form-select" name="${role_id}/${role_name}" aria-label="Default select example" onchange='deleterole(this)'>
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
                                         </select>
@@ -132,7 +132,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     <div class="col-6 col-md-2 isactivediv">
-                                        <select class="form-select" name=${role_id} aria-label="Default select example" onchange='deleterole(this)'>
+                                        <select class="form-select" name="${role_id}/${role_name}" aria-label="Default select example" onchange='deleterole(this)'>
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>
                                         </select>
@@ -180,10 +180,78 @@ $(async () => {
     }
 })
 
+var erroralert = document.getElementById('alerts');
+
+var count = 100;
+console.log(erroralert);
 function deleterole(activeCheck){
     var isactive = activeCheck.value;
-    var roleid = activeCheck.name;
-    // insert backend here to delete role (kelvvvvvvvvvv) 
+    var values = activeCheck.name;
+    var roleid = values.split("/")[0]
+    var role_name = values.split("/")[1]
+    erroralert.innerHTML = ``;
 
+    
+    // insert backend here to delete role (kelvvvvvvvvvv) 
+    $(async () => {
+        var serviceURL = "http://127.0.0.1:5001/delete_role/" + roleid + "&" + isactive + "&" + role_name
+        try {
+            const response =
+                await fetch(
+                serviceURL, { mode: 'cors', method: 'GET' }
+            );
+            // console.log(response)
+            const result = await response.json();
+            // console.log(result.data)
+            if(result) {
+                console.log('User data retrieved')
+                new_lj_details = JSON.stringify(result.data)
+                var message = result.data.message;
+                // console.log(staff_role);
+                // alert(message)
+                erroralert.style.display = 'block';
+                count += 1;
+                erroralert.innerHTML += `
+                    <div class="alert position-relative " id="${count}"> 
+                        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                        <div class="alert-header">
+                            <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                            <strong class="me-auto">LJPS</strong>
+                            <small></small>
+                            
+                        </div>
+                        <div class="alert-body">
+                            ${message}
+                        </div>
+                    </div>`;
+                console.log(erroralert);
+            }
+        } catch (error) {
+            console.log(error)
+            erroralert.innerHTML += `
+                <div class="alert position-relative " id="alert"> 
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <div class="alert-header">
+                        <img src="../img/webicon.png" width="10%" class="rounded me-2" alt="...">
+                        <strong class="me-auto">LJPS</strong>
+                        <small></small>
+                        
+                    </div>
+                    <div class="alert-body">
+                        ${error}
+                    </div>
+                </div>`;
+        }
+    })
+    
+        var county = '#' + count;
+        setTimeout(function() {
+            var div = document.getElementById(count);
+            console.log(div);
+            div.style.display ='none';
+        }, 1500);
+    
 }
+
+console.log(erroralert);
 
