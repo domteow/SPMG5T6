@@ -96,17 +96,17 @@ async function confirm_edit_LJ(){
     console.log(staff_role);
     if (staff_role == 1){
         var message = 'Learning journey edited';
-        localStorage.setItem('errmessage', message);
+        localStorage.setItem('updateLJ', 'Y');
         location.href = '../hr/dashboard_hr.html';
     }
     if(staff_role == 2){
         var message = 'Learning journey edited';
-        localStorage.setItem('errmessage', message);
+        localStorage.setItem('updateLJ', 'Y');
         location.href = '../staff/dashboard_standard.html';
     }
     if(staff_role == 3){
         var message = 'Learning journey edited';
-        localStorage.setItem('errmessage', message);
+        localStorage.setItem('updateLJ', 'Y');
         location.href = '../manager/dashboard_manager_personal.html';
     }
     

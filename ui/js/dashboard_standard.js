@@ -1,12 +1,24 @@
-window.onload = function(){
-    if(!window.location.hash) {
-		window.location = window.location + '#loaded';
-		window.location.reload();
-        var message = 'The learning journey has been updated.'
-        localStorage.setItem('errmessage', message);
-	}
-}
+// window.onload = function(){
+//     // window.location.reload();
+//     // if(!window.location.hash) {
+// 	// 	window.location = window.location + '#loaded';
+// 	// 	window.location.reload();
+// 	// }
+// }
 
+// function loadonce() 
+// { 
+//     window.location.reload(); 
+// } 
+
+
+var updated = localStorage.getItem('updateLJ');
+console.log(updated);
+if (updated == 'Y'){
+    var message = 'The learning journey has been updated.'
+    localStorage.setItem('errmessage', message);
+    localStorage.removeItem('updateLJ');
+}
 
 function searchRole() {
     var input, filter, ul, li, a, i, txtValue;
@@ -15,8 +27,8 @@ function searchRole() {
     ul = document.getElementById("myUL");
     ul.style.display='inline';
     li = ul.getElementsByTagName("li");
-    console.log(filter);
-    console.log(filter.length);
+    // console.log(filter);
+    // console.log(filter.length);
 
     if(filter.length == 0){
         ul.style.display = 'none';
@@ -43,7 +55,7 @@ var count = 1;
 var first_slide = true;
 
 var full_name = sessionStorage.getItem('full_name');
-console.log(full_name);
+// console.log(full_name);
 document.getElementById('hiuser').innerHTML = 'Hi, ' + full_name;
 
 
@@ -79,7 +91,7 @@ $(async () => {
                 // console.log(lj_arr);
                 var journey_id = lj_arr['journey_id'];
                 var role_title = lj_arr['role_title'];
-                console.log(lj_index);
+                // console.log(lj_index);
                 if (first_slide){
                     if (lj_index==0 || lj_index%3==0){
                         // first_slide == true, count == 1, means this is the first learning journey shown = auto checked
@@ -230,7 +242,7 @@ $(async () => {
 
 
             var len = learning_journeys.length;
-            console.log(len);
+            // console.log(len);
             var remainder = len % 3;
 
             if (remainder == 1) {
@@ -242,7 +254,7 @@ $(async () => {
             }
 
 
-            console.log(content);
+            // console.log(content);
 
             ljpaths_div.innerHTML += content;
 
@@ -251,13 +263,13 @@ $(async () => {
 
             // to display the courses in the FIRST PATH 
             var firstcourses = firstLJ['courses']; // returns an array [] of courses and the details
-            console.log(firstcourses);
+            // console.log(firstcourses);
             var coursecontent =``;
             var searchbar = document.getElementById('myUL');
 
             for (var course_idx in firstcourses){
-                console.log(course_idx);
-                console.log(courseCount);
+                // console.log(course_idx
+                // console.log(courseCount);
                 var course_details = firstcourses[course_idx];
                 var course_name = course_details['course_name'];
                 var iscomplete = course_details['course_status'];
@@ -356,7 +368,7 @@ $(async () => {
                 }
             }
             courses_div.innerHTML += coursecontent;  
-            console.log(courses_div);            
+            // console.log(courses_div);            
         }
         
 
