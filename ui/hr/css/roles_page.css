@@ -177,7 +177,7 @@ a:hover{
     font-size: 18px;
 }
 
-/* 
+
 .alert {
     padding: 20px;
     background-color: #fff;
@@ -189,7 +189,7 @@ a:hover{
 }
   
 .closebtn {
-    /* margin-left: 5px; */
+    margin-left: 5px;
     margin-top: 5px;
     color: #190063;
     font-weight: bold;
@@ -235,4 +235,4 @@ a:hover{
         height:0;
         visibility:hidden;
     }
-} */
+} 
