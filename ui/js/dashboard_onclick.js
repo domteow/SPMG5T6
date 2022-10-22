@@ -112,6 +112,8 @@ function showpath(pathid){
     var newprogress = document.getElementById('progressbar'+pathid);
     newprogress.style.backgroundColor= '#FFA0A0';
     active = pathid;
+    sessionStorage.removeItem('activeLJ');
+    sessionStorage.setItem('activeLJ', active);
 
     // clear current course_div
     courses_div.innerHTML = ``;
