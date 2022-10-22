@@ -1,15 +1,16 @@
 // window.onload = function(){
-//     // window.location.reload();
-//     // if(!window.location.hash) {
-// 	// 	window.location = window.location + '#loaded';
-// 	// 	window.location.reload();
-// 	// }
+//     window.location.reload();
+//     if(!window.location.hash) {
+// 		window.location = window.location + '#loaded';
+// 		window.location.reload();
+// 	}
 // }
 
 // function loadonce() 
 // { 
 //     window.location.reload(); 
 // } 
+
 
 
 var updated = localStorage.getItem('updateLJ');
