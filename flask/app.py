@@ -364,6 +364,59 @@ def get_all_staff(staff_id):
         "hr" : hr_info,
         "all_staff" : all_staff
     })
+##################### Bug-fix view course in learning journey (Kelvin) #####################
+@app.route("/get_courses_of_lj/<string:staff_id>&<int:lj_id>")
+def get_courses_of_lj(staff_id ,lj_id):
+    courses_in_lj = Lj_course.get_lj_course_by_journey(lj_id)
+    completed_courses = Registration.get_completed_courses_by_staff_id(staff_id)
+    for course in courses_in_lj:
+        course["course_name"] = Course.get_course_by_id(course["course_id"])["course_name"]
+        if course["course_id"] in completed_courses:
+            course["course_status"] = 1
+        else:
+            course["course_status"] = 0
+    if courses_in_lj:
+        return jsonify({
+            "data" : courses_in_lj
+            }), 200
+    else:
+        return jsonify({
+            "data" : {
+                "message" : "Error retrieving courses"
+                }
+            })
+#################################### End of bug fix #######################################
+
+##################### Start of User Story SA-3 (Kelvin) #####################
+@app.route("/edit_role_details", methods=["POST"])
+def edit_role_details():
+    data = request.get_json()
+    ljpsr_id = data['ljpsr_id']
+    new_role_name = data['new_role_name']
+    new_role_desc = data['new_role_desc']   
+    # Edit role title and desc
+    if new_role_desc and new_role_name:
+        result = Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
+
+    if result:
+        return jsonify({
+            "data": {
+                "message": "Role name and description has been updated successfully"
+                }
+            }), 200
+    else:
+        return jsonify({
+            "data": {
+                "message": "There was an error updating the role name and description."
+                }
+        }), 404
+
+# Edit LJPS role details
+# def edit_role_details(ljpsr_id, new_role_name, new_role_desc):
+#     Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
+        
+##################### End of User Story SA-3 (Kelvin) #####################
+
 
 ##################### Start of User story SA-9 & SA-13 (BRYAN) #####################
 
@@ -412,7 +465,8 @@ def read_all_roles():
             for skill in role_skill_result:
                 # find each skill details
                 skill_result = Skill.get_skill_by_id(skill)
-                all_skills.append({"skill_id":skill,"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"active":skill_result['active']})
+                if skill_result["active"] == 1:
+                    all_skills.append({"skill_id":skill,"skill_name":skill_result['skill_name'],"skill_desc":skill_result['skill_desc'],"active":skill_result['active']})
             role['skills'] = all_skills
 
     return jsonify({"data":all_roles})

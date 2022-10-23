@@ -91,6 +91,7 @@
 
 
 var ljpaths = JSON.parse(sessionStorage.getItem('learning_journeys'));
+var staff_id =sessionStorage.getItem('staff_id')
 // console.log(ljpaths[0]); 
 
 var courses_div = document.getElementById('courses_in_LJ');
@@ -118,15 +119,20 @@ function showpath(pathid){
     // clear current course_div
     courses_div.innerHTML = ``;
     
-    // find chosen ljpath...
-    for (var paths_idx in ljpaths){
-        var paths = ljpaths[paths_idx];
-        var path_journey_id = paths['journey_id'];
+    $(async () => {
 
-        if (path_journey_id == pathid){
-            var chosen_path_courses = paths['courses'];
+        var serviceURL = "http://127.0.0.1:5001/get_courses_of_lj/" + staff_id + "&" + pathid
+    
+        try {
+            const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
+            // console.log(response)
+            const result = await response.json();
+            // console.log(result.data)
+            if (result) {
+            // console.log(result.data)
+            var chosen_path_courses = result.data
             var new_course_content = ``;
-
+            
             for (var newPath_course_idx in chosen_path_courses){
                 var new_course_details = chosen_path_courses[newPath_course_idx];
                 var new_course_name = new_course_details['course_name'];
@@ -227,10 +233,126 @@ function showpath(pathid){
                 new_course_content += `<div class=col-sm-6></div>`;
             } 
             courses_div.innerHTML += new_course_content;
-        }
+            }
+          } 
+      catch (error) {
+        console.log(error);
+        console.log("error");
+      }
+    });
+    // find chosen ljpath...
+    // for (var paths_idx in ljpaths){
+    //     var paths = ljpaths[paths_idx];
+    //     var path_journey_id = paths['journey_id'];
+
+    //     if (path_journey_id == pathid){
+    //         var chosen_path_courses = paths['courses'];
+    //         var new_course_content = ``;
+
+    //         for (var newPath_course_idx in chosen_path_courses){
+    //             var new_course_details = chosen_path_courses[newPath_course_idx];
+    //             var new_course_name = new_course_details['course_name'];
+    //             var new_iscomplete = new_course_details['course_status'];
+
+    //             // course not completed 
+    //             if (new_iscomplete == 0){
+    //                 if (newPath_course_idx == 0 || newPath_course_idx % 2 == 0){
+    //                     new_course_content += `
+    //                     <div class="row lrow">
+    //                         <div class="col-sm-6 module">
+    //                             <div class="container-fluid course">
+    //                                 <div class="row courseinfo">
+    //                                     <div class="col-sm-2">
+    //                                         <img src="../img/leadership.png" alt="">
+    //                                     </div>
+    //                                     <div class="col-sm-6 courseName" id="courseName">
+    //                                         ${new_course_name}
+    //                                     </div>
+    //                                     <div class="col-sm-4 courseNotComplete" id="notcomplete">
+    //                                         In Progress
+    //                                     </div>
+    //                                 </div>
+    //                             </div>                        
+    //                         </div>`;
+    //                 }
+    //                 else{
+    //                     new_course_content += `
+    //                         <div class="col-sm-6 module">
+    //                             <div class="container-fluid course">
+    //                                 <div class="row courseinfo">
+    //                                     <div class="col-sm-2">
+    //                                         <img src="../img/comm.png" alt="">
+    //                                     </div>
+    //                                     <div class="col-sm-6 courseName" id="courseName">
+    //                                         ${new_course_name}
+    //                                     </div>
+    //                                     <div class="col-sm-4 courseNotComplete" id="notcomplete">
+    //                                         In Progress
+    //                                     </div>
+    //                                 </div>
+    //                             </div>                        
+    //                         </div>
+    //                     </div>` 
+    //                 }                    
+    //             }
+
+    //             // course completed (iscomplete == 1)
+    //             else{
+    //                 if (newPath_course_idx == 0 || newPath_course_idx % 2 == 0){
+    //                     new_course_content += `
+    //                     <div class="row lrow">
+    //                         <div class="col-sm-6 module">
+    //                             <div class="container-fluid course">
+    //                                 <div class="row courseinfo">
+    //                                     <div class="col-sm-2">
+    //                                         <img src="../img/leadership.png" alt="">
+    //                                     </div>
+    //                                     <div class="col-sm-6 courseName" id="courseName">
+    //                                         ${new_course_name}
+    //                                     </div>
+    //                                     <div class="col-sm-4 courseComplete" id="complete">
+    //                                         Completed
+    //                                     </div>
+    //                                 </div>
+    //                             </div>                        
+    //                         </div>`;
+    //                 }
+    //                 else{
+    //                     new_course_content += `
+    //                         <div class="col-sm-6 module">
+    //                             <div class="container-fluid course">
+    //                                 <div class="row courseinfo">
+    //                                     <div class="col-sm-2">
+    //                                         <img src="../img/comm.png" alt="">
+    //                                     </div>
+    //                                     <div class="col-sm-6 courseName" id="courseName">
+    //                                         ${new_course_name}
+    //                                     </div>
+    //                                     <div class="col-sm-4 courseComplete" id="complete">
+    //                                         Completed
+    //                                     </div>
+    //                                 </div>
+    //                             </div>                        
+    //                         </div>
+    //                     </div>` 
+    //                 } 
+    //             }
+
+    //             if(courseCount == 1){
+    //                 courseCount+=1;
+    //             }                
+    //             else{
+    //                 courseCount == 1;
+    //             }
+    //         }
+    //         if (courseCount == 2){
+    //             new_course_content += `<div class=col-sm-6></div>`;
+    //         } 
+    //         courses_div.innerHTML += new_course_content;
+        // }
         
 
-    }
+    // }
 
 
 }
