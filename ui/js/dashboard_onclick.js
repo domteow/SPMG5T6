@@ -136,7 +136,7 @@ function showpath(pathid){
                 if (new_iscomplete == 0){
                     if (newPath_course_idx == 0 || newPath_course_idx % 2 == 0){
                         new_course_content += `
-                        <div class="row">
+                        <div class="row lrow">
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
@@ -178,7 +178,7 @@ function showpath(pathid){
                 else{
                     if (newPath_course_idx == 0 || newPath_course_idx % 2 == 0){
                         new_course_content += `
-                        <div class="row">
+                        <div class="row lrow">
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
