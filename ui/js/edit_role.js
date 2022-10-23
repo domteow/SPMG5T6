@@ -156,7 +156,7 @@ function handleChange(cb) {
 }
 
 
-async function editRole(){
+function editRole(){
     var role_id = sessionStorage.getItem('edit_role_id');
     var curr_role_name = sessionStorage.getItem('curr_role_name');
     var curr_role_desc = sessionStorage.getItem('curr_role_desc');
@@ -173,10 +173,6 @@ async function editRole(){
         error_count += 1;
         nameError.innerHTML = `Role name cannot be empty.`;
     }
-    if (new_role_name != curr_role_name){
-        // to input backend to send new skill name and save 
-    }
-
     // ROLE DESCRIPTION 
     // get value of role description from form and compare 
     var new_role_desc = document.getElementById('role_desc').value;
@@ -184,8 +180,31 @@ async function editRole(){
         error_count += 1;
         descError.innerHTML = `Role description cannot be empty.`;
     }
-    if (new_role_desc != curr_role_desc){
-        // to input the backend to send new role description 
+
+    if (new_role_name != "" && new_role_desc != ""){
+        $(async () => {
+            console.log("new here")
+            var serviceURL = "http://127.0.0.1:5001/edit_role_details";
+            try {
+                const response = 
+                    await fetch(
+                        serviceURL, { mode: "cors", method: "POST", 
+                        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": '*' },
+                        body: JSON.stringify({
+                            "ljpsr_id" : role_id,
+                            "new_role_name": new_role_name,
+                            "new_role_desc": new_role_desc,
+                        })});
+                const result = await response.json();
+                if (result) {
+                    // console.log(result.data)
+                    update_message = result.data;         
+                    }
+                } catch (error) {
+                    console.log(error);
+                    console.log("error");
+            } 
+        })
     }
 
     // ROLE SKILLS 
@@ -234,7 +253,9 @@ async function editRole(){
                             body: JSON.stringify({
                                 "ljpsr_id" : role_id,
                                 "added_skills" : added_skills,
-                                "deleted_skills" : deleted_skills
+                                "deleted_skills" : deleted_skills,
+                                "new_role_name": new_role_name,
+                                "new_role_desc": new_role_desc,
                             })});
                     const result = await response.json();
                     if (result) {

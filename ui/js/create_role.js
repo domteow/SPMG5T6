@@ -1,5 +1,5 @@
 $(async () => {
-    var serviceURL = "http://127.0.0.1:5001/skills"
+    var serviceURL = "http://127.0.0.1:5001/get_all_skills_and_courses"
 
     try {
         const response =

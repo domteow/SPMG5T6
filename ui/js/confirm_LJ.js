@@ -90,19 +90,19 @@ async function confirmLJ(){
     var staff_role = sessionStorage.getItem('staff_role');
     console.log(staff_role);
     if (staff_role == 1){
-        var message = 'Learning Journey created hehe xd';
+        var message = 'Learning Journey created.';
         localStorage.setItem('errmessage', message);
         sessionStorage.setItem('refresh', 'Y');
         location.href = '../hr/dashboard_hr.html';
     }
     if(staff_role == 2){
-        var message = 'Learning Journey created hehe xd';
+        var message = 'Learning Journey created.';
         localStorage.setItem('errmessage', message);
         sessionStorage.setItem('refresh', 'Y');
         location.href = '../staff/dashboard_standard.html';
     }
     if(staff_role == 3){
-        var message = 'Learning Journey created hehe xd';
+        var message = 'Learning Journey created.';
         localStorage.setItem('errmessage', message);
         sessionStorage.setItem('refresh', 'Y');
         location.href = '../manager/dashboard_manager_personal.html';
