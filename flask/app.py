@@ -24,7 +24,7 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
                                         
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 1000,
                                            'pool_recycle': 280}
 
 db = SQLAlchemy(app)
