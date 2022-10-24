@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJPS Explore</title>
+    <title>LJPS Dashboard</title>
     <link rel="icon" href="../img/webicon.png">
 
     <!-- bootstrap -->
@@ -21,8 +21,9 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <!-- css -->
-    <link rel="stylesheet" href="#">
+    <link rel="stylesheet" href="./css/dashboard_manager_team.css">
     <link rel="stylesheet" href="./css/navbar.css">
+    <link rel="stylesheet" href="../css/notificication.css">
 
     <!-- font family -->
     <link rel="stylesheet" href="https://use.typekit.net/jcn3uwu.css">
@@ -38,9 +39,12 @@
 
         <!-- user profile -->
         <div class="user">
-            <img src="../img/face.jpg" class="userface" alt="">
-            <div class="user_name">
-                Jane Doe
+            <!-- <img src="../img/face.jpg" class="userface" alt=""> -->
+            <div class="user_name" id="user_name">
+                
+            </div>
+            <div class="dept" id="dept">
+
             </div>
         </div>
 
@@ -62,9 +66,9 @@
         </div>
         
 
-        <a href="./settings_manager.html" class="navtext">
+        <a href="./profile_manager.html" class="navtext">
             <div class="navitem">
-                <img src="../img/settings.png" alt=""> Settings
+                <img src="../img/profile.png" alt=""> Profile
             </div>
         </a>
     
@@ -95,6 +99,7 @@
 
 
     <script src="../js/nav.js"></script>
+    <script src="../js/notification.js"></script>
     
 </body>
 </html>

@@ -118,6 +118,10 @@ function showpath(pathid){
     sessionStorage.removeItem('activeLJ');
     sessionStorage.setItem('activeLJ', active);
 
+    // to change delete button 
+    var deletebutton = document.getElementById('deletelj');
+    deletebutton.innerHTML = `<div onclick='deleteLJ(this.id)' id='delete/${pathid}' class='deletelj'>Delete Learning Journey</div>`;
+
     // clear current course_div
     courses_div.innerHTML = ``;
     

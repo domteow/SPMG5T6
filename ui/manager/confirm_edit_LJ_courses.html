@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJPS Explore</title>
+    <title>LJPS Edit LJ</title>
     <link rel="icon" href="../img/webicon.png">
 
     <!-- bootstrap -->
@@ -48,20 +48,25 @@
         </div>
 
         <!-- pages -->
-        <!-- pages -->
-        <a href="./homepage_standard.html" class="navtext">
-            <div class="navitem act">
-                <img src="../img/explore_active.png" alt=""> Explore
+        <a href="./homepage_manager.html" class="navtext">
+            <div class="navitem">
+                <img src="../img/explore.png" alt=""> Explore
             </div>
         </a>
-        <a href="./dashboard_standard.html" class="navtext">
+
+        <div class="dropdown navitem">
+            <button class="btn dropdown-toggle dashy act" type="button" style="color:#FFDBA5;" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../img/dashboard_active.png" style="padding-left:5%;"  alt=""> Dashboard
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item itey" href="./dashboard_manager_personal.html">Personal</a></li>
+              <li><a class="dropdown-item" href="./dashboard_manager_team.html">My Team</a></li>
+            </ul>
+        </div>
+        
+        <a href="./profile_manager.html" class="navtext">
             <div class="navitem">
-                <img src="../img/dashboard.png" alt=""> Dashboard
-            </div>
-        </a>
-        <a href="./settings_standard.html" class="navtext">
-            <div class="navitem">
-                <img src="../img/settings.png" alt=""> Settings
+                <img src="../img/profile.png" alt=""> Profile
             </div>
         </a>
     
