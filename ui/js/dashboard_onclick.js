@@ -152,10 +152,10 @@ function showpath(pathid){
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/leadership.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${new_course_name}
                                         </div>
                                         <div class="col-sm-4 courseNotComplete" id="notcomplete">
@@ -170,10 +170,10 @@ function showpath(pathid){
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/comm.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${new_course_name}
                                         </div>
                                         <div class="col-sm-4 courseNotComplete" id="notcomplete">
@@ -194,10 +194,10 @@ function showpath(pathid){
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/leadership.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${new_course_name}
                                         </div>
                                         <div class="col-sm-4 courseComplete" id="complete">
@@ -212,10 +212,10 @@ function showpath(pathid){
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/comm.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${new_course_name}
                                         </div>
                                         <div class="col-sm-4 courseComplete" id="complete">

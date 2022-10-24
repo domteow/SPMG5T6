@@ -40,9 +40,9 @@ $(async () => {
                     place.innerHTML += 
                     `<div class="roleCol container-fluid" id=${role_name}>
                         <div class="row">
-                            <div class="col-sm-4 roledeets">`+ role_name + `</div>
-                            <div class= 'col-sm-4 completed'>Attained Skills Required</div>
-                            <div class='col-sm-4'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
+                            <div class="col-sm-6 roledeets">`+ role_name + `</div>
+                            <div class= 'col-sm-3 completed'>Attained Skills Required</div>
+                            <div class='col-sm-3'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
                         </div>
                     </div>`
                 }
@@ -52,9 +52,9 @@ $(async () => {
                     place.innerHTML += 
                     `<div class="roleCol container-fluid" id=${role_name}>
                         <div class="row">
-                            <div class="col-6 roledeets">${role_name}</div>
-                            <div class= 'col-3 notcompleted'>Skills required not attained</div>
-                            <div class='col-3'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
+                            <div class="col-sm-6 roledeets">${role_name}</div>
+                            <div class= 'col-sm-3 notcompleted'>Skills required not attained</div>
+                            <div class='col-sm-3'><a href='#'><div class='ncompleted' id=${role_id} onclick='createLJ(this.id)'>View Role Details</div></a></div>
                         </div>
                     </div>`
                 }

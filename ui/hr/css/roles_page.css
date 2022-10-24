@@ -236,3 +236,66 @@ a:hover{
         visibility:hidden;
     }
 } 
+
+
+
+/* responsive */ 
+@media screen and (max-width:768px) {
+    .main{
+        margin:0%;
+    }
+    
+    .rolesstitle{
+        font-size: 28px;
+    }
+
+    .addRoleText{
+        font-size: 18px;
+    }
+
+    .searchicon{
+        width: 10%;
+    }
+
+    ::placeholder{
+        font-size: 16x;
+    }
+
+    .addNewRole{
+        font-size: 18px;
+        width:80%;
+        margin-top: 3%;
+    }
+
+    /* remember to change js refer to skills_page */
+    .editrole{
+        width:40%;
+    }
+
+    li{
+        font-size: 18px;
+    }
+
+    .row{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .roleTitle{
+        font-size: 20px;
+    }
+
+    .editrole{
+        font-size: 16px;
+    }
+
+    .role_desc_title{
+        font-size: 18px;
+    }
+
+    .role_desc_text{
+        font-size: 14px;
+    }
+
+    
+}

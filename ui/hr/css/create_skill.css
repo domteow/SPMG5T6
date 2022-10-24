@@ -218,3 +218,59 @@ input:focus{
 .courserow{
     margin-bottom: 1%;
 }
+
+
+/* responsive */ 
+@media screen and (max-width:768px) {
+    .main{
+        margin:0%;
+    }
+
+    .pgTitle{
+        font-size: 28px;
+    }
+
+    .inputtitle{
+        font-size: 22px;
+    }
+
+    /* change outline colour... of input fields */
+    ::placeholder{
+        font-size: 16px;
+    }
+
+    input{
+        font-size: 16px;
+    }
+
+    .coursetitle{
+        font-size: 22px;
+    }
+
+    li{
+        font-size: 18px;
+    }
+
+    .searchicon{
+        width: 10%;
+    }
+
+    .coursename{
+        font-size: 18px;
+        margin-top: 1%;
+        margin-bottom: 1%;
+        margin-left: 3%;
+    }
+
+    .addSkill{
+        font-size: 18px;
+        width:70%;
+    }
+
+    .cancel{
+        font-size: 16px;
+        width: 30%;
+        margin-top: 3%;
+    }
+
+}
