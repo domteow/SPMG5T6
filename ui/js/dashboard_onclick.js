@@ -356,3 +356,58 @@ function showpath(pathid){
 
 
 }
+
+// function to edit courses in learning journey (dom)
+// click on edit learning journey button to use this
+async function edit_LJ() {
+    
+    // use staff_id to retrieve ljpsr_id
+    var serviceURL = "http://127.0.0.1:5001/readlj/" + Number(staff_id)
+
+    try {
+        const response =
+            await fetch(
+            serviceURL, { mode: 'cors', method: 'GET' }
+        );
+        // console.log(response)
+        const result = await response.json();
+        console.log(result.data)
+        
+        if(result) {
+
+            for (LJ of result.data) {
+                console.log(LJ)
+
+                if(LJ.journey_id == active) {
+                    console.log(active)
+                    var ljpsr_id = LJ.ljpsr_id
+                    console.log(ljpsr_id)
+                    sessionStorage.setItem('ljpsr_id',ljpsr_id)
+                }
+            }
+           
+        }
+        
+
+    } catch (error) {
+        console.log(error)
+        console.log('error')
+    }
+
+
+
+
+    sessionStorage.setItem('staff_id', staff_id)
+    staff_role = sessionStorage.getItem('staff_role')
+    if (staff_role == 1){
+        location.href = './edit_LJ_courses.html';
+    }
+    if (staff_role == 2 || staff_role == 4){
+        location.href = './edit_LJ_courses.html';
+    }
+    if(staff_role == 3){
+        location.href = './edit_LJ_courses.html';
+    }
+
+    
+}
