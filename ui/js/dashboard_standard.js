@@ -54,9 +54,11 @@ var courseCount = 1;
 var staff_id = sessionStorage.getItem('staff_id');
 var count = 1;
 var first_slide = true;
-
 var full_name = sessionStorage.getItem('full_name');
-// console.log(full_name);
+var deletebutton = document.getElementById('deletelj');
+
+
+
 document.getElementById('hiuser').innerHTML = 'Hi, ' + full_name;
 
 
@@ -81,10 +83,6 @@ $(async () => {
             var firstLJ = learning_journeys[0];
 
             // this entire chunk is to display the learning journey 
-
-            
-            
-
             for (var lj_index in learning_journeys){
                 // console.log(count);
                 // console.log(first_slide);
@@ -258,9 +256,10 @@ $(async () => {
             // console.log(content);
 
             ljpaths_div.innerHTML += content;
-
-
             // ^ FINISH displaying the diff paths
+
+            var active_lj_id = firstLJ['journey_id'];
+            deletebutton.innerHTML = `<div onclick='deleteLJ(this.id)' id='delete/${active_lj_id}' class='deletelj'>Delete Learning Journey</div>`;
 
             // to display the courses in the FIRST PATH 
             var firstcourses = firstLJ['courses']; // returns an array [] of courses and the details

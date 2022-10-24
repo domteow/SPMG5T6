@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LJPS Explore</title>
+    <title>LJPS Dashboard</title>
     <link rel="icon" href="../img/webicon.png">
 
     <!-- bootstrap -->
@@ -66,9 +66,9 @@
         </div>
         
 
-        <a href="./settings_manager.html" class="navtext">
+        <a href="./profile_manager.html" class="navtext">
             <div class="navitem">
-                <img src="../img/settings.png" alt=""> Settings
+                <img src="../img/profile.png" alt=""> Profile
             </div>
         </a>
     
@@ -87,97 +87,97 @@
     </div>
     <!-- end of phone nav menu -->
 
-<!-- main content -->
-<div class="main">
-    <div class="maincontent">
-        <!-- say hi to user LOL -->
-        <div class="hiuser" id="hiuser">
-            <!-- Hi <span class="user_name" id="user_name"></span> -->
-        </div>
-
-        <!-- learning journey carousel header -->
-        <div class="ljtitlediv">
-            <div class="ljtitle">
-                My Learning Journey(s)
+    <!-- main content -->
+    <div class="main">
+        <div class="maincontent">
+            <!-- say hi to user LOL -->
+            <div class="hiuser" id="hiuser">
+                <!-- Hi <span class="user_name" id="user_name"></span> -->
             </div>
-        </div>
 
-        <!-- learning journey carousel-->
-        <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval=false>
-            <div class="carousel-inner" id="ljpaths">
-
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-
-        <!-- end of carousel -->
-
-        <!-- courses you're taking -->
-        <div class="coursestaking">
-            Course(s) You're Taking
-        </div>
-
-        <!-- courses in learning journey search -->
-        <div class="ljcourse">
-            <div class="container-fluid searchfield">
-                <div class="row">
-                    <div class="col-sm-8 searchcol">
-                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" oninput="searchRole()" placeholder="Search for a course" name="roleName" id="roleName">
-                    </div>
-        
-                    <div class="col-sm-4 newcourse">
-                        <a href="#">
-                            <div class="newcoursebutton" onclick="edit_LJ()">
-                                Edit Learning Journey
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-sm-8 searchOpt">
-                        <ul id="myUL">
-                            
-                        </ul>
-                    </div>
-                    <div class="col-sm-4"></div>
+            <!-- learning journey carousel header -->
+            <div class="ljtitlediv">
+                <div class="ljtitle">
+                    My Learning Journey(s)
                 </div>
             </div>
+
+            <!-- learning journey carousel-->
+            <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" data-bs-interval=false>
+                <div class="carousel-inner" id="ljpaths">
+
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+
+            <!-- end of carousel -->
+
+            <!-- courses you're taking -->
+            <div class="coursestaking">
+                Course(s) You're Taking
+            </div>
+
+            <!-- courses in learning journey search -->
+            <div class="ljcourse">
+                <div class="container-fluid searchfield">
+                    <div class="row">
+                        <div class="col-sm-8 searchcol">
+                            <img src="../img/search.png" class="searchicon" alt=""> <input type="text" oninput="searchRole()" placeholder="Search for a course" name="roleName" id="roleName">
+                        </div>
+            
+                        <div class="col-sm-4 newcourse">
+                            <a href="#">
+                                <div class="newcoursebutton" onclick="edit_LJ()">
+                                    Edit Learning Journey
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8 searchOpt">
+                            <ul id="myUL">
+                                
+                            </ul>
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- courses in learning journey search -->
+
+            <!-- courses in the learning journey -->
+            <div class="container-fluid courses" id="courses_in_LJ">
+            
+
+                    <!-- THE DIV 'MODULE' BELOW IS FOR EACH INDIVIDUAL COURSE TAKEN/ TAKING -->
+                    <!-- NAME OF COURSE HAS ID='courseName' -->
+                    <!-- FOR THOSE THAT ARE COMPLETED ID='complete' CLASS='courseNotComplete' -->
+                    <!-- FOR THOSE THAT ARE NOT COMPLETED ID='notcomplete' CLASS='courseComplete' -->
+                    
+            </div>
+
+            <button class="delete" id="deletelj">
+                <!-- Delete Learning Journey -->
+            </button>
         </div>
-        <!-- courses in learning journey search -->
-
-        <!-- courses in the learning journey -->
-        <div class="container-fluid courses" id="courses_in_LJ">
-        
-
-                <!-- THE DIV 'MODULE' BELOW IS FOR EACH INDIVIDUAL COURSE TAKEN/ TAKING -->
-                <!-- NAME OF COURSE HAS ID='courseName' -->
-                <!-- FOR THOSE THAT ARE COMPLETED ID='complete' CLASS='courseNotComplete' -->
-                <!-- FOR THOSE THAT ARE NOT COMPLETED ID='notcomplete' CLASS='courseComplete' -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="alerty">
                 
         </div>
+    </div>
 
-        <div class="delete">
-            Delete Learning Journey
-        </div>
-    </div>
-    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11" id="alerty">
-            
-    </div>
-</div>
-    <!-- </div>
-</div> -->
 
 <script src="../js/nav.js"></script>
 <script src="../js/dashboard_standard.js"></script>
 <script src="../js/dashboard_onclick.js"></script>
+<script src="../js/delete_LJ.js"></script>
 <script src="../js/notification.js"></script>
 </body>
 </html>
