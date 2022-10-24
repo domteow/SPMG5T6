@@ -108,7 +108,9 @@ function showpath(pathid){
     original.classList.remove('activepath');
     var originalprogress = document.getElementById('progressbar'+active);
     originalprogress.style.backgroundColor= '#9E82CA';
+    console.log(original);
     var newpath = document.getElementById(pathid);
+    console.log(newpath);
     newpath.classList.add('activepath');
     var newprogress = document.getElementById('progressbar'+pathid);
     newprogress.style.backgroundColor= '#FFA0A0';
