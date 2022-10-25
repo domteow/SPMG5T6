@@ -48,3 +48,13 @@ class Registration(db.Model):
                 if course["completion_status"] == "Completed":
                     completed_courses.append(course["course_id"])
         return completed_courses
+
+    def get_ongoing_courses_by_staff_id(staff_id):
+        courses = Registration.query.filter_by(staff_id=staff_id).all()
+        ongoing_courses = []
+        if len(courses):
+            for course in courses:
+                course = course.to_dict()
+                if course["completion_status"] == "OnGoing":
+                    ongoing_courses.append(course["course_id"])
+        return ongoing_courses

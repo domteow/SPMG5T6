@@ -761,7 +761,33 @@ def remove_course_from_skill():
 
 ##################### END of User story SA-17 (BRUNO) #####################
 
-
+##################### Start of User story SA-10(BRUNO) #####################
+# USER STORY SA-15 CHILD ISSUE SA-57(bruno)
+# View ongoing course of team member
+@app.route("/get_ongoing_course_of_staff/<int:staff_id>")
+def get_ongoing_course_of_staff(staff_id):
+    # Step 1: Get details of staff from staff table (Name, deparment)
+    staff_details = Staff.get_staff_by_id(staff_id)
+    # Raising error if staff_id does not exist
+    if not staff_details:
+        return jsonify({
+        "error_code": 400,
+        "error_message": "Staff ID does not exist"
+    }), 400
+    # Step 2: From registration table, get all courses IDs that is "Registered" and 
+    # "OnGoing" under the staff
+    ongoing_course_ids = Registration.get_ongoing_courses_by_staff_id(staff_id)
+    ongoing_courses = []
+    # Step 3:For each course ID, get the name and status of it
+    for course_id in ongoing_course_ids:
+        ongoing_courses.append(Course.get_course_by_id(course_id))
+    # Step 4: Return the data in json format
+    return jsonify({
+        "staff_details": staff_details,
+        "ongoing_courses": ongoing_courses
+    })
+    
+##################### END of User story SA-10 (BRUNO) #####################
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
