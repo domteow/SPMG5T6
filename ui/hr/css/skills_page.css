@@ -256,7 +256,8 @@ a:hover{
     }
 
     .skillTitle{
-        font-size: 20px;
+        font-size: 18px;
+        padding-left: 0%;
     }
 
     .editskill{
@@ -269,6 +270,34 @@ a:hover{
 
     .skill_desc_text{
         font-size: 14px;
+    }
+    .accordion-body{
+        padding: 0%;
+    }
+
+    .accordion-item{
+        padding-bottom: 2%;
+    }
+
+    #myUL li a{
+        font-size: 14px;
+    }
+
+    .searchicon{
+        width:10%;
+    }
+
+    .searchOpt{
+        position: absolute;
+        top: 185px;
+        left: 9%;
+        width: 77%;
+        z-index: 11;
+    }
+
+    input{
+        font-size: 14px;
+        padding: 2%;
     }
 
     

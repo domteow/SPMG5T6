@@ -320,23 +320,32 @@ a:hover{
         width:10%;
     }
 
-    .browseroles{
-        font-size: 20px;
+    .maincontent{
+        margin-top: 5%;
     }
+
+    .browseroles{
+        font-size: 18px;
+    }
+
     ::placeholder{
         font-size: 16px;
     }
+
     .logoimg{
         width: 70%;
     }
+    
     .roledeets{
         font-size: 18px;
     }
+
     .completed{
         font-size: 14px;
         /* width: 55%; */
         padding: auto;
     }
+
     .ncompleted{
         font-size: 14px;
         /* width: 55%; */
@@ -355,11 +364,21 @@ a:hover{
     .allroles{
         width: 100%;
     }
+
     .row{
         padding: 2%;
     }
+
     .navitem{
         font-size: 20px;
+    }
+
+    .searchdiv{
+        width:90%;
+    }
+
+    #myUL li a{
+        font-size: 14px;
     }
 }
 

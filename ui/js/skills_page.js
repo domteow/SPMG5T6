@@ -60,7 +60,7 @@ $(async () => {
                                         Edit
                                     </button>
                                     
-                                    <div class="col-sm-2 isactivediv">
+                                    <div class="col-6 col-md-2 isactivediv">
                                         <select class="form-select" name='${skill_id}/${skill_name}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1" selected>Active</option>
                                             <option value="0">Inactive</option>
@@ -106,10 +106,10 @@ $(async () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <button class="col-sm-2 editskill" id="${skill_id}" onclick="editSkill(this.id)">
+                                    <button class="col-6 col-md-2 editskill" id="${skill_id}" onclick="editSkill(this.id)">
                                         Edit
                                     </button>
-                                    <div class="col-sm-2 isactivediv">
+                                    <div class="col-6 col-md-2 isactivediv">
                                         <select class="form-select" name='${skill_id}/${skill_name}' onchange='deleteskill(this)' aria-label="Default select example">
                                             <option value="1">Active</option>
                                             <option value="0" selected>Inactive</option>

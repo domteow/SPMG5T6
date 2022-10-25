@@ -452,6 +452,17 @@ input:focus{
         height: 100px;
     }
 
+    #myUL li a{
+        font-size: 14px;
+    }
+
+    .searchOpt{
+        width:90%;
+        position: absolute;
+        z-index: 11;
+        top: 60%;
+    }
+
     .multi-item-carousel .carousel-inner > .item {
         transition: 500ms ease-in-out left;
       }
@@ -487,11 +498,11 @@ input:focus{
     }
 
     .hiuser{
-        font-size: 28px;
+        font-size: 26px;
     }
 
     .ljtitle{
-        font-size: 22px;
+        font-size: 20px;
     }
 
     .title{
@@ -500,6 +511,7 @@ input:focus{
 
     .progresstitle{
         font-size: 14px;
+        margin-top: 30px;
     }
 
     .coursestaking{
@@ -517,6 +529,11 @@ input:focus{
     .newcoursebutton{
         font-size: 18px;
         border-radius: 3px;
+    }
+
+    input{
+        font-size:16px;
+        padding: 1%;
     }
 
     .module{

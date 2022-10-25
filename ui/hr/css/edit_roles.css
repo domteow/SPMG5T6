@@ -98,7 +98,7 @@ input:focus{
 .cancel{
     margin-top: 1%;
     margin-bottom: 8%;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 1%;
     width: 10%;
     text-align: center;
@@ -228,4 +228,65 @@ input:focus{
     color: #f16262;
     font-weight: 500;
     font-size: 14px; 
+}
+
+/* responsive */ 
+@media screen and (max-width:768px) {
+    .main{
+        margin:0%;
+    }
+
+    .pgTitle{
+        font-size: 28px;
+    }
+
+    .inputtitle{
+        font-size: 22px;
+    }
+
+    .skilltitle{
+        font-size: 22px;
+    }
+
+    ::placeholder{
+        font-size: 16px;
+    }
+
+    #myUL li a {
+        font-size: 16px;
+    }
+
+    .form-control{
+        font-size: 18px;
+    }
+
+    input{
+        font-size: 16px;
+        padding: 2%;
+    }
+
+    .searchicon{
+        width:10%;
+    }
+
+    #allSkills{
+        margin-top: 2%;
+    }
+
+    .skillname{
+        font-size: 18px;
+    }
+
+    .addRole{
+        width: 70%;
+        border-radius: 3px;
+        font-size: 18px;
+    }
+
+    .cancel{
+        width: 30%;
+        font-size: 16px;
+        border-radius: 3px;
+    }
+
 }

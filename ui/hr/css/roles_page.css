@@ -130,7 +130,7 @@ a:hover{
 
 .accordion-item{
     border: none;
-    border-bottom: 1px solid #cecece;
+    border-bottom: 1px solid #dbdbdb;
     margin-top: 1%;
     margin-bottom: 0.5%;
 }
@@ -282,7 +282,8 @@ a:hover{
     }
 
     .roleTitle{
-        font-size: 20px;
+        font-size: 18px;
+        padding-left: 0%;
     }
 
     .editrole{
@@ -297,5 +298,33 @@ a:hover{
         font-size: 14px;
     }
 
+    .accordion-body{
+        padding: 0%;
+    }
+
+    .accordion-item{
+        padding-bottom: 2%;
+    }
+
+    #myUL li a{
+        font-size: 16px;
+    }
+
+    .searchicon{
+        width:10%;
+    }
+
+    .searchOpt{
+        position: absolute;
+        top: 190px;
+        left: 13%;
+        width: 72%;
+        z-index: 11;
+    }
+
+    input{
+        font-size: 16px;
+        padding: 2%;
+    }
     
 }
