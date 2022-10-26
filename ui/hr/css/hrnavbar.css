@@ -117,3 +117,17 @@
 }
 
 /* end of nav bar */ 
+
+@media screen and (max-width: 768px) {
+    .navitem{
+        font-size: 18px;    
+    }
+
+    .dashy{
+        font-size: 18px;
+    }
+
+    .dropdown-item{
+        font-size: 18px;
+    }
+}

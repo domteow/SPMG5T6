@@ -177,7 +177,7 @@ a:hover{
 }
 
 /* responsiveness */
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     .main{
         margin: 0%;
     }
@@ -212,6 +212,173 @@ a:hover{
     }
     .navitem{
         font-size: 20px;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+} */
+
+
+/* REMEMBER TO CHANGE THE JS ALSO!!!! FOR THE DISPLAY OF ALL ROLES */
+/* responsiveness */
+@-webkit-keyframes jittery {
+
+    5%,
+    50% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+
+    10% {
+        -webkit-transform: scale(0.9);
+                transform: scale(0.9);
+    }
+
+    15% {
+        -webkit-transform: scale(1.15);
+                transform: scale(1.15);
+    }
+
+    20% {
+        -webkit-transform: scale(1.15) rotate(-5deg);
+                transform: scale(1.15) rotate(-5deg);
+    }
+
+    25% {
+        -webkit-transform: scale(1.15) rotate(5deg);
+                transform: scale(1.15) rotate(5deg);
+    }
+
+    30% {
+        -webkit-transform: scale(1.15) rotate(-3deg);
+                transform: scale(1.15) rotate(-3deg);
+    }
+
+    45% {
+        -webkit-transform: scale(1.15) rotate(2deg);
+                transform: scale(1.15) rotate(2deg);
+    }
+
+    60% {
+        -webkit-transform: scale(1.15) rotate(0);
+                transform: scale(1.15) rotate(0);
+    }
+}
+
+@keyframes jittery {
+
+    5%,
+    50% {
+        -webkit-transform: scale(1);
+                transform: scale(1);
+    }
+
+    10% {
+        -webkit-transform: scale(0.9);
+                transform: scale(0.9);
+    }
+
+    15% {
+        -webkit-transform: scale(1.15);
+                transform: scale(1.15);
+    }
+
+    20% {
+        -webkit-transform: scale(1.15) rotate(-5deg);
+                transform: scale(1.15) rotate(-5deg);
+    }
+
+    25% {
+        -webkit-transform: scale(1.15) rotate(5deg);
+                transform: scale(1.15) rotate(5deg);
+    }
+
+    30% {
+        -webkit-transform: scale(1.15) rotate(-3deg);
+                transform: scale(1.15) rotate(-3deg);
+    }
+
+    45% {
+        -webkit-transform: scale(1.15) rotate(2deg);
+                transform: scale(1.15) rotate(2deg);
+    }
+
+    60% {
+        -webkit-transform: scale(1.15) rotate(0);
+                transform: scale(1.15) rotate(0);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+
+    .searchicon{
+        width:10%;
+    }
+
+    .maincontent{
+        margin-top: 5%;
+    }
+
+    .browseroles{
+        font-size: 18px;
+    }
+
+    ::placeholder{
+        font-size: 16px;
+    }
+
+    .logoimg{
+        width: 70%;
+    }
+    
+    .roledeets{
+        font-size: 18px;
+    }
+
+    .completed{
+        font-size: 14px;
+        /* width: 55%; */
+        padding: auto;
+    }
+
+    .ncompleted{
+        font-size: 14px;
+        /* width: 55%; */
+        padding: auto;
+        width: 100%;
+    }
+
+    .notcompleted{
+        font-size: 14px;
+        text-align: left;
+        font-weight: 500;
+        padding-top: 1%;
+        padding-left: 5%;
+    }
+
+    .allroles{
+        width: 100%;
+    }
+
+    .row{
+        padding: 2%;
+    }
+
+    .navitem{
+        font-size: 20px;
+    }
+
+    .searchdiv{
+        width:90%;
+    }
+
+    #myUL li a{
+        font-size: 14px;
     }
 }
 
