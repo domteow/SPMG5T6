@@ -789,6 +789,33 @@ def get_ongoing_course_of_staff(staff_id):
     
 ##################### END of User story SA-10 (BRUNO) #####################
 
+##################### Start of User story SA-54(Kelvin) #####################
+@app.route("/get_team_members/<int:staff_id>&<string:dept>")
+def get_team(staff_id, dept):
+    members = Staff.get_staff_from_department(dept)
+    team = []
+    for member in members:
+        if member["staff_id"] != staff_id:
+            team.append({"staff_name": member["staff_fname"] + " " + member["staff_lname"], "staff_id": member["staff_id"], "role_id": member["role_id"]})
+            
+    for member in team:
+        completed_courses = Registration.get_completed_courses_by_staff_id(member["staff_id"])
+        ongoing_courses = Registration.get_ongoing_courses_by_staff_id(member["staff_id"])
+        acquired_skills = Attached_skill.get_num_attached_skill_by_course_id_list(completed_courses)
+        ongoing_skills = Attached_skill.get_num_attached_skill_by_course_id_list(ongoing_courses)
+        member["courses_ongoing_count"] = len(ongoing_courses)
+        member["courses_completed_count"] = len(completed_courses)
+        member["skill_ongoing_count"] = ongoing_skills
+        member["skill_acquired_count"] = acquired_skills
+        
+    return jsonify({
+        "data" : {
+            "team" : team
+        }
+    })
+
+##################### END of User story SA-54 (Kelvin) #####################
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################
