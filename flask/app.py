@@ -819,6 +819,32 @@ def get_attained_skills_of_staff(staff_id):
     
 ##################### END of User story SA-18 (BRYAN) #####################
 
+##################### Start of User Story SA-44 (Jann) #####################
+@app.route("/edit_skill_details", methods=["POST"])
+def edit_skill_details():
+    data = request.get_json()
+    skill_id = data['skill_id']
+    new_skill_name = data['new_skill_name']
+    new_skill_desc = data['new_skill_desc']   
+
+    # Edit skill name and desc
+    if new_skill_name and new_skill_desc:
+
+        result = Skill.edit_skill(skill_id, new_skill_name, new_skill_desc)
+
+    if result:
+        return jsonify({
+            "data": {
+                "message": "Skill name and description has been updated successfully"
+                }
+            }), 200
+    else:
+        return jsonify({
+            "data": {
+                "message": "There was an error updating the skill name and description."
+                }
+        }), 404
+
 ######################################################################
 # HELPER FUNCTIONS BELOW
 ######################################################################

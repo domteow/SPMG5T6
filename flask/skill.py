@@ -102,3 +102,17 @@ class Skill(db.Model):
         except:
             return False
         return True
+
+    def edit_skill(skill_id, new_skill_name, new_skill_desc):
+        skill = Skill.query.filter_by(skill_id=skill_id).first()
+        print(new_skill_name)
+        print(new_skill_desc)
+        skill.skill_name = new_skill_name
+        skill.skill_desc = new_skill_desc
+        
+        try:
+            db.session.commit()
+        except:
+            return False
+        
+        return True
