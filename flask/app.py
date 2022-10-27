@@ -31,7 +31,8 @@ db = SQLAlchemy(app)
 
 CORS(app)
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 # @app.route("/testing")
 # def testding():
