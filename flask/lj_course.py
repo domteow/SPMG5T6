@@ -197,14 +197,38 @@ class Lj_course(db.Model):
                 }
             )
 
-        # return jsonify(
-        # {
-        #     "code": 201,
-        #     "data": ljc_to_add
-        # })
+    def delete_learning_journey(journey_id):
+        to_delete = Lj_course.query.filter_by(journey_id=journey_id).all()
 
-        # if the course exists in DB but not in course_arr,
-        # remove the course from DB
-
+        print(to_delete)
+        for course_to_delete in to_delete:
+                db.session.delete(course_to_delete)
         
+        try:
+            db.session.commit()
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": {
+                        "lj_course": course_to_delete.to_dict()
+                    }
+                }
+            )
+            
+
+
+        except:
+            return jsonify(
+            {
+                "code": 404,
+                "data": {
+                    "lj_course": course_to_delete.to_dict()
+                },
+                "message": "Course not found in learning journey."
+            }
+                ), 404
+        
+    
+
+    
         
