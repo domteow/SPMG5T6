@@ -1,10 +1,7 @@
-
 var ljpsr_id = sessionStorage.getItem('ljpsr_id');
 var journey_id = sessionStorage.getItem('activeLJ')
-console.log(journey_id)
-staff_id = sessionStorage.getItem('staff_id')
 // console.log(journey_id)
-// console.log(role_details)
+staff_id = sessionStorage.getItem('staff_id')
 
 // Retrieving course already in learning journey (doM)
 $(async () => {
@@ -118,19 +115,17 @@ $(async () => {
 
 
     
-
+var errmsg = document.getElementById('nameError');
 
 function getValues(){
     const allChecked = document.querySelectorAll('input[name=skills]:checked');
 
-    // console.log(allChecked);
-
-    // console.log(Array.from(allChecked).map(checkbox => checkbox.value));
-
     var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(checkedCourses);
     if(checkedCourses.length == 0) {
-        alert("Please select at least one course to create your learning journey.")
+        errmsg.innerText = `Please select at least one course to create your learning journey.`;
+        location.href = "#top";
+        // alert("Please select at least one course to create your learning journey.")
     }
     else {
         sessionStorage.setItem('checkedCourses', checkedCourses);
