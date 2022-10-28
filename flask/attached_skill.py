@@ -166,5 +166,12 @@ class Attached_skill(db.Model):
         }),200
 
 
-
+    def get_num_attached_skill_by_course_id_list(course_id_list):
+        skills = []
+        for course_id in course_id_list:
+            attached_skill = Attached_skill.query.filter_by(course_id=course_id).all()
+            for skill in attached_skill:
+                if skill.skill_id not in skills:
+                    skills.append(skill.skill_id)
+        return len(skills)
 
