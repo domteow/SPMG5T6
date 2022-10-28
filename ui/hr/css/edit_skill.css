@@ -229,3 +229,65 @@ input:focus{
     font-weight: 500;
     font-size: 14px; 
 }
+
+
+/* responsive */ 
+@media screen and (max-width:768px) {
+    .main{
+        margin:0%;
+    }
+
+    .pgTitle{
+        font-size: 28px;
+    }
+
+    .inputtitle{
+        font-size: 22px;
+    }
+
+    .coursetitle{
+        font-size: 22px;
+    }
+
+    ::placeholder{
+        font-size: 16px;
+    }
+
+    #myUL li a {
+        font-size: 16px;
+    }
+
+    .form-control{
+        font-size: 18px;
+    }
+
+    input{
+        font-size: 16px;
+        padding: 2%;
+    }
+
+    .searchicon{
+        width:10%;
+    }
+
+    #allCourses{
+        margin-top: 2%;
+    }
+
+    .coursename{
+        font-size: 18px;
+    }
+
+    .addSkill{
+        width: 70%;
+        border-radius: 3px;
+        font-size: 18px;
+    }
+
+    .cancel{
+        width: 30%;
+        font-size: 16px;
+        border-radius: 3px;
+    }
+
+}

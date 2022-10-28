@@ -284,10 +284,10 @@ $(async () => {
                             <div class="col-sm-6 module" id='${course_name}'>
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/leadership.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${course_name}
                                         </div>
                                         <div class="col-sm-4 courseNotComplete" id="notcomplete">
@@ -302,10 +302,10 @@ $(async () => {
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/comm.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${course_name}
                                         </div>
                                         <div class="col-sm-4 courseNotComplete" id="notcomplete">
@@ -326,10 +326,10 @@ $(async () => {
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/leadership.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${course_name}
                                         </div>
                                         <div class="col-sm-4 courseComplete" id="complete">
@@ -344,10 +344,10 @@ $(async () => {
                             <div class="col-sm-6 module">
                                 <div class="container-fluid course">
                                     <div class="row courseinfo">
-                                        <div class="col-sm-2">
+                                        <div class="col-2 clogo">
                                             <img src="../img/comm.png" alt="">
                                         </div>
-                                        <div class="col-sm-6 courseName" id="courseName">
+                                        <div class="col-6 courseName" id="courseName">
                                             ${course_name}
                                         </div>
                                         <div class="col-sm-4 courseComplete" id="complete">

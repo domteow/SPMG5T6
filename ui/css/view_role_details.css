@@ -99,51 +99,71 @@ a:hover{
 }
 
 
-
-
-
-
-
-
-
-
-
 /* responsiveness */
 @media screen and (max-width: 768px) {
     .main{
         margin: 0%;
     }
+
     .searchicon{
         width:10%;
     }
-    .browseroles{
-        font-size: 20px;
-    }
+
     ::placeholder{
         font-size: 16px;
     }
+
     .logoimg{
         width: 70%;
     }
-    .roledeets{
-        font-size: 18px;
-        width: 45%;
-    }
-    .completed{
-        font-size: 14px;
-        width: 55%;
-        padding: auto;
-    }
-    .ncompleted{
-        font-size: 14px;
-        width: 55%;
-        padding: auto;
-    }
+
     .row{
         padding: 2%;
     }
+
     .navitem{
         font-size: 20px;
+    }
+
+    .createLJ{
+        font-size: 18px;
+        width: 70%;
+        border-radius: 3px;
+    }
+
+    .cancelLJ{
+        font-size: 16px;
+        width: 30%;
+        border-radius: 3px;
+    }
+
+    .rolename{
+        font-size: 28px;
+    }
+
+    .roledetails{
+        font-size: 16px;
+    }
+
+    .role_skills_head{
+        font-size: 20px;
+    }
+
+    .roledetailsHead{
+        font-size: 20px;
+    }
+
+    .skillname{
+        font-size: 20px;
+    }
+
+    .skilldesc{
+        font-size: 16px;
+    }
+
+    .createLJ{
+        width: 70%;
+        font-size: 18px;
     }
 }
 
@@ -151,3 +171,11 @@ a:hover{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+
+
+
+
+
+
+

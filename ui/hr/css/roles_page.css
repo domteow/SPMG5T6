@@ -130,7 +130,7 @@ a:hover{
 
 .accordion-item{
     border: none;
-    border-bottom: 1px solid #cecece;
+    border-bottom: 1px solid #dbdbdb;
     margin-top: 1%;
     margin-bottom: 0.5%;
 }
@@ -236,3 +236,95 @@ a:hover{
         visibility:hidden;
     }
 } 
+
+
+
+/* responsive */ 
+@media screen and (max-width:768px) {
+    .main{
+        margin:0%;
+    }
+    
+    .rolesstitle{
+        font-size: 28px;
+    }
+
+    .addRoleText{
+        font-size: 18px;
+    }
+
+    .searchicon{
+        width: 10%;
+    }
+
+    ::placeholder{
+        font-size: 16x;
+    }
+
+    .addNewRole{
+        font-size: 18px;
+        width:80%;
+        margin-top: 3%;
+    }
+
+    /* remember to change js refer to skills_page */
+    .editrole{
+        width:40%;
+    }
+
+    li{
+        font-size: 18px;
+    }
+
+    .row{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .roleTitle{
+        font-size: 18px;
+        padding-left: 0%;
+    }
+
+    .editrole{
+        font-size: 16px;
+    }
+
+    .role_desc_title{
+        font-size: 18px;
+    }
+
+    .role_desc_text{
+        font-size: 14px;
+    }
+
+    .accordion-body{
+        padding: 0%;
+    }
+
+    .accordion-item{
+        padding-bottom: 2%;
+    }
+
+    #myUL li a{
+        font-size: 16px;
+    }
+
+    .searchicon{
+        width:10%;
+    }
+
+    .searchOpt{
+        position: absolute;
+        top: 190px;
+        left: 13%;
+        width: 72%;
+        z-index: 11;
+    }
+
+    input{
+        font-size: 16px;
+        padding: 2%;
+    }
+    
+}

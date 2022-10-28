@@ -31,7 +31,7 @@
     font-style: normal;
     font-size: 26px;
     background-color: #FFDBA5;
-    padding: 2%;
+    padding: 1%;
 }
 
 .coursename{
@@ -91,4 +91,46 @@ a{
 
 a:hover{
     text-decoration: none;
+}
+
+
+/* responsive */ 
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+        height: 100%;
+    }
+
+    .roletitle{
+        font-size: 28px;
+    }
+
+    .roledescription{
+        font-size: 16px;
+    }
+
+    .skillname{
+        font-size: 20px;
+    }
+
+    .coursename{
+        font-size: 18px;
+    }
+
+    .course_desc{
+        font-size: 14px;
+    }
+
+    .createLJ{
+        font-size: 18px;
+        width: 40%;
+        border-radius: 3px;
+    }
+
+    .cancelLJ{
+        font-size: 16px;
+        width: 30%;
+        border-radius: 3px;
+    }
+
 }

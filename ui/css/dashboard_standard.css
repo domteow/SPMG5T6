@@ -442,9 +442,25 @@ input:focus{
         padding-left: 5%;
     }
 
+    .clogo{
+        padding-left: 5%;
+        padding-top: 3%;
+    }
     .course{
         margin-left: auto;
         margin-right: auto;
+        height: 100px;
+    }
+
+    #myUL li a{
+        font-size: 14px;
+    }
+
+    .searchOpt{
+        width:90%;
+        position: absolute;
+        z-index: 11;
+        top: 60%;
     }
 
     .multi-item-carousel .carousel-inner > .item {
@@ -473,3 +489,96 @@ input:focus{
     .sidenav a {font-size: 18px;}
 }
 
+
+
+/* responsivee */ 
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+
+    .hiuser{
+        font-size: 26px;
+    }
+
+    .ljtitle{
+        font-size: 20px;
+    }
+
+    .title{
+        font-size: 16px;
+    }
+
+    .progresstitle{
+        font-size: 14px;
+        margin-top: 30px;
+    }
+
+    .coursestaking{
+        font-size: 22px;
+    }
+
+    .searchcol{
+        width: 95%;
+    }
+
+    .searchicon{
+        width: 10%;
+    }
+
+    .newcoursebutton{
+        font-size: 18px;
+        border-radius: 3px;
+    }
+
+    input{
+        font-size:16px;
+        padding: 1%;
+    }
+
+    .module{
+        margin-top: 3%;
+    }
+
+    .course{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .courseName{
+        font-size: 16px;
+    }
+
+    .courseNotComplete{
+        font-size: 14px;
+    }
+
+    .delete{
+        width: 70%;
+    }
+    
+    .multi-item-carousel .carousel-inner > .item {
+        transition: 500ms ease-in-out left;
+      }
+      .multi-item-carousel .carousel-inner .active.left {
+        left: -50%;
+      }
+      .multi-item-carousel .carousel-inner .active.right {
+        left: 50%;
+      }
+      .multi-item-carousel .carousel-inner .next {
+        left: 50%;
+      }
+      .multi-item-carousel .carousel-inner .prev {
+        left: -50%;
+      }
+    .newcourse{
+        margin-top: 3%;
+        height: 100%;
+    }
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
