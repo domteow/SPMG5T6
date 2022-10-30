@@ -790,6 +790,34 @@ def get_ongoing_course_of_staff(staff_id):
     
 ##################### END of User story SA-10 (BRUNO) #####################
 
+
+##################### Start of User story SA-54(Kelvin) #####################
+@app.route("/get_team_members/<int:staff_id>&<string:dept>")
+def get_team(staff_id, dept):
+    members = Staff.get_staff_from_department(dept)
+    team = []
+    for member in members:
+        if member["staff_id"] != staff_id:
+            team.append({"staff_name": member["staff_fname"] + " " + member["staff_lname"], "staff_id": member["staff_id"], "role_id": member["role_id"]})
+            
+    for member in team:
+        completed_courses = Registration.get_completed_courses_by_staff_id(member["staff_id"])
+        ongoing_courses = Registration.get_ongoing_courses_by_staff_id(member["staff_id"])
+        acquired_skills = Attached_skill.get_num_attached_skill_by_course_id_list(completed_courses)
+        ongoing_skills = Attached_skill.get_num_attached_skill_by_course_id_list(ongoing_courses)
+        member["courses_ongoing_count"] = len(ongoing_courses)
+        member["courses_completed_count"] = len(completed_courses)
+        member["skill_ongoing_count"] = ongoing_skills
+        member["skill_acquired_count"] = acquired_skills
+        
+    return jsonify({
+        "data" : {
+            "team" : team
+        }
+    })
+
+##################### END of User story SA-54 (Kelvin) #####################
+
 ##################### Start of User story SA-18 (BRYAN) #####################
 # USER STORY SA-18 CHILD ISSUE SA-64 (BRYAN)
 # View acquired skills of team member
@@ -814,11 +842,46 @@ def get_attained_skills_of_staff(staff_id):
         attained_skills.append(Skill.get_skill_by_id(skill_id))
     # Step 5: Return the data in json format
     return jsonify({
-        "staff_details": staff_details,
-        "attained_skills": attained_skills
+        "data":{
+            "staff_details": staff_details,
+            "attained_skills": attained_skills
+        }
     })
     
 ##################### END of User story SA-18 (BRYAN) #####################
+
+
+##################### Start of User story SA-70 (BRYAN) #####################
+# USER STORY SA-23 CHILD ISSUE SA-70 (BRYAN)
+# View in progress skills of team member
+@app.route("/get_in_progress_skills_of_staff/<int:staff_id>")
+def get_in_progress_skills_of_staff(staff_id):
+    # Step 1: Get details of staff from staff table (Name, deparment)
+    staff_details = Staff.get_staff_by_id(staff_id)
+    # Raising error if staff_id does not exist
+    if not staff_details:
+        return jsonify({
+        "error_code": 400,
+        "error_message": "Staff ID does not exist"
+    }), 400
+    # Step 2: From registration table, get all courses IDs that is "OnGoing"
+    completed_course_ids = Registration.get_ongoing_courses_by_staff_id(staff_id)
+    # Step 3: From attached_skill table, get all skill IDs attached to the courses
+    in_progress_skill_ids = Attached_skill.get_attached_skill_by_course_ids(completed_course_ids)
+    in_progress_skills = []
+    # Step 4:For each skill ID, get the name and status of it
+    for skill_id in in_progress_skill_ids:
+        in_progress_skills.append(Skill.get_skill_by_id(skill_id))
+    # Step 5: Return the data in json format
+    return jsonify({
+        "data" : {
+            "staff_details": staff_details,
+            "in_progress_skills": in_progress_skills
+        }
+    })
+    
+##################### END of User story SA-18 (BRYAN) #####################
+
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
