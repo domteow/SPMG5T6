@@ -32,6 +32,7 @@
     font-size: 26px;
     background-color: #FFDBA5;
     padding: 1%;
+    margin-top: 1%;
 }
 
 .coursename{
@@ -69,8 +70,14 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+.errmsg{
+    font-family: roboto, sans-serif;
+    color: #f16262;
+    font-weight: 500;
+    font-size: 14px; 
+}
+
 .cancelLJ{
-    margin-top: 3%;
     margin-bottom: 8%;
     border-radius: 5px;
     padding: 1%;

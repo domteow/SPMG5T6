@@ -108,7 +108,6 @@ async function createLJ(role_id){
         console.log('error')
     }
 
-    // location.href = '../creating_LJ/view_role_details.html';
 }
 
 function searchRole() {
