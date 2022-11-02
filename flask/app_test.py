@@ -1,7 +1,8 @@
 import unittest
 import flask_testing
 import json
-from app import db, app
+from initdb import db
+from app import app
 from course import Course
 from role import Role
 from skill import Skill
