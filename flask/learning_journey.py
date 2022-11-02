@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
-from requests import delete
+# from requests import delete
 from ljps_role import Ljps_role
 from staff import Staff
 
