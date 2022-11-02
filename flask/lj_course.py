@@ -3,6 +3,8 @@ from sqlalchemy import JSON
 from learning_journey import Learning_journey
 from course import Course
 import json
+from flask import Flask, request, jsonify
+
 
 class Lj_course(db.Model):
     __tablename__ = 'lj_course'

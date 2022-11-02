@@ -2,6 +2,8 @@ from initdb import db
 
 from ljps_role import Ljps_role
 from skill import Skill
+from flask import Flask, request, jsonify
+
 
 
 

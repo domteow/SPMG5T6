@@ -1,4 +1,5 @@
 from initdb import db
+from flask import Flask, request, jsonify
 
 
 class Skill(db.Model):

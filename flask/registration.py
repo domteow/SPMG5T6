@@ -1,6 +1,7 @@
 from initdb import db
 from course import Course
 from staff import Staff
+from flask import Flask, request, jsonify
 
 class Registration(db.Model):
     __tablename__ = 'registration'

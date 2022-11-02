@@ -2,6 +2,8 @@ from initdb import db
 from skill import Skill
 from course import Course
 from sqlalchemy.exc import SQLAlchemyError
+from flask import Flask, request, jsonify
+
 
 
 class Attached_skill(db.Model):
