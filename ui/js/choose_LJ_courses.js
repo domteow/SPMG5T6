@@ -1,159 +1,3 @@
-role_descriptions = {
-    "roles_details":[
-        {
-            "role_name": "accountant",
-            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
-            "role_id" :1,
-            "skills": [
-                {
-                    "skill_name": "skill1",
-                    "skill_id": "skillID1",
-                    "skill_desc": "skillDesc1",
-                    "courses": [
-                        {
-                            "course_name": "course name 1",
-                            "course_id" : "course id 1",
-                            "course_desc": "course desc 1"
-                        },
-                        {
-                            "course_name": "course name 2",
-                            "course_id" : "course id 2",
-                            "course_desc": "course desc 2"
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "role_name": "CEO",
-            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
-            "role_id" :2,
-            "skills": [
-                {
-                    "skill_name": "skill1",
-                    "skill_id": "skillID1",
-                    "skill_desc": "skillDesc1",
-                    "courses": [
-                        {
-                            "course_name": "course name 1",
-                            "course_id" : "course id 1",
-                            "course_desc": "course desc 1"
-                        },
-                        {
-                            "course_name": "course name 2",
-                            "course_id" : "course id 2",
-                            "course_desc": "course desc 2"
-                        },
-                        {
-                            "course_name": "course name 3",
-                            "course_id" : "course id 3",
-                            "course_desc": "course desc 3"
-                        }
-                    ]
-
-                },
-                {
-                    "skill_name": "skill2",
-                    "skill_id": "skillID2",
-                    "skill_desc": "skillDesc2",
-                    "courses": [
-                        {
-                            "course_name": "course name 1",
-                            "course_id" : "course id 1",
-                            "course_desc": "course desc 1"
-                        },
-                        {
-                            "course_name": "course name 2",
-                            "course_id" : "course id 2",
-                            "course_desc": "course desc 2"
-                        },
-                        {
-                            "course_name": "course name 3",
-                            "course_id" : "course id 3",
-                            "course_desc": "course desc 3"
-                        }
-                    ]
-
-                },
-                {
-                    "skill_name": "skill3",
-                    "skill_id": "skillID3",
-                    "skill_desc": "skillDesc3",
-                    "courses": [
-                        {
-                            "course_name": "course name 1",
-                            "course_id" : "course id 1",
-                            "course_desc": "course desc 1"
-                        },
-                        {
-                            "course_name": "course name 2",
-                            "course_id" : "course id 2",
-                            "course_desc": "course desc 2"
-                        },
-                        {
-                            "course_name": "course name 3",
-                            "course_id" : "course id 3",
-                            "course_desc": "course desc 3"
-                        }
-                    ]
-
-                }
-            ]
-        },
-        {
-            "role_name": "teehee",
-            "role_desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem quisquam, quod earum sapiente impedit illo, provident accusamus, doloremque ducimus laudantium eius aspernatur eum dolores. Ipsam odit a ipsa dolore ducimus.",
-            "role_id" :3,
-            "skills": [
-                {
-                    "skill_name": "skill1",
-                    "skill_id": "skillID1",
-                    "skill_desc": "skillDesc1",
-                    "courses": [
-                        {
-                            "course_name": "course name 1",
-                            "course_id" : "course id 1",
-                            "course_desc": "course desc 1"
-                        },
-                        {
-                            "course_name": "course name 2",
-                            "course_id" : "course id 2",
-                            "course_desc": "course desc 2"
-                        },
-                        {
-                            "course_name": "course name 3",
-                            "course_id" : "course id 3",
-                            "course_desc": "course desc 3"
-                        }
-                    ]
-
-                },
-                {
-                    "skill_name": "skill2",
-                    "skill_id": "skillID2",
-                    "skill_desc": "skillDesc2",
-                    "courses": [
-                        {
-                            "course_name": "course name 2",
-                            "course_id" : "course id 2",
-                            "course_desc": "course desc 2"
-                        },
-                        {
-                            "course_name": "course name 3",
-                            "course_id" : "course id 3",
-                            "course_desc": "course desc 3"
-                        }
-                    ]
-
-                }
-            ]
-        }
-    ]
-}
-
-
-// console.log(role_id);
-
 var role_details = JSON.parse(sessionStorage.getItem('role_details'));
 var ljpsr_role_id = role_details.ljps_role.ljpsr_id;
 console.log(role_details)
@@ -231,6 +75,7 @@ $(async () => {
     }
 })
     
+// TO CHECK ALL THE CHECKBOXES WITH THE SAME VALUE (COURSE NAME)
 function handleChange(cb) {
     var cbval = cb.id;
     if(cb.checked == true) {
@@ -252,13 +97,17 @@ function handleChange(cb) {
     }
 }
 
+var errormsg = document.getElementById('nameError');
+
 function getValues(){
     const allChecked = document.querySelectorAll('input[name=skills]:checked');
 
     var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(checkedCourses);
     if(checkedCourses.length == 0) {
-        alert("Please select at least one course to create your learning journey.")
+        errormsg.innerText = `Please select at least one course to create your learning journey.`;
+        // alert("Please select at least one course to create your learning journey.")
+        location.href = "#top";
     }
     else {
         sessionStorage.setItem('checkedCourses', checkedCourses);
@@ -272,16 +121,7 @@ function getValues(){
         }
         if(staff_role == 3){
             location.href = '../manager/confirm_LJ.html';
-        }
-        // location.href = './confirm_LJ.html';
+        }  
     }
-    
-
-    
-    // sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
-    // sessionStorage.setItem('role_name', role_name);
-    
-
-    
 }
 
