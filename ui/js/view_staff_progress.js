@@ -22,9 +22,9 @@ $(async () => {
             var staff_email = staffdata['email'];
             var staff_dept = staffdata['dept'];
 
-            staffname.innerText = staff_name;
+            staffname.innerHTML = `${staff_name} <span class="staffDept" id="dept">${staff_dept}</span>`;
             staffemail.innerText = staff_email;
-            staffdept.innerText = staff_dept;
+            staffdept.innerHTML = `<div>${staff_dept}</div>`;
 
             
             if(ongoing_courses.length > 0){
@@ -32,15 +32,11 @@ $(async () => {
                 for(var idx in ongoing_courses){
                     var coursedeets = ongoing_courses[idx];
                     var course_name = coursedeets['course_name'];
-                    var course_category = coursedeets['course_category'];
 
                     coursesdiv.innerHTML += `
                         <div class = 'row coursesrow'>
-                            <div class = 'col-7 ctitle'>
+                            <div class = 'col-9 ctitle'>
                                 ${course_name}
-                            </div>
-                            <div class = 'col-2 ccategory'>
-                                ${course_category}
                             </div>
                             <div class = 'col-3 statusdiv'>
                                 <div class='ongoing'>
@@ -104,3 +100,41 @@ $(async () => {
 })
 
 // display all completed skills of staff (SA-18 BRYAN USER STORY)
+$(async () => {
+    var serviceURL = "http://127.0.0.1:5001/get_attained_skills_of_staff/" + staff_id
+
+    try {
+        const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
+        const result = await response.json();
+        if (result){
+            var data = result['data'];
+            var attained_skills = data['attained_skills'];
+            
+            if (attained_skills.length > 0){
+                document.getElementById('skillNoVal').style.display = 'none';
+                for (var idx in attained_skills){
+                    var skilldeets = attained_skills[idx];
+                    var skill_name = skilldeets['skill_name'];
+
+                    skillsdiv.innerHTML += `
+                        <div class='row coursesrow'>
+                            <div class='col-9 ctitle'>
+                                ${skill_name}
+                            </div>
+                            <div class='col-3 statusdiv'>
+                                <div class='completed'>
+                                    Attained
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+    }
+
+    catch (error){
+        console.log(error);
+        console.log('error');
+    }
+})
