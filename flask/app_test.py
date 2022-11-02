@@ -28,6 +28,8 @@ class TestApp(flask_testing.TestCase):
         db.session.remove()
         db.drop_all()
 
+
+class TestViewSkills(TestApp):
     def test_view_skills_needed_for_role(self):
         ljps1 = Ljps_role(ljpsr_id = 1, role_title = "Technician", role_desc = "On site and off site trouble shooting of printer machines.", active = 1)
         regis1 = Registration(reg_id = 1, course_id = 'COR002', staff_id = 130001, reg_status = 'Registered', completion_status = "Completed")
@@ -36,8 +38,8 @@ class TestApp(flask_testing.TestCase):
         db.session.add(regis1)
         db.session.add(attSkill1)
         db.session.commit()
-        response = self.client.get("/view_skills_needed_for_role/130001/1")
-        self.assertEqual(response.json,)
+        # response = self.client.get("/view_skills_needed_for_role/130001/1")
+        # self.assertEqual(response.json,)
         # Not done yet....
 
 

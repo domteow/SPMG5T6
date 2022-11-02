@@ -3,6 +3,7 @@ from turtle import st
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from initdb import db
 from course import Course
 from role import Role
 from skill import Skill
@@ -32,7 +33,8 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
     
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+
+db.init_app(app)
 
 CORS(app)
 
