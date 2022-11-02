@@ -80,7 +80,10 @@ $(async () => {
                 if (first_slide){
                     if (lj_index==0 || lj_index%3==0){
                         // first_slide == true, count == 1, means this is the first learning journey shown = auto checked
+                        console.log(journey_id);
                         sessionStorage.setItem('activeLJ', journey_id);
+                        var help = sessionStorage.getItem('activeLJ');
+                        console.log(help);
                         var content = `
                         <div class="carousel-item active">
                             <div class="container caroucontainer">
@@ -351,7 +354,9 @@ $(async () => {
             courses_div.innerHTML += coursecontent;  
             // console.log(courses_div);            
         }
-        
+        var active_lj_id = sessionStorage.getItem('activeLJ');
+        console.log(active_lj_id);
+        sessionStorage.setItem('activeLJ', active_lj_id);
 
     } catch (error) {
         console.log(error)
