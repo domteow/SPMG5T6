@@ -328,6 +328,19 @@ def edit_LJ():
 
 ##################### End of User story SA-20 (DOM) #####################
 
+##################### Start of User story SA-58 (DOM) #####################
+@app.route("/delete_LJ/", methods = ['DELETE'])
+def delete_LJ():
+    data = request.get_json()
+    print(data)
+    journey_id = data['journey_id']
+    Learning_journey.delete_learning_journey(journey_id)
+    Lj_course.delete_learning_journey(journey_id)
+    return data
+
+
+##################### End of User story SA-58 (DOM) #####################
+
 @app.route("/get_team_members/<int:staff_id><string:course_arr>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
