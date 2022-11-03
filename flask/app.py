@@ -42,11 +42,10 @@ with app.app_context():
     db.create_all()
 
 # @app.route("/testing")
-# def testding():
-#     courses = ["COURSE1","COURSE2"]
-#     testing = Attached_skill.get_attached_skill_by_course_ids(courses)
+# def testing():
+    
 
-#     return jsonify({"data": testing})
+#     return Registration.get_ongoing_courses_by_staff_id(140004)
 
 #login
 @app.route("/login/<int:staff_id>")
