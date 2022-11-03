@@ -46,6 +46,7 @@ a{
     font-size: 18px;
     color: #190063;
     margin-left: 3%;
+    font-style: italic;
 }
 
 .staffEmail{
@@ -111,6 +112,19 @@ a{
     text-align: center;
     background-color: #FFDBA5;
     border-radius: 2px;
+    font-size: 20px;
+    font-family: roboto, sans-serif;
+    width: 90%;
+    padding: 1%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.completed{
+    text-align: center;
+    background-color: #85c687;
+    border-radius: 2px;
+    padding: 1%;
     font-size: 20px;
     font-family: roboto, sans-serif;
     width: 90%;

@@ -1,20 +1,6 @@
-// window.onload = function(){
-//     window.location.reload();
-//     if(!window.location.hash) {
-// 		window.location = window.location + '#loaded';
-// 		window.location.reload();
-// 	}
-// }
-
-// function loadonce() 
-// { 
-//     window.location.reload(); 
-// } 
-
-
-
 var updated = localStorage.getItem('updateLJ');
-console.log(updated);
+// console.log(updated);
+
 if (updated == 'Y'){
     var message = 'The learning journey has been updated.'
     localStorage.setItem('errmessage', message);
@@ -71,30 +57,33 @@ $(async () => {
             await fetch(
             serviceURL, { mode: 'cors', method: 'GET' }
         );
-        // console.log(response)
         const result = await response.json();
-        // console.log(result.data)
+
         if(result) {
-            // console.log(result.data)
             learning_journeys = result.data
-            // console.log(learning_journeys)
             sessionStorage.setItem('learning_journeys', JSON.stringify(learning_journeys));
 
             var firstLJ = learning_journeys[0];
 
+            if(learning_journeys.length == 0){
+                var content = `<div class='noValue'>You do not have any learning journeys currently.</div>`;
+                document.getElementById('deletelj').style.display = 'none';
+                document.getElementById('editLJbutton').style.display = 'none';
+            }
+
             // this entire chunk is to display the learning journey 
             for (var lj_index in learning_journeys){
-                // console.log(count);
-                // console.log(first_slide);
                 var lj_arr = learning_journeys[lj_index];
-                // console.log(lj_arr);
                 var journey_id = lj_arr['journey_id'];
                 var role_title = lj_arr['role_title'];
-                // console.log(lj_index);
+
                 if (first_slide){
                     if (lj_index==0 || lj_index%3==0){
                         // first_slide == true, count == 1, means this is the first learning journey shown = auto checked
+                        console.log(journey_id);
                         sessionStorage.setItem('activeLJ', journey_id);
+                        var help = sessionStorage.getItem('activeLJ');
+                        console.log(help);
                         var content = `
                         <div class="carousel-item active">
                             <div class="container caroucontainer">
@@ -239,9 +228,7 @@ $(async () => {
             }
             // end of displaying the learning journey 
 
-
             var len = learning_journeys.length;
-            // console.log(len);
             var remainder = len % 3;
 
             if (remainder == 1) {
@@ -251,9 +238,6 @@ $(async () => {
             if (remainder == 2){
                 content +=`<div class = 'col'></div>`;
             }
-
-
-            // console.log(content);
 
             ljpaths_div.innerHTML += content;
             // ^ FINISH displaying the diff paths
@@ -370,7 +354,9 @@ $(async () => {
             courses_div.innerHTML += coursecontent;  
             // console.log(courses_div);            
         }
-        
+        var active_lj_id = sessionStorage.getItem('activeLJ');
+        console.log(active_lj_id);
+        sessionStorage.setItem('activeLJ', active_lj_id);
 
     } catch (error) {
         console.log(error)

@@ -1,4 +1,7 @@
 from initdb import db
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
 from ljps_role import Ljps_role
 from staff import Staff
 from flask import Flask, request, jsonify
@@ -73,4 +76,27 @@ class Learning_journey(db.Model):
         }
     )
 
+    # deleting LJ in learning_journey table (dom)
+    def delete_learning_journey(journey_id):
+        to_delete = Learning_journey.query.filter_by(journey_id=journey_id).first()
 
+        if to_delete:
+            db.session.delete(to_delete)
+            db.session.commit()
+            return jsonify(
+                {
+                    "code": 200,
+                    "data": {
+                        "lj_course": to_delete.to_dict()
+                    }
+                }
+            )
+        return jsonify(
+            {
+                "code": 404,
+                "data": {
+                    "lj_course": to_delete.to_dict()
+                },
+                "message": "Learning journey not found."
+            }
+        ), 404

@@ -335,6 +335,19 @@ def edit_LJ():
 
 ##################### End of User story SA-20 (DOM) #####################
 
+##################### Start of User story SA-58 (DOM) #####################
+@app.route("/delete_LJ/", methods = ['DELETE'])
+def delete_LJ():
+    data = request.get_json()
+    print(data)
+    journey_id = data['journey_id']
+    Learning_journey.delete_learning_journey(journey_id)
+    Lj_course.delete_learning_journey(journey_id)
+    return data
+
+
+##################### End of User story SA-58 (DOM) #####################
+
 @app.route("/get_team_members/<int:staff_id><string:course_arr>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
@@ -888,6 +901,42 @@ def get_in_progress_skills_of_staff(staff_id):
     })
     
 ##################### END of User story SA-70 (BRYAN) #####################
+
+##################### Start of User story SA-26 (JANN) #####################
+# USER STORY SA-26 CHILD ISSUE SA-66 (JANN)
+# View personal attained skills
+@app.route("/get_personal_attained_skills/<int:staff_id>")
+def get_personal_attained_skills(staff_id):
+    staff_info = Staff.get_staff_by_id(staff_id)
+
+    # check if staff exists
+    if not staff_info: 
+        return jsonify({
+            "code": 400, 
+            "message": 'Staff ID does not exists.'
+        }), 400
+
+    # get completed courses in Registration 
+    completed_course_ids = Registration.get_completed_courses_by_staff_id(staff_id)
+
+    # get completed skills for each course 
+    completed_skill_ids = Attached_skill.get_attached_skill_by_course_ids(completed_course_ids)
+
+    completed_skills = []
+
+    # go through list of completed skills id to get name & desc of each skill 
+    for skill_id in completed_skill_ids:
+        completed_skills.append(Skill.get_skill_by_id(skill_id))
+
+    # return data in json format 
+    return jsonify({
+        "data" : {
+            "staff_details": staff_info,
+            "completed_skills": completed_skills
+        }
+    })
+    
+##################### END of User story SA-26 (JANN) #####################
 
 
 ######################################################################
