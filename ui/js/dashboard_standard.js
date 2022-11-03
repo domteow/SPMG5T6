@@ -356,7 +356,7 @@ $(async () => {
         }
         var active_lj_id = sessionStorage.getItem('activeLJ');
         console.log(active_lj_id);
-        sessionStorage.setItem('activeLJ', active_lj_id);
+        localStorage.setItem('activeLJ', active_lj_id);
 
     } catch (error) {
         console.log(error)
@@ -364,3 +364,6 @@ $(async () => {
     }
 })
 
+var active_lj_id = localStorage.getItem('activeLJ');
+console.log(active_lj_id);
+sessionStorage.setItem('activeLJ', active_lj_id);
