@@ -57,6 +57,44 @@ $(async () => {
 });
 
 // display all completed courses of staff (SA-12 BRUNO USER STORY)
+$(async () => {
+    var serviceURL = "http://127.0.0.1:5001/get_completed_course_of_staff/" + staff_id 
+
+    try {
+        const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
+        const result = await response.json();
+        if (result){
+            var data = result;
+            var completed_courses = data['completed_courses'];
+            
+            if(completed_courses.length > 0){
+                document.getElementById('courseNoVal').style.display = 'none';
+                for(var idx in completed_courses){
+                    var coursedeets = completed_courses[idx];
+                    var course_name = coursedeets['course_name'];
+
+                    coursesdiv.innerHTML += `
+                        <div class = 'row coursesrow'>
+                            <div class = 'col-9 ctitle'>
+                                ${course_name}
+                            </div>
+                            <div class = 'col-3 statusdiv'>
+                                <div class='completed'>
+                                    Completed
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            }            
+        }
+    }
+
+    catch (error){
+        console.log(error);
+        console.log('error');
+    }
+});
 
 
 // display all ongoing skills of staff (SA-23 BRYAN USER STORY)
