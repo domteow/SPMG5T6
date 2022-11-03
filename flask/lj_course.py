@@ -39,7 +39,8 @@ class Lj_course(db.Model):
     #create lj courses (dom)
     def create_lj_course(journey_id, course_arr):
         # parse course_arr from string to json object
-        # print(course_arr)
+        print('************COURSE_ARR*************')
+        print(course_arr)
         course_dict = json.loads(course_arr)
         
         list_of_courseid = []
@@ -64,7 +65,7 @@ class Lj_course(db.Model):
         try:
             db.session.bulk_save_objects(list_of_lj_courses)
             db.session.commit()
-
+            
         except:
             return jsonify(
                 {
