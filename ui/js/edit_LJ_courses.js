@@ -1,7 +1,8 @@
-var ljpsr_id = sessionStorage.getItem('ljpsr_id');
+var ljpsr_id = sessionStorage.getItem('edit_ljpsr_id');
 var journey_id = sessionStorage.getItem('activeLJ')
-// console.log(journey_id)
+console.log(journey_id)
 staff_id = sessionStorage.getItem('staff_id')
+console.log(ljpsr_id);
 
 // Retrieving course already in learning journey (doM)
 $(async () => {
