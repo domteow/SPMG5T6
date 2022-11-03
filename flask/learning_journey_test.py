@@ -1,14 +1,11 @@
 import unittest
 import flask_testing
 import json
-import sys
+from initdb import db
+from app import app
+from learning_journey import Learning_journey
 
-# sys.path.append('./flask')
-
-from app import db, app
-from learning_journey import Learning_journey, db, app
-
-class TestLearning_journey(unittest.TestCase):
+class TestLearning_journey(flask_testing.TestCase):
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {}
     app.config['TESTING'] = True
@@ -43,4 +40,9 @@ class TestLearning_journey(unittest.TestCase):
         self.assertEqual(Learning_journey.query.filter_by(journey_id=7).first().ljpsr_id
         , 5)
 
-    
+    def test_create_learning_journey(self):
+        self.assertEqual((Learning_journey.create_learning_journey(journey_id = 7, ljpsr_id = 5, staff_id = 140015).code
+        ,201)
+
+if __name__ == "__main__":
+    unittest.main()  
