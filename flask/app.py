@@ -117,7 +117,7 @@ def course_by_id(course_id):
         }), 200
     else:
         return jsonify({
-            "message": "course not found."
+            "message": "Course not found"
         }), 404
 
 
@@ -133,7 +133,7 @@ def skill_by_id(skill_id):
         }), 200
     else:
         return jsonify({
-            "message": "Skill not found."
+            "message": "Skill not found"
         }), 404
 
 
@@ -164,7 +164,7 @@ def role_require_skill_by_ljpsr(ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Role has no skills assigned to it"
         }), 404
 
 #USER STORY SA-1
