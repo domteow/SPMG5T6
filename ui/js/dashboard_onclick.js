@@ -10,7 +10,7 @@ console.log(active);
 
 function showpath(pathid){
     var original = document.getElementById(active);
-    // console.log(original);
+    console.log(original);
 
     // to chance colour 
     original.classList.remove('activepath');
@@ -288,11 +288,17 @@ async function edit_LJ() {
         console.log(result.data)
         
         if(result) {
+            console.log(result);
+
+            var active_lj = sessionStorage.getItem('activeLJ');
+            console.log(active_lj);
 
             for (LJ of result.data) {
                 console.log(LJ)
 
-                if(LJ.journey_id == active) {
+
+                console.log(active);
+                if(LJ.journey_id == active_lj) {
                     console.log(active)
                     var ljpsr_id = LJ.ljpsr_id
                     console.log(ljpsr_id)
@@ -310,6 +316,12 @@ async function edit_LJ() {
 
 
 
+    var active_lj_id_now = sessionStorage.getItem('activeLJ');
+    console.log(active_lj_id_now);
+    sessionStorage.setItem('activeLJ', active_lj_id_now);
+
+    var ljpsr_id_selected = sessionStorage.getItem('ljpsr_id');
+    sessionStorage.setItem('edit_ljpsr_id', ljpsr_id_selected);
 
     sessionStorage.setItem('staff_id', staff_id)
     staff_role = sessionStorage.getItem('staff_role')
