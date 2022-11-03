@@ -5,7 +5,7 @@ var staff_id =sessionStorage.getItem('staff_id')
 var courses_div = document.getElementById('courses_in_LJ');
 var courseCount = 1;
 
-var active = sessionStorage.getItem('activeLJ');
+var active = localStorage.getItem('activeLJ');
 console.log(active);
 
 function showpath(pathid){
