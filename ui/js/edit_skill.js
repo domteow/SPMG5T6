@@ -196,10 +196,6 @@ async function saveSkill() {
     nameError.innerHTML += `Skill name cannot be empty.`;
   }
 
-  if (new_skill_name != curr_skill_name) {
-    // to input the backend to send new skill name
-  }
-
   // SKILL DESCRIPTION
   // get value of skill desc from form and compare
   var new_skill_desc = document.getElementById("skill_desc").value;
@@ -208,8 +204,34 @@ async function saveSkill() {
     descError.innerHTML += `Skill description cannot be empty.`;
   }
 
-  if (new_skill_desc != curr_skill_desc) {
-    // to input the backend to send new skill description
+  // check if new skill name and new skill desc are not empty 
+  if (new_skill_name != "" && new_skill_desc != "") {
+    $(async () => {
+      console.log("new here")
+
+      var serviceURL = "http://127.0.0.1:5001/edit_skill_details";
+
+      try {
+        const response = 
+          await fetch(
+            serviceURL, {mode: "cors", method: "POST",
+            headers: {"Content-Type": "application/json", "Access-Controlled-Allow-Origin": '*'}, 
+            body: JSON.stringify({
+              "skill_id": skill_id, 
+              "new_skill_name": new_skill_name,
+              "new_skill_desc": new_skill_desc,
+            })}); 
+        
+        const result = await response.json(); 
+
+        if (result) {
+          update_message = result.data
+        }
+      } catch (error) {
+          console.log(error); 
+          console.log("error")
+      }
+    })
   }
 
   // SKILL COURSES
