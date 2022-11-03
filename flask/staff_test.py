@@ -1,7 +1,8 @@
 import unittest
 import flask_testing
 import json
-from staff import Staff, db
+from staff import Staff
+from initdb import db
 from app import app
 
 
