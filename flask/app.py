@@ -896,7 +896,7 @@ def edit_skill_details():
                 "message": "There was an error updating the skill name and description."
                 }
         }), 404
-=======
+
 
 ##################### Start of User story SA-70 (BRYAN) #####################
 # USER STORY SA-23 CHILD ISSUE SA-70 (BRYAN)
@@ -964,6 +964,35 @@ def get_personal_attained_skills(staff_id):
     })
     
 ##################### END of User story SA-26 (JANN) #####################
+
+##################### Start of User story SA-12(BRUNO) #####################
+# USER STORY SA-12 
+# View completed course of team member
+@app.route("/get_completed_course_of_staff/<int:staff_id>")
+def get_completed_course_of_staff(staff_id):
+    # Step 1: Get details of staff from staff table (Name, deparment)
+    staff_details = Staff.get_staff_by_id(staff_id)
+    # Raising error if staff_id does not exist
+    if not staff_details:
+        return jsonify({
+        "error_code": 400,
+        "error_message": "Staff ID does not exist"
+    }), 400
+    # Step 2: From registration table, get all courses IDs that is "Registered" and 
+    # "Completed" under the staff
+    completed_course_ids = Registration.get_completed_courses_by_staff_id(staff_id)
+    completed_courses = []
+    # Step 3:For each course ID, get the name and status of it
+    for course_id in completed_course_ids:
+        completed_courses.append(Course.get_course_by_id(course_id))
+    # Step 4: Return the data in json format
+    return jsonify({
+        "staff_details": staff_details,
+        "completed_courses": completed_courses
+    })
+    
+##################### END of User story SA-12 (BRUNO) #####################
+
 
 ######################################################################
 # HELPER FUNCTIONS BELOW
