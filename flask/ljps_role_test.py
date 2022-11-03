@@ -74,8 +74,8 @@ class TestLjps_role(flask_testing.TestCase):
     def test_toggle_active(self):
         self.assertEqual(Ljps_role.toggle_active(1,0),True)
     
-    def test_get_all_learning_journey_roles(self):
-        self.assertEqual(Ljps_role.get_all_learning_journey_roles(),[
+    def test_get_all_learning_journey_roles_active(self):
+        self.assertEqual(Ljps_role.get_all_learning_journey_roles_active(),[
         {
             "ljpsr_id": 1,
             "role_title": 'Technician',
