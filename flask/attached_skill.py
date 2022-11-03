@@ -1,25 +1,10 @@
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_cors import CORS
+from initdb import db
 from skill import Skill
 from course import Course
 from sqlalchemy.exc import SQLAlchemyError
+from flask import Flask, request, jsonify
 
 
-app = Flask(__name__)
-import platform
-my_os = platform.system()
-if my_os == "Windows":
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 100,
-                                           'pool_recycle': 280}
-
-db = SQLAlchemy(app)
-
-CORS(app)
 
 class Attached_skill(db.Model):
     __tablename__ = 'attached_skill'
@@ -166,5 +151,12 @@ class Attached_skill(db.Model):
         }),200
 
 
-
+    def get_num_attached_skill_by_course_id_list(course_id_list):
+        skills = []
+        for course_id in course_id_list:
+            attached_skill = Attached_skill.query.filter_by(course_id=course_id).all()
+            for skill in attached_skill:
+                if skill.skill_id not in skills:
+                    skills.append(skill.skill_id)
+        return len(skills)
 

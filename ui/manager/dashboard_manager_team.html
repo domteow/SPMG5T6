@@ -89,7 +89,33 @@
 
     <!-- main body -->
     <div class="main">
-    
+        <div class="maincontent">
+            <div class="maintitle">
+                Your Team 
+            </div>
+
+            <!-- search stuff -->
+            <div class="container-fluid search">
+                <div class="row">
+                    <div class="searchdiv">
+                        <img src="../img/search.png" class="searchicon" alt=""> <input type="text" placeholder="Search for a staff" oninput="searchRole()" name="roleName" id="roleName">
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- search options -->
+                    <div class="searchOpt">
+                        <ul id="myUL">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- team -->
+            <div class="container-fluid teamcont" id="teamcont">
+            
+            </div>
+        </div>
     </div>
     
 
@@ -98,8 +124,8 @@
 
 
 
+    <script src="../js/dashboard_manager_team.js"></script>
     <script src="../js/nav.js"></script>
-    <script src="../js/notification.js"></script>
     
 </body>
 </html>

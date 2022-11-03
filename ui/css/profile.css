@@ -4,7 +4,8 @@
 
 .maincontent{
     margin-top: 7%;
-    margin-left: 10%;
+    margin-left: 5%;
+    width: 90%;
 }
 
 .settingsContainer{
@@ -18,11 +19,27 @@
     font-size: 28px;
 }
 
-.content{
+.name{
     font-family: roboto, sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 32px;
+    font-weight: 500;
+    font-size: 28px;
+    margin-top: 2%;
+}
+
+.dept{
+    font-family: roboto, sans-serif;
+    font-style: italic;
+    font-size: 24px;
+    color: #190063;
+    margin-left: 3%;
+    font-weight: 500;
+}
+
+.email{
+    font-family: roboto, sans-serif;
+    font-size: 26px;
+    font-style: italic;
+    margin-top: 1%;
 }
 
 .settings{
@@ -30,18 +47,76 @@
     font-weight: 700;
     font-style: normal;
     font-size: 38px;
-    border-bottom: 1px solid #DDDDDD;
-    width: 80%;
+    border-bottom: 1px solid #BCBCBC;
+    /* width: 90%; */
 }
 
 .row{
     margin-top: 2%;
 }
+
+.skillname{
+    font-family: roboto, sans-serif;
+    font-size: 24px;
+}
+
+.col-3{
+    text-align: center;
+}
+
+.skillrow{
+    border-bottom: 1px solid #dbdbdb;
+    padding-bottom: 1%;
+}
+
+
+.attained{
+    width:90%;
+    border-radius: 3px;
+    padding: 1%;
+    background-color: #85c687;
+    font-family: roboto, sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.skilltitle{
+    font-family: roboto, sans-serif;
+    font-size: 28px;
+    margin-top: 3%;
+    font-weight: 600;
+    border-bottom: 1px solid #dbdbdb;
+    /* width: 90%; */
+}
+
+.noValue{
+    font-family: roboto, sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #190063;
+}
+
 @media screen and (max-width: 768px) {
     .main{
         margin: 0%;
     }
     .navitem{
+        font-size: 20px;
+    }
+
+    .title{
+        font-size: 24px;
+    }
+
+    .name{
+        font-size: 24px;
+    }
+
+    .dept{
+        font-size: 18px;
+    }
+
+    .email{
         font-size: 20px;
     }
 }

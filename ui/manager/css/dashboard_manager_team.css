@@ -1,0 +1,245 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+    padding-bottom: 10%;
+}
+
+.maincontent{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+}
+
+.maintitle{
+    font-family: roboto, sans-serif;
+    font-size: 32px;
+    font-weight:700;
+}
+
+.search{
+    margin-top:3%;
+}
+
+.searchdiv{
+    border:1px solid black;
+    border-radius: 10px;
+    height: 10%;
+    width: 90%;
+    background-color: #FFF;
+    text-align: left;
+}
+
+.searchicon{
+    padding-left: 3%;
+}
+
+li{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #FFDBA5;
+}
+
+#myUL {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+ 
+.searchOpt{
+    text-align: left;
+    width:85%;
+    margin-left: 6%;
+}
+
+.searchrow{
+    padding: 0%;
+    width: 68%;
+}
+
+#myUL li a {
+    border: 1px solid black;
+    /* margin-top: -1px; Prevent double borders */
+    background-color: #f6f6f6;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block
+}
+
+#myUL{
+    display: none;
+}
+
+input{
+    border: 0px solid;
+    height: 100%;
+    width: 80%;
+    padding: 1%;
+    font-family: roboto, sans-serif;
+    font-size: 18px;
+}
+
+input:focus{
+    outline: none;
+}
+
+::placeholder{
+    font-family: roboto, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 18px;
+    color: #757575;
+}
+
+button{
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.teamcont{
+    margin-top:2%;
+}
+
+.teamrow{
+    margin-top: 3%;
+}
+
+.individualcard{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    border: 0.5px solid #DDDDDD;
+    height: 300px;
+}
+
+.personname{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    text-align: center;
+    margin-top: 5%;
+    color: black;
+}
+
+.personrole{
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    width: 30%;
+    background-color: #FFDBA5;
+    font-size: 16px;
+    border-radius: 3px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: rgb(67, 60, 60);
+    margin-top: 2%;
+    color: black;
+}
+
+.courses{
+    margin-left: 5%;
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 4%;
+    color: black;
+    text-align: left;
+}
+
+.num{
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    text-align: center;
+    color: black;
+}
+
+.title{
+    font-family: roboto, sans-serif;
+    font-size: 12px;
+    text-align: center;
+    color: #757575;
+}
+
+.divi{
+    border-right: 1px solid #dddddd;
+}
+
+.skills{
+    margin-top: 2%;
+    margin-left: 5%;
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: black;
+    text-align: left;
+}
+
+a{
+    text-decoration: none;
+}
+
+/* responsive */ 
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+
+    .individ{
+        margin-top: 3%;
+    }
+
+    .searchicon{
+        width: 10%;
+    }
+
+    input{
+        font-size: 16px;
+    }
+
+    #myUL li a{
+        font-size: 16px;
+    }
+
+    .searchOpt{
+        font-size: 16px;
+    }
+
+    .maintitle{
+        font-size: 28px;
+        padding-left: 3%;
+    }
+
+    .search{
+        padding-left: 7%;
+        width: 100%;
+    }
+
+    .personname{
+        font-size: 22px;
+    }
+
+    .personrole{
+        font-size: 14px;
+    }
+
+    .courses{
+        font-size: 16px;
+    }
+
+    .skills{
+        font-size: 16px;
+    }
+
+}

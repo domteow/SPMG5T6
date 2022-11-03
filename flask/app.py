@@ -3,6 +3,7 @@ from turtle import st
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+from initdb import db
 from course import Course
 from role import Role
 from skill import Skill
@@ -18,20 +19,27 @@ app = Flask(__name__)
 
 import platform
 my_os = platform.system()
-if my_os == "Windows":
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
-else:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
-                                        
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {'pool_size': 1000,
-                                           'pool_recycle': 280}
+if __name__ == "__main__":
 
-db = SQLAlchemy(app)
+    if my_os == "Windows":
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root' + '@localhost:3306/all_in_one_db'
+    else:
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:root' + '@localhost:3306/all_in_one_db'
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        'pool_size': 100,
+        'pool_recycle': 280
+        }
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
+    
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db.init_app(app)
 
 CORS(app)
 
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 # @app.route("/testing")
 # def testding():
@@ -326,6 +334,19 @@ def edit_LJ():
 
 
 ##################### End of User story SA-20 (DOM) #####################
+
+##################### Start of User story SA-58 (DOM) #####################
+@app.route("/delete_LJ/", methods = ['DELETE'])
+def delete_LJ():
+    data = request.get_json()
+    print(data)
+    journey_id = data['journey_id']
+    Learning_journey.delete_learning_journey(journey_id)
+    Lj_course.delete_learning_journey(journey_id)
+    return data
+
+
+##################### End of User story SA-58 (DOM) #####################
 
 @app.route("/get_team_members/<int:staff_id><string:course_arr>")
 def get_team_members(staff_id):
@@ -789,6 +810,34 @@ def get_ongoing_course_of_staff(staff_id):
     
 ##################### END of User story SA-10 (BRUNO) #####################
 
+
+##################### Start of User story SA-54(Kelvin) #####################
+@app.route("/get_team_members/<int:staff_id>&<string:dept>")
+def get_team(staff_id, dept):
+    members = Staff.get_staff_from_department(dept)
+    team = []
+    for member in members:
+        if member["staff_id"] != staff_id:
+            team.append({"staff_name": member["staff_fname"] + " " + member["staff_lname"], "staff_id": member["staff_id"], "role_id": member["role_id"]})
+            
+    for member in team:
+        completed_courses = Registration.get_completed_courses_by_staff_id(member["staff_id"])
+        ongoing_courses = Registration.get_ongoing_courses_by_staff_id(member["staff_id"])
+        acquired_skills = Attached_skill.get_num_attached_skill_by_course_id_list(completed_courses)
+        ongoing_skills = Attached_skill.get_num_attached_skill_by_course_id_list(ongoing_courses)
+        member["courses_ongoing_count"] = len(ongoing_courses)
+        member["courses_completed_count"] = len(completed_courses)
+        member["skill_ongoing_count"] = ongoing_skills
+        member["skill_acquired_count"] = acquired_skills
+        
+    return jsonify({
+        "data" : {
+            "team" : team
+        }
+    })
+
+##################### END of User story SA-54 (Kelvin) #####################
+
 ##################### Start of User story SA-18 (BRYAN) #####################
 # USER STORY SA-18 CHILD ISSUE SA-64 (BRYAN)
 # View acquired skills of team member
@@ -813,11 +862,14 @@ def get_attained_skills_of_staff(staff_id):
         attained_skills.append(Skill.get_skill_by_id(skill_id))
     # Step 5: Return the data in json format
     return jsonify({
-        "staff_details": staff_details,
-        "attained_skills": attained_skills
+        "data":{
+            "staff_details": staff_details,
+            "attained_skills": attained_skills
+        }
     })
     
 ##################### END of User story SA-18 (BRYAN) #####################
+
 
 ##################### Start of User Story SA-44 (Jann) #####################
 @app.route("/edit_skill_details", methods=["POST"])
@@ -844,6 +896,74 @@ def edit_skill_details():
                 "message": "There was an error updating the skill name and description."
                 }
         }), 404
+=======
+
+##################### Start of User story SA-70 (BRYAN) #####################
+# USER STORY SA-23 CHILD ISSUE SA-70 (BRYAN)
+# View in progress skills of team member
+@app.route("/get_in_progress_skills_of_staff/<int:staff_id>")
+def get_in_progress_skills_of_staff(staff_id):
+    # Step 1: Get details of staff from staff table (Name, deparment)
+    staff_details = Staff.get_staff_by_id(staff_id)
+    # Raising error if staff_id does not exist
+    if not staff_details:
+        return jsonify({
+        "error_code": 400,
+        "error_message": "Staff ID does not exist"
+    }), 400
+    # Step 2: From registration table, get all courses IDs that is "OnGoing"
+    completed_course_ids = Registration.get_ongoing_courses_by_staff_id(staff_id)
+    # Step 3: From attached_skill table, get all skill IDs attached to the courses
+    in_progress_skill_ids = Attached_skill.get_attached_skill_by_course_ids(completed_course_ids)
+    in_progress_skills = []
+    # Step 4:For each skill ID, get the name and status of it
+    for skill_id in in_progress_skill_ids:
+        in_progress_skills.append(Skill.get_skill_by_id(skill_id))
+    # Step 5: Return the data in json format
+    return jsonify({
+        "data" : {
+            "staff_details": staff_details,
+            "in_progress_skills": in_progress_skills
+        }
+    })
+    
+##################### END of User story SA-70 (BRYAN) #####################
+
+##################### Start of User story SA-26 (JANN) #####################
+# USER STORY SA-26 CHILD ISSUE SA-66 (JANN)
+# View personal attained skills
+@app.route("/get_personal_attained_skills/<int:staff_id>")
+def get_personal_attained_skills(staff_id):
+    staff_info = Staff.get_staff_by_id(staff_id)
+
+    # check if staff exists
+    if not staff_info: 
+        return jsonify({
+            "code": 400, 
+            "message": 'Staff ID does not exists.'
+        }), 400
+
+    # get completed courses in Registration 
+    completed_course_ids = Registration.get_completed_courses_by_staff_id(staff_id)
+
+    # get completed skills for each course 
+    completed_skill_ids = Attached_skill.get_attached_skill_by_course_ids(completed_course_ids)
+
+    completed_skills = []
+
+    # go through list of completed skills id to get name & desc of each skill 
+    for skill_id in completed_skill_ids:
+        completed_skills.append(Skill.get_skill_by_id(skill_id))
+
+    # return data in json format 
+    return jsonify({
+        "data" : {
+            "staff_details": staff_info,
+            "completed_skills": completed_skills
+        }
+    })
+    
+##################### END of User story SA-26 (JANN) #####################
 
 ######################################################################
 # HELPER FUNCTIONS BELOW

@@ -1,0 +1,188 @@
+.main {
+    margin-left: 245px; /* Same as the width of the sidenav */
+    padding-bottom: 10%;
+}
+
+.maincontent{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 7%;
+}
+
+.back{
+    background-color: #190063;
+    color: #FFDBA5;
+    font-family: roboto, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 3px;
+    width: 20%;
+    padding: 1%;
+    margin-top: 3%;
+
+}
+
+a{
+    text-decoration: none;
+}
+
+.staffName{
+    font-family: roboto, sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+}
+
+.novalue{
+    font-family: roboto, sans-serif;
+    font-size: 24px;
+    color: #190063;
+    font-weight: 500;
+}
+
+.staffDept{
+    font-family: roboto, sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #190063;
+    margin-left: 3%;
+    font-style: italic;
+}
+
+.staffEmail{
+    font-family: roboto, sans-serif;
+    font-size: 18px;
+    font-style: italic;
+}
+
+.titlename{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 28px;
+    margin-top: 4%;
+    border-bottom: 1px solid #bcbcbc;
+
+}
+
+.title{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+}
+
+.category{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+}
+
+.status{
+    font-family: roboto, sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-align: center;
+}
+
+.coursesrow{
+    padding: 1%;
+    border-bottom: 1px solid #dbdbdb;
+    margin-top: 1%;
+}
+
+.ctitle{
+    font-family: roboto, sans-serif;
+    font-size: 20px;
+}
+
+.ccategory{
+    font-family: roboto, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    /* border-right: 1.5px solid #dbdbdb;
+    border-left: 1.5px solid #dbdbdb; */
+}
+
+.statusdiv{
+    text-align: center;
+}
+
+.ongoing{
+    text-align: center;
+    background-color: #FFDBA5;
+    border-radius: 2px;
+    font-size: 20px;
+    font-family: roboto, sans-serif;
+    width: 90%;
+    padding: 1%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.completed{
+    text-align: center;
+    background-color: #85c687;
+    border-radius: 2px;
+    padding: 1%;
+    font-size: 20px;
+    font-family: roboto, sans-serif;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* responsive */ 
+@media screen and (max-width: 768px) {
+    .main{
+        margin: 0%;
+    }
+
+    .name{
+        font-size: 26px;
+    }
+
+    .dept{
+        font-size: 14px;
+    }
+
+    .email{
+        font-size: 17px;
+    }
+
+    .titlename{
+        font-size: 22px;
+        margin-top: 2%;
+    }
+
+    .title{
+        font-size: 16px;
+    }
+
+    .category{
+        font-size: 16px;
+        text-align: left;
+        padding-left: 0%;
+    }
+
+    .status{
+        font-size: 16px;
+        padding-right: 0%;
+    }
+
+    .ctitle{
+        font-size: 14px;
+    }
+
+    .statusdiv{
+        padding-right: 0%;
+    }
+    
+    .ccategory{
+        font-size: 14px;
+    }
+    
+    .ongoing{
+        font-size: 14px;
+    }
+}

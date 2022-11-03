@@ -97,7 +97,7 @@
     <!-- end of phone nav menu -->
 
     <!-- main content -->
-    <div class="main">
+    <div class="main" id="top">
         <div class="maincontent" id="ljj">
             <div class="roletitle" id="roletitle">
 
@@ -105,18 +105,17 @@
             <div class="roledescription" id="roledescription">
 
             </div>
+
+            <div id="nameError" class="errmsg"></div>
+
             <div class="container-fluid skillscontainer" id="skillscontainer">
 
             </div>
-            <!-- THIS VERSION SHOULD HAVE THE UPDATED DASHBOARD WITH THE NEWLY ADDED LEARNING JOURNEY -->
-            <!-- <a href="../staff/dashboards_standard.html">
-                <div class="createLJ" id="createLJ">
-                    Create Learning Journey
-                </div>
-            </a> -->
-            <div class="createLJ" id="createLJ" onclick="getValues()">
+
+            <button class="createLJ" id="createLJ" onclick="getValues()">
                 Next
-            </div>
+            </button>
+
             <a href="./homepage_hr.html">
                 <div class="cancelLJ">
                     Cancel
