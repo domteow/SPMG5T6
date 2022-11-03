@@ -45,34 +45,17 @@ class Role_required_skill(db.Model):
                     skills.append(skill.skill_id)
 
         return skills
-    
-    def create_ljps_skill(ljpsr_id, skill_id):
-        new_ljps_skill = Role_required_skill(ljpsr_id,skill_id)
-        try:
-            db.session.add(new_ljps_skill)
-            db.session.commit()
-            return jsonify(new_ljps_skill.to_dict()), 201
-        except Exception:
-            # db.session.rollback()
-            return jsonify({
-                "message": "Unable to commit to database."
-            }), 500
 
     def delete_ljps_skill(ljpsr_id, skill_id):
         role_link_skill = Role_required_skill.query.filter_by(ljpsr_id=ljpsr_id,skill_id=skill_id).first()
         if role_link_skill:
-            db.session.delete(role_link_skill)
-            db.session.commit()
-            return jsonify(
-                {
-                    "message": "Successfully deleted from database."
-                }
-            ), 200
-        return jsonify(
-            {
-                "message": "Unable to commit to database."
-            }
-        ), 500
+            try:
+                db.session.delete(role_link_skill)
+                db.session.commit()
+                return True
+            except Exception:
+                return False
+        return False
 
 
     #Add skill to role

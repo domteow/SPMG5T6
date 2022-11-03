@@ -463,7 +463,7 @@ def edit_skills_in_ljps_role():
 def add_skill_to_ljps_role(ljpsr_id,added_skills):
     for skill in added_skills:
         # add skill if not in the current skill list
-        Role_required_skill.create_ljps_skill(ljpsr_id, skill)
+        Role_required_skill.create_new_role_required_skill(skill, ljpsr_id)
 
 # Delete Skill(s) to existing LJPS role
 def delete_skill_to_ljps_role(ljpsr_id,deleted_skills):
