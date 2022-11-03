@@ -41,11 +41,11 @@ CORS(app)
 with app.app_context():
     db.create_all()
 
-@app.route("/testing")
-def testing():
+# @app.route("/testing")
+# def testing():
     
 
-    return Registration.get_ongoing_courses_by_staff_id(140004)
+#     return Registration.get_ongoing_courses_by_staff_id(140004)
 
 #login
 @app.route("/login/<int:staff_id>")
