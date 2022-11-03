@@ -58,23 +58,10 @@ class Learning_journey(db.Model):
             db.session.commit()
 
         except:
-            return jsonify(
-                {
-                    "code" : 500,
-                    "data": {
-                        "ljpsr_id" : ljpsr_id,
-                        "staff_id" : staff_id
-                    },
-                    "message": "An error occurred creating a LJ"
-                }
-            )
+            return "Failed to create LJ"
 
-        return jsonify(
-        {
-            "code": 201,
-            "data": new_journey.to_dict()
-        }
-    )
+        return True
+    
 
     # deleting LJ in learning_journey table (dom)
     def delete_learning_journey(journey_id):
@@ -83,20 +70,6 @@ class Learning_journey(db.Model):
         if to_delete:
             db.session.delete(to_delete)
             db.session.commit()
-            return jsonify(
-                {
-                    "code": 200,
-                    "data": {
-                        "lj_course": to_delete.to_dict()
-                    }
-                }
-            )
-        return jsonify(
-            {
-                "code": 404,
-                "data": {
-                    "lj_course": to_delete.to_dict()
-                },
-                "message": "Learning journey not found."
-            }
-        ), 404
+            return True
+        else:
+            return "Failed to delete LJ"

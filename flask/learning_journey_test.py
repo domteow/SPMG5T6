@@ -41,8 +41,22 @@ class TestLearning_journey(flask_testing.TestCase):
         , 5)
 
     def test_create_learning_journey(self):
-        self.assertEqual((Learning_journey.create_learning_journey(journey_id = 7, ljpsr_id = 5, staff_id = 140015).code
-        ,201)
+        self.assertEqual(Learning_journey.create_learning_journey(journey_id = 8, ljpsr_id = 8, staff_id = 140015)
+        ,True)
+
+    def test_error_create_learning_journey(self):
+        # Should not be able to create LJ with already existing journey_id
+        self.assertEqual(Learning_journey.create_learning_journey(journey_id = 7, ljpsr_id = 8, staff_id = 140015)
+        ,"Failed to create LJ")    
+
+    def test_delete_learning_journey(self):
+        self.assertEqual(Learning_journey.delete_learning_journey(7)
+        ,True)
+
+    def test_error_delete_learning_journey(self):
+        # Should not be able to delete LJ that does not exist
+        self.assertEqual(Learning_journey.delete_learning_journey(1)
+        ,"Failed to delete LJ")
 
 if __name__ == "__main__":
     unittest.main()  
