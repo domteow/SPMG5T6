@@ -213,7 +213,88 @@ class TestRole(TestApp):
                 'message': 'Role name and description has been updated successfully'
                 }
         })
+        
+    def test_read_all_roles(self):
+        self.ljpsr1 = Ljps_role(ljpsr_id = 1, role_title = "Engineer", role_desc = "Be an Engineer", active = 1)
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)
+        self.s2 = Skill(skill_id = 4, skill_name = "Quick Thinking", skill_desc = "Think fast", active = 1)
+        self.rrs1 = Role_required_skill(ljpsr_id = 1, skill_id = 3)
+        self.rrs2 = Role_required_skill(ljpsr_id = 1, skill_id = 4)
+        db.session.add_all([self.ljpsr1, self.s1, self.s2, self.rrs1, self.rrs2])
+        db.session.commit()
+        response = self.client.get("read_all_roles")
+        self.assertEqual(response.json, {
+            'data': [{'active': 1,
+                      'ljpsr_id': 1,
+                      'role_desc': 'Be an Engineer',
+                      'role_title': 'Engineer',
+                    'skills': [{'active': 1,
+                                'skill_desc': 'Get your hands moving',
+                                'skill_id': 3,
+                                'skill_name': 'Fast hands'},
+                               {'active': 1,
+                                'skill_desc': 'Think fast',
+                                'skill_id': 4,
+                                'skill_name': 'Quick Thinking'}]}]
+        })
+ 
+    def test_create_role(self):
+        
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)
+        db.session.add(self.s1)
+        db.session.commit()
+        
+        request_body = {
+            "newRoleName" : "CEO",
+            "newRoleDesc" : "Be the boss",
+            "newRoleSkills" : json.dumps([3])
+            }
+        response = self.client.post("/create_role",
+                                data=json.dumps(request_body),
+                                content_type='application/json')
+        self.assertEqual(response.json, {
+            "message": "The role was successfully created"
+        })
+        
+    def test_create_role_exists(self):
+        self.ljpsr1 = Ljps_role(ljpsr_id = 1, role_title = "Engineer", role_desc = "Be an Engineer", active = 1)
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)
+        db.session.add_all([self.ljpsr1, self.s1])
+        db.session.commit()
+        
+        request_body = {
+            "newRoleName" : "Engineer",
+            "newRoleDesc" : "Be an Engineer",
+            "newRoleSkills" : json.dumps([3])
+            }
+        response = self.client.post("/create_role",
+                                data=json.dumps(request_body),
+                                content_type='application/json')
+        self.assertEqual(response.json, {
+                "message": "The role name already exists"
+        })
+    
+    def test_delete_role_active(self):
+        self.ljpsr1 = Ljps_role(ljpsr_id = 1, role_title = "Engineer", role_desc = "Be an Engineer", active = 0)
+        db.session.add(self.ljpsr1)
+        db.session.commit()
+        
+        response = self.client.get("/delete_role/1&1&Engineer")
+        self.assertEqual(response.json, {
+            'data': {'message': 'Engineer is now active'}
+        })
 
+    def test_delete_role_inactive(self):
+        self.ljpsr1 = Ljps_role(ljpsr_id = 1, role_title = "Engineer", role_desc = "Be an Engineer", active = 1)
+        db.session.add(self.ljpsr1)
+        db.session.commit()
+        
+        response = self.client.get("/delete_role/1&0&Engineer")
+        self.assertEqual(response.json, {
+            'data': {'message': 'Engineer is now inactive'}
+        })
+
+          
         
         
 class TestCourse(TestApp):
@@ -307,6 +388,56 @@ class TestCourse(TestApp):
                 "message" : "Error retrieving courses"
                 }
         })
+    
+    def test_get_all_courses(self):
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")   
+        db.session.add(self.c1)
+        db.session.commit()
+        response = self.client.get("courses")
+        self.assertEqual(response.json, {
+            'data': [{'course_category': 'Technical',
+                      'course_desc': 'Handling wiring for engineers',
+                      'course_id': 'COR002',
+                      'course_name': 'Wiring 101',
+                      'course_status': 'Active',
+                      'course_type': 'External'}]
+        })
+
+    def test_get_all_courses_invalid(self):
+        response = self.client.get("courses")
+        self.assertEqual(response.json, {
+            "message": "There are no courses."
+        })
+        
+    def test_get_courses_by_skill(self):
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        self.as1 = Attached_skill(skill_id = 3,course_id = 'COR002')
+        db.session.add_all([self.s1, self.c1, self.as1])
+        db.session.commit()
+        
+        response = self.client.get("/get_courses_by_skill/3")
+        self.assertEqual(response.json, {
+            'data': {
+                'courses': [{
+                    'course_category': 'Technical',
+                    'course_desc': 'Handling wiring for engineers',
+                    'course_id': 'COR002',
+                    'course_name': 'Wiring 101',
+                    'course_status': 'Active',
+                    'course_type': 'External'}]}
+        })  
+    
+    def test_get_courses_by_skill_invalid(self):
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        db.session.add_all([self.s1, self.c1])
+        db.session.commit()
+        
+        response = self.client.get("/get_courses_by_skill/3")
+        self.assertEqual(response.json, {
+            "message": "There are no attached courses"
+        })  
         
         
 class TestSkills(TestApp):
@@ -363,6 +494,118 @@ class TestSkills(TestApp):
         response = self.client.get("/view_skills_needed_for_role/140001/1")
         self.assertEqual(response.json, {
             "message": "Role has no skills assigned to it"
+        })
+        
+    def test_edit_skills_in_ljps_role(self):
+        self.ljpsr1 = Ljps_role(ljpsr_id = 1, role_title = "Engineer", role_desc = "Be an Engineer", active = 1)
+        self.rrs1 = Role_required_skill(ljpsr_id = 1, skill_id = 3)
+        db.session.add_all([self.ljpsr1, self.rrs1])
+        db.session.commit()        
+        request_body = {
+            "ljpsr_id" : 1,
+            "added_skills" : [1,2],
+            "deleted_skills" : [3]
+            }
+
+        response = self.client.post("/edit_skills_in_ljps_role",
+                                data=json.dumps(request_body),
+                                content_type='application/json')
+        self.assertEqual(response.json, {
+            'data': [1, 2]
+        })
+        
+    def test_create_skill(self):
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        db.session.add(self.c1)
+        db.session.commit()
+        
+        request_body = {
+            "newSkillName" : "Fast hands",
+            "newSkillDesc" : "Get your hands moving",
+            "newSkillCourses" : json.dumps(["COR002"])
+            }
+
+        response = self.client.post("/create_skill",
+                                data=json.dumps(request_body),
+                                content_type='application/json')
+        self.assertEqual(response.json, {
+            'message': 'The role was successfully created.'
+        })
+        
+    def test_create_skill_exists(self):
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")  
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)  
+        db.session.add_all([self.c1, self.s1])
+        db.session.commit()
+        
+        request_body = {
+            "newSkillName" : "Fast hands",
+            "newSkillDesc" : "Get your hands moving",
+            "newSkillCourses" : json.dumps(["COR002"])
+            }
+
+        response = self.client.post("/create_skill",
+                                data=json.dumps(request_body),
+                                content_type='application/json')
+        self.assertEqual(response.json, {
+            'code': 401,
+            'data': {'skill_name': 'Fast hands'},
+            'message': 'The skill name already exists'
+        })    
+    
+    def test_get_all_skills(self):
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)  
+        db.session.add(self.s1)
+        db.session.commit()
+        response = self.client.get("/skills")
+        self.assertEqual(response.json, {
+            'data': {
+                'skills': [{'active': 1,
+                            'skill_desc': 'Get your hands moving',
+                            'skill_id': 3,
+                            'skill_name': 'Fast hands'}]}
+        })
+        
+    def test_get_all_skills_invalid(self):
+        response = self.client.get("/skills")
+        self.assertEqual(response.json, {
+            "message": "There are no skills"
+        })
+    
+    def test_get_all_skills_and_courses(self):
+        self.s1 = Skill(skill_id = 3, skill_name = "Fast hands", skill_desc = "Get your hands moving", active = 1)
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        self.as1 = Attached_skill(skill_id = 3,course_id = 'COR002')
+        db.session.add_all([self.s1, self.c1, self.as1])
+        db.session.commit()
+        self.maxDiff = None
+        response = self.client.get("/get_all_skills_and_courses")
+        self.assertEqual(response.json, {
+            'data': {
+                'skills': [{
+                    'active': 1,
+                    'courses': [{
+                        'course_category': 'Technical',
+                        'course_desc': 'Handling wiring for engineers',
+                        'course_id': 'COR002',
+                        'course_name': 'Wiring 101',
+                        'course_status': 'Active',
+                        'course_type': 'External'}],
+                    'skill_desc': 'Get your hands moving',
+                    'skill_id': 3,
+                    'skill_name': 'Fast hands'}]
+                }
+        })
+            
+    def test_get_all_skills_and_courses_invalid(self):
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        self.as1 = Attached_skill(skill_id = 3,course_id = 'COR002')
+        db.session.add_all([self.c1, self.as1])
+        db.session.commit()
+        
+        response = self.client.get("/get_all_skills_and_courses")
+        self.assertEqual(response.json, {
+            'message': 'There are no skills.'
         })
         
 class TestLearningJourney(TestApp):

@@ -492,7 +492,7 @@ def read_all_roles():
 
 ##################### Start of User story SA-19 (JANN) #####################
 
-# To retrieve all skills 
+# To retrieve all courses 
 @app.route("/courses", methods=['GET'])
 def get_all_courses():
     all_courses = Course.get_all_courses()
@@ -526,7 +526,7 @@ def createSkill():
                 "data": {
                     "skill_name": skill_name
                 }, 
-                "message": "The skill name already exists. "
+                "message": "The skill name already exists"
             }
         )
 
@@ -534,6 +534,7 @@ def createSkill():
     create_skill_result = Skill.create_skill(skill_id, skill_name, skill_desc, active)
 
     # for each course in selected courses, add course to newly-created skill
+    
     for course in attached_courses:
         create_attached_course_result = Attached_skill.create_attached_skill(course, skill_id)
 
@@ -570,7 +571,7 @@ def createSkill():
 def get_all_skills():
     skills = Skill.get_all_skills()
 
-    if len(skills):
+    if skills:
         return jsonify({
             "data": {
                     "skills": skills
@@ -578,7 +579,7 @@ def get_all_skills():
         }), 200
     else:
         return jsonify({
-            "message": "There are no skills."
+            "message": "There are no skills"
         }), 404
 
 #Create a role and add its relevant skills
@@ -595,7 +596,7 @@ def new_role():
     #check if the role name already exists
     if Ljps_role.check_learning_journey_role_exists(role_title):
         return jsonify({
-                "message": "The role name already exists",
+                "message": "The role name already exists"
             }), 401
 
     # call create role function to add new role to DB
@@ -662,20 +663,26 @@ def get_courses_by_skill(skill_id):
     all_course_details = []
     for course in course_ids:
         all_course_details.append(Course.get_course_by_id(course))
-
-    return jsonify({
+        
+    if course_ids:
+        return jsonify({
             "data": {
-                    
                     "courses": all_course_details
                 }
-        }), 200
+            }), 200
+    else:
+        return jsonify({
+            "message": "There are no attached courses"
+            }), 404
+        
+        
 # Get all skills, and course details related to each skill 
 @app.route("/get_all_skills_and_courses")
 def get_all_skills_and_courses():
     # Refer to helper function get_skill_and_course_details
     all_skills_and_courses = get_skill_and_course_details()
 
-    if len(all_skills_and_courses):
+    if all_skills_and_courses:
         return jsonify({
             "data": {
                     "skills": all_skills_and_courses
@@ -999,15 +1006,16 @@ def get_skill_and_course_details():
     # Array of skill objects
     skills = Skill.get_all_skills_active()
     # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
-    for skill in skills:
-        # array to hold all the courses related to the skill
-        all_courses = []
-        course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
-        for course in course_ids:
-            course_details = Course.get_course_by_id(course)
-            all_courses.append(course_details)
-        # Append all_courses array to the skill objects
-        skill['courses'] = all_courses
+    if skills:
+        for skill in skills:
+            # array to hold all the courses related to the skill
+            all_courses = []
+            course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+            for course in course_ids:
+                course_details = Course.get_course_by_id(course)
+                all_courses.append(course_details)
+            # Append all_courses array to the skill objects
+            skill['courses'] = all_courses
     return skills
 
 # (FOR HR) This helper function will return a list of all skill details for both INACTIVE & ACTIVE skills. 
