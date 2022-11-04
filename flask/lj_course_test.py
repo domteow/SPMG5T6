@@ -1,6 +1,7 @@
 import unittest
 import flask_testing
 import json
+from sqlalchemy import JSON
 from initdb import db
 from app import app
 from lj_course import Lj_course
@@ -41,15 +42,30 @@ class TestLearning_journey(flask_testing.TestCase):
     def test_create_lj_course(self):
         
         result = Lj_course.create_lj_course(journey_id=2, course_arr='{"Problem Solving ":[{"course_id":"COR001","course_name":"Systems Thinking and Design"},{"course_id":"FIN001","course_name":"Data Collection and Analysis"}],"Critical Thinking":[{"course_id":"COR001","course_name":"Systems Thinking and Design"},{"course_id":"FIN001","course_name":"Data Collection and Analysis"}]}')
+        result = result.json
+        self.assertEqual(result['code'], 201)
 
-        self.assertEqual(result.response,'200 OK')
-
+    def test_fail_create_lj_course(self):
+        result = Lj_course.create_lj_course(journey_id=1, course_arr='{"Problem Solving ":[{"course_id":"COR001","course_name":"Systems Thinking and Design"},{"course_id":"FIN001","course_name":"Data Collection and Analysis"}],"Critical Thinking":[{"course_id":"COR001","course_name":"Systems Thinking and Design"},{"course_id":"FIN001","course_name":"Data Collection and Analysis"}]}')
+        result = result.json
+        self.assertEqual(result['code'], 500)
+        self.assertEqual(result['message'],"Failed to create LJ course")
 
     def test_delete_lj_course(self):
 
         result = Lj_course.delete_lj_course(journey_id=1, course_id="FIN001")
 
-        self.assertEqual(result.status, '200 OK')
+        result = result.json
+        self.assertEqual(result['code'], 200)
+
+    def test_fail_delete_lj_course(self):
+
+        result = Lj_course.delete_lj_course(journey_id=2, course_id="FIN001")
+
+        result = result.json
+        self.assertEqual(result['code'], 404)
+        self.assertEqual(result['message'],"Course not found in learning journey.")
+
 
     def test_edit_lj_course(self):
         
@@ -58,5 +74,13 @@ class TestLearning_journey(flask_testing.TestCase):
         self.assertEqual(result['courses_added'],['tch003'])
         self.assertEqual(result['courses_removed'],['COR004','COR006','FIN001'])
     
+    def test_delete_learning_journey(self):
+        self.assertEqual(Lj_course.delete_learning_journey(1)
+        ,True)  
+
+    def test_error_delete_learning_journey(self):
+        # Should not be able to delete LJ that does not exist
+        self.assertEqual(Lj_course.delete_learning_journey(3)
+        ,"Course not found in learning journey.")
 if __name__ == "__main__":
     unittest.main()  

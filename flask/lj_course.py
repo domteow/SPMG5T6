@@ -74,7 +74,7 @@ class Lj_course(db.Model):
                         "journey_id" : journey_id,
                         "course_id" : course_id
                     },
-                    "message": "dom error"
+                    "message": "Failed to create LJ course"
                 }
             )
 
@@ -100,12 +100,9 @@ class Lj_course(db.Model):
         return jsonify(
             {
                 "code": 404,
-                "data": {
-                    "lj_course": to_delete.to_dict()
-                },
                 "message": "Course not found in learning journey."
             }
-        ), 404
+        )
 
     def get_lj_course_by_journey_list(journey_id):
         lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
@@ -198,32 +195,15 @@ class Lj_course(db.Model):
         to_delete = Lj_course.query.filter_by(journey_id=journey_id).all()
 
         print(to_delete)
-        for course_to_delete in to_delete:
-                db.session.delete(course_to_delete)
         
-        try:
-            db.session.commit()
-            return jsonify(
-                {
-                    "code": 200,
-                    "data": {
-                        "lj_course": course_to_delete.to_dict()
-                    }
-                }
-            )
+        if to_delete:
             
-
-
-        except:
-            return jsonify(
-            {
-                "code": 404,
-                "data": {
-                    "lj_course": course_to_delete.to_dict()
-                },
-                "message": "Course not found in learning journey."
-            }
-                ), 404
+            for course_to_delete in to_delete:
+                db.session.delete(course_to_delete)
+            db.session.commit()
+            return True
+        else:
+            return "Course not found in learning journey."
         
     
 
