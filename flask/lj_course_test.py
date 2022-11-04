@@ -58,3 +58,5 @@ class TestLearning_journey(flask_testing.TestCase):
         self.assertEqual(result['courses_added'],['tch003'])
         self.assertEqual(result['courses_removed'],['COR004','COR006','FIN001'])
     
+if __name__ == "__main__":
+    unittest.main()  
