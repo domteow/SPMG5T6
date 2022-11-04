@@ -91,6 +91,44 @@ class TestStaff(TestApp):
             "Error" : "You are not a manager."
         })    
         
+    def test_get_all_staff(self):
+        self.ro1 = Role(role_id = 1, role_name = "Admin")
+        
+        self.s3 = Staff(staff_id = 140003, role_id = 1, staff_fname = "Bruno", staff_lname = "Goh", dept = "HR", email = "bruno.goh.2020@scis.smu.edu.sg")
+        
+        self.s1 = Staff(staff_id = 140001, role_id = 2, staff_fname = "Kelvin", staff_lname = "Yap", dept = "Sales", email = "kelvin.yap.2020@scis.smu.edu.sg")
+
+        self.s2 = Staff(staff_id = 140002, role_id = 3, staff_fname = "Dom", staff_lname = "Teow", dept = "Sales", email = "dom.teow.2020@scis.smu.edu.sg")
+        
+        db.session.add_all([self.s1, self.s2, self.s3, self.ro1])
+        db.session.commit()
+        self.maxDiff = None
+        response = self.client.get("get_all_staff/140003")
+        self.assertEqual(response.json, {
+            'all_staff': [{
+                'dept': 'Sales',
+                'email': 'kelvin.yap.2020@scis.smu.edu.sg',
+                'role_id': 2,
+                'staff_fname': 'Kelvin',
+                'staff_id': 140001,
+                'staff_lname': 'Yap'},
+                {'dept': 'Sales',
+                 'email': 'dom.teow.2020@scis.smu.edu.sg',
+                 'role_id': 3,
+                 'staff_fname': 'Dom',
+                 'staff_id': 140002,
+                 'staff_lname': 'Teow'}],
+            'hr': {
+                'dept': 'HR',
+                'email': 'bruno.goh.2020@scis.smu.edu.sg',
+                'role_id': 1,
+                'staff_fname': 'Bruno',
+                'staff_id': 140003,
+                'staff_lname': 'Goh'}
+        })    
+    
+    
+    
     
 class TestRole(TestApp):
     def test_all_roles(self):
