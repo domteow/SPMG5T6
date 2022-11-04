@@ -201,7 +201,7 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Role has no skills assigned to it"
         }), 404
 
 # USER STORY SA-6
@@ -236,7 +236,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Skill has no courses assigned to it"
         }), 404
     
 
@@ -347,12 +347,12 @@ def delete_LJ():
 
 ##################### End of User story SA-58 (DOM) #####################
 
-@app.route("/get_team_members/<int:staff_id><string:course_arr>")
+@app.route("/get_team_members/<int:staff_id>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])
 
-    if role_info['role_name'] != "manager":
+    if role_info['role_name'] != "Manager":
         return jsonify({
             "Error" : "You are not a manager."
         })
@@ -371,7 +371,7 @@ def get_all_staff(staff_id):
     hr_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(hr_info['role_id'])
 
-    if role_info['role_name'] != "hr":
+    if role_info['role_name'] != "Admin":
         return jsonify({
             "Error" : "You are not a HR."
         })
