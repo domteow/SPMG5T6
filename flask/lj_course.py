@@ -39,7 +39,8 @@ class Lj_course(db.Model):
     #create lj courses (dom)
     def create_lj_course(journey_id, course_arr):
         # parse course_arr from string to json object
-        # print(course_arr)
+        print('************COURSE_ARR*************')
+        print(course_arr)
         course_dict = json.loads(course_arr)
         
         list_of_courseid = []
@@ -64,7 +65,7 @@ class Lj_course(db.Model):
         try:
             db.session.bulk_save_objects(list_of_lj_courses)
             db.session.commit()
-
+            
         except:
             return jsonify(
                 {
@@ -73,7 +74,7 @@ class Lj_course(db.Model):
                         "journey_id" : journey_id,
                         "course_id" : course_id
                     },
-                    "message": "dom error"
+                    "message": "Failed to create LJ course"
                 }
             )
 
@@ -99,12 +100,9 @@ class Lj_course(db.Model):
         return jsonify(
             {
                 "code": 404,
-                "data": {
-                    "lj_course": to_delete.to_dict()
-                },
                 "message": "Course not found in learning journey."
             }
-        ), 404
+        )
 
     def get_lj_course_by_journey_list(journey_id):
         lj_course = Lj_course.query.filter_by(journey_id=journey_id).all()
@@ -122,6 +120,9 @@ class Lj_course(db.Model):
     def edit_lj_course(journey_id, course_arr): 
         # check the courses given in course_arr and
         # remove duplicates
+
+        print('***********course_arr*************')
+        print(course_arr)
         course_dict = json.loads(course_arr)
         course_id_add = []
         
@@ -151,7 +152,8 @@ class Lj_course(db.Model):
         print('********DATABASE COURSES*************')
         print((DB_courses))
         ljc_to_add = []
-        ljc_to_remove = []
+        ljc_id_to_add = []
+        ljc_id_to_remove = []
         # if the course exists in course_arr but not in DB,
         # add the course to DB
         for course_id in course_id_add:
@@ -159,11 +161,12 @@ class Lj_course(db.Model):
                 print(course_id)
                 new_lj_course = Lj_course(journey_id, course_id)
                 ljc_to_add.append(new_lj_course)
+                ljc_id_to_add.append(course_id)
 
         for DB_course_id in DB_courses:
             if DB_course_id not in course_id_add:
                 Lj_course.query.filter_by(journey_id=journey_id,course_id=DB_course_id).delete()
-                # ljc_to_remove.append(to_remove)
+                ljc_id_to_remove.append(DB_course_id)
         try:
             db.session.bulk_save_objects(ljc_to_add)
             db.session.commit()
@@ -179,37 +182,28 @@ class Lj_course(db.Model):
                     "message": "dom error"
                 }
             )
+        print('********ljc_to_add*************')
+        print(ljc_id_to_add)
+        print('********ljc_to_remove*************')
+        print(ljc_id_to_remove)
+        return json.dumps({
+            "courses_added" : ljc_id_to_add,
+            "courses_removed" : ljc_id_to_remove
+        })
 
     def delete_learning_journey(journey_id):
         to_delete = Lj_course.query.filter_by(journey_id=journey_id).all()
 
         print(to_delete)
-        for course_to_delete in to_delete:
-                db.session.delete(course_to_delete)
         
-        try:
-            db.session.commit()
-            return jsonify(
-                {
-                    "code": 200,
-                    "data": {
-                        "lj_course": course_to_delete.to_dict()
-                    }
-                }
-            )
+        if to_delete:
             
-
-
-        except:
-            return jsonify(
-            {
-                "code": 404,
-                "data": {
-                    "lj_course": course_to_delete.to_dict()
-                },
-                "message": "Course not found in learning journey."
-            }
-                ), 404
+            for course_to_delete in to_delete:
+                db.session.delete(course_to_delete)
+            db.session.commit()
+            return True
+        else:
+            return "Course not found in learning journey."
         
     
 

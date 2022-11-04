@@ -2,6 +2,7 @@ async function deleteLJ(deleteid){
     var userinput = prompt('Are you sure you want to delete this learning journey? (Y/N)')
 
     if(userinput.toLowerCase() == 'y') {
+        var confirm_delete = true
         var lj_id = deleteid.split('/')[1];
         console.log(lj_id);
     
@@ -29,23 +30,26 @@ async function deleteLJ(deleteid){
     }
     var staff_role = sessionStorage.getItem('staff_role');
     console.log(staff_role);
-    if (staff_role == 1){
-        var message = 'Learning Journey deleted.';
-        localStorage.setItem('errmessage', message);
-        sessionStorage.setItem('refresh', 'Y');
-        location.href = '../hr/dashboard_hr.html';
+    if (confirm_delete) {
+        if (staff_role == 1){
+            var message = 'Learning Journey deleted.';
+            localStorage.setItem('errmessage', message);
+            sessionStorage.setItem('refresh', 'Y');
+            location.href = '../hr/dashboard_hr.html';
+        }
+        if(staff_role == 2){
+            var message = 'Learning Journey deleted.';
+            localStorage.setItem('errmessage', message);
+            sessionStorage.setItem('refresh', 'Y');
+            location.href = '../staff/dashboard_standard.html';
+        }
+        if(staff_role == 3){
+            var message = 'Learning Journey deleted.';
+            localStorage.setItem('errmessage', message);
+            sessionStorage.setItem('refresh', 'Y');
+            location.href = '../manager/dashboard_manager_personal.html';
+        }        
     }
-    if(staff_role == 2){
-        var message = 'Learning Journey deleted.';
-        localStorage.setItem('errmessage', message);
-        sessionStorage.setItem('refresh', 'Y');
-        location.href = '../staff/dashboard_standard.html';
-    }
-    if(staff_role == 3){
-        var message = 'Learning Journey deleted.';
-        localStorage.setItem('errmessage', message);
-        sessionStorage.setItem('refresh', 'Y');
-        location.href = '../manager/dashboard_manager_personal.html';
-    }
+    
 
 }
