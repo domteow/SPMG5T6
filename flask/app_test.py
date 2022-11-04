@@ -88,7 +88,7 @@ class TestStaff(TestApp):
         db.session.commit()
         response = self.client.get("get_team_members/140001")
         self.assertEqual(response.json, {
-            "Error" : "You are not a manager."
+            "Error" : "You are not a manager"
         })    
         
     def test_get_all_staff(self):
@@ -102,7 +102,6 @@ class TestStaff(TestApp):
         
         db.session.add_all([self.s1, self.s2, self.s3, self.ro1])
         db.session.commit()
-        self.maxDiff = None
         response = self.client.get("get_all_staff/140003")
         self.assertEqual(response.json, {
             'all_staff': [{
@@ -127,6 +126,23 @@ class TestStaff(TestApp):
                 'staff_lname': 'Goh'}
         })    
     
+    def test_get_all_staff_invalid(self):
+        self.ro1 = Role(role_id = 1, role_name = "Admin")
+        
+        self.ro2 = Role(role_id = 2, role_name = "User")
+        
+        self.s3 = Staff(staff_id = 140003, role_id = 1, staff_fname = "Bruno", staff_lname = "Goh", dept = "HR", email = "bruno.goh.2020@scis.smu.edu.sg")
+        
+        self.s1 = Staff(staff_id = 140001, role_id = 2, staff_fname = "Kelvin", staff_lname = "Yap", dept = "Sales", email = "kelvin.yap.2020@scis.smu.edu.sg")
+
+        self.s2 = Staff(staff_id = 140002, role_id = 3, staff_fname = "Dom", staff_lname = "Teow", dept = "Sales", email = "dom.teow.2020@scis.smu.edu.sg")
+        
+        db.session.add_all([self.s1, self.s2, self.s3, self.ro1, self.ro2])
+        db.session.commit()
+        response = self.client.get("get_all_staff/140001")
+        self.assertEqual(response.json, {
+            "Error" : "You are not a HR"
+        })  
     
     
     
@@ -179,6 +195,27 @@ class TestRole(TestApp):
                 }
         })
         
+    def test_edit_role_details(self):
+        self.ljpsr1 = Ljps_role(ljpsr_id = 1, role_title = "Engineer", role_desc = "Be an Engineer", active = 1)
+        db.session.add(self.ljpsr1)
+        db.session.commit()
+        request_body = {
+                "ljpsr_id": 1,
+                "new_role_name": "A good Engineer",
+                "new_role_desc": "Be a very good Engineer"
+            }
+
+        response = self.client.post("/edit_role_details",
+                                data=json.dumps(request_body),
+                                content_type='application/json')
+        self.assertEqual(response.json, {
+            'data': {
+                'message': 'Role name and description has been updated successfully'
+                }
+        })
+
+        
+        
 class TestCourse(TestApp):
     def test_find_course(self):
         self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
@@ -210,7 +247,6 @@ class TestCourse(TestApp):
         db.session.add_all([self.ljpsr1, self.as1, self.rrs1, self.s1, self.c1])
         db.session.commit()
         response = self.client.get("view_courses_under_skill/140001/1")
-        self.maxDiff = None
         self.assertEqual(response.json, {
             'data': {'ljps_role': {
                         'active': 1,
@@ -243,6 +279,33 @@ class TestCourse(TestApp):
         response = self.client.get("view_courses_under_skill/140001/1")
         self.assertEqual(response.json, {
             "message": "Skill has no courses assigned to it"
+        })
+        
+    def test_get_courses_of_lj(self):
+        self.ljc1 = Lj_course(journey_id = 1, course_id = "COR002")
+        self.r1 = Registration(reg_id = 1, course_id = 'COR002', staff_id = 140001, reg_status = 'Registered', completion_status = "Completed")
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        db.session.add_all([self.ljc1, self.r1, self.c1])
+        db.session.commit()
+        response = self.client.get("get_courses_of_lj/140001&1")
+        self.assertEqual(response.json, {
+            'data': [{'course_id': 'COR002',
+                      'course_name': 'Wiring 101',
+                      'course_status': 1,
+                      'journey_id': 1}]
+        })
+        
+    def test_get_courses_of_lj_invalid(self):
+        self.ljc1 = Lj_course(journey_id = 2, course_id = "COR002")
+        self.r1 = Registration(reg_id = 1, course_id = 'COR002', staff_id = 140001, reg_status = 'Registered', completion_status = "Completed")
+        self.c1 = Course(course_id = "COR002", course_name = "Wiring 101", course_desc = "Handling wiring for engineers", course_status = "Active", course_type = "External", course_category = "Technical")    
+        db.session.add_all([self.ljc1, self.r1, self.c1])
+        db.session.commit()
+        response = self.client.get("get_courses_of_lj/140001&1")
+        self.assertEqual(response.json, {
+            "data" : {
+                "message" : "Error retrieving courses"
+                }
         })
         
         

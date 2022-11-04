@@ -354,7 +354,7 @@ def get_team_members(staff_id):
 
     if role_info['role_name'] != "Manager":
         return jsonify({
-            "Error" : "You are not a manager."
+            "Error" : "You are not a manager"
         })
     all_team = Staff.get_staff_from_department(manager_info['dept'])
     team_members = []
@@ -373,7 +373,7 @@ def get_all_staff(staff_id):
 
     if role_info['role_name'] != "Admin":
         return jsonify({
-            "Error" : "You are not a HR."
+            "Error" : "You are not a HR"
         })
     all_team = Staff.get_all_staff()
     all_staff = []
@@ -431,9 +431,6 @@ def edit_role_details():
                 }
         }), 404
 
-# Edit LJPS role details
-# def edit_role_details(ljpsr_id, new_role_name, new_role_desc):
-#     Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
         
 ##################### End of User Story SA-3 (Kelvin) #####################
 
