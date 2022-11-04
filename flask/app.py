@@ -340,8 +340,9 @@ def delete_LJ():
     data = request.get_json()
     print(data)
     journey_id = data['journey_id']
-    Learning_journey.delete_learning_journey(journey_id)
     Lj_course.delete_learning_journey(journey_id)
+    Learning_journey.delete_learning_journey(journey_id)
+    
     return data
 
 
