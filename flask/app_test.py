@@ -59,7 +59,7 @@ class TestStaff(TestApp):
         self.ro3 = Role(role_id = 3, role_name = "Manager")
         db.session.add_all([self.st1, self.st2, self.ro3])
         db.session.commit()
-        response = self.client.get("get_team_members/140002")
+        response = self.client.get("get_team_members_deprecated/140002")
         self.assertEqual(response.json, {
             'manager': {
                 'dept': 'Sales',
@@ -86,7 +86,7 @@ class TestStaff(TestApp):
         
         db.session.add_all([self.st1, self.ro2, self.ro3])
         db.session.commit()
-        response = self.client.get("get_team_members/140001")
+        response = self.client.get("get_team_members_deprecated/140001")
         self.assertEqual(response.json, {
             "Error" : "You are not a manager"
         })    
