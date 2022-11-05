@@ -51,7 +51,7 @@ class TestStaff(TestApp):
             "message" : "There is no staff with that ID"
         })
     
-    def test_get_team_members(self):
+    def test_get_team_members_deprecated(self):
         self.st1 = Staff(staff_id = 140001, role_id = 2, staff_fname = "Kelvin", staff_lname = "Yap", dept = "Sales", email = "kelvin.yap.2020@scis.smu.edu.sg")
 
         self.st2 = Staff(staff_id = 140002, role_id = 3, staff_fname = "Dom", staff_lname = "Teow", dept = "Sales", email = "dom.teow.2020@scis.smu.edu.sg")        
@@ -59,7 +59,7 @@ class TestStaff(TestApp):
         self.ro3 = Role(role_id = 3, role_name = "Manager")
         db.session.add_all([self.st1, self.st2, self.ro3])
         db.session.commit()
-        response = self.client.get("get_team_members/140002")
+        response = self.client.get("get_team_members_deprecated/140002")
         self.assertEqual(response.json, {
             'manager': {
                 'dept': 'Sales',
@@ -77,7 +77,7 @@ class TestStaff(TestApp):
                 'staff_lname': 'Yap'}]
         })
         
-    def test_get_team_members_invalid(self):
+    def test_get_team_members_deprecated_invalid(self):
         self.st1 = Staff(staff_id = 140001, role_id = 2, staff_fname = "Kelvin", staff_lname = "Yap", dept = "Sales", email = "kelvin.yap.2020@scis.smu.edu.sg")
 
         self.ro2 = Role(role_id = 2, role_name = "User")
@@ -86,7 +86,7 @@ class TestStaff(TestApp):
         
         db.session.add_all([self.st1, self.ro2, self.ro3])
         db.session.commit()
-        response = self.client.get("get_team_members/140001")
+        response = self.client.get("get_team_members_deprecated/140001")
         self.assertEqual(response.json, {
             "Error" : "You are not a manager"
         })    
