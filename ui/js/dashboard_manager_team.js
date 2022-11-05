@@ -11,7 +11,7 @@ $(async () => {
         const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
         const result = await response.json();
         if (result) {
-            var data = result.team_members;
+            var data = result.data.team;
             if (data == []){
                 contentdiv.innerHTML = `<div class='emptyTeam'>There is currently no statistics for your team.</div>`
             }
@@ -26,7 +26,7 @@ $(async () => {
                     var course_ongoing = staff_details['courses_ongoing_count'];
                     var skill_acquired = staff_details['skill_acquired_count'];
                     var skill_ongoing = staff_details['skill_ongoing_count'];
-                    var staff_dept = staff_details['dept'];
+                    var staff_dept = manager_dept;
                     var staff_id = staff_details['staff_id'];
 
                     // add staff name into the search bad 
