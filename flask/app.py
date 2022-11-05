@@ -345,8 +345,10 @@ def delete_LJ():
     data = request.get_json()
     print(data)
     journey_id = data['journey_id']
-    result1 = Learning_journey.delete_learning_journey(journey_id)
-    result2 = Lj_course.delete_learning_journey(journey_id)
+
+    result1 = Lj_course.delete_learning_journey(journey_id)
+    result2 = Learning_journey.delete_learning_journey(journey_id)
+    
     if result1 and result2:
         return jsonify({
             "message": "Learning Journey deleted successfully"
@@ -354,6 +356,7 @@ def delete_LJ():
     return jsonify({
         "message": "Error deleting Learning Journey"
     }), 400
+
 
 
 ##################### End of User story SA-58 (DOM) #####################

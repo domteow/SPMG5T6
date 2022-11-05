@@ -9,18 +9,42 @@ var active = localStorage.getItem('activeLJ');
 console.log(active);
 
 function showpath(pathid){
+
     var original = document.getElementById(active);
     console.log(original);
+
+    if (original == null){
+        console.log('hi');
+        var ogog = document.querySelectorAll('.activepath');
+        console.log(ogog);
+        var original = ogog[0];
+        original.classList.remove('activepath');
+        
+        var ogprog = document.querySelectorAll('.activeprogress')[0];
+        ogprog.classList.remove('activeprogress');
+        ogprog.style.backgroundColor = '#9E82CA';
+
+        var newpath = document.getElementById(pathid);
+        // console.log(newpath);
+        newpath.classList.add('activepath');
+        var newprogress = document.getElementById('progressbar'+pathid);
+        newprogress.classList.add('actprog');
+        newprogress.style.backgroundColor= '#FFA0A0';
+        active = pathid;
+        sessionStorage.removeItem('activeLJ');
+        sessionStorage.setItem('activeLJ', active);
+    }
 
     // to chance colour 
     original.classList.remove('activepath');
     var originalprogress = document.getElementById('progressbar'+active);
     originalprogress.style.backgroundColor= '#9E82CA';
-    console.log(original);
+    // console.log(original);
     var newpath = document.getElementById(pathid);
-    console.log(newpath);
+    // console.log(newpath);
     newpath.classList.add('activepath');
     var newprogress = document.getElementById('progressbar'+pathid);
+    newprogress.classList.add('actprog');
     newprogress.style.backgroundColor= '#FFA0A0';
     active = pathid;
     sessionStorage.removeItem('activeLJ');
