@@ -361,7 +361,7 @@ def delete_LJ():
 
 ##################### End of User story SA-58 (DOM) #####################
 
-@app.route("/get_team_members/<int:staff_id>")
+@app.route("/get_team_members_deprecated/<int:staff_id>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])

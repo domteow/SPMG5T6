@@ -51,7 +51,7 @@ class TestStaff(TestApp):
             "message" : "There is no staff with that ID"
         })
     
-    def test_get_team_members(self):
+    def test_get_team_members_deprecated(self):
         self.st1 = Staff(staff_id = 140001, role_id = 2, staff_fname = "Kelvin", staff_lname = "Yap", dept = "Sales", email = "kelvin.yap.2020@scis.smu.edu.sg")
 
         self.st2 = Staff(staff_id = 140002, role_id = 3, staff_fname = "Dom", staff_lname = "Teow", dept = "Sales", email = "dom.teow.2020@scis.smu.edu.sg")        
@@ -77,7 +77,7 @@ class TestStaff(TestApp):
                 'staff_lname': 'Yap'}]
         })
         
-    def test_get_team_members_invalid(self):
+    def test_get_team_members_deprecated_invalid(self):
         self.st1 = Staff(staff_id = 140001, role_id = 2, staff_fname = "Kelvin", staff_lname = "Yap", dept = "Sales", email = "kelvin.yap.2020@scis.smu.edu.sg")
 
         self.ro2 = Role(role_id = 2, role_name = "User")
