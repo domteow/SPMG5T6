@@ -340,9 +340,15 @@ def delete_LJ():
     data = request.get_json()
     print(data)
     journey_id = data['journey_id']
-    Learning_journey.delete_learning_journey(journey_id)
-    Lj_course.delete_learning_journey(journey_id)
-    return data
+    result1 = Learning_journey.delete_learning_journey(journey_id)
+    result2 = Lj_course.delete_learning_journey(journey_id)
+    if result1 and result2:
+        return jsonify({
+            "message": "Learning Journey deleted successfully"
+        }), 200
+    return jsonify({
+        "message": "Error deleting Learning Journey"
+    }), 400
 
 
 ##################### End of User story SA-58 (DOM) #####################
@@ -702,10 +708,8 @@ def add_course_to_skill():
     data = request.get_json()
     skill_id = data['skill_id']
     courses_to_add = data['course_arr']
-    print(skill_id,courses_to_add)
     # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
     existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
-    print(existing_course_array)
     # Step 3: Compare existing_course_array with courses_to_add. If duplicates found, return error code 400
     for addCourse in courses_to_add:
         for existCourse in existing_course_array:
@@ -726,10 +730,10 @@ def delete_skill(skill_id, isactive, skill_name):
     result = Skill.toggle_active(skill_id, isactive)
     if result:
         if isactive == 1:
-            message = skill_name + " has been toggled to active."
+            message = skill_name + " has been toggled to active"
 
         else:
-            message = skill_name + " has been toggled to inactive." 
+            message = skill_name + " has been toggled to inactive" 
             
 
         return jsonify({
@@ -740,7 +744,7 @@ def delete_skill(skill_id, isactive, skill_name):
     else: 
         return jsonify({
             "code": 404, 
-            "message": "There is an issue with changing the skill's activation status."
+            "message": "There is an issue with changing the skill's activation status"
         }), 404
 
 # For HR view in skills_page.js
@@ -777,7 +781,7 @@ def remove_course_from_skill():
     if len(courses_to_remove) == len(existing_course_array):
         return jsonify({
                     "code": 400,
-                    "message": "You are removing all courses from the skill."
+                    "message": "You are removing all courses from the skill"
                 }), 400
      # Step 4: If user not removing all courses, remove the skill_id, course_id for each course in courses_to_remove in the attached_skill table. 
     return Attached_skill.remove_course_from_skill(skill_id, courses_to_remove)
