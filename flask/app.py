@@ -254,8 +254,13 @@ def view_courses_under_skill(staff_id, ljpsr_id):
 # Creating a LJ in learning_journey table (dom)
 @app.route("/createlj/<int:ljpsr_id>&<int:staff_id>&<string:course_arr>", methods=['POST'])
 def new_learning_journey(ljpsr_id, staff_id, course_arr):
-    journey_id = db.session.query(Learning_journey.journey_id).count() + 1
-
+    exists = db.session.query(Learning_journey).first()
+    if exists == None:
+        journey_id = 1
+    else:
+        journey_id = db.session.query(Learning_journey).order_by(Learning_journey.journey_id.desc()).first().journey_id + 1
+    
+    
     # call create lj function in Learning Journey class 
     createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
     # call create lj course function in Lj_course class
@@ -517,7 +522,12 @@ def get_all_courses():
 def createSkill():
     data = request.get_json()
 
-    skill_id = db.session.query(Skill.skill_id).count() + 1 
+    exists = db.session.query(Skill).first()
+    if exists == None:
+        skill_id = 1
+    else:
+        skill_id = db.session.query(Skill).order_by(Skill.skill_id.desc()).first().skill_id + 1
+    
     skill_name = data["newSkillName"]
     skill_desc = data["newSkillDesc"]
     active = 1 
@@ -593,7 +603,13 @@ def get_all_skills():
 @app.route("/create_role", methods=['POST'])
 def new_role():
     data = request.get_json()
-    ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+    
+    exists = db.session.query(Ljps_role).first()
+    if exists == None:
+        ljpsr_id = 1
+    else:
+        ljpsr_id = db.session.query(Ljps_role).order_by(Ljps_role.ljpsr_id.desc()).first().ljpsr_id + 1
+        
     role_title = data["newRoleName"]
     role_desc = data["newRoleDesc"]
     skills_str = data["newRoleSkills"]
