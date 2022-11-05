@@ -201,7 +201,7 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Role has no skills assigned to it"
         }), 404
 
 # USER STORY SA-6
@@ -236,7 +236,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Skill has no courses assigned to it"
         }), 404
     
 
@@ -347,14 +347,14 @@ def delete_LJ():
 
 ##################### End of User story SA-58 (DOM) #####################
 
-@app.route("/get_team_members/<int:staff_id><string:course_arr>")
+@app.route("/get_team_members/<int:staff_id>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])
 
-    if role_info['role_name'] != "manager":
+    if role_info['role_name'] != "Manager":
         return jsonify({
-            "Error" : "You are not a manager."
+            "Error" : "You are not a manager"
         })
     all_team = Staff.get_staff_from_department(manager_info['dept'])
     team_members = []
@@ -371,9 +371,9 @@ def get_all_staff(staff_id):
     hr_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(hr_info['role_id'])
 
-    if role_info['role_name'] != "hr":
+    if role_info['role_name'] != "Admin":
         return jsonify({
-            "Error" : "You are not a HR."
+            "Error" : "You are not a HR"
         })
     all_team = Staff.get_all_staff()
     all_staff = []
@@ -431,9 +431,6 @@ def edit_role_details():
                 }
         }), 404
 
-# Edit LJPS role details
-# def edit_role_details(ljpsr_id, new_role_name, new_role_desc):
-#     Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
         
 ##################### End of User Story SA-3 (Kelvin) #####################
 
@@ -495,7 +492,7 @@ def read_all_roles():
 
 ##################### Start of User story SA-19 (JANN) #####################
 
-# To retrieve all skills 
+# To retrieve all courses 
 @app.route("/courses", methods=['GET'])
 def get_all_courses():
     all_courses = Course.get_all_courses()
@@ -529,7 +526,7 @@ def createSkill():
                 "data": {
                     "skill_name": skill_name
                 }, 
-                "message": "The skill name already exists. "
+                "message": "The skill name already exists"
             }
         )
 
@@ -537,6 +534,7 @@ def createSkill():
     create_skill_result = Skill.create_skill(skill_id, skill_name, skill_desc, active)
 
     # for each course in selected courses, add course to newly-created skill
+    
     for course in attached_courses:
         create_attached_course_result = Attached_skill.create_attached_skill(course, skill_id)
 
@@ -573,7 +571,7 @@ def createSkill():
 def get_all_skills():
     skills = Skill.get_all_skills()
 
-    if len(skills):
+    if skills:
         return jsonify({
             "data": {
                     "skills": skills
@@ -581,7 +579,7 @@ def get_all_skills():
         }), 200
     else:
         return jsonify({
-            "message": "There are no skills."
+            "message": "There are no skills"
         }), 404
 
 #Create a role and add its relevant skills
@@ -598,7 +596,7 @@ def new_role():
     #check if the role name already exists
     if Ljps_role.check_learning_journey_role_exists(role_title):
         return jsonify({
-                "message": "The role name already exists",
+                "message": "The role name already exists"
             }), 401
 
     # call create role function to add new role to DB
@@ -665,20 +663,26 @@ def get_courses_by_skill(skill_id):
     all_course_details = []
     for course in course_ids:
         all_course_details.append(Course.get_course_by_id(course))
-
-    return jsonify({
+        
+    if course_ids:
+        return jsonify({
             "data": {
-                    
                     "courses": all_course_details
                 }
-        }), 200
+            }), 200
+    else:
+        return jsonify({
+            "message": "There are no attached courses"
+            }), 404
+        
+        
 # Get all skills, and course details related to each skill 
 @app.route("/get_all_skills_and_courses")
 def get_all_skills_and_courses():
     # Refer to helper function get_skill_and_course_details
     all_skills_and_courses = get_skill_and_course_details()
 
-    if len(all_skills_and_courses):
+    if all_skills_and_courses:
         return jsonify({
             "data": {
                     "skills": all_skills_and_courses
@@ -1002,15 +1006,16 @@ def get_skill_and_course_details():
     # Array of skill objects
     skills = Skill.get_all_skills_active()
     # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
-    for skill in skills:
-        # array to hold all the courses related to the skill
-        all_courses = []
-        course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
-        for course in course_ids:
-            course_details = Course.get_course_by_id(course)
-            all_courses.append(course_details)
-        # Append all_courses array to the skill objects
-        skill['courses'] = all_courses
+    if skills:
+        for skill in skills:
+            # array to hold all the courses related to the skill
+            all_courses = []
+            course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+            for course in course_ids:
+                course_details = Course.get_course_by_id(course)
+                all_courses.append(course_details)
+            # Append all_courses array to the skill objects
+            skill['courses'] = all_courses
     return skills
 
 # (FOR HR) This helper function will return a list of all skill details for both INACTIVE & ACTIVE skills. 
