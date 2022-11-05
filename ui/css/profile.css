@@ -26,13 +26,13 @@
     margin-top: 2%;
 }
 
-.dept{
+.depty{
     font-family: roboto, sans-serif;
     font-style: italic;
     font-size: 24px;
     color: #190063;
     margin-left: 3%;
-    font-weight: 500;
+    font-weight: 400;
 }
 
 .email{

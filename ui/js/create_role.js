@@ -86,27 +86,6 @@ function searchRole() {
     }
 }
 
-// function handleChange(cb) {
-//     var cbval = cb.id;
-//     if(cb.checked == true) {
-//         // to check all checkbox with the SAME ID -> course_id
-//         var cbox = `input[id=${cbval}]`
-//         var allCB = document.querySelectorAll(cbox);
-//         for (var i=0; i< allCB.length; i++){
-//             allCB[i].checked = true;
-//         }
-      
-//     } else {
-//         // to uncheck all checkbox
-//         var cbox = `input[id=${cbval}]`
-//         var allCB = document.querySelectorAll(cbox);
-//         for (var i=0; i< allCB.length; i++){
-//             allCB[i].checked = false;
-//         }
-
-//     }
-// }
-
 async function addRole(){
     var serviceURL = "http://127.0.0.1:5001/create_role"
     var role_name = document.getElementById('role_name').value;
@@ -160,8 +139,6 @@ async function addRole(){
                 console.log(error)
                 console.log('error')
             }
-            // var staff_role = sessionStorage.getItem('staff_role');
-            // console.log(staff_role);
 
         }
 

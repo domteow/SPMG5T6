@@ -19,7 +19,7 @@ $(async() => {
             var staff_name = data['staff_details']['staff_fname'] + data['staff_details']['staff_lname'];
             var staff_email = data['staff_details']['email'];
             var staff_dept = data['staff_details']['dept'];
-            namediv.innerHTML = `${staff_name}<span class='dept'>${staff_dept}</span>`;
+            namediv.innerHTML = `${staff_name}<span class='depty'>${staff_dept}</span>`;
             emaildiv.innerText = staff_email; 
 
             // display skills

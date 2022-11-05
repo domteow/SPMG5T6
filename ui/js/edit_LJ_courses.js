@@ -143,14 +143,7 @@ function getValues(){
         }
         // location.href = './confirm_LJ.html';
     }
-    
 
-    
-    // sessionStorage.setItem('ljpsr_role_id', ljpsr_role_id);
-    // sessionStorage.setItem('role_name', role_name);
-    
-
-    
 }
 
 function handleChange(cb) {
