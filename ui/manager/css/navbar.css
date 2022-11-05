@@ -37,6 +37,13 @@
     margin-top: 15%;
 }
 
+.dept{
+    font-family: roboto, sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 18px;
+}
+
 .act{
     background-color: #190063;
     color: #FFDBA5;

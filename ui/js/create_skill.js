@@ -88,27 +88,6 @@ function searchCourse() {
     }
 }
 
-// function handleChange(cb) {
-//     var cbval = cb.id;
-//     if(cb.checked == true) {
-//         // to check all checkbox with the SAME ID -> course_id
-//         var cbox = `input[id=${cbval}]`
-//         var allCB = document.querySelectorAll(cbox);
-//         for (var i=0; i< allCB.length; i++){
-//             allCB[i].checked = true;
-//         }
-      
-//     } else {
-//         // to uncheck all checkbox
-//         var cbox = `input[id=${cbval}]`
-//         var allCB = document.querySelectorAll(cbox);
-//         for (var i=0; i< allCB.length; i++){
-//             allCB[i].checked = false;
-//         }
-
-//     }
-// }
-
 async function addCourse(){
     var serviceURL = "http://127.0.0.1:5001/create_skill"
     var skill_name = document.getElementById('skill_name').value;
@@ -173,7 +152,5 @@ async function addCourse(){
             console.log("error")
         }
         
-        // var staff_role = sessionStorage.getItem('staff_role');
-        // console.log(staff_role);   
     }
 }
