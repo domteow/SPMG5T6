@@ -5,7 +5,7 @@ var searchdiv = document.getElementById('myUL');
 
 $(async () => {
 
-    var serviceURL = "http://127.0.0.1:5001/get_team_members/" + manager_id + "&" + manager_dept
+    var serviceURL = "http://127.0.0.1:5001/get_team_members/" + manager_id
 
     try {
         const response = await fetch(serviceURL, { mode: "cors", method: "GET" });

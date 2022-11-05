@@ -201,7 +201,7 @@ def view_skills_needed_for_role(staff_id, ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Role has no skills assigned to it"
         }), 404
 
 # USER STORY SA-6
@@ -236,7 +236,7 @@ def view_courses_under_skill(staff_id, ljpsr_id):
         }), 200
     else:
         return jsonify({
-            "message": "Role has no skills assigned to it."
+            "message": "Skill has no courses assigned to it"
         }), 404
     
 
@@ -254,8 +254,13 @@ def view_courses_under_skill(staff_id, ljpsr_id):
 # Creating a LJ in learning_journey table (dom)
 @app.route("/createlj/<int:ljpsr_id>&<int:staff_id>&<string:course_arr>", methods=['POST'])
 def new_learning_journey(ljpsr_id, staff_id, course_arr):
-    journey_id = db.session.query(Learning_journey.journey_id).count() + 1
-
+    exists = db.session.query(Learning_journey).first()
+    if exists == None:
+        journey_id = 1
+    else:
+        journey_id = db.session.query(Learning_journey).order_by(Learning_journey.journey_id.desc()).first().journey_id + 1
+    
+    
     # call create lj function in Learning Journey class 
     createLJ_result = Learning_journey.create_learning_journey(journey_id, ljpsr_id, staff_id)
     # call create lj course function in Lj_course class
@@ -340,22 +345,30 @@ def delete_LJ():
     data = request.get_json()
     print(data)
     journey_id = data['journey_id']
-    Lj_course.delete_learning_journey(journey_id)
-    Learning_journey.delete_learning_journey(journey_id)
+
+    result1 = Lj_course.delete_learning_journey(journey_id)
+    result2 = Learning_journey.delete_learning_journey(journey_id)
     
-    return data
+    if result1 and result2:
+        return jsonify({
+            "message": "Learning Journey deleted successfully"
+        }), 200
+    return jsonify({
+        "message": "Error deleting Learning Journey"
+    }), 400
+
 
 
 ##################### End of User story SA-58 (DOM) #####################
 
-@app.route("/get_team_members/<int:staff_id><string:course_arr>")
+@app.route("/get_team_members/<int:staff_id>")
 def get_team_members(staff_id):
     manager_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(manager_info['role_id'])
 
-    if role_info['role_name'] != "manager":
+    if role_info['role_name'] != "Manager":
         return jsonify({
-            "Error" : "You are not a manager."
+            "Error" : "You are not a manager"
         })
     all_team = Staff.get_staff_from_department(manager_info['dept'])
     team_members = []
@@ -372,9 +385,9 @@ def get_all_staff(staff_id):
     hr_info = Staff.get_staff_by_id(staff_id)
     role_info = Role.get_role_by_id(hr_info['role_id'])
 
-    if role_info['role_name'] != "hr":
+    if role_info['role_name'] != "Admin":
         return jsonify({
-            "Error" : "You are not a HR."
+            "Error" : "You are not a HR"
         })
     all_team = Staff.get_all_staff()
     all_staff = []
@@ -432,9 +445,6 @@ def edit_role_details():
                 }
         }), 404
 
-# Edit LJPS role details
-# def edit_role_details(ljpsr_id, new_role_name, new_role_desc):
-#     Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
         
 ##################### End of User Story SA-3 (Kelvin) #####################
 
@@ -496,7 +506,7 @@ def read_all_roles():
 
 ##################### Start of User story SA-19 (JANN) #####################
 
-# To retrieve all skills 
+# To retrieve all courses 
 @app.route("/courses", methods=['GET'])
 def get_all_courses():
     all_courses = Course.get_all_courses()
@@ -515,7 +525,12 @@ def get_all_courses():
 def createSkill():
     data = request.get_json()
 
-    skill_id = db.session.query(Skill.skill_id).count() + 1 
+    exists = db.session.query(Skill).first()
+    if exists == None:
+        skill_id = 1
+    else:
+        skill_id = db.session.query(Skill).order_by(Skill.skill_id.desc()).first().skill_id + 1
+    
     skill_name = data["newSkillName"]
     skill_desc = data["newSkillDesc"]
     active = 1 
@@ -530,7 +545,7 @@ def createSkill():
                 "data": {
                     "skill_name": skill_name
                 }, 
-                "message": "The skill name already exists. "
+                "message": "The skill name already exists"
             }
         )
 
@@ -538,6 +553,7 @@ def createSkill():
     create_skill_result = Skill.create_skill(skill_id, skill_name, skill_desc, active)
 
     # for each course in selected courses, add course to newly-created skill
+    
     for course in attached_courses:
         create_attached_course_result = Attached_skill.create_attached_skill(course, skill_id)
 
@@ -574,7 +590,7 @@ def createSkill():
 def get_all_skills():
     skills = Skill.get_all_skills()
 
-    if len(skills):
+    if skills:
         return jsonify({
             "data": {
                     "skills": skills
@@ -582,7 +598,7 @@ def get_all_skills():
         }), 200
     else:
         return jsonify({
-            "message": "There are no skills."
+            "message": "There are no skills"
         }), 404
 
 #Create a role and add its relevant skills
@@ -590,7 +606,13 @@ def get_all_skills():
 @app.route("/create_role", methods=['POST'])
 def new_role():
     data = request.get_json()
-    ljpsr_id = db.session.query(Ljps_role.ljpsr_id).count() + 1
+    
+    exists = db.session.query(Ljps_role).first()
+    if exists == None:
+        ljpsr_id = 1
+    else:
+        ljpsr_id = db.session.query(Ljps_role).order_by(Ljps_role.ljpsr_id.desc()).first().ljpsr_id + 1
+        
     role_title = data["newRoleName"]
     role_desc = data["newRoleDesc"]
     skills_str = data["newRoleSkills"]
@@ -599,7 +621,7 @@ def new_role():
     #check if the role name already exists
     if Ljps_role.check_learning_journey_role_exists(role_title):
         return jsonify({
-                "message": "The role name already exists",
+                "message": "The role name already exists"
             }), 401
 
     # call create role function to add new role to DB
@@ -666,20 +688,26 @@ def get_courses_by_skill(skill_id):
     all_course_details = []
     for course in course_ids:
         all_course_details.append(Course.get_course_by_id(course))
-
-    return jsonify({
+        
+    if course_ids:
+        return jsonify({
             "data": {
-                    
                     "courses": all_course_details
                 }
-        }), 200
+            }), 200
+    else:
+        return jsonify({
+            "message": "There are no attached courses"
+            }), 404
+        
+        
 # Get all skills, and course details related to each skill 
 @app.route("/get_all_skills_and_courses")
 def get_all_skills_and_courses():
     # Refer to helper function get_skill_and_course_details
     all_skills_and_courses = get_skill_and_course_details()
 
-    if len(all_skills_and_courses):
+    if all_skills_and_courses:
         return jsonify({
             "data": {
                     "skills": all_skills_and_courses
@@ -699,10 +727,8 @@ def add_course_to_skill():
     data = request.get_json()
     skill_id = data['skill_id']
     courses_to_add = data['course_arr']
-    print(skill_id,courses_to_add)
     # Step 2: Get all the course IDs of the courses that are ALREADY in the skill. (existing_course_array)
     existing_course_array = Attached_skill.get_attached_course_by_skill_id_list(skill_id)
-    print(existing_course_array)
     # Step 3: Compare existing_course_array with courses_to_add. If duplicates found, return error code 400
     for addCourse in courses_to_add:
         for existCourse in existing_course_array:
@@ -723,10 +749,10 @@ def delete_skill(skill_id, isactive, skill_name):
     result = Skill.toggle_active(skill_id, isactive)
     if result:
         if isactive == 1:
-            message = skill_name + " has been toggled to active."
+            message = skill_name + " has been toggled to active"
 
         else:
-            message = skill_name + " has been toggled to inactive." 
+            message = skill_name + " has been toggled to inactive" 
             
 
         return jsonify({
@@ -737,7 +763,7 @@ def delete_skill(skill_id, isactive, skill_name):
     else: 
         return jsonify({
             "code": 404, 
-            "message": "There is an issue with changing the skill's activation status."
+            "message": "There is an issue with changing the skill's activation status"
         }), 404
 
 # For HR view in skills_page.js
@@ -774,7 +800,7 @@ def remove_course_from_skill():
     if len(courses_to_remove) == len(existing_course_array):
         return jsonify({
                     "code": 400,
-                    "message": "You are removing all courses from the skill."
+                    "message": "You are removing all courses from the skill"
                 }), 400
      # Step 4: If user not removing all courses, remove the skill_id, course_id for each course in courses_to_remove in the attached_skill table. 
     return Attached_skill.remove_course_from_skill(skill_id, courses_to_remove)
@@ -1003,15 +1029,16 @@ def get_skill_and_course_details():
     # Array of skill objects
     skills = Skill.get_all_skills_active()
     # loop through the array, and for each skill, get the courses (+ details) and append the courses relevant to the skill object
-    for skill in skills:
-        # array to hold all the courses related to the skill
-        all_courses = []
-        course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
-        for course in course_ids:
-            course_details = Course.get_course_by_id(course)
-            all_courses.append(course_details)
-        # Append all_courses array to the skill objects
-        skill['courses'] = all_courses
+    if skills:
+        for skill in skills:
+            # array to hold all the courses related to the skill
+            all_courses = []
+            course_ids = Attached_skill.get_attached_course_by_skill_id_list(skill['skill_id'])
+            for course in course_ids:
+                course_details = Course.get_course_by_id(course)
+                all_courses.append(course_details)
+            # Append all_courses array to the skill objects
+            skill['courses'] = all_courses
     return skills
 
 # (FOR HR) This helper function will return a list of all skill details for both INACTIVE & ACTIVE skills. 

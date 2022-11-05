@@ -83,8 +83,6 @@ class Ljps_role(db.Model):
     #edit role
     def edit_details(ljpsr_id, new_role_name, new_role_desc):
         role = Ljps_role.query.filter_by(ljpsr_id=ljpsr_id).first()
-        print(new_role_name)
-        print(new_role_desc)
         role.role_title = new_role_name
         role.role_desc = new_role_desc
         try:
