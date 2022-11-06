@@ -100,8 +100,6 @@ a{
     font-family: roboto, sans-serif;
     font-size: 20px;
     text-align: center;
-    /* border-right: 1.5px solid #dbdbdb;
-    border-left: 1.5px solid #dbdbdb; */
 }
 
 .statusdiv{
@@ -136,6 +134,10 @@ a{
 @media screen and (max-width: 768px) {
     .main{
         margin: 0%;
+    }
+
+    .staffName{
+        font-size: 28px;
     }
 
     .name{
@@ -184,5 +186,17 @@ a{
     
     .ongoing{
         font-size: 14px;
+        width: 100%;
+    }
+
+    .completed{
+        font-size: 14px;
+        width: 100%;
+    }
+
+    .back{
+        width: 50%;
+        font-size: 18px;
+        margin-top: 5%;
     }
 }
