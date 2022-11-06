@@ -1,39 +1,64 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Python application
+name: CI Script
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 permissions:
   contents: read
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Lint with flake8
-      run: |
-        # stop the build if there are Python syntax errors or undefined names
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    - name: Test with pytest
-      run: |
-        pytest
+      - uses: actions/checkout@v3
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run course_test unit test
+        run: |
+          cd flask
+          python course_test.py
+      - name: Run learning_journey unit test
+        run: |
+          cd flask
+          python learning_journey_test.py
+      - name: Run lj_course unit test
+        run: |
+          cd flask
+          python lj_course_test.py
+      - name: Run ljps_role unit test
+        run: |
+          cd flask
+          python ljps_role_test.py
+      - name: Run registration unit test
+        run: |
+          cd flask
+          python registration_test.py
+      - name: Run role_required_skill unit test
+        run: |
+          cd flask
+          python role_required_skill_test.py
+      - name: Run role unit test
+        run: |
+          cd flask
+          python role_test.py
+      - name: Run staff unit test
+        run: |
+          cd flask
+          python staff_test.py
+      - name: Run app INTEGRATION test
+        run: |
+          cd flask
+          python app_test.py
