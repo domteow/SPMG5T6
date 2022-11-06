@@ -155,6 +155,9 @@ function handleChange(cb) {
     }
 }
 
+var nameError = document.getElementById('nameError');
+var descError = document.getElementById('descError');
+var skillError = document.getElementById('skillError');
 
 function editRole(){
     var role_id = sessionStorage.getItem('edit_role_id');
@@ -163,22 +166,24 @@ function editRole(){
     var curr_skill_ids = sessionStorage.getItem('curr_skill_ids');
     curr_skill_ids = JSON.parse(curr_skill_ids);
     var error_count = 0;
-    var nameError = document.getElementById('nameError');
-    var descError = document.getElementById('descError');
+    
+    nameError.innerText = ``;
+    descError.innerText = ``;
+
 
     // ROLE NAME 
     // get value of role name from form and compare 
     var new_role_name = document.getElementById('role_name').value;
     if (new_role_name == ''){
         error_count += 1;
-        nameError.innerHTML = `Role name cannot be empty.`;
+        nameError.innerText = `Role name cannot be empty.`;
     }
     // ROLE DESCRIPTION 
     // get value of role description from form and compare 
     var new_role_desc = document.getElementById('role_desc').value;
     if (new_role_desc == ''){
         error_count += 1;
-        descError.innerHTML = `Role description cannot be empty.`;
+        descError.innerText = `Role description cannot be empty.`;
     }
 
     if (new_role_name != "" && new_role_desc != ""){
@@ -209,13 +214,13 @@ function editRole(){
 
     // ROLE SKILLS 
     // get values of skills in role from form and compare 
-    var skillError = document.getElementById('skillError');
+    skillError.innerText = ``;
     const allChecked = document.querySelectorAll("input[name=skills]:checked");
     var checkedSkills = Array.from(allChecked).map((checkbox) => checkbox.value);
     // console.log(checkedSkills);
     if (checkedSkills.length == 0){
         error_count += 1;
-        skillError.innerHTML = `Please select at least one skill to be added under this role. <br>`;
+        skillError.innerText = `Please select at least one skill to be added under this role. <br>`;
     }
     else{
         var added_skills = [];

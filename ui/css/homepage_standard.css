@@ -14,7 +14,7 @@
 .searchdiv{
     width: 80%;
     border:1px solid black;
-    border-radius: 10px;
+    border-radius: 3px;
     height: 10%;
     margin-left: auto;
     margin-right: auto;
@@ -26,8 +26,6 @@
 .searchicon{
     padding-left: 3%;
 }
-
-
 
 li{
     font-family: roboto, sans-serif;
@@ -61,7 +59,6 @@ li{
 
 #myUL li a {
 border: 1px solid black;
-/* margin-top: -1px; Prevent double borders */
 background-color: #f6f6f6;
 padding: 12px;
 text-decoration: none;
@@ -123,30 +120,25 @@ input:focus{
 }
 
 .completed{
-    /* width: 30%; */
-    /* background-color: #CFFFD1; */
     color: #85c687;;
     font-family: roboto,sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: 14px;
     text-align: right;
-    border-radius: 8px;
+    border-radius: 3px;
     padding: 1%;
     padding-right: 2%;
-    /* border: 1px solid black */
 }
 
 .notcompleted{
-    /* width: 10%; */
-    /* background-color: #CFFFD1; */
     color: #a9a9a9;
     font-family: roboto,sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: 14px;
     text-align: right;
-    border-radius: 8px;
+    border-radius: 3px;
     padding: 1%;
     padding-right: 2%;
 }
@@ -161,64 +153,19 @@ input:focus{
     background-color: #FFDBA5;
     color: #000;
     text-align: center;
-    border-radius: 8px;
+    border-radius: 3px;
     padding: 3%;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 a{
     text-decoration: none;
-    /* border: 1px solid grey; */
     padding: 0%;
 }
 
 a:hover{
     text-decoration: none;
 }
-
-/* responsiveness */
-/* @media screen and (max-width: 768px) {
-    .main{
-        margin: 0%;
-    }
-    .searchicon{
-        width:10%;
-    }
-    .browseroles{
-        font-size: 20px;
-    }
-    ::placeholder{
-        font-size: 16px;
-    }
-    .logoimg{
-        width: 70%;
-    }
-    .roledeets{
-        font-size: 18px;
-        width: 45%;
-    }
-    .completed{
-        font-size: 14px;
-        width: 55%;
-        padding: auto;
-    }
-    .ncompleted{
-        font-size: 14px;
-        width: 55%;
-        padding: auto;
-    }
-    .row{
-        padding: 2%;
-    }
-    .navitem{
-        font-size: 20px;
-    }
-}
-
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
-} */
 
 
 /* REMEMBER TO CHANGE THE JS ALSO!!!! FOR THE DISPLAY OF ALL ROLES */

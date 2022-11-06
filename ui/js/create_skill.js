@@ -48,7 +48,6 @@ $(async () => {
                     `;
                 }
             }
-            // console.log(skillinput);
             coursediv.innerHTML += courseinput;
         
             console.log(searchdiv);
@@ -88,28 +87,39 @@ function searchCourse() {
     }
 }
 
-async function addCourse(){
-    var serviceURL = "http://127.0.0.1:5001/create_skill"
-    var skill_name = document.getElementById('skill_name').value;
-    console.log(skill_name);
-    var skill_desc = document.getElementById('skill_desc').value;
-    console.log(skill_desc);
+var nameError = document.getElementById('nameError');
+var descError = document.getElementById('descError');
+var courseError = document.getElementById('courseError');
 
+
+async function addCourse(){
+    nameError.innerText = ``;
+    descError.innerText = ``;
+    courseError.innerText = ``;
+
+    var serviceURL = "http://127.0.0.1:5001/create_skill"
+
+    var skill_name = document.getElementById('skill_name').value;
+    var skill_desc = document.getElementById('skill_desc').value;
+    var error = 0;
     const allChecked = document.querySelectorAll('input[name=courses]:checked');
 
     var newSkillCourses = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(newSkillCourses);
 
     if (skill_name == "") {
-        alert("Skill name cannot be empty.")
+        nameError.innerText = `Skill name cannot be empty.`;
+        error += 1 
     }
 
-    else if (skill_desc == "") {
-        alert("Skill description cannot be empty.")
+    if (skill_desc == "") {
+        descError.innerText = `Skill description cannot be empty.`;
+        error += 1 
     }
 
-    else if (newSkillCourses.length == 0) {
-        alert("Please select at least one course to create your learning journey.")
+    if (newSkillCourses.length == 0) {
+        courseError.innerText = `Please select at least one course to create the skill.`;
+        error += 1 
     }
 
     else {
@@ -132,9 +142,9 @@ async function addCourse(){
                     }
                 );
             
-            console.log(response)
+            
             const result = await response.json(); 
-            console.log(result)
+            
 
             if (response.status == 201) {
                 console.log("Skill created.")
@@ -142,7 +152,8 @@ async function addCourse(){
                 localStorage.setItem('errmessage', message);
                 location.href = './skills_page.html';
             } else if (response.status === 401) {
-                alelrt("The skill name " + skill_name + " already exists.")
+                nameError.innerText = `The skill name ${skill_name} already exists.`;
+                error += 1 
             }
             
         } 
@@ -152,5 +163,10 @@ async function addCourse(){
             console.log("error")
         }
         
+    }
+
+    if (error > 0) {
+        location.href = "#top";
+        alert("Errors have been found in creating the skill.");
     }
 }

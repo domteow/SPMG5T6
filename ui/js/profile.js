@@ -30,10 +30,14 @@ $(async() => {
                 for (var idx in allSkills){
                     var skilldeets = allSkills[idx];
                     var skill_name = skilldeets['skill_name'];
+                    var skill_desc = skilldeets['skill_desc'];
                     skilldiv.innerHTML+= `
                         <div class='row skillrow'>
                             <div class='col-9 skillname'>
                                 ${skill_name}
+                                <div class='skilldesc'>
+                                    ${skill_desc}
+                                </div>
                             </div>
                             <div class='col-3'>
                                 <div class='attained'>

@@ -65,7 +65,7 @@
     font-size: 24px;
     color: #FFDBA5; 
     background-color: #190061;
-    border-radius: 10px;
+    border-radius: 3px;
     padding: 1%;
     text-align: center;
     width: 35%;
@@ -76,7 +76,7 @@
 
 .cancelLJ{
     margin-bottom: 8%;
-    border-radius: 5px;
+    border-radius: 3px;
     padding: 1%;
     width: 10%;
     text-align: center;

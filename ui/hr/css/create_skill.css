@@ -20,6 +20,13 @@
     width: 50%;
 }
 
+.errmsg{
+    font-family: roboto, sans-serif;
+    color: #f16262;
+    font-weight: 500;
+    font-size: 16px; 
+}
+
 .form-control{
     padding: 2%;
     border: 1px solid #000;
@@ -133,7 +140,7 @@ a{
 
 .searchdiv{
     border:1px solid black;
-    border-radius: 10px;
+    border-radius: 3px;
     height: 10%;
     background-color: #FFF;
     text-align: left;
@@ -224,6 +231,13 @@ input:focus{
 @media screen and (max-width:768px) {
     .main{
         margin:0%;
+    }
+
+    .errmsg{
+        font-family: roboto, sans-serif;
+        color: #f16262;
+        font-weight: 500;
+        font-size: 12px; 
     }
 
     .pgTitle{

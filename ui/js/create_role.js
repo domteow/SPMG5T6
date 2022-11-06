@@ -6,18 +6,15 @@ $(async () => {
             await fetch(
             serviceURL, { mode: 'cors', method: 'GET' }
         );
-        // console.log(response)
         const result = await response.json();
-        // console.log(result.data)
+        
         if(result) {
-            // console.log(result.data)
             all_skills = result.data
             all_skills = all_skills.skills;
-            // console.log(all_skills);
+
             var searchdiv = document.getElementById('myUL');
             var skilldiv = document.getElementById('allSkills');
             var skillinput = ``
-
 
             for (var skill_idx in all_skills){
                 var skill = all_skills[skill_idx];
@@ -47,12 +44,9 @@ $(async () => {
                     `;
                 }
             }
-            // console.log(skillinput);
             skilldiv.innerHTML += skillinput;
-        
         }
         
-
     } catch (error) {
         console.log(error)
         console.log('error')
@@ -86,60 +80,79 @@ function searchRole() {
     }
 }
 
+var nameError = document.getElementById('nameError');
+var descError = document.getElementById('descError');
+var skillError = document.getElementById('skillError');
+
 async function addRole(){
+    nameError.innerText = ``;
+    descError.innerText = ``;
+    skillError.innerText = ``;
+
     var serviceURL = "http://127.0.0.1:5001/create_role"
+
     var role_name = document.getElementById('role_name').value;
-    console.log(role_name);
     var role_desc = document.getElementById('role_desc').value;
-    console.log(role_desc);
+    var error = 0;
 
     const allChecked = document.querySelectorAll('input[name=skills]:checked');
 
     var newRoleSkills = Array.from(allChecked).map(checkbox => checkbox.value);
-    console.log(newRoleSkills);
-        if (role_name == "") {
-            alert("Role name cannot be empty.")
-        }
-        else if (role_desc == ""){
-            alert("Role description cannot be empty.")
-        }
-        else if(newRoleSkills.length == 0) {
-            alert("Please select at least one skill to add to your role.")
-        }
-        else {
-            sessionStorage.setItem('newRoleName', role_name);
-            sessionStorage.setItem('newRoleDesc', role_desc);
-            sessionStorage.setItem('newRoleSkills', newRoleSkills);
-            try {
-                const response =
-                    await fetch(
-                    serviceURL, { mode: 'cors', method: 'POST',
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        "newRoleName" : role_name,
-                        "newRoleDesc" : role_desc,
-                        // stringify course array and add here
-                        "newRoleSkills" : JSON.stringify(newRoleSkills)
-                    })
-                });
-                console.log(response)
-                const result = await response.json();
-                console.log(result)
-                if(response.status === 201) {
-                    alert("The role " + role_name + " has been successfully created")
-                    var message = 'The role' + role_name + 'has been successfully created.'
-                    localStorage.setItem('errmessage', message);
-                    location.href = './roles_page.html';
-                } else if (response.status === 401) {
-                    alert("The role name " + role_name + " already exists");
-                }
-                
-        
-            } catch (error) {
-                console.log(error)
-                console.log('error')
-            }
+    
+    if (role_name == "") {
+        nameError.innerText = `Role name cannot be empty.`;
+        error += 1;
+    }
 
+    if (role_desc == ""){
+        descError.innerText = `Role description cannot be empty.`;
+        error += 1;
+    }
+
+    if(newRoleSkills.length == 0) {
+        skillError.innerText = `Please select at least one skill to create the role.`;
+        error += 1;
+    }
+    else {
+        sessionStorage.setItem('newRoleName', role_name);
+        sessionStorage.setItem('newRoleDesc', role_desc);
+        sessionStorage.setItem('newRoleSkills', newRoleSkills);
+        try {
+            const response =
+                await fetch(
+                serviceURL, { mode: 'cors', method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    "newRoleName" : role_name,
+                    "newRoleDesc" : role_desc,
+                    // stringify course array and add here
+                    "newRoleSkills" : JSON.stringify(newRoleSkills)
+                })
+            });
+            console.log(response)
+            const result = await response.json();
+            console.log(result)
+            if(response.status === 201) {
+                alert("The role " + role_name + " has been successfully created")
+                var message = 'The role' + role_name + 'has been successfully created.'
+                localStorage.setItem('errmessage', message);
+                location.href = './roles_page.html';
+            } else if (response.status === 401) {
+                nameError.innerText = `The role name ${role_name} already exists`;
+                error += 1
+            }
+            
+    
+        } catch (error) {
+            console.log(error)
+            console.log('error')
         }
+
+    }
+
+    if (error > 0){
+        location.href = '#top';
+        alert('Errors have been found in creating the role.')
+    }
 
 }

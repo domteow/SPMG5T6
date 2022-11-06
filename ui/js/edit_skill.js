@@ -178,6 +178,10 @@ $(async () => {
   }
 });
 
+var nameError = document.getElementById("nameError");
+var descError = document.getElementById("descError");
+var courseError = document.getElementById("courseError");
+
 async function saveSkill() {
   var skill_id = sessionStorage.getItem("edit_skill_id");
   var curr_skill_name = sessionStorage.getItem("curr_skill_name");
@@ -185,23 +189,25 @@ async function saveSkill() {
   var curr_courses = sessionStorage.getItem("curr_courses");
   curr_courses = JSON.parse(curr_courses);
   var error_count = 0;
-  var nameError = document.getElementById("nameError");
-  var descError = document.getElementById("descError");
+
+  nameError.innerText = ``;
+  descError.innerText = ``;
+  console.log(nameError);
 
   // SKILL NAME
   // get value of skill name from form and compare
   var new_skill_name = document.getElementById("skill_name").value;
   if (new_skill_name == "") {
     error_count += 1;
-    nameError.innerHTML += `Skill name cannot be empty.`;
+    nameError.innerText += `Skill name cannot be empty.`;
   }
 
   // SKILL DESCRIPTION
   // get value of skill desc from form and compare
   var new_skill_desc = document.getElementById("skill_desc").value;
-  if (new_skill_name == "") {
+  if (new_skill_desc == "") {
     error_count += 1;
-    descError.innerHTML += `Skill description cannot be empty.`;
+    descError.innerText += `Skill description cannot be empty.`;
   }
 
   // check if new skill name and new skill desc are not empty 
@@ -236,10 +242,11 @@ async function saveSkill() {
 
   // SKILL COURSES
   // get values of courses in skill from form and compare
-  var courseError = document.getElementById("courseError");
+  // var courseError = document.getElementById("courseError");
   const allChecked = document.querySelectorAll("input[name=courses]:checked");
   var checkedCourses = Array.from(allChecked).map((checkbox) => checkbox.value);
   // console.log(checkedCourses);
+  courseError.innerText = ``;
 
   if (checkedCourses.length == 0) {
     error_count += 1;
@@ -274,11 +281,9 @@ async function saveSkill() {
     }
 
     if (added_courses.length > 0) {
-      // console.log(added_courses.length);
+
       // to input backend to add course to skill
       let serviceURL = "http://127.0.0.1:5001/add_course_to_skill";
-      // console.log("ADDITION STUFF HERE");
-      // console.log(added_courses, skill_id);
       try {
         const response = await fetch(serviceURL, {
           mode: "cors",
