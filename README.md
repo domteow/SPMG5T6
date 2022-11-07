@@ -65,7 +65,7 @@ For Windows in WAMP
 
 ![Location of SPMG5T6](images/g5t6loc.jpg)
 
-For Max in MAMP
+For Mac in MAMP
 
 ![Location of SPMG5T6 Mac](images/g5t6loc(mac).png)
 
