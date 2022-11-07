@@ -246,9 +246,9 @@ function deleteskill(activeCheck){
                     </div>`;
         }
     })
-    setTimeout(function() {
-        var div = document.getElementById(count);
-        console.log(div);
-        div.style.display ='none';
-    }, 1500);
+    // setTimeout(function() {
+    //     var div = document.getElementById(count);
+    //     console.log(div);
+    //     div.style.display ='none';
+    // }, 1500);
 }

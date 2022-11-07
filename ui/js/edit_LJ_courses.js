@@ -124,7 +124,7 @@ function getValues(){
     var checkedCourses = Array.from(allChecked).map(checkbox => checkbox.value);
     console.log(checkedCourses);
     if(checkedCourses.length == 0) {
-        errmsg.innerText = `Please select at least one course to create your learning journey.`;
+        errmsg.innerText = `Please select at least one course to save your learning journey.`;
         location.href = "#top";
         // alert("Please select at least one course to create your learning journey.")
     }
