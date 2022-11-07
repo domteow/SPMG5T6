@@ -61,7 +61,13 @@ Our MySQL databases are managed by phpMyAdmin. In order to create and populate t
 
 For the frontend files to function, SPMG5T6 repository has to be saved in the webroot.
 
+For Windows in WAMP
+
 ![Location of SPMG5T6](images/g5t6loc.jpg)
+
+For Max in MAMP
+
+![Location of SPMG5T6 Mac](images/g5t6loc(mac).png)
 
 <br>
 
