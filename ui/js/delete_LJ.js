@@ -20,7 +20,7 @@ async function deleteLJ(deleteid){
             console.log(response)
             if(response.status === 201 || response.status === 200) {
                 console.log('Learning Journey deleted')
-                alert('Learning Journey deleted')
+                // alert('Learning Journey deleted')
                 
             }
         } catch (error) {

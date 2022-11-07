@@ -11,7 +11,6 @@ console.log(new_lj_details)
 
 document.getElementById('rolename').innerText = new_lj_details.ljps_role.role_title;
 
-
 console.log(courses);
 
 for(let i = 0; i<courses.length; i+=1){
@@ -72,10 +71,9 @@ async function confirmLJ(){
         const result = await response.json();
         console.log(result)
         if(result.code === 201) {
-            console.log('Learning Journey created')
-            alert('Learning Journey created')
-            var message = 'Learning Journey created hehe xd';
-            sessionStorage.setItem('msg', message);
+            console.log('Learning Journey created');
+            // var message = 'Learning Journey created.';
+            // sessionStorage.setItem('msg', message);
         }
         
 
@@ -90,7 +88,7 @@ async function confirmLJ(){
     var staff_role = sessionStorage.getItem('staff_role');
     console.log(staff_role);
     if (staff_role == 1){
-        var message = 'Learning Journey created.';
+        var message = `Learning Journey created.`;
         localStorage.setItem('errmessage', message);
         sessionStorage.setItem('refresh', 'Y');
         location.href = '../hr/dashboard_hr.html';

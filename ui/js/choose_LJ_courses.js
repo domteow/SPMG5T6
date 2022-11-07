@@ -12,7 +12,7 @@ $(async () => {
             await fetch(
             serviceURL, { mode: 'cors', method: 'GET' }
         );
-        // console.log(response)
+
         const result = await response.json();
         console.log(result.data)
         if(result) {
@@ -20,8 +20,6 @@ $(async () => {
             new_lj_details = JSON.stringify(result.data)
             sessionStorage.setItem('new_lj_details', new_lj_details)
             var item = result.data.ljps_role;
-
-
 
             /* add role title */ 
             var role_name = item['role_title'];
@@ -106,7 +104,6 @@ function getValues(){
     console.log(checkedCourses);
     if(checkedCourses.length == 0) {
         errormsg.innerText = `Please select at least one course to create your learning journey.`;
-        // alert("Please select at least one course to create your learning journey.")
         location.href = "#top";
     }
     else {
