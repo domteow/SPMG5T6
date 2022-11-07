@@ -23,6 +23,13 @@ class Test_Attached_Skill(flask_testing.TestCase):
         self.as4 = Attached_skill(skill_id=2, course_id='COR001')
         self.as5 = Attached_skill(skill_id=2, course_id='FIN001')
         self.as6 = Attached_skill(skill_id=2, course_id='tch006')
+        db.session.add(self.as1)
+        db.session.add(self.as2)
+        db.session.add(self.as3)
+        db.session.add(self.as4)
+        db.session.add(self.as5)
+        db.session.add(self.as6)
+        db.session.commit()
 
     def tearDown(self):
         db.session.remove()
