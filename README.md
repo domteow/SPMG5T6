@@ -65,13 +65,30 @@ For the frontend files to function, SPMG5T6 repository has to be saved in the we
 
 <br>
 
-The user process first begins at the [Login Page](http://localhost/SPMG5T6/ui/login.html) where they can login using their Staff ID. 
+The user process first begins at the [Login Page](http://localhost/SPMG5T6/ui/login.html) where they can login using their <ins>Staff ID</ins>. 
 
 From then on, users will be brought to a homepage based on their role. 
 
 * [Human Resource (HR)](http://localhost/SPMG5T6/ui/hr/homepage_hr.html) 
 * [Manager](http://localhost/SPMG5T6/ui/manager/homepage_manager.html) 
 * [Staff](http://localhost/SPMG5T6/ui/staff/homepage_standard.html)
+
+## Role Features ##
+
+### All Roles ###
+* View the roles offered on LJPS
+* Create/edit/delete learning journeys based on the role they want to pursue
+* View completed/in-progress courses
+* View attained skills
+
+### Human Resource (HR) ###
+* Create/edit roles and skills on LJPS
+* Soft delete functionality on roles and skills on LJPS
+
+### Manager ###
+* View all team members in a page
+* Quick look at the <ins>number</ins> of ongoing/completed courses and skills by each team member
+* View the ongoing/completed courses and skills by each team member
 
 ## Course and Team Information ##
 
