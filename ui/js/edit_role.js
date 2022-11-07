@@ -220,7 +220,7 @@ function editRole(){
     // console.log(checkedSkills);
     if (checkedSkills.length == 0){
         error_count += 1;
-        skillError.innerText = `Please select at least one skill to be added under this role. <br>`;
+        skillError.innerText = `You cannot remove all skills from this role. Please select at least one skill to be added under this role.`;
     }
     else{
         var added_skills = [];
