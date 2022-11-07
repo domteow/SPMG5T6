@@ -82,5 +82,6 @@ class TestLearning_journey(flask_testing.TestCase):
         # Should not be able to delete LJ that does not exist
         self.assertEqual(Lj_course.delete_learning_journey(3)
         ,"Course not found in learning journey.")
+        
 if __name__ == "__main__":
     unittest.main()  
