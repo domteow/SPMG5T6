@@ -66,7 +66,6 @@ $(async () => {
             staffname.innerHTML = `${staff_name} <span class="staffDept" id="dept">${staff_dept}</span>`;
             staffemail.innerText = staff_email;
             staffdept.innerHTML = `<div>${staff_dept}</div>`;
-
             
             if(ongoing_courses.length > 0){
                 document.getElementById('courseNoVal').style.display = 'none';

@@ -1,11 +1,9 @@
 var ljpsr_id = sessionStorage.getItem('ljpsr_id');
 var selectedCourses = sessionStorage.getItem('checkedCourses');
-// var role_name = sessionStorage.getItem('role_name');
 var course_dict = {};
 var courses = selectedCourses.split(',');
 var staff_id = sessionStorage.getItem('staff_id')
 
-// var skillarr = sessionStorage.getItem('skillarr') //array of skill IDs
 new_lj_details = JSON.parse(sessionStorage.getItem('new_lj_details'))
 console.log(new_lj_details)
 
@@ -31,7 +29,6 @@ console.log(JSON.stringify(course_dict))
 var courseskill = document.getElementById('courseskill');
 
 for(var skill_name in course_dict){
-    // console.log(skill_name);
     var courses = course_dict[skill_name];
     console.log(courses);
     courseskill.innerHTML += `
@@ -44,11 +41,6 @@ for(var skill_name in course_dict){
     }
     courseskill.innerHTML+= `</ul></div>`;
 }
-
-// function confirmLJ(){
-//     location.href = '../staff/dashboard_standard.html';
-// }
-
 
 async function confirm_edit_LJ(){
     // creating LJ in learning_journey table
@@ -77,7 +69,6 @@ async function confirm_edit_LJ(){
         console.log(result)
         if(response.status === 201 || response.status === 200) {
             console.log('Learning Journey edited')
-            alert('Learning Journey edited')
             // var message = 'Learning journey edited';
             // localStorage.setItem('errmessage', message);
         }

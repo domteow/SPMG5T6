@@ -122,7 +122,7 @@ async function addCourse(){
         error += 1 
     }
 
-    else {
+    if((skill_name != '') & (skill_desc != '') & (newSkillCourses.length > 0)) {
         sessionStorage.setItem('newSkillName', skill_name);
         sessionStorage.setItem('newSkillDesc', skill_desc);
         sessionStorage.setItem('newSkillCourses', newSkillCourses);
@@ -148,9 +148,6 @@ async function addCourse(){
 
             if (response.status == 201) {
                 console.log("Skill created.")
-                var message = "The skill " + skill_name + " has been successfully created.";
-                localStorage.setItem('errmessage', message);
-                location.href = './skills_page.html';
             } else if (response.status === 401) {
                 nameError.innerText = `The skill name ${skill_name} already exists.`;
                 error += 1 
@@ -167,6 +164,13 @@ async function addCourse(){
 
     if (error > 0) {
         location.href = "#top";
-        alert("Errors have been found in creating the skill.");
+        // alert("Errors have been found in creating the skill.");
+        console.log(error);
+    }
+    else{
+        console.log(error);
+        var message = "The skill " + skill_name + " has been successfully created.";
+        localStorage.setItem('errmessage', message);
+        location.href = './skills_page.html';
     }
 }

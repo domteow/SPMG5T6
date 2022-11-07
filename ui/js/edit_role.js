@@ -283,6 +283,6 @@ function editRole(){
 
     else{
         location.href = '#top';
-        alert('Errors have been found in page.');
+        // alert('Errors have been found in page.');
     }
 }

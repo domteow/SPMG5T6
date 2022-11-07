@@ -113,7 +113,7 @@ async function addRole(){
         skillError.innerText = `Please select at least one skill to create the role.`;
         error += 1;
     }
-    else {
+    if((role_name != '') & (role_desc != '') & (newRoleSkills.length > 0)) {
         sessionStorage.setItem('newRoleName', role_name);
         sessionStorage.setItem('newRoleDesc', role_desc);
         sessionStorage.setItem('newRoleSkills', newRoleSkills);
@@ -133,10 +133,7 @@ async function addRole(){
             const result = await response.json();
             console.log(result)
             if(response.status === 201) {
-                alert("The role " + role_name + " has been successfully created")
-                var message = 'The role' + role_name + 'has been successfully created.'
-                localStorage.setItem('errmessage', message);
-                location.href = './roles_page.html';
+                console.log('Creation successful');
             } else if (response.status === 401) {
                 nameError.innerText = `The role name ${role_name} already exists`;
                 error += 1
@@ -148,11 +145,17 @@ async function addRole(){
             console.log('error')
         }
 
+    
     }
-
     if (error > 0){
         location.href = '#top';
-        alert('Errors have been found in creating the role.')
+        // alert('Errors have been found in creating the role.')
+    }
+
+    else{
+        var message = 'The role ' + role_name + ' has been successfully created.'
+        localStorage.setItem('errmessage', message);
+        location.href = './roles_page.html';
     }
 
 }
