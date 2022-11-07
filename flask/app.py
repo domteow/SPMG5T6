@@ -537,6 +537,12 @@ def createSkill():
     attached_courses_str = data["newSkillCourses"]
     attached_courses = json.loads(attached_courses_str)
 
+    # check if skill name or description empty 
+    if skill_name == "" or skill_desc == "" or attached_courses_str == "": 
+        return jsonify({
+                "message": "There was an error creating the skill."
+            }), 404 
+
     # check if skill name exists 
     if Skill.check_skill_exists(skill_name):
         return jsonify(
@@ -617,6 +623,12 @@ def new_role():
     role_desc = data["newRoleDesc"]
     skills_str = data["newRoleSkills"]
     skills = json.loads(skills_str)
+
+    # check if role name or description empty 
+    if role_title == "" or role_desc == "" or skills_str == "": 
+        return jsonify({
+                "message": "There was an error creating the role."
+            }), 404 
 
     #check if the role name already exists
     if Ljps_role.check_learning_journey_role_exists(role_title):
