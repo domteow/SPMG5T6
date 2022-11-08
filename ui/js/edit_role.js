@@ -209,13 +209,10 @@ function editRole(){
                       error_count += 1; 
                   }
 
-                // if (result) {
-                //     // console.log(result.data)
-                //     update_message = result.data;         
-                //     }
                 } catch (error) {
                     console.log(error);
                     console.log("error");
+                    error_count += 1;
             } 
         })
     }
@@ -278,6 +275,8 @@ function editRole(){
                     } catch (error) {
                         console.log(error);
                         console.log("error");
+                        error_count += 1 
+                        
                 } 
             })
         }
@@ -286,7 +285,7 @@ function editRole(){
     if (error_count == 0){
         var message = new_role_name + ' has been edited.'
         localStorage.setItem('errmessage', message);
-        location.href ='./roles_page.html';
+        // location.href ='./roles_page.html';
     }
 
     else{

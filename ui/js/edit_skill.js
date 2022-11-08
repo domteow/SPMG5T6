@@ -237,14 +237,11 @@ async function saveSkill() {
             nameError.innerText = `The skill name ${new_skill_name} already exists.`;
             error_count += 1; 
         }
-
-        // if (result) {
-        //   update_message = result.data
-        // }
         
       } catch (error) {
           console.log(error); 
-          console.log("error")
+          console.log("error");
+          error_count += 1;
       }
     })
   }
@@ -350,7 +347,7 @@ async function saveSkill() {
     // alert("Your changes have been saved successfully!");
     var message = new_skill_name + ' has been edited';
     localStorage.setItem('errmessage', message);
-    location.href = "./skills_page.html";
+    // location.href = "./skills_page.html";
   } else {
     location.href = "#top";
     // alert("Errors have been found in page.");
