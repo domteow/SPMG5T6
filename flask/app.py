@@ -998,7 +998,32 @@ def edit_skill_details():
     data = request.get_json()
     skill_id = data['skill_id']
     new_skill_name = data['new_skill_name']
+
     new_skill_desc = data['new_skill_desc']   
+
+
+
+    # check if skill name or description empty 
+    # if new_skill_name == "" or new_skill_desc == "": 
+    #     return jsonify({
+    #             "message": "There was an error updating the skill."
+    #         }), 404
+
+    # curr_skill = Skill.get_skill_by_id(skill_id)
+    # curr_skill_name = curr_skill['skill_name']
+    # # check if skill name exists 
+    # if curr_skill_name != new_skill_name:
+    #     if Skill.check_skill_exists(new_skill_name):
+    #         return jsonify(
+    #             {
+    #                 "code": 401, 
+    #                 "data": {
+    #                     "skill_name": new_skill_name
+    #                 }, 
+    #                 "message": "The skill name already exists"
+    #             }
+    #         ), 401
+
 
     # Edit skill name and desc
     if new_skill_name and new_skill_desc:
