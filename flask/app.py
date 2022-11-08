@@ -430,10 +430,10 @@ def edit_role_details():
     new_role_desc = data['new_role_desc']  
 
     # check if role name or description empty 
-    if new_role_name == "" or new_role_desc == "": 
-        return jsonify({
-                "message": "There was an error updating the role."
-            }), 404
+    # if new_role_name == "" or new_role_desc == "": 
+    #     return jsonify({
+    #             "message": "There was an error updating the role."
+    #         }), 404
 
     # check if role name exists 
     if Ljps_role.check_learning_journey_role_exists(new_role_name):
