@@ -26,8 +26,6 @@ $(async () => {
                 var skill_desc = skill["skill_desc"];
                 var skill_id = skill["skill_id"];
 
-                sessionStorage.setItem("curr_skill_name", skill_name);
-                sessionStorage.setItem("curr_skill_desc", skill_desc);
 
                 if (skill_id == edit_skill_id) {
                 // console.log(skill_id);
@@ -35,6 +33,8 @@ $(async () => {
 
                 skill_name_div.value = skill_name;
                 skill_desc_div.value = skill_desc;
+                sessionStorage.setItem("curr_skill_name", skill_name);
+                sessionStorage.setItem("curr_skill_desc", skill_desc);
                 }
             }
         }
@@ -281,7 +281,7 @@ async function saveSkill() {
     }
 
     if (added_courses.length > 0) {
-
+      
       // to input backend to add course to skill
       let serviceURL = "http://127.0.0.1:5001/add_course_to_skill";
       try {
