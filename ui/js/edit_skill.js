@@ -1,4 +1,5 @@
 var edit_skill_id = sessionStorage.getItem("edit_skill_id");
+var allcurrskills = sessionStorage.getItem('allskills').split(',');
 
 // to add existing skill name and description into input field value
 $(async () => {
@@ -25,8 +26,6 @@ $(async () => {
                 var skill_desc = skill["skill_desc"];
                 var skill_id = skill["skill_id"];
 
-                sessionStorage.setItem("curr_skill_name", skill_name);
-                sessionStorage.setItem("curr_skill_desc", skill_desc);
 
                 if (skill_id == edit_skill_id) {
                 // console.log(skill_id);
@@ -34,6 +33,8 @@ $(async () => {
 
                 skill_name_div.value = skill_name;
                 skill_desc_div.value = skill_desc;
+                sessionStorage.setItem("curr_skill_name", skill_name);
+                sessionStorage.setItem("curr_skill_desc", skill_desc);
                 }
             }
         }
@@ -94,13 +95,13 @@ $(async () => {
 
   try {
     const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
-    // console.log(response)
+    
     const result = await response.json();
-    // console.log(result.data)
+    
     if (result) {
-      // console.log(result.data)
+      
       all_courses = result.data;
-      // console.log(all_skills);
+      
       var searchdiv = document.getElementById("myUL");
       var coursediv = document.getElementById("allCourses");
       var courseinput = ``;
@@ -109,8 +110,6 @@ $(async () => {
         var course = all_courses[course_idx];
         var course_name = course.course_name;
         var course_id = course.course_id;
-        // console.log(course_name);
-        // console.log(course_id);
 
         // add course into search
         searchdiv.innerHTML += `<li><a href='#${course_id}'>${course_name}</a></li>`;
@@ -134,10 +133,8 @@ $(async () => {
                             `;
         }
       }
-      // console.log(skillinput);
       coursediv.innerHTML += courseinput;
 
-      // console.log(searchdiv);
     }
   } catch (error) {
     console.log(error);
@@ -152,23 +149,19 @@ $(async () => {
 
   try {
     const response = await fetch(serviceURL, { mode: "cors", method: "GET" });
-    // console.log(response)
+    
     const result = await response.json();
-    // console.log(result.data)
+    
     if (result) {
-      // console.log(result.data)
       var courses = result.data.courses;
-      // console.log(courses);
       curr_courses = [];
       currcourses = JSON.stringify(courses);
       sessionStorage.setItem("curr_courses", currcourses);
 
       for (var course_idx in courses) {
-        // console.log(course_idx);
         var course = courses[course_idx];
         var course_id = course["course_id"];
         var course_checkbox = document.getElementById(course_id);
-        // console.log(course_checkbox);
         course_checkbox.checked = true;
       }
     }
@@ -210,11 +203,18 @@ async function saveSkill() {
     descError.innerText += `Skill description cannot be empty.`;
   }
 
+  for (var skillidx in allcurrskills){
+    var skill_name = allcurrskills[skillidx];
+    console.log(skill_name);
+    if (new_skill_name == skill_name && skill_name != curr_skill_name){
+      error_count +=1;
+      nameError.innerText += `The skill ${skill_name} already exists.`;
+    }
+  }
+
   // check if new skill name and new skill desc are not empty 
   if (new_skill_name != "" && new_skill_desc != "") {
     $(async () => {
-      console.log("new here")
-
       var serviceURL = "http://127.0.0.1:5001/edit_skill_details";
 
       try {
@@ -281,7 +281,7 @@ async function saveSkill() {
     }
 
     if (added_courses.length > 0) {
-
+      
       // to input backend to add course to skill
       let serviceURL = "http://127.0.0.1:5001/add_course_to_skill";
       try {
@@ -347,3 +347,4 @@ async function saveSkill() {
     // alert("Errors have been found in page.");
   }
 }
+
