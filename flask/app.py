@@ -434,18 +434,20 @@ def edit_role_details():
     #     return jsonify({
     #             "message": "There was an error updating the role."
     #         }), 404
-
+    curr_role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
+    curr_role_name =  curr_role['role_title']
     # check if role name exists 
-    if Ljps_role.check_learning_journey_role_exists(new_role_name):
-        return jsonify(
-            {
-                "code": 401, 
-                "data": {
-                    "role_name": new_role_name
-                }, 
-                "message": "The role name already exists"
-            }
-        ), 401
+    if new_role_name != curr_role_name:
+        if Ljps_role.check_learning_journey_role_exists(new_role_name):
+            return jsonify(
+                {
+                    "code": 401, 
+                    "data": {
+                        "role_name": new_role_name
+                    }, 
+                    "message": "The role name already exists"
+                }
+            ), 401
 
     # Edit role title and desc
     if new_role_desc and new_role_name:
