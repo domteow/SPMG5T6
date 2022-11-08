@@ -15,6 +15,8 @@ $(async () => {
         const result = await response.json();
         // console.log(result.data)
         if(result) {
+            var allskills = []
+
             // console.log(result.data)
             all_skills = result.data
             all_skills = all_skills.skills;
@@ -34,6 +36,7 @@ $(async () => {
                 var active = skill['active'];
                 var skill_courses = skill['courses'];
                 var course_content = ``;
+                allskills.push(skill_name);
                 
 
                 searchdiv.innerHTML += `<li><a href="#${skill_name}">${skill_name}</a></li>`;
@@ -148,7 +151,7 @@ $(async () => {
 
             skillsdiv.innerHTML += skilldiv_content;
 
-
+            sessionStorage.setItem('allskills', allskills);
         }
         
 
@@ -246,9 +249,9 @@ function deleteskill(activeCheck){
                     </div>`;
         }
     })
-    setTimeout(function() {
-        var div = document.getElementById(count);
-        console.log(div);
-        div.style.display ='none';
-    }, 1500);
+    // setTimeout(function() {
+    //     var div = document.getElementById(count);
+    //     console.log(div);
+    //     div.style.display ='none';
+    // }, 1500);
 }

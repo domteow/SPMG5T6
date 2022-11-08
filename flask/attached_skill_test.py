@@ -5,7 +5,7 @@ from initdb import db
 from app import app
 from attached_skill import Attached_skill
 
-class Test_Attached_Skill(flask_testing.TestCase):
+class TestAttachedSkill(flask_testing.TestCase):
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite://"
     app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {}
     app.config['TESTING'] = True
@@ -20,9 +20,18 @@ class Test_Attached_Skill(flask_testing.TestCase):
         self.as2 = Attached_skill(skill_id=1, course_id='COR004')
         self.as3 = Attached_skill(skill_id=1, course_id='COR006')
         self.as4 = Attached_skill(skill_id=1, course_id='FIN001')
-        self.as4 = Attached_skill(skill_id=2, course_id='COR001')
-        self.as5 = Attached_skill(skill_id=2, course_id='FIN001')
-        self.as6 = Attached_skill(skill_id=2, course_id='tch006')
+        self.as5 = Attached_skill(skill_id=2, course_id='COR001')
+        self.as6 = Attached_skill(skill_id=2, course_id='FIN001')
+        self.as7 = Attached_skill(skill_id=2, course_id='tch006')
+        db.session.add(self.as1)
+        db.session.add(self.as2)
+        db.session.add(self.as3)
+        db.session.add(self.as4)
+        db.session.add(self.as5)
+        db.session.add(self.as6)
+        db.session.add(self.as7)
+
+        db.session.commit()
 
     def tearDown(self):
         db.session.remove()
@@ -59,10 +68,7 @@ class Test_Attached_Skill(flask_testing.TestCase):
         ['COR001', 'COR004', 'COR006', 'FIN001'])
 
     def test_get_attached_skill_by_course_id(self):
-        self.assertEqual(Attached_skill.get_attached_skill_by_course_id(course_id='COR001'), {
-            'skill_id': 1, 
-            'course_id': 'COR001'
-        })
+        self.assertEqual(Attached_skill.get_attached_skill_by_course_id(course_id='COR001'), [{'skill_id': 1, 'course_id': 'COR001'}, {'skill_id': 2, 'course_id': 'COR001'}])
 
     def test_get_attached_skill_by_course_ids(self):
         self.assertEqual(Attached_skill.get_attached_skill_by_course_ids(course_ids=['COR001', 'FIN001']), 
@@ -72,7 +78,9 @@ class Test_Attached_Skill(flask_testing.TestCase):
         self.assertEqual(Attached_skill.create_attached_skill(course_id='tch007', skill_id=2), True)
 
     def test_add_courses_to_skill(self): 
-        self.assertEqual(Attached_skill.add_courses_to_skill(skill_id=1, courses=['COR007', 'COR008', 'COR009']), {
+        result = Attached_skill.add_courses_to_skill(skill_id=1, courses=['COR007', 'COR008', 'COR009'])
+        response = result[0].json
+        self.assertEqual(response, {
             "code": 201,
             "data": {
                 "skill_id" : 1,
@@ -82,7 +90,7 @@ class Test_Attached_Skill(flask_testing.TestCase):
         })
 
     def test_remove_course_from_skill(self):
-        self.assertEqual(Attached_skill.remove_course_from_skill(skill_id=2, courses=['COR001', 'FIN001', 'tch006']), {
+        self.assertEqual(Attached_skill.remove_course_from_skill(skill_id=2, courses=['COR001', 'FIN001', 'tch006'])[0].json, {
             "code": 201, 
             "data": {
                 "skill_id": 2, 
@@ -94,5 +102,6 @@ class Test_Attached_Skill(flask_testing.TestCase):
     def test_get_num_attached_skill_by_course_id_list(self):
         self.assertEqual(Attached_skill.get_num_attached_skill_by_course_id_list(course_id_list=['COR001']), 2)
 
-
+if __name__ == "__main__":
+    unittest.main()  
         

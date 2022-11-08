@@ -33,7 +33,7 @@ function searchRole() {
 
 $(async () => {
     var serviceURL = "http://127.0.0.1:5001/read_all_roles"
-
+    
     try {
         const response =
             await fetch(
@@ -43,6 +43,7 @@ $(async () => {
         const result = await response.json();
         // console.log(result.data)
         if(result) {
+            var allRoles = [];
             var all_roles = result.data;
             var searchdiv = document.getElementById('myUL');
             var rolesdiv = document.getElementById('existingRoles');
@@ -57,6 +58,9 @@ $(async () => {
                 var active = role['active'];
                 var role_skills = role['skills'];
                 var skill_content = ``;
+
+
+                allRoles.push(role_name);
 
                 searchdiv.innerHTML += `<li><a href='#${role_name}'>${role_name}</a></li>`;
 
@@ -170,6 +174,8 @@ $(async () => {
 
             rolesdiv.innerHTML += rolesdiv_content
 
+            console.log(allRoles);
+            sessionStorage.setItem('allroles', allRoles);
 
         }
         
@@ -178,6 +184,7 @@ $(async () => {
         console.log(error)
         console.log('error')
     }
+    
 })
 
 var erroralert = document.getElementById('alerts');
@@ -245,11 +252,11 @@ function deleterole(activeCheck){
     })
     
         var county = '#' + count;
-        setTimeout(function() {
-            var div = document.getElementById(count);
-            console.log(div);
-            div.style.display ='none';
-        }, 1500);
+        // setTimeout(function() {
+        //     var div = document.getElementById(count);
+        //     console.log(div);
+        //     div.style.display ='none';
+        // }, 1500);
     
 }
 
