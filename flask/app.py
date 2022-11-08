@@ -422,33 +422,55 @@ def get_courses_of_lj(staff_id ,lj_id):
 #################################### End of bug fix #######################################
 
 ##################### Start of User Story SA-3 (Kelvin) #####################
+# @app.route("/edit_role_details", methods=["POST"])
+# def edit_role_details():
+#     data = request.get_json()
+#     ljpsr_id = data['ljpsr_id']
+#     new_role_name = data['new_role_name']
+#     new_role_desc = data['new_role_desc']  
+
+#     # check if role name or description empty 
+#     # if new_role_name == "" or new_role_desc == "": 
+#     #     return jsonify({
+#     #             "message": "There was an error updating the role."
+#     #         }), 404
+#     curr_role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
+#     curr_role_name =  curr_role['role_title']
+#     # check if role name exists 
+#     # if new_role_name != curr_role_name:
+#     #     if Ljps_role.check_learning_journey_role_exists(new_role_name):
+#     #         return jsonify(
+#     #             {
+#     #                 "code": 401, 
+#     #                 "data": {
+#     #                     "role_name": new_role_name
+#     #                 }, 
+#     #                 "message": "The role name already exists"
+#     #             }
+#     #         ), 401
+
+#     # Edit role title and desc
+#     if new_role_desc and new_role_name:
+#         result = Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
+
+#     if result:
+#         return jsonify({
+#             "data": {
+#                 "message": "Role name and description has been updated successfully"
+#                 }
+#             }), 200
+#     else:
+#         return jsonify({
+#             "data": {
+#                 "message": "There was an error updating the role name and description."
+#                 }
+#         }), 404
 @app.route("/edit_role_details", methods=["POST"])
 def edit_role_details():
     data = request.get_json()
     ljpsr_id = data['ljpsr_id']
     new_role_name = data['new_role_name']
-    new_role_desc = data['new_role_desc']  
-
-    # check if role name or description empty 
-    # if new_role_name == "" or new_role_desc == "": 
-    #     return jsonify({
-    #             "message": "There was an error updating the role."
-    #         }), 404
-    curr_role = Ljps_role.get_learning_journey_role_by_id(ljpsr_id)
-    curr_role_name =  curr_role['role_title']
-    # check if role name exists 
-    if new_role_name != curr_role_name:
-        if Ljps_role.check_learning_journey_role_exists(new_role_name):
-            return jsonify(
-                {
-                    "code": 401, 
-                    "data": {
-                        "role_name": new_role_name
-                    }, 
-                    "message": "The role name already exists"
-                }
-            ), 401
-
+    new_role_desc = data['new_role_desc']   
     # Edit role title and desc
     if new_role_desc and new_role_name:
         result = Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
@@ -465,7 +487,6 @@ def edit_role_details():
                 "message": "There was an error updating the role name and description."
                 }
         }), 404
-
         
 ##################### End of User Story SA-3 (Kelvin) #####################
 
@@ -931,33 +952,58 @@ def get_attained_skills_of_staff(staff_id):
 
 
 ##################### Start of User Story SA-44 (Jann) #####################
+# @app.route("/edit_skill_details", methods=["POST"])
+# def edit_skill_details():
+#     data = request.get_json()
+#     skill_id = data['skill_id']
+#     new_skill_name = data['new_skill_name']
+#     new_skill_desc = data['new_skill_desc']
+
+#     # check if skill name or description empty 
+#     if new_skill_name == "" or new_skill_desc == "": 
+#         return jsonify({
+#                 "message": "There was an error updating the skill."
+#             }), 404
+
+#     # check if skill name exists 
+#     if Skill.check_skill_exists(new_skill_name):
+#         return jsonify(
+#             {
+#                 "code": 401, 
+#                 "data": {
+#                     "skill_name": new_skill_name
+#                 }, 
+#                 "message": "The skill name already exists"
+#             }
+#         ), 401
+
+#     # Edit skill name and desc
+#     result = Skill.edit_skill(skill_id, new_skill_name, new_skill_desc)
+
+#     if result:
+#         return jsonify({
+#             "data": {
+#                 "message": "Skill name and description has been updated successfully"
+#                 }
+#             }), 200
+#     else:
+#         return jsonify({
+#             "data": {
+#                 "message": "There was an error updating the skill name and description."
+#                 }
+#         }), 404
+
 @app.route("/edit_skill_details", methods=["POST"])
 def edit_skill_details():
     data = request.get_json()
     skill_id = data['skill_id']
     new_skill_name = data['new_skill_name']
-    new_skill_desc = data['new_skill_desc']
-
-    # check if skill name or description empty 
-    if new_skill_name == "" or new_skill_desc == "": 
-        return jsonify({
-                "message": "There was an error updating the skill."
-            }), 404
-
-    # check if skill name exists 
-    if Skill.check_skill_exists(new_skill_name):
-        return jsonify(
-            {
-                "code": 401, 
-                "data": {
-                    "skill_name": new_skill_name
-                }, 
-                "message": "The skill name already exists"
-            }
-        ), 401
+    new_skill_desc = data['new_skill_desc']   
 
     # Edit skill name and desc
-    result = Skill.edit_skill(skill_id, new_skill_name, new_skill_desc)
+    if new_skill_name and new_skill_desc:
+
+        result = Skill.edit_skill(skill_id, new_skill_name, new_skill_desc)
 
     if result:
         return jsonify({
@@ -971,6 +1017,8 @@ def edit_skill_details():
                 "message": "There was an error updating the skill name and description."
                 }
         }), 404
+
+
 
 
 ##################### Start of User story SA-70 (BRYAN) #####################

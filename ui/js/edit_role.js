@@ -1,4 +1,6 @@
 var edit_role_id = sessionStorage.getItem('edit_role_id');
+var allRoles = sessionStorage.getItem('allroles').split(',');
+// console.log(allRoles);
 
 // to get current role name and desc
 $(async () => {
@@ -159,6 +161,159 @@ var nameError = document.getElementById('nameError');
 var descError = document.getElementById('descError');
 var skillError = document.getElementById('skillError');
 
+// function editRole(){
+//     var role_id = sessionStorage.getItem('edit_role_id');
+//     var curr_role_name = sessionStorage.getItem('curr_role_name');
+//     var curr_role_desc = sessionStorage.getItem('curr_role_desc');
+//     var curr_skill_ids = sessionStorage.getItem('curr_skill_ids');
+//     curr_skill_ids = JSON.parse(curr_skill_ids);
+//     var error_count = 0;
+    
+//     nameError.innerText = ``;
+//     descError.innerText = ``;
+
+
+//     // ROLE NAME 
+//     // get value of role name from form and compare 
+//     var new_role_name = document.getElementById('role_name').value;
+//     if (new_role_name == ''){
+//         error_count += 1;
+//         nameError.innerText = `Role name cannot be empty.`;
+//     }
+
+//     // ROLE DESCRIPTION 
+//     // get value of role description from form and compare 
+//     var new_role_desc = document.getElementById('role_desc').value;
+//     if (new_role_desc == ''){
+//         error_count += 1;
+//         descError.innerText = `Role description cannot be empty.`;
+//     }
+
+//     // ROLE SKILLS 
+//     // get values of skills in role from form and compare 
+//     skillError.innerText = ``;
+//     const allChecked = document.querySelectorAll("input[name=skills]:checked");
+//     var checkedSkills = Array.from(allChecked).map((checkbox) => checkbox.value);
+//     console.log(error_count);
+
+//     if (checkedSkills.length == 0){
+//         error_count += 1;
+//         skillError.innerText = `You cannot remove all skills from this role. Please select at least one skill to be added under this role.`;
+//     }
+//     else{
+//         var added_skills = [];
+//         var deleted_skills = [];
+
+//         for (var new_idx in checkedSkills){
+//             var new_id = checkedSkills[new_idx];
+//             // if new id not in curr_skill -> save to added_skills 
+//             if(!curr_skill_ids.includes(parseInt(new_id))){
+//                 added_skills.push(parseInt(new_id));
+//             }
+//         }
+
+//         for (var old_idx in curr_skill_ids) {
+//             var old_id = curr_skill_ids[old_idx];
+//             // if old id not in checkedCourses -> save to deleted_courses
+//             if (!checkedSkills.includes(old_id.toString())) {
+//                 deleted_skills.push(old_id);
+//             }
+//         }
+
+//         if (added_skills.length > 0 || deleted_skills.length > 0){
+
+//             console.log("added_skills====",added_skills)
+//             console.log("deleted_skills====", deleted_skills)
+//             // bryan to add backend
+//             $(async () => {
+//                 console.log("new here")
+//                 var serviceURL = "http://127.0.0.1:5001/edit_skills_in_ljps_role";
+//                 try {
+//                     const response = 
+//                         await fetch(
+//                             serviceURL, { mode: "cors", method: "POST", 
+//                             headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": '*' },
+//                             body: JSON.stringify({
+//                                 "ljpsr_id" : role_id,
+//                                 "added_skills" : added_skills,
+//                                 "deleted_skills" : deleted_skills,
+//                                 "new_role_name": new_role_name,
+//                                 "new_role_desc": new_role_desc,
+//                             })});
+//                     const result = await response.json();
+//                     if (result) {
+//                         // console.log(result.data)
+//                         all_skills = result.data;         
+//                         }
+//                     } catch (error) {
+//                         console.log(error);
+//                         console.log("error");
+//                         error_count += 1 
+//                 } 
+//             })
+//         }
+//     }
+
+    
+//     // to edit the details 
+//     // if (new_role_name != curr_role_name){
+        
+//         $(async () => {
+//             var serviceURL = "http://127.0.0.1:5001/edit_role_details";
+//             try {
+//                 const response = 
+//                     await fetch(
+//                         serviceURL, { mode: "cors", method: "POST", 
+//                         headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": '*' },
+//                         body: JSON.stringify({
+//                             "ljpsr_id" : role_id,
+//                             "new_role_name": new_role_name,
+//                             "new_role_desc": new_role_desc,
+//                         })});
+//                 const result = await response.json();
+
+//                 if (response.status === 201) {
+//                     console.log(error_count);
+//                     console.log("Role edited.");
+//                     console.log('im fked');
+//                     var message = new_role_name + ' has been edited.'
+//                     localStorage.setItem('errmessage', message);
+//                     location.href ='./roles_page.html';
+//                 } 
+//                 if (response.status === 401) {
+//                     console.log('huh');
+//                     error_count += 1;
+//                     console.log(error_count)
+//                     nameError.innerText = `The role name ${new_role_name} already exists.`;
+//                     location.href = '#top';
+//                 }
+
+//                 } catch (error) {
+//                     console.log(error);
+//                     console.log("error");
+//                     error_count += 1;
+//             } 
+//         })
+//     // }
+//     console.log(nameError);
+
+//     // console.log('hi');
+//     // console.log(error_count);
+//     // if (error_count == 0){
+//     //     console.log('im fked');
+//     //     var message = new_role_name + ' has been edited.'
+//     //     localStorage.setItem('errmessage', message);
+//     //     location.href ='./roles_page.html';
+//     // }
+
+//     // else{
+//     //     location.href = '#top';
+//     //     // alert('Errors have been found in page.');
+//     // }
+// }
+
+
+
 function editRole(){
     var role_id = sessionStorage.getItem('edit_role_id');
     var curr_role_name = sessionStorage.getItem('curr_role_name');
@@ -178,7 +333,6 @@ function editRole(){
         error_count += 1;
         nameError.innerText = `Role name cannot be empty.`;
     }
-
     // ROLE DESCRIPTION 
     // get value of role description from form and compare 
     var new_role_desc = document.getElementById('role_desc').value;
@@ -187,13 +341,45 @@ function editRole(){
         descError.innerText = `Role description cannot be empty.`;
     }
 
+    for (var roleidx in allRoles){
+        var rolename = allRoles[roleidx];
+        if (new_role_name == rolename && rolename != curr_role_name ){
+            error_count += 1;
+            nameError.innerText += `The role ${rolename} already exists.`;
+        }
+    }
+
+    if (new_role_name != "" && new_role_desc != ""){
+        $(async () => {
+            var serviceURL = "http://127.0.0.1:5001/edit_role_details";
+            try {
+                const response = 
+                    await fetch(
+                        serviceURL, { mode: "cors", method: "POST", 
+                        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": '*' },
+                        body: JSON.stringify({
+                            "ljpsr_id" : role_id,
+                            "new_role_name": new_role_name,
+                            "new_role_desc": new_role_desc,
+                        })});
+                const result = await response.json();
+                if (result) {
+                    // console.log(result.data)
+                    update_message = result.data;         
+                    }
+                } catch (error) {
+                    console.log(error);
+                    console.log("error");
+            } 
+        })
+    }
+
     // ROLE SKILLS 
     // get values of skills in role from form and compare 
     skillError.innerText = ``;
     const allChecked = document.querySelectorAll("input[name=skills]:checked");
     var checkedSkills = Array.from(allChecked).map((checkbox) => checkbox.value);
-    console.log(error_count);
-
+    // console.log(checkedSkills);
     if (checkedSkills.length == 0){
         error_count += 1;
         skillError.innerText = `You cannot remove all skills from this role. Please select at least one skill to be added under this role.`;
@@ -224,7 +410,7 @@ function editRole(){
             console.log("deleted_skills====", deleted_skills)
             // bryan to add backend
             $(async () => {
-                console.log("new here")
+                // console.log("new here")
                 var serviceURL = "http://127.0.0.1:5001/edit_skills_in_ljps_role";
                 try {
                     const response = 
@@ -246,58 +432,12 @@ function editRole(){
                     } catch (error) {
                         console.log(error);
                         console.log("error");
-                        error_count += 1 
                 } 
             })
         }
     }
 
-    
-    // to edit the details 
-    // if (new_role_name != curr_role_name){
-        
-        $(async () => {
-            var serviceURL = "http://127.0.0.1:5001/edit_role_details";
-            try {
-                const response = 
-                    await fetch(
-                        serviceURL, { mode: "cors", method: "POST", 
-                        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": '*' },
-                        body: JSON.stringify({
-                            "ljpsr_id" : role_id,
-                            "new_role_name": new_role_name,
-                            "new_role_desc": new_role_desc,
-                        })});
-                const result = await response.json();
-
-                if (response.status === 201) {
-                    console.log("Role edited.");
-                    console.log('im fked');
-                    var message = new_role_name + ' has been edited.'
-                    localStorage.setItem('errmessage', message);
-                    location.href ='./roles_page.html';
-                } 
-                if (response.status === 401) {
-                    console.log('huh');
-                    error_count += 1;
-                    console.log(error_count)
-                    nameError.innerText = `The role name ${new_role_name} already exists.`;
-                    location.href = '#top';
-                }
-
-                } catch (error) {
-                    console.log(error);
-                    console.log("error");
-                    error_count += 1;
-            } 
-        })
-    // }
-    
-
-    // console.log('hi');
-    // console.log(error_count);
     if (error_count == 0){
-        console.log('im fked');
         var message = new_role_name + ' has been edited.'
         localStorage.setItem('errmessage', message);
         location.href ='./roles_page.html';
