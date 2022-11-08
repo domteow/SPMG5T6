@@ -201,10 +201,18 @@ function editRole(){
                             "new_role_desc": new_role_desc,
                         })});
                 const result = await response.json();
-                if (result) {
-                    // console.log(result.data)
-                    update_message = result.data;         
-                    }
+
+                if (response.status === 201) {
+                    console.log("Role edited.")
+                  } else if (response.status === 401) {
+                      nameError.innerText = `The role name ${new_role_name} already exists.`;
+                      error_count += 1; 
+                  }
+
+                // if (result) {
+                //     // console.log(result.data)
+                //     update_message = result.data;         
+                //     }
                 } catch (error) {
                     console.log(error);
                     console.log("error");

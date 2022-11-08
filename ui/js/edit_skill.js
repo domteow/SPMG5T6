@@ -230,9 +230,18 @@ async function saveSkill() {
         
         const result = await response.json(); 
 
-        if (result) {
-          update_message = result.data
+        if (response.status === 201) {
+          console.log(error_count)
+          console.log("Skill edited.")
+        } else if (response.status === 401) {
+            nameError.innerText = `The skill name ${new_skill_name} already exists.`;
+            error_count += 1; 
         }
+
+        // if (result) {
+        //   update_message = result.data
+        // }
+        
       } catch (error) {
           console.log(error); 
           console.log("error")

@@ -427,7 +427,26 @@ def edit_role_details():
     data = request.get_json()
     ljpsr_id = data['ljpsr_id']
     new_role_name = data['new_role_name']
-    new_role_desc = data['new_role_desc']   
+    new_role_desc = data['new_role_desc']  
+
+    # check if role name or description empty 
+    if new_role_name == "" or new_role_desc == "": 
+        return jsonify({
+                "message": "There was an error updating the role."
+            }), 404
+
+    # check if role name exists 
+    if Ljps_role.check_learning_journey_role_exists(new_role_name):
+        return jsonify(
+            {
+                "code": 401, 
+                "data": {
+                    "role_name": new_role_name
+                }, 
+                "message": "The role name already exists"
+            }
+        ), 401
+
     # Edit role title and desc
     if new_role_desc and new_role_name:
         result = Ljps_role.edit_details(ljpsr_id, new_role_name, new_role_desc)
@@ -553,7 +572,7 @@ def createSkill():
                 }, 
                 "message": "The skill name already exists"
             }
-        )
+        ), 401
 
     # call create_skill method in Skill class to add skill to db
     create_skill_result = Skill.create_skill(skill_id, skill_name, skill_desc, active)
@@ -915,12 +934,28 @@ def edit_skill_details():
     data = request.get_json()
     skill_id = data['skill_id']
     new_skill_name = data['new_skill_name']
-    new_skill_desc = data['new_skill_desc']   
+    new_skill_desc = data['new_skill_desc']
+
+    # check if skill name or description empty 
+    if new_skill_name == "" or new_skill_desc == "": 
+        return jsonify({
+                "message": "There was an error updating the skill."
+            }), 404
+
+    # check if skill name exists 
+    if Skill.check_skill_exists(new_skill_name):
+        return jsonify(
+            {
+                "code": 401, 
+                "data": {
+                    "skill_name": new_skill_name
+                }, 
+                "message": "The skill name already exists"
+            }
+        ), 401
 
     # Edit skill name and desc
-    if new_skill_name and new_skill_desc:
-
-        result = Skill.edit_skill(skill_id, new_skill_name, new_skill_desc)
+    result = Skill.edit_skill(skill_id, new_skill_name, new_skill_desc)
 
     if result:
         return jsonify({
