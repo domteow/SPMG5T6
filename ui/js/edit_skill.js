@@ -213,7 +213,7 @@ async function saveSkill() {
   }
 
   // check if new skill name and new skill desc are not empty 
-  if (new_skill_name != "" && new_skill_desc != "") {
+  if (nameError.innerText == '') {
     $(async () => {
       var serviceURL = "http://127.0.0.1:5001/edit_skill_details";
 

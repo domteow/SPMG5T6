@@ -349,7 +349,7 @@ function editRole(){
         }
     }
 
-    if (new_role_name != "" && new_role_desc != ""){
+    if (nameError.innerText == ''){
         $(async () => {
             var serviceURL = "http://127.0.0.1:5001/edit_role_details";
             try {
