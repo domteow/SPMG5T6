@@ -328,7 +328,8 @@ function editRole(){
 
     // ROLE NAME 
     // get value of role name from form and compare 
-    var new_role_name = document.getElementById('role_name').value;
+    var new_name = document.getElementById('role_name').value;
+    var new_role_name = new_name.trim(' ');
     if (new_role_name == ''){
         error_count += 1;
         nameError.innerText = `Role name cannot be empty.`;

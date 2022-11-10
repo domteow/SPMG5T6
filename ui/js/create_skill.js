@@ -99,7 +99,8 @@ async function addCourse(){
 
     var serviceURL = "http://127.0.0.1:5001/create_skill"
 
-    var skill_name = document.getElementById('skill_name').value;
+    var new_name = document.getElementById('skill_name').value;
+    var skill_name = new_name.trim(' ');
     var skill_desc = document.getElementById('skill_desc').value;
     var error = 0;
     const allChecked = document.querySelectorAll('input[name=courses]:checked');

@@ -189,7 +189,9 @@ async function saveSkill() {
 
   // SKILL NAME
   // get value of skill name from form and compare
-  var new_skill_name = document.getElementById("skill_name").value;
+  var new_name = document.getElementById("skill_name").value;
+  var new_skill_name = new_name.trim(' ');
+  console.log(new_skill_name);
   if (new_skill_name == "") {
     error_count += 1;
     nameError.innerText += `Skill name cannot be empty.`;

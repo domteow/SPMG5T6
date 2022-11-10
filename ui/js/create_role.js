@@ -91,7 +91,8 @@ async function addRole(){
 
     var serviceURL = "http://127.0.0.1:5001/create_role"
 
-    var role_name = document.getElementById('role_name').value;
+    var new_name = document.getElementById('role_name').value;
+    var role_name = new_name.trim(' ');
     var role_desc = document.getElementById('role_desc').value;
     var error = 0;
 
