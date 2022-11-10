@@ -1,3 +1,5 @@
+Github Link: https://github.com/domteow/SPMG5T6
+
 Learning Journey Planning System 
 
 Learning Journey Planning System (LJPS) is an enterprise solution that services as personal Learning Journey tracker that could guide All-In-One's staff on the courses they could take to prepare them for a new Role in their organisation. LJPS serves 3 target users, namely Staff, Managers and Human Resource (HR). Each role has specific application features that they have access to. 
@@ -95,6 +97,26 @@ Manager
 * View all team members in a page
 * Quick look at the number of ongoing/completed courses and skills by each team member
 * View the ongoing/completed courses and skills by each team member
+
+Accounts:
+
+Manager
+140001 - Sales
+170166 - Finance
+150008 - Ops
+
+HR (admin)
+130001 - Chairman
+130002 - CEO
+160008 - HR(admin)
+
+Staff
+140002 - Sales
+140003 - Sales
+150065 - Ops
+150075 - Ops
+170208 - Finance
+170216 - Finance
 
 Course and Team Information
 
