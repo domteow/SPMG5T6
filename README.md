@@ -96,6 +96,27 @@ From then on, users will be brought to a homepage based on their role.
 * Quick look at the <ins>number</ins> of ongoing/completed courses and skills by each team member
 * View the ongoing/completed courses and skills by each team member
 
+## Accounts: ##
+
+### Manager ###
+140001 - Sales
+170166 - Finance
+150008 - Ops
+
+### HR (admin) ###
+130001 - Chairman
+130002 - CEO
+160008 - HR(admin)
+
+### Staff ###
+140002 - Sales
+140003 - Sales
+150065 - Ops
+150075 - Ops
+170208 - Finance
+170216 - Finance
+
+
 ## Course and Team Information ##
 
 IS212 Software Project Management<br>
