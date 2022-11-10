@@ -105,7 +105,7 @@ Team 6
 
 ## Authors ##
 
-* Bruno Goh Jing Hang bruno.goh.2020.scis.smu.edu.sg <br>
+* Bruno Goh Jing Hang bruno.goh.2020@scis.smu.edu.sg <br>
 * Bryan Shing Wen Yan bryan.shing.2020@scis.smu.edu.sg<br>
 * Jann Chia Rui Qi jann.chia.2020@scis.smu.edu.sg<br>
 * Tan Yu Qing Rhys rhys.tan.2020@scis.smu.edu.sg<br>
